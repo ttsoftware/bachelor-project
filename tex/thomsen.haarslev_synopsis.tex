@@ -112,12 +112,13 @@
       {\Large Regular Expression Matching In Genomic Data}\\[0.4cm]
       {\large Rasmus Haarslev - nkh877}\\
       {\large Troels Thomsen - qvw203}\\[0.4cm]
+      {Supervisiors: Rasmus Fonseca \& Fritz Henglein}\\
       {\small 23. Februar 2015}\\[0.3cm] 
       {\small Department of Computer Science}\\
       {\small University of Copenhagen}
     \end{center}
     \vspace*{\fill}
-\end{titlepage}
+\end{titlepage}	
 
 \clearpage
 
@@ -127,7 +128,7 @@
 
 \section{Problem definition}
 
-We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches\cite{scan-for-matches}, into regular expressions and test their efficiency against the KMC\footnote{Kleene Meets Church} engine.
+We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches\cite{scan-for-matches}, into regular expressions\cite{crash-course-regex} and test their efficiency against the KMC\cite{kmc-website} engine.
 
 Specifically we wish to solve the following problems:
 
@@ -140,14 +141,20 @@ Specifically we wish to solve the following problems:
 \subsection{Limits}
 
 \begin{itemize}
-	\item We will not attempt to modify the KMC engine in any regard.
+	\item We will not attempt to modify the KMC engine.
 \end{itemize}
+
+\newpage
 
 \section{Motivation}
 
 Institute for Bioinformatics have a allocated, and are still allocating, a lot of DNA sequencing data. Currently they have around a total of 2 petabytes of data. These sequences of DNA contain a lot of information, but searching through the data currently uses the scan-for-matches program, which while performing very well, is not very user friendly and have some unfortunate limitations when running many consecutive scans, since it performs I/O operations for every run.
 
 Recently Fritz' group have developed a regular expression engine called KMC, which so far have performed five times better than current industry standard engines. Since scan-for-matches outperforms NR-grep\cite{nrgrep}, we are hoping that optimized regular expressions running on KMC will be able to outperform NR-grep and subsequently scan-for-matches.
+
+If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the bioinformatics team. As such we see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC team to have their engine tested in a new scenario.
+
+\newpage
 
 \section{Tasks and Schedule}
 
@@ -219,6 +226,7 @@ Final report &&&&&&& - &&&&& X & X & X & X & X \\
 \newpage
 
 \bibliographystyle{plain}
+\nocite{*}	
 \bibliography{litterature}
 
 \end{document}

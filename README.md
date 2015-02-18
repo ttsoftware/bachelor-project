@@ -1,2 +1,2 @@
-# bachelor-project-code
-Code for regular expression implementation for bachelor project.
+# bachelor-project
+Repository for bachelor project.
