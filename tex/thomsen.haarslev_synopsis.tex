@@ -144,7 +144,9 @@ Specifically we wish to solve the following problems:
 
 \section{Motivation}
 
-Institute for Bioinformatics have a allocated, and are still allocating, a lot of 
+Institute for Bioinformatics have a allocated, and are still allocating, a lot of DNA sequencing data. Currently they have around a total of 2 petabytes of data. These sequences of DNA contain a lot of information, but searching through the data currently uses the scan-for-matches program, which while performing very well, is not very user friendly and have some unfortunate limitations when running many consecutive scans, since it performs I/O operations for every run.
+
+Recently Fritz' group have developed a regular expression engine called KMC, which so far have performed five times better than current industry standard engines. Since scan-for-matches outperforms NR-grep\cite{nrgrep}, we are hoping that optimized regular expressions running on KMC will be able to outperform NR-grep and subsequently scan-for-matches.
 
 \newpage
 
