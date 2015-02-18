@@ -155,20 +155,67 @@ Recently Fritz' group have developed a regular expression engine called KMC, whi
 	\item Develop a standalone Ruby and C application as a solution to the problem.
 	\begin{itemize}
 		\item \textbf{Product:} A fully functional Ruby/C application, that can translate scan-for-matches patterns into regular expressions, understood by the KMC engine.
-		\item \textbf{Resource demands:} Our contact persons with insight in the KMC engine.
-		\item \textbf{Dependencies:} The KMC engine itself. Test data in the fasta format.
-		\item \textbf{Time demands:}
+		\item \textbf{Resource demands:} Laptops, our contact persons with insight in the KMC engine, testing data in the fasta format, and the KMC engine.
+		\item \textbf{Dependencies:} Problem formulation
+		\item \textbf{Time demands:} 5 weeks
 	\end{itemize}
 	
 	\item Test and analyse the efficiency of our application compared to scan-for-matches.
 	\begin{itemize}
-		\item \textbf{Product:} An extensive analysis of our application, with possible suggestions for improvements.
-		\item \textbf{Resource demands:}
-		\item \textbf{Dependencies:} 
-		\item \textbf{Time demands:}
+		\item \textbf{Product:} An extensive analysis of our application, with suggestions for possible improvements.
+		\item \textbf{Resource demands:} Laptops, testing data in the fasta format, and the KMC engine.
+		\item \textbf{Dependencies:} The application that we developed.
+		\item \textbf{Time demands:} 5 weeks (In parallel with development)
+	\end{itemize}
+	
+	\item Improve upon our application based on our tests and analysis.
+	\begin{itemize}
+		\item \textbf{Product:} An improved application for translating scan-for-matches patterns into regular expressions, understood by the KMC engine.
+		\item \textbf{Resource demands:} Laptops, our application, testing data in the fasta format, and the KMC engine.
+		\item \textbf{Dependencies:} The written analysis.
+		\item \textbf{Time demands:} 3 weeks
+	\end{itemize}
+	
+	\item Analyse the KMC engine, and find possible improvements to the engine.
+	\begin{itemize}
+		\item \textbf{Product:} Analysis of the KMC engine as well as suggestions for possible improvements.
+		\item \textbf{Resource demands:} Laptops, and the KMC engine.
+		\item \textbf{Dependencies:} None.
+		\item \textbf{Time demands:} 4 weeks
 	\end{itemize}
 \end{itemize}
 
+\begin{tabular}{|r|cccccccccccccccc|}
+\hline
+\textbf{week} & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 \\
+\hline
+Development & X & X & X & X & X & & - &&&&&&&&& \\
+Test \& analysis & & & X & X & X & X & - & X &&&&&&&& \\
+Improvement &&&&&& X & - & X & X &&&&&&& \\
+KMC analysis &&&&&&& - &&&& X & X & X & X && \\
+Midway report &&&&&&& - & X & X & X &&&&&& \\
+Final report &&&&&&& - &&&&& X & X & X & X & X \\
+\hline
+\end{tabular}
+
+%\begin{ganttchart}[hgrid, vgrid, x unit=0.15cm]{55}{159}
+	%\gantttitlecalendar{month=shortname, week=9} \\
+	%\gantttitlelist{9,...,23}{7} \\
+	%\ganttset{progress label text={}, link/.style={black, -to}}
+	%\ganttgroup{Objective 1}{2}{15} \\
+	%\ganttbar[progress=4, name=T1A]{Task A}{25}{46} \\
+	%\ganttlinkedbar[progress=0]{Task B}{10}{24} \\
+	
+	%\ganttgroup{Objective 2}{1}{5} \\
+	%\ganttbar[progress=15, name=T2A]{Task A}{5}{36} \\
+	%\ganttlinkedbar[progress=0]{Task B}{20}{78} \\
+	
+	%\ganttgroup{Objective 3}{2}{58} \\
+	%\ganttbar[progress=0]{Task A}{11}{22} \\
+	%\ganttset{link/.style={OliveGreen}} \\
+%\end{ganttchart}
+
+	
 \newpage
 
 \bibliographystyle{plain}
