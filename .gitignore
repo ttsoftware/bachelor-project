@@ -1,8 +1,8 @@
-tex/thomsen.haarslev_synopsis.synctex.gz
-tex/thomsen.haarslev_synopsis.out
-tex/thomsen.haarslev_synopsis.out
-tex/thomsen.haarslev_synopsis.log
-tex/thomsen.haarslev_synopsis.aux
-tex/thomsen.haarslev_synopsis.pdf
-tex/thomsen.haarslev_synopsis.bbl
-tex/thomsen.haarslev_synopsis.blg
+tex/*.gz
+tex/*.out
+tex/*.out
+tex/*.log
+tex/*.aux
+tex/*.pdf
+tex/*.bbl
+tex/*.blg
