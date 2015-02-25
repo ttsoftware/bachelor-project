@@ -6,3 +6,4 @@ tex/*.aux
 tex/*.pdf
 tex/*.bbl
 tex/*.blg
+tex/*.toc
