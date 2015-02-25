@@ -151,8 +151,9 @@ The subpatterns can have the following form, which allows for mismatches, insert
 
 This notation allows for 0 or the given number of mismatches, insertions or deletionsin, or all possible combinations in between. This means we for an example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-\subsubsection{Mismtaches and Deletions}
+\subsubsection{Mismatches and Deletions}
 
+We can combine the matching of mismatches and deletions to somewhat simplify our expressions.
 We can express one mismatch and one deletion in the following regular expression.
 
 \begin{eqnarray}
@@ -163,6 +164,9 @@ We can express one mismatch and one deletion in the following regular expression
 \end{eqnarray}
 
 This quickly grows into a very large expression if we have multiple mismatches or deletions. 
+
+\subsubsection{Insertions}
+
 
 
 \subsubsection{Backreferencing}
