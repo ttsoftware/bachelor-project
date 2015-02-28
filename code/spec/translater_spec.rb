@@ -4,7 +4,7 @@ describe Translater, :type => :class do
 
     before :each do
 
-        @translater = Translater.new 'AG[1,1,1]'
+        @translater = Translater.new 'AG[2,1,1]'
     end
 
     describe '#translate' do
@@ -12,6 +12,8 @@ describe Translater, :type => :class do
         it 'returns a valid regular expression' do
 
             regex_pattern = @translater.translate
+
+            pp regex_pattern
 
             match = regex_pattern.match('AA')
 
