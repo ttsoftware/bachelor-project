@@ -181,39 +181,48 @@ The subpatterns can have the following form, which allows for mismatches, insert
 
 This notation allows for 0 or the given number of mismatches, insertions or deletionsin, or all possible combinations in between. This means we for an example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-\subsubsection{Mismatches and Deletions}
-
 We can combine the matching of mismatches and deletions to somewhat simplify our expressions.
 We can express one mismatch and one deletion in the following regular expression.
-
 \begin{eqnarray}
-	((x_1?|.) \ x_2 \cdots x_n) \ | \ (x_1? \ . \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1? \cdots x_{n-1} \ .) \ | \\
-	(. \ x_2? \cdots x_n) \ | \ (x_1 \ (x_2?|.) \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1 \ x_2? \cdots x_{n-1} \ .) \ | \\
+	((x_1?\ |\ [\ \hat{}x_1]) \ x_2 \cdots x_n) \ | \ (x_1? \ [\ \hat{}x_2] \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1? \cdots x_{n-1} \ [\ \hat{}x_n]) \ | \\
+	([\ \hat{}x_1] \ x_2? \cdots x_n) \ | \ (x_1 \ (x_2?\ |\ [\ \hat{}x_2]) \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1 \ x_2? \cdots x_{n-1} \ [\ \hat{}x_n]) \ | \nonumber \\
 	& \vdots & \nonumber \\
-	(. \ x_2 \cdots x_n?) \ | \ (x_1 \ . \ x_3 \cdots x_n?) \ | \ & \cdots & \ | \ (x_1 \cdots x_{n-1} \ (x_n?|.))
+	([\ \hat{}x_1] \ x_2 \cdots x_n?) \ | \ (x_1 \ [\ \hat{}x_2] \ x_3 \cdots x_n?) \ | \ & \cdots & \ | \ (x_1 \cdots x_{n-1} \ (x_n?\ |\ [\ \hat{}x_n])) \nonumber
 \end{eqnarray}
 
-This quite large expression quickly grows into an even larger expression, if we have multiple mismatches or deletions. $\hookrightarrow$ denotes the continuation of the current line.
-
+This quite large expression quickly grows into an even larger expression, if we have multiple mismatches or deletions. For two mismatches, we have the following. $\hookrightarrow$ denotes the continuation of the current line.
 \begin{eqnarray}
-	((((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.)(x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.)(x_2?|.) \cdots (x_n?|.))) \ | \\
-	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots (x_n?|.))) \ | \nonumber \\
- 	\hookrightarrow & \vdots & \nonumber \\
- 	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \cdots x_{n-1} \ (x_n?|.)))) \ | \nonumber \\
- 	\nonumber \\
- 	(x_1((((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ (x_3?|.) \cdots (x_n?|.))) \ | \\
-	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ x_3 \ (x_4|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \ (x_4?|.) \cdots (x_n?|.))) \ | \nonumber \\
- 	\hookrightarrow & \vdots & \nonumber \\
- 	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \cdots x_{n-1} \ (x_n?|.))))) \ | \nonumber \\
- 	& \vdots & \nonumber \\
- 	(x_1 & \cdots & x_{n-1} \ (x_{n}?|.))
+	((x_1\ |\ [\ \hat{}x_1])\ (((x_2\ |\ [\ \hat{}x_2])\ x_3 \cdots x_n)\ &|&\ (x_2\ (x_3\ |\ [\ \hat{}x_3])\ x_4 \cdots x_n)\\
+	\hookrightarrow |\ \cdots\ |\ (x_2\cdots x_{n-1}\ (x_n\ |\ [\ \hat{}x_n]))))\ | \nonumber \\
+	 (x_1\ (x_2\ |\ [\ \hat{}x_2])\ (((x_3\ |\ [\ \hat{}x_3])\ x_4 \cdots x_n)\ &|&\ (x_3\ (x_4\ |\ [\ \hat{}x_4])\ x_5 \cdots x_n) \nonumber \\
+	 \hookrightarrow |\ \cdots\ |\ (x_3 \cdots x_{n-1}\ (x_n\ |\ [\ \hat{}x_n]))))\ | \nonumber \\
+	 & \vdots & \nonumber \\
+	 (x_1\cdots x_{n-1}(x_n\ |\ [\ \hat{}x_n])) \nonumber
 \end{eqnarray}
 
-\subsubsection{Insertions}
+In the case of $m, i, d = n$, we have the following case.
+\begin{eqnarray}
+	.?\ (x_1?\ |\ [\ \hat{}x_1])\ .?\ (x_2?\ |\ [\ \hat{} x_2]) \cdots .?\ (x_n?\ |\ [\ \hat{}x_n])\ .? 
+\end{eqnarray}
+
+%\begin{eqnarray}
+%	((((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.)(x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.)(x_2?|.) \cdots (x_n?|.))) \ | \\
+%	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots (x_n?|.))) \ | \nonumber \\
+% 	\hookrightarrow & \vdots & \nonumber \\
+% 	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \cdots x_{n-1} \ (x_n?|.)))) \ | \nonumber \\
+% 	\nonumber \\
+% 	(x_1((((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ (x_3?|.) \cdots (x_n?|.))) \ | \\
+%	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ x_3 \ (x_4|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \ (x_4?|.) \cdots (x_n?|.))) \ | \nonumber \\
+% 	\hookrightarrow & \vdots & \nonumber \\
+% 	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \cdots x_{n-1} \ (x_n?|.))))) \ | \nonumber \\
+% 	& \vdots & \nonumber \\
+% 	(x_1 & \cdots & x_{n-1} \ (x_{n}?|.))
+%\end{eqnarray}
 
 
 
-\subsubsection{Backreferencing}
+
+\subsection{Backreferencing}
 
 One way to simplify our expression, is to use backreferences. With backreferences we can express $m$ mismatches, $d$ deletions and $i$ insertions in the following regular expressions.
 
