@@ -32,7 +32,7 @@ class Translater
             end
         }
 
-        return expression
+        return Regexp.new expression
     end
 
     # @param [Token] token
@@ -51,11 +51,48 @@ class Translater
         # we initialize with sequence, because we do not necessarily have any mismatches, insertions or deletions
         expression = [sequence]
 
-        mismatches.times { |m|
+        chars.each_index { |i|
 
-            # todo wat
+            print chars[i] + ": \n"
+
+            # combine with all chars after
+            mismatches.times { |m|
+
+                seq = chars.clone
+                seq[i] = "[^#{seq[i]}]"
+                char_exp = seq
+                char_exp_final = []
+
+                # combine with all chars after i
+                m.times { |mm| # 0 times, 1 times, ..., m times
+
+                    chars.each_with_index { |char, j|
+
+                        next if j == i
+
+                        # replace at index j
+                        inner_seq = char_exp.clone
+                        inner_seq[j] = "[^#{char}]"
+
+                        exp = inner_seq.join
+
+                        print "\t #{m+1} mismatches #{char}: " + exp + "\n"
+                        char_exp_final << exp unless char_exp_final.include? exp
+                    }
+                }
+
+                # prevent too many duplicate clauses
+                if char_exp_final.length > 0
+                    final_string = '(' + char_exp_final.join(')|(') + ')'
+                    expression << final_string unless expression.include? final_string
+                end
+
+                print "\t"
+                pp char_exp_final
+                print "\n"
+            }
         }
 
-        return expression.join '|'
+        return '(' + expression.join(')|(') + ')'
     end
 end
