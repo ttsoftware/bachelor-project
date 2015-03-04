@@ -69,7 +69,7 @@ class Translater
                 # If indices[index] reaches the end
                 if indices[index] >= chars.length
                     # Decrement index
-                    index -= 1
+                    index -= 1 
                 end
 
                 # While indices[index] isn't at the end
