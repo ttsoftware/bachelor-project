@@ -74,6 +74,8 @@ class Translater
                         inner_seq = char_exp.clone
                         inner_seq[j] = "[^#{char}]"
 
+                        # TODO: At this point we definetly need regression!
+
                         exp = inner_seq.join
 
                         print "\t #{m+1} mismatches #{char}: " + exp + "\n"
