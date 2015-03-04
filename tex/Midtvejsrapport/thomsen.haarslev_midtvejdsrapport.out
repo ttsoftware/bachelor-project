@@ -1,7 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Problem definition}{}% 1
-\BOOKMARK [1][-]{section.2}{Translation of scan-for-matches patterns into regular expressions}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Mismatches, Insertions and Deletions}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Backreferencing}{section.2}% 4
-\BOOKMARK [3][-]{subsubsubsection.2.2.0.1}{Mismatches}{subsection.2.2}% 5
-\BOOKMARK [4][-]{subsubsubsection.2.2.0.2}{Deletions}{subsubsubsection.2.2.0.1}% 6
-\BOOKMARK [4][-]{subsubsubsection.2.2.0.3}{Insertions}{subsubsubsection.2.2.0.1}% 7
