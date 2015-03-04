@@ -4,7 +4,7 @@ describe Translater, :type => :class do
 
     before :each do
 
-        @translater = Translater.new 'AG[2,1,1]'
+        @translater = Translater.new 'AGTCT[3,1,1]'
     end
 
     describe '#translate' do

@@ -51,11 +51,62 @@ class Translater
         # we initialize with sequence, because we do not necessarily have any mismatches, insertions or deletions
         expression = [sequence]
 
-        mismatches.times { |m|
+        mismatch_mat = Array.new
 
-            # todo wat
+        # For every char as index
+        chars.each_index { |c_i|
+
+            # Construct indices for each allowed mismatch, all starting
+            # at current char
+            indices = Array.new(mismatches, c_i)
+
+            # Initialize index to last index in indices
+            index = indices.length - 1
+
+            # While indices[1] isn't at the end
+            while indices[1] < chars.length
+
+                # If indices[index] reaches the end
+                if indices[index] >= chars.length
+                    # Decrement index
+                    index -= 1
+                end
+
+                # While indices[index] isn't at the end
+                while indices[index] < chars.length
+
+                    # Append row to matrix
+                    mismatch_mat = append_row(mismatch_mat, indices, chars.length)
+
+                    indices[index] += 1
+                end
+
+                # Update indices
+                indices = update_indices(indices, index)
+            end
         }
+
+        pp mismatch_mat
 
         return expression.join '|'
     end
+
+    def update_indices(indices, index)
+
+        indices[index] += 1
+        (indices.length - index - 1).times { |i|
+            indices[index + i + 1] = indices[index + i]
+        }
+        return indices
+    end
+
+    def append_row(mat, indices, len)
+        row = Array.new(len, 0)
+        indices.each { |i|
+            row[i] = 1
+        }
+        mat << row
+        return mat
+    end
+
 end
