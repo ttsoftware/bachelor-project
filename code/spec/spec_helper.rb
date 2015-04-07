@@ -17,10 +17,11 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require_relative '../spec/grammar/token'
 require_relative '../src/parser'
 require_relative '../src/lexer'
 require_relative '../src/translater'
+require_relative '../src/leaf'
+require_relative '../src/grammar/token'
 
 RSpec.configure do |config|
     # rspec-expectations config goes here. You can use an alternate
