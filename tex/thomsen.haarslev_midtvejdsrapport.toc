@@ -1,0 +1,10 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Problem definition}{1}{section.1}
+\contentsline {section}{\numberline {2}Translation of scan-for-matches patterns into regular expressions}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Mismatches, Insertions and Deletions}{2}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Mismatches and Deletions}{2}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Insertions}{3}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Backreferencing}{3}{subsubsection.2.1.3}
+\contentsline {subsubsubsection}{\numberline {2.1.3.1}Mismatches}{3}{subsubsubsection.2.1.3.1}
+\contentsline {subsubsubsection}{\numberline {2.1.3.2}Deletions}{3}{subsubsubsection.2.1.3.2}
+\contentsline {subsubsubsection}{\numberline {2.1.3.3}Insertions}{3}{subsubsubsection.2.1.3.3}

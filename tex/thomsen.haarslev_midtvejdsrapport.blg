@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thomsen.haarslev_midtvejdsrapport.aux
+The style file: plain.bst
+Database file #1: litterature.bib
+You've used 6 entries,
+            2118 wiz_defined-function locations,
+            528 strings with 5092 characters,
+and the built_in function-call counts, 1690 in all, are:
+= -- 172
+> -- 42
+< -- 3
++ -- 19
+- -- 12
+* -- 66
+:= -- 271
+add.period$ -- 21
+call.type$ -- 6
+change.case$ -- 24
+chr.to.int$ -- 0
+cite$ -- 6
+duplicate$ -- 75
+empty$ -- 155
+format.name$ -- 12
+if$ -- 384
+int.to.chr$ -- 0
+int.to.str$ -- 6
+missing$ -- 3
+newline$ -- 36
+num.names$ -- 12
+pop$ -- 42
+preamble$ -- 1
+purify$ -- 18
+quote$ -- 0
+skip$ -- 63
+stack$ -- 0
+substring$ -- 94
+swap$ -- 27
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 24
+warning$ -- 0
+while$ -- 18
+width$ -- 7
+write$ -- 68
