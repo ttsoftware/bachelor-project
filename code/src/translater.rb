@@ -57,7 +57,7 @@ class Translater
 
         leafs = divide sequence
 
-        expression += conquer leafs, mismatches
+        expression += (conquer leafs, mismatches)
 
         pp sequence.length
         pp expression.length
@@ -69,17 +69,29 @@ class Translater
     # @param [String] parameters
     # @return [Array]
     def divide(parameters)
-        return (parameters.split //).map { |c| [c, "[^#{c}]"] }.flatten
+        return (parameters.split //).map { |c| [Leaf.new(c, 0), Leaf.new("[^#{c}]", 1)] }
     end
 
     def conquer(leafs, mismatches)
 
-        pp leafs
-
         n = leafs.length
+
+        combinations = []
         leafs.each_with_index { |l, i|
 
+            l.each { |x|
+                leafs[i+1].each { |c|
+                    if (x.mismatches + c.mismatches) < mismatches
+                        combinations << [Leaf.new(x.value + c.value,
+                                                 x.mismatches + c.mismatches)]
+                    end
+                } if i+1 < leafs.length
+            }
         }
+
+        pp combinations
+
+        #return conquer combinations, mismatches
     end
 
     # @param [String] exps Tail string
