@@ -40,9 +40,9 @@ class Parser
                 next
             end
 
-            delimiter_match = get_delimiter token_string
-            unless delimiter_match.nil?
-                @parsed_tokens << Token.new(T::DELIMITER, delimiter_match)
+            range_match = get_range token_string
+            unless range_match.nil?
+                @parsed_tokens << Token.new(T::RANGE, range_match)
             end
         }
 
@@ -100,7 +100,7 @@ class Parser
     #
     # @param [String] token_string
     # @return [MatchData]
-    def get_delimiter(token_string)
+    def get_range(token_string)
         return /^(?<from>\d+)\.{3}(?<to>\d+)$/.match token_string
     end
 end

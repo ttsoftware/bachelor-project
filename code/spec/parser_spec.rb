@@ -66,7 +66,7 @@ describe Parser, :type => :class do
     describe '#get_delimiter' do
 
         it 'returns a match object' do
-            match_obj = @parser.get_delimiter '0...1'
+            match_obj = @parser.get_range '0...1'
 
             expect(match_obj).to_not eq nil
             expect(match_obj['from']).to eq '0'

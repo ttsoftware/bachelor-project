@@ -13,5 +13,5 @@ module T
     VARIABLE = :t_variable
     SEQUENCE = :t_sequence
     SEQUENCE_PERMUTATION = :t_sequence_permutation
-    DELIMITER = :t_delimiter
+    RANGE = :t_range
 end

@@ -1,23 +1,46 @@
 require 'spec_helper'
 
 describe Translater, :type => :class do
-
-    before :each do
-
-        @translater = Translater.new 'AGTCT[3,1,1]'
-    end
-
     describe '#translate' do
 
-        it 'returns a valid regular expression' do
+        it 'returns a valid regular expression of a sequence' do
 
-            regex_pattern = @translater.translate
+
+            regex_pattern = Translater.new('AGGATTCA').translate
 
             pp regex_pattern
 
-            match = regex_pattern.match('AA')
+            match_right = regex_pattern.match('AGGATTCA')
+            match_wrong = regex_pattern.match('AGGNTTCA')
 
-            expect(match).to be_an_instance_of MatchData
+            expect(match_right).to be_an_instance_of MatchData
+            expect(match_wrong). to be nil
+        end
+
+        it 'returns a valid regular expression with mismatches' do
+
+            regex_pattern = Translater.new('AGTCT[2,0,0]').translate
+
+            pp regex_pattern
+
+            match_right = regex_pattern.match('AAACT')
+            match_wrong = regex_pattern.match('GAACT')
+
+            expect(match_right).to be_an_instance_of MatchData
+            expect(match_wrong).to be nil
+        end
+
+        it 'returns a valid regular expression of a range' do
+
+            regex_pattern = Translater.new('4...8').translate
+
+            pp regex_pattern
+
+            match_right = regex_pattern.match('NNNNNNN')
+            match_wrong = regex_pattern.match('NNN')
+
+            expect(match_right).to be_an_instance_of MatchData
+            expect(match_wrong).to be nil
         end
     end
 end
