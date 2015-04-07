@@ -19,12 +19,12 @@ describe Translater, :type => :class do
 
         it 'returns a valid regular expression with mismatches' do
 
-            regex_pattern = Translater.new('AGTCT[2,0,0]').translate
+            regex_pattern = Translater.new('AGTCTAGTCTAGTCTAGTCT[5,0,0]').translate
 
             pp regex_pattern
 
-            match_right = regex_pattern.match('AAACT')
-            match_wrong = regex_pattern.match('GAACT')
+            match_right = regex_pattern.match('ANNNNNGTCTAGTCTAGTCT')
+            match_wrong = regex_pattern.match('ANNNNNNNNNAGTCTAGTCT')
 
             expect(match_right).to be_an_instance_of MatchData
             expect(match_wrong).to be nil

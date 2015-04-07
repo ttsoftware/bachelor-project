@@ -51,66 +51,33 @@ class Translater
         insertions = token.value['insertions'].to_i
         deletions = token.value['deletions'].to_i
 
-        # we initialize with sequence, because we do not necessarily have any mismatches, insertions or deletions
-        expression = [sequence]
-        #expression += permutate '', sequence, mismatches
-
-        leafs = divide sequence
-
-        expression += (conquer leafs, mismatches)
-
-        pp sequence.length
-        pp expression.length
-
-        return '(' + expression.join(')|(') + ')'
-    end
-
-    # returns each leaf as itself and itself mismatched
-    # @param [String] parameters
-    # @return [Array]
-    def divide(parameters)
-        return (parameters.split //).map { |c| [Leaf.new(c, 0), Leaf.new("[^#{c}]", 1)] }
-    end
-
-    def conquer(leafs, mismatches)
-
-        n = leafs.length
-
-        combinations = []
-        leafs.each_with_index { |l, i|
-
-            l.each { |x|
-                leafs[i+1].each { |c|
-                    if (x.mismatches + c.mismatches) < mismatches
-                        combinations << [Leaf.new(x.value + c.value,
-                                                 x.mismatches + c.mismatches)]
-                    end
-                } if i+1 < leafs.length
-            }
+        combination_list = []
+        find_combinations(sequence, mismatches).each { |x|
+            combination_list << '(' + x.value + ')'
         }
 
-        pp combinations
-
-        #return conquer combinations, mismatches
+        return combination_list.join '|'
     end
 
-    # @param [String] exps Tail string
-    # @param [String] parameters Parameters to choose from
-    # @param [Integer] mismatches Mismatches left in current recursion step
-    def permutate(exps, parameters, mismatches)
+    def find_combinations(sequence, m_max)
+        if sequence.length > 1
+            list1 = find_combinations(sequence[0..(sequence.length/2).floor-1], m_max)
+            list2 = find_combinations(sequence[(sequence.length/2).floor..-1], m_max)
+        else
+            return [Leaf.new(sequence, 0), Leaf.new('[^' + sequence + ']', 1)]
+        end
 
-        return [exps + parameters] if mismatches == 0
-        return [exps] if parameters == ''
+        new_list = []
 
-        return permutate(
-            exps + parameters[0],
-            parameters[1..-1],
-            mismatches
-        ) + permutate(
-            exps + "[^#{parameters[0]}]",
-            parameters[1..-1],
-            mismatches-1
-        )
+        list1.each{ |x|
+            list2.each{ |y|
+                if (x.mismatches + y.mismatches) > m_max
+                    next
+                end
+                new_list << Leaf.new(x.value + y.value, x.mismatches + y.mismatches)
+            }
+        }
+        return new_list
     end
     
     def translate_range(token)
