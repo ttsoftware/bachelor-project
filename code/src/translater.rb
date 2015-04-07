@@ -51,26 +51,60 @@ class Translater
         insertions = token.value['insertions'].to_i
         deletions = token.value['deletions'].to_i
 
-        mismatch_combinations = find_mismatches(mismatches, sequence)
+        # we initialize with sequence, because we do not necessarily have any mismatches, insertions or deletions
+        expression = [sequence]
+        #expression += permutate '', sequence, mismatches
 
-        return mismatch_combinations.join '|'
+        leafs = divide sequence
+
+        expression += conquer leafs, mismatches
+
+        pp sequence.length
+        pp expression.length
+
+        return '(' + expression.join(')|(') + ')'
     end
 
-    def find_mismatches(mismatches, missing, chosen='')
-        if mismatches == 0
-            return ['(' + chosen + missing + ')']
-        elsif missing == ''
-            return ['(' + chosen + ')']
-        else
-            return find_mismatches(mismatches, missing[1..-1], chosen + missing[0]) + find_mismatches(mismatches-1, missing[1..-1], chosen + '[^' + missing[0] + ']')
-        end
+    # returns each leaf as itself and itself mismatched
+    # @param [String] parameters
+    # @return [Array]
+    def divide(parameters)
+        return (parameters.split //).map { |c| [c, "[^#{c}]"] }.flatten
     end
 
+    def conquer(leafs, mismatches)
+
+        pp leafs
+
+        n = leafs.length
+        leafs.each_with_index { |l, i|
+
+        }
+    end
+
+    # @param [String] exps Tail string
+    # @param [String] parameters Parameters to choose from
+    # @param [Integer] mismatches Mismatches left in current recursion step
+    def permutate(exps, parameters, mismatches)
+
+        return [exps + parameters] if mismatches == 0
+        return [exps] if parameters == ''
+
+        return permutate(
+            exps + parameters[0],
+            parameters[1..-1],
+            mismatches
+        ) + permutate(
+            exps + "[^#{parameters[0]}]",
+            parameters[1..-1],
+            mismatches-1
+        )
+    end
+    
     def translate_range(token)
         from = token.value['from']
         to = token.value['to']
 
         return '.{' + from + ',' + to + '}'
     end
-
 end
