@@ -4,7 +4,7 @@ describe Translater, :type => :class do
 
     before :each do
 
-        @translater = Translater.new 'AGCT[2,1,1]'
+        @translater = Translater.new 'GGGTGCAAGCGTTAAT[2,1,1]'
     end
 
     describe '#translate' do
@@ -13,9 +13,7 @@ describe Translater, :type => :class do
 
             regex_pattern = @translater.translate
 
-            pp regex_pattern
-
-            match = regex_pattern.match('AA')
+            match = (Regexp.new regex_pattern).match('AAGTGCAAGCGTTAAT')
 
             expect(match).to be_an_instance_of MatchData
         end

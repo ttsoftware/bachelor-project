@@ -32,7 +32,7 @@ class Translater
             end
         }
 
-        return Regexp.new expression
+        return expression
     end
 
     # @param [Token] token
@@ -45,56 +45,53 @@ class Translater
         insertions = token.value['insertions'].to_i
         deletions = token.value['deletions'].to_i
 
-        # split all chars
-        chars = sequence.split //
-
         # we initialize with sequence, because we do not necessarily have any mismatches, insertions or deletions
         expression = [sequence]
+        #expression += permutate '', sequence, mismatches
 
-        chars.each_index { |i|
+        leafs = divide sequence
 
-            print chars[i] + ": \n"
+        expression += conquer leafs, mismatches
 
-            # combine with all chars after
-            mismatches.times { |m|
-
-                seq = chars.clone
-                seq[i] = "[^#{seq[i]}]"
-                char_exp = seq
-                char_exp_final = []
-
-                # combine with all chars after i
-                m.times { |mm| # 0 times, 1 times, ..., m times
-
-                    chars.each_with_index { |char, j|
-
-                        next if j == i
-
-                        # replace at index j
-                        inner_seq = char_exp.clone
-                        inner_seq[j] = "[^#{char}]"
-
-                        # TODO: At this point we definetly need regression!
-
-                        exp = inner_seq.join
-
-                        print "\t #{m+1} mismatches #{char}: " + exp + "\n"
-                        char_exp_final << exp unless char_exp_final.include? exp
-                    }
-                }
-
-                # prevent too many duplicate clauses
-                if char_exp_final.length > 0
-                    final_string = '(' + char_exp_final.join(')|(') + ')'
-                    expression << final_string unless expression.include? final_string
-                end
-
-                print "\t"
-                pp char_exp_final
-                print "\n"
-            }
-        }
+        pp sequence.length
+        pp expression.length
 
         return '(' + expression.join(')|(') + ')'
+    end
+
+    # returns each leaf as itself and itself mismatched
+    # @param [String] parameters
+    # @return [Array]
+    def divide(parameters)
+        return (parameters.split //).map { |c| [c, "[^#{c}]"] }.flatten
+    end
+
+    def conquer(leafs, mismatches)
+
+        pp leafs
+
+        n = leafs.length
+        leafs.each_with_index { |l, i|
+
+        }
+    end
+
+    # @param [String] exps Tail string
+    # @param [String] parameters Parameters to choose from
+    # @param [Integer] mismatches Mismatches left in current recursion step
+    def permutate(exps, parameters, mismatches)
+
+        return [exps + parameters] if mismatches == 0
+        return [exps] if parameters == ''
+
+        return permutate(
+            exps + parameters[0],
+            parameters[1..-1],
+            mismatches
+        ) + permutate(
+            exps + "[^#{parameters[0]}]",
+            parameters[1..-1],
+            mismatches-1
+        )
     end
 end
