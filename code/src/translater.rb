@@ -52,19 +52,23 @@ class Translater
         deletions = token.value['deletions'].to_i
 
         combination_list = []
-        find_combinations(sequence, mismatches).each { |x|
+        find_combinations(sequence, mismatches, insertions, deletions).each { |x|
             combination_list << '(' + x.value + ')'
         }
 
-        return combination_list.join '|'
+        # ^ and $ added for testing purposes only!
+        return '^(' + combination_list.join('|') + ')$'
     end
 
-    def find_combinations(sequence, m_max)
+    def find_combinations(sequence, m_max, i_max, d_max)
         if sequence.length > 1
-            list1 = find_combinations(sequence[0..(sequence.length/2).floor-1], m_max)
-            list2 = find_combinations(sequence[(sequence.length/2).floor..-1], m_max)
+            list1 = find_combinations(sequence[0..(sequence.length/2).floor-1], m_max, i_max, d_max)
+            list2 = find_combinations(sequence[(sequence.length/2).floor..-1], m_max, i_max, d_max)
         else
-            return [Leaf.new(sequence, 0), Leaf.new('[^' + sequence + ']', 1)]
+            return [Leaf.new(sequence, mismatches=0, insertions=0, deletions=0),
+                    Leaf.new('[^' + sequence + ']', mismatches=1, insertions=0, deletions=0),
+                    Leaf.new('', mismatches=0, insertions=0, deletions=1),
+                    Leaf.new('.', mismatches=0, insertions=1, deletions=0)]
         end
 
         new_list = []
@@ -73,8 +77,15 @@ class Translater
             list2.each{ |y|
                 if (x.mismatches + y.mismatches) > m_max
                     next
+                elsif (x.insertions + y.insertions) > i_max
+                    next
+                elsif (x.deletions + y.deletions) > d_max
+                    next
                 end
-                new_list << Leaf.new(x.value + y.value, x.mismatches + y.mismatches)
+                new_list << Leaf.new(x.value + y.value,
+                                     mismatches=x.mismatches + y.mismatches,
+                                     insertions=x.insertions + y.insertions,
+                                     deletions=x.deletions + y.deletions)
             }
         }
         return new_list
