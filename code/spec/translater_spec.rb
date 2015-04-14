@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Translater, :type => :class do
+
     describe '#translate' do
 
         it 'returns a valid regular expression of a sequence' do
-
 
             regex_pattern = Translater.new('AGGATTCA').translate
 
@@ -23,15 +23,16 @@ describe Translater, :type => :class do
 
             pp regex_pattern
 
-
             # Known errors:
             err1 = regex_pattern.match('NAGTCT')
             err2 = regex_pattern.match('AGTCTN')
             err3 = regex_pattern.match('AGNTCT')
+            err4 = regex_pattern.match('AGNNTCT')
 
             expect(err1).to be_an_instance_of MatchData
             expect(err2).to be_an_instance_of MatchData
             expect(err3).to be_an_instance_of MatchData
+            expect(err4).to be_an_instance_of MatchData
 
             match_m = regex_pattern.match('ANNCT')
             match_i = regex_pattern.match('AGNTCNT')
