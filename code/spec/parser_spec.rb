@@ -53,7 +53,7 @@ describe Parser, :type => :class do
     describe '#get_permutation' do
 
         it 'returns a match object' do
-            match_obj = @parser.get_permutation 'A[0,1,2]'
+            match_obj = @parser.get_combination 'A[0,1,2]'
             
             expect(match_obj).to_not eq nil
             expect(match_obj['sequence']).to eq 'A'

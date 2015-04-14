@@ -34,7 +34,7 @@ class Parser
                 next
             end
 
-            sequence_permutation_match = get_permutation token_string
+            sequence_permutation_match = get_combination token_string
             unless sequence_permutation_match.nil?
                 @parsed_tokens << Token.new(T::SEQUENCE_COMBINATION, sequence_permutation_match)
                 next
@@ -92,7 +92,7 @@ class Parser
     #
     # @param [String] token_string
     # @return [MatchData]
-    def get_permutation(token_string)
+    def get_combination(token_string)
         return /^(?<sequence>\w+)\[(?<mismatches>\d+),(?<insertions>\d+),(?<deletions>\d+)\]$/.match token_string
     end
 

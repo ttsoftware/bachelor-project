@@ -183,52 +183,54 @@ Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan
 
 \subsection{Mismatches, Insertions and Deletions}
 
-The subpatterns can have the following form, which allows for mismatches, insertions and deletions in the subpattern. 
+The sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
 
 \begin{equation}
 	x_1 \ldots x_n[m, i, d] \ \ \{ x_1 \ldots x_n \in A \ | \ m, i, d \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for 0 or the given number of mismatches, insertions or deletionsin, or all possible combinations in between. This means we for an example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for 0 or the given number of mismatches, insertions or deletions, or all possible combinations in between. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-We can combine the matching of mismatches and deletions to somewhat simplify our expressions.
-We can express one mismatch and one deletion in the following regular expression.
+Translating these sub-patterns is not a simple task. This kind of notation doesn't exist in regular expressions. Hence, the only way to represent them, is by constructing every possible combination of the sequence, matching the pat\_scan notation. To give an example, the pattern \texttt{AAG[1,0,0]} will translate into
+
 \begin{eqnarray}
-	((x_1?\ |\ [\ \hat{}x_1]) \ x_2 \cdots x_n) \ | \ (x_1? \ [\ \hat{}x_2] \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1? \cdots x_{n-1} \ [\ \hat{}x_n]) \ | \\
-	([\ \hat{}x_1] \ x_2? \cdots x_n) \ | \ (x_1 \ (x_2?\ |\ [\ \hat{}x_2]) \ x_3 \cdots x_n) \ | \ & \cdots & \ | \ (x_1 \ x_2? \cdots x_{n-1} \ [\ \hat{}x_n]) \ | \nonumber \\
-	& \vdots & \nonumber \\
-	([\ \hat{}x_1] \ x_2 \cdots x_n?) \ | \ (x_1 \ [\ \hat{}x_2] \ x_3 \cdots x_n?) \ | \ & \cdots & \ | \ (x_1 \cdots x_{n-1} \ (x_n?\ |\ [\ \hat{}x_n])) \nonumber
+	((AAG)|([\ \hat{}A]AG)|(A[\ \hat{}A]G)|(AA[\ \hat{}G]))
 \end{eqnarray}
 
-This quite large expression quickly grows into an even larger expression, if we have multiple mismatches or deletions. For two mismatches, we have the following. $\hookrightarrow$ denotes the continuation of the current line.
+Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly more difficult, as the sequence becomes longer, and especially when the number of allowed mismatches are increased.
+
+We had different approaches to this problem, as we developed our translator. Our first approach was loops. Implementing the translation using only loops to iterate over every combination seemed like the easiest and simplest way to tackle the problem.
+
+\subsubsection{Loops}
+
+Implementing a single mismatch, using loops, were simple. A single loop, choosing a different character for the mismatch in each iteration (as well as the sequence without mismatches).
+
+For two mismatches, it was still fairly simple, we had to use a nested loop this time, that each corresponded to one of the mismatches. We just had to also include all the combinations from the previous iterations, that only had a single mismatch.
+
+This approach seem to rely on implementing an algorithm for each number of mismatches, and then concatenating them. This is a problem, because there can be an arbitrary number of mismatches. It is very impractical to implement enough, and simply impossible to implement them all. Combining this with insertions and deletions, and we have a real headache on hand.
+
+\subsubsection{Recursion}
+
+The second approach was recursion. With recursion, it was much easier to implement a general model of translation. The way implemented this, was to look at each character one at a time, and look at all the possibilities of what that character could be.
+
+This way, we could construct a recursion tree, that is capable of generating all possible combinations, no matter how many mismatches is allowed.
+
+For just mismatches, the recursion tree would build two new branches per iteration. The first iteration of \texttt{AGCTC[2,0,0]} would build the branches
+
 \begin{eqnarray}
-	((x_1\ |\ [\ \hat{}x_1])\ (((x_2\ |\ [\ \hat{}x_2])\ x_3 \cdots x_n)\ &|&\ (x_2\ (x_3\ |\ [\ \hat{}x_3])\ x_4 \cdots x_n)\\
-	\hookrightarrow |\ \cdots\ |\ (x_2\cdots x_{n-1}\ (x_n\ |\ [\ \hat{}x_n]))))\ | \nonumber \\
-	 (x_1\ (x_2\ |\ [\ \hat{}x_2])\ (((x_3\ |\ [\ \hat{}x_3])\ x_4 \cdots x_n)\ &|&\ (x_3\ (x_4\ |\ [\ \hat{}x_4])\ x_5 \cdots x_n) \nonumber \\
-	 \hookrightarrow |\ \cdots\ |\ (x_3 \cdots x_{n-1}\ (x_n\ |\ [\ \hat{}x_n]))))\ | \nonumber \\
-	 & \vdots & \nonumber \\
-	 (x_1\cdots x_{n-1}(x_n\ |\ [\ \hat{}x_n])) \nonumber
+	Left\ branch &=& A\{GCTC[2,0,0]\} \\
+	right\ branch &=&\ \hat{}A\{GCTC[1,0,0]\}
 \end{eqnarray}
 
-In the case of $m, i, d = n$, we have the following case.
-\begin{eqnarray}
-	.?\ (x_1?\ |\ [\ \hat{}x_1])\ .?\ (x_2?\ |\ [\ \hat{} x_2]) \cdots .?\ (x_n?\ |\ [\ \hat{}x_n])\ .? 
-\end{eqnarray}
+Here, the left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same, but with only one mismatch available. On the deepest recursion level of each branch, we will have a string, with a unique combination of mismatches.
 
-%\begin{eqnarray}
-%	((((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.)(x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.)(x_2?|.) \cdots (x_n?|.))) \ | \\
-%	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \ (x_3?|.) \cdots (x_n?|.))) \ | \nonumber \\
-% 	\hookrightarrow & \vdots & \nonumber \\
-% 	\hookrightarrow (((x_1?|.) \ x_2 \cdots x_n) \ | \ & \cdots & \ | \ ((x_1?|.) \ x_2 \cdots x_{n-1} \ (x_n?|.)))) \ | \nonumber \\
-% 	\nonumber \\
-% 	(x_1((((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ (x_3?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ (x_3?|.) \cdots (x_n?|.))) \ | \\
-%	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ ((x_2?|.) \ x_3 \ (x_4|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \ (x_4?|.) \cdots (x_n?|.))) \ | \nonumber \\
-% 	\hookrightarrow & \vdots & \nonumber \\
-% 	\hookrightarrow (((x_2?|.) \cdots x_n) \ | \ & \cdots & \ | \ ((x_2?|.) \ x_3 \cdots x_{n-1} \ (x_n?|.))))) \ | \nonumber \\
-% 	& \vdots & \nonumber \\
-% 	(x_1 & \cdots & x_{n-1} \ (x_{n}?|.))
-%\end{eqnarray}
+Simply speaking, for mismatches, each character can be $N \in \{n, \hat{}n\}$
 
+Adding deletions, this set $N$ will become one larger, and so will the number of recursion branches created in each iteration. Insertions on top of this, besides other problems, that insertions create, increases this number of recursions further.
+
+The recursion does not stop before every combination is found. This is a problem, because if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the computer will run out of memory, if the program doesn't stop it before that happens.
+
+\subsubsection{Divide and Conquer}
 
 \subsection{Variable assignments}
 
@@ -236,19 +238,29 @@ In the case of $m, i, d = n$, we have the following case.
 
 \section{Application flow chart}
 
-\subsection{Lexer \& parser}
+\subsection{Lexer}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=1]{lexer.png}
+	\end{center}
+	\caption{Flow chart of our lexer}
+\end{figure}
 
-\begin{itemize}
-	\item Lexer takes a pat\_scan pattern
-	\item Pattern is split into sub-patterns at whitespace
-	\item Find all assignments
-	\begin{itemize}
-		\item Put variable name in hash map
-	\end{itemize}
-	\item \textbf{For each} sub-pattern \textbf{do}
-\end{itemize}
+Pat\_scan sub-patterns are always separated by whitespace characters. Because of this, and because of the fact, that the grammar is very simple, we can simply split the pat\_scan pattern at all whitespace, and we're left with a list of each sub-pattern.
 
+\subsection{Parser}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.65]{parser.png}
+	\end{center}	
+	\caption{Flow chart of our parser}
+\end{figure}
 
+The parser takes each token from the received token list, and checks them against our grammar, and depending on which type of sub-pattern it is, it will be parsed as such. Each parsed sub-pattern will then be put into a list, which will be returned in the end.
+
+The way, which tokens are parsed, is they are being put into a Token object, which takes a pattern type and a match object. The pattern type is so that the translator can recognize which type of sub-pattern the token is. The match object is the object returned when our grammar matched the token successfully. 
+
+This way, we assign names to specific parts of the sub-pattern, so they're easily accessible for the translator. This could for instance be the number of mismatches in a pattern such as \texttt{AGTCA[2,0,0]}
 
 \newpage
 
