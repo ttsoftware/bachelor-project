@@ -31,7 +31,7 @@ class Translater
             end
         }
 
-        return Regexp.new expression
+        return expression
     end
 
     # Takes the sequence from the token and returns it

@@ -6,7 +6,7 @@ describe Translater, :type => :class do
 
         it 'returns a valid regular expression of a sequence' do
 
-            regex_pattern = Translater.new('AGGATTCA').translate
+            regex_pattern = Regexp.new Translater.new('AGGATTCA').translate
 
             match_right = regex_pattern.match('AGGATTCA')
             match_wrong = regex_pattern.match('AGGNTTCA')
@@ -16,7 +16,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with deletions' do
-            regex_pattern = Translater.new('AGTCT[0,0,2]').translate
+            regex_pattern = Regexp.new Translater.new('AGTCT[0,0,2]').translate
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('AGTC')
@@ -30,7 +30,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with insertions' do
-            regex_pattern = Translater.new('AGTCT[0,2,0]').translate
+            regex_pattern = Regexp.new Translater.new('AGTCT[0,2,0]').translate
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('AGTNCT')
@@ -44,7 +44,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with mismatches' do
-            regex_pattern = Translater.new('AGTCT[2,0,0]').translate
+            regex_pattern = Regexp.new Translater.new('AGTCT[2,0,0]').translate
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('NGTCT')
@@ -60,7 +60,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with all three' do
-            regex_pattern = Translater.new('AGTCT[2,2,2]').translate
+            regex_pattern = Regexp.new Translater.new('AGTCT[2,2,2]').translate
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('NGTNC')
@@ -77,9 +77,17 @@ describe Translater, :type => :class do
             expect(match_5).to be nil
         end
 
+        it 'supports chained tokens' do
+            regex_pattern = Regexp.new Translater.new('AAAGT[2,0,0] 2...4 TNTGCC[1,0,1]').translate
+
+            match_0 = regex_pattern.match('AGTGTNNNNANTGC') # 2 mismatches, 4 random, 1 mismatch & 1 deletion.
+
+            expect(match_0).to be_an_instance_of MatchData
+        end
+
         it 'returns a valid regular expression of a range' do
 
-            regex_pattern = Translater.new('4...8').translate
+            regex_pattern = Regexp.new Translater.new('4...8').translate
 
             match_right = regex_pattern.match('NNNNNNN')
             match_wrong = regex_pattern.match('NNN')

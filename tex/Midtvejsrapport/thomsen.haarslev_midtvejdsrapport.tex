@@ -169,6 +169,16 @@ Specifically we wish to solve the following problems:
 
 \newpage
 
+\section{Introduction}
+
+Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns. These patterns are written in its own format, which from now on will be referred to as patscan patterns.
+
+\newpage
+
+\section{What is regular expressions}
+
+\newpage
+
 \section{Translation of scan-for-matches patterns into regular expressions}
 
 \subsection{Mismatches, Insertions and Deletions}
@@ -220,21 +230,9 @@ In the case of $m, i, d = n$, we have the following case.
 %\end{eqnarray}
 
 
+\subsection{Variable assignments}
 
 
-\subsection{Backreferencing}
-
-One way to simplify our expression, is to use backreferences. With backreferences we can express $m$ mismatches, $d$ deletions and $i$ insertions in the following regular expressions.
-
-\subsubsubsection{Mismatches}
-
-\begin{eqnarray}
-	((x_1?|.) \ | \ (x_2?|.) \ | \ \cdots \ | \ (x_n?|.))
-\end{eqnarray}
-
-\subsubsubsection{Deletions}
-
-\subsubsubsection{Insertions}
 
 \section{Application flow chart}
 
