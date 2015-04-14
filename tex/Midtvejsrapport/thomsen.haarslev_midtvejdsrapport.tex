@@ -61,7 +61,7 @@
 \newcommand*{\FormatDigit}[1]{\textcolor{digit}{#1}}
 
 \lstset{
-	language=Python,
+	language=Ruby,
 	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\space\hookleftarrow}},
 	basicstyle=\footnotesize\ttfamily,
 	%
@@ -93,7 +93,8 @@
         {å}{{\aa}}1
         {Æ}{{\AE}}1	
         {Ø}{{\O}}1
-        {Å}{{\AA}}1,
+        {Å}{{\AA}}1
+        {~}{{$\scriptstyle{\sim}$}}1, % handle tilde ~
 	%
 	%emph={},
 	otherkeywords={},
@@ -101,7 +102,7 @@
 	keywords=[3]{__init__},
 	keywords=[4]{object},
 	keywords=[5]{encoding, flags},
-	keywords=[6]{reduce,list,enumerate,len,map,range,sorted,None,super,@staticmethod},
+	keywords=[6]{reduce,list,enumerate,len,map,range,sorted,None,super},
 	%
 	keywordstyle=\bfseries\color{dark-blue},
 	keywordstyle={[2]\color{pale-purple}},
@@ -171,7 +172,18 @@ Specifically we wish to solve the following problems:
 
 \section{Introduction}
 
-Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns. These patterns are written in its own format, which from now on will be referred to as patscan patterns.
+Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns. These patterns are written in its own format, which from now on will be referred to as patscan patterns.\cite{scan-for-matches}
+
+The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match upto one mismatch, upto one insertion, upto one deletion or any combination of thereof.
+
+This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
+
+\texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
+
+If we extrapolate into $m$ mismatches, $d$ deletions and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches, since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions.
+
+Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan format a powerful tool in regards to searching DNA. \\
+A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
 
 \newpage
 
@@ -180,6 +192,54 @@ Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan
 \newpage
 
 \section{Translation of scan-for-matches patterns into regular expressions}
+
+\subsection{Grammar}
+
+The patscan grammar can roughly be summarized as the following: \\
+
+\begin{tabular}{ p{5cm} | l | l }
+	\textbf{Token type} & \textbf{Regular expression} & \textbf{Example} \\
+    \hline
+    Sequence & 
+  	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+^[a-z]+$ 
+	\end{lstlisting}} & 
+    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+AGTCT
+	\end{lstlisting}} \\
+    \hline
+    Sequence with mismatches, insertions and deletions & 
+	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+^[a-z]+\[[0-9]+,[0-9]+,[0-9]+\]$ 
+	\end{lstlisting}} &
+    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+AGTCT[1,0,0]
+	\end{lstlisting}} \\
+    \hline
+    Range & 
+	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+^[0-9]+\.{3}[0-9]+$
+	\end{lstlisting}} & 
+	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+2...4
+	\end{lstlisting}} \\
+    \hline
+    Variable assignment & 
+    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+^[^=]+=[^=]+$
+	\end{lstlisting}} & 
+    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+p1=AGTCT
+	\end{lstlisting}} \\
+    \hline
+    Variable usage &
+	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+^~?[\^{}=]+$ 
+	\end{lstlisting}} &
+    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
+~p1
+	\end{lstlisting}} \\
+\end{tabular}
 
 \subsection{Mismatches, Insertions and Deletions}
 
@@ -253,7 +313,7 @@ In the case of $m, i, d = n$, we have the following case.
 \newpage
 
 \bibliographystyle{plain}
-\nocite{*}
+%\nocite{*}
 \bibliography{litterature}
 
 \end{document}
