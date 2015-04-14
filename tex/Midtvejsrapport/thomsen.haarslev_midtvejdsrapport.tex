@@ -44,6 +44,18 @@
 %                       %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%          Tikz         %
+
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily},
+  arn_n/.style = {treenode, circle, black, font=\sffamily\bfseries, draw=white, fill=white, text width=1.5em}
+}
+
+%                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%    
+
 \setlength\parindent{0pt}
 \usepackage[parfill]{parskip}
 
@@ -174,13 +186,13 @@ Specifically we wish to solve the following problems:
 
 Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns. These patterns are written in its own format, which from now on will be referred to as patscan patterns.\cite{scan-for-matches}
 
-The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match upto one mismatch, upto one insertion, upto one deletion or any combination of thereof.
+The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof.
 
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
-If we extrapolate into $m$ mismatches, $d$ deletions and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches, since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions.
+If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches, since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions.
 
 Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan format a powerful tool in regards to searching DNA. \\
 A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
@@ -291,6 +303,43 @@ Adding deletions, this set $N$ will become one larger, and so will the number of
 The recursion does not stop before every combination is found. This is a problem, because if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the computer will run out of memory, if the program doesn't stop it before that happens.
 
 \subsubsection{Divide and Conquer}
+
+To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which reduces the recursion depth to $logn$. This works by splitting the sequence in two halves per recursion, so at the deepest recursion level, we have a sequence of only a single character.
+
+\begin{figure}[H]
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+  level distance = 1.5cm}] 
+\node [arn_n] {abcd}
+	child{ node [arn_n] {ab} 
+		child{ node [arn_n] {a}}
+		child{ node [arn_n] {b}}                            
+	}
+    child{ node [arn_n] {cd}
+		child{ node [arn_n] {c}}
+		child{ node [arn_n] {d}}
+	}
+; 
+\end{tikzpicture}
+	\centering
+	\caption{Tree structure, showing the steps taken by the algorithm during the divide step.}
+	\label{fig:tree_example}
+\end{figure}
+
+After dividing the sequence into characters, we have to conquer each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will return a list of all possibilities, which that character can be.
+
+For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
+
+\begin{center}
+	{a, \^{}a, \_}
+\end{center}
+
+as well as the following for insertions
+
+\begin{center}
+	\texttt{.\{1\}a, .\{2\}a, $\cdots$, .\{n\}a} \\
+	\texttt{a.\{1\}, a.\{2\}, $\cdots$, a.\{n\}}
+\end{center}
+
 
 \subsection{Variable assignments}
 
