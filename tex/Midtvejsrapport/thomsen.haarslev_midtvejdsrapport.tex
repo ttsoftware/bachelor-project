@@ -96,13 +96,13 @@
         {Å}{{\AA}}1
         {~}{{$\scriptstyle{\sim}$}}1, % handle tilde ~
 	%
-	%emph={},
+	%emph={@param,@return},
 	otherkeywords={},
 	keywords=[2]{self},
 	keywords=[3]{__init__},
 	keywords=[4]{object},
 	keywords=[5]{encoding, flags},
-	keywords=[6]{reduce,list,enumerate,len,map,range,sorted,None,super},
+	keywords=[6]{map},
 	%
 	keywordstyle=\bfseries\color{dark-blue},
 	keywordstyle={[2]\color{pale-purple}},
@@ -110,10 +110,11 @@
 	keywordstyle={[4]\color{dark-blue}},
 	keywordstyle={[5]\color{regular-purple}},
 	keywordstyle={[6]\color{dark-purple}},
+	keywordstyle={[7]\bfseries\color{black}},
     commentstyle=\itshape\color{comment},
     identifierstyle=\color{black},
 	stringstyle=\bfseries\color{dark-green},
-	%emphstyle=\color{dark-purple},
+	%emphstyle=\bfseries,
 	%
 	numbers=left, % where to put the line-numbers
 	numberstyle=\ttfamily\color{dark-gray},
@@ -191,6 +192,10 @@ A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a comple
 
 \newpage
 
+\section{The KMC project}
+
+\newpage
+
 \section{Translation of scan-for-matches patterns into regular expressions}
 
 \subsection{Grammar}
@@ -202,7 +207,7 @@ The patscan grammar can roughly be summarized as the following: \\
     \hline
     Sequence & 
   	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[a-z]+$ 
+^[A-Z]+$ 
 	\end{lstlisting}} & 
     {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
 AGTCT
@@ -210,7 +215,7 @@ AGTCT
     \hline
     Sequence with mismatches, insertions and deletions & 
 	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[a-z]+\[[0-9]+,[0-9]+,[0-9]+\]$ 
+^[A-Z]+\[[0-9]+,[0-9]+,[0-9]+\]$ 
 	\end{lstlisting}} &
     {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
 AGTCT[1,0,0]
@@ -251,49 +256,43 @@ The sub-patterns can have the following form, which allows for mismatches, inser
 
 This notation allows for 0 or the given number of mismatches, insertions or deletions, or all possible combinations in between. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-Translating these sub-patterns is not a simple task. This kind of notation doesn't exist in regular expressions. Hence, the only way to represent them, is by constructing every possible combination of the sequence, matching the pat\_scan notation. To give an example, the pattern \texttt{AAG[1,0,0]} will translate into
+Translating these sub-patterns is not a simple task. This kind of notation does not exist in regular expressions, hence the only way to represent them is by constructing every possible combination of the sequence, matching the patscan notation. To give an example, the pattern \texttt{AAG[1,0,0]} will translate into 
 
-\begin{eqnarray}
-	((AAG)|([\ \hat{}A]AG)|(A[\ \hat{}A]G)|(AA[\ \hat{}G]))
-\end{eqnarray}
+\hspace*{\fill}
+\texttt{((AAG)|([\^{}A]AG)|(A[\^{}A]G)|(AA[\^{}G]))}
+\hspace*{\fill}
 
-Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly more difficult, as the sequence becomes longer, and especially when the number of allowed mismatches are increased.
+Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly difficult, as the sequence becomes longer, and the number of allowed mismatches increases.
 
-We had different approaches to this problem, as we developed our translator. Our first approach was loops. Implementing the translation using only loops to iterate over every combination seemed like the easiest and simplest way to tackle the problem.
+We tried the following approaches to solving this problem, but ultimately decided on a divide and conquer algorithm. 
 
 \subsubsection{Loops}
 
-Implementing a single mismatch, using loops, were simple. A single loop, choosing a different character for the mismatch in each iteration (as well as the sequence without mismatches).
-
-For two mismatches, it was still fairly simple, we had to use a nested loop this time, that each corresponded to one of the mismatches. We just had to also include all the combinations from the previous iterations, that only had a single mismatch.
-
-This approach seem to rely on implementing an algorithm for each number of mismatches, and then concatenating them. This is a problem, because there can be an arbitrary number of mismatches. It is very impractical to implement enough, and simply impossible to implement them all. Combining this with insertions and deletions, and we have a real headache on hand.
+At the first glance this might seem like the trivial implementation. A single mismatch using loops can be done by simply choosing a different character for the mismatch in each iteration.
+But for every new mismatch dimension, we would need to add another nested loop, which would make our code extremely inflexible and difficult to understand.
 
 \subsubsection{Recursion}
 
-The second approach was recursion. With recursion, it was much easier to implement a general model of translation. The way implemented this, was to look at each character one at a time, and look at all the possibilities of what that character could be.
+Solving the problem with recursion one might take each character one at a time, and look at all the possibilities for that character.
 
-This way, we could construct a recursion tree, that is capable of generating all possible combinations, no matter how many mismatches is allowed.
+This way we could construct a recursion tree containing all possible combinations, no matter how many mismatches are allowed.
 
-For just mismatches, the recursion tree would build two new branches per iteration. The first iteration of \texttt{AGCTC[2,0,0]} would build the branches
+For mismatches the recursion tree would add two new branches per iteration. The first iteration of \texttt{AGCTC[2,0,0]} would add the branches
 
 \begin{eqnarray}
 	Left\ branch &=& A\{GCTC[2,0,0]\} \\
 	right\ branch &=&\ \hat{}A\{GCTC[1,0,0]\}
 \end{eqnarray}
 
-Here, the left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same, but with only one mismatch available. On the deepest recursion level of each branch, we will have a string, with a unique combination of mismatches.
+The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose $A$ as our first mismatch. Thus we must choose all possibilities from $N \in \{n, \hat{}n\}$ as a new branch, every time we take a recursion step.
+On our leafs we will have a string with a unique combination of mismatches.
 
-Simply speaking, for mismatches, each character can be $N \in \{n, \hat{}n\}$
-
-Adding deletions, this set $N$ will become one larger, and so will the number of recursion branches created in each iteration. Insertions on top of this, besides other problems, that insertions create, increases this number of recursions further.
-
-The recursion does not stop before every combination is found. This is a problem, because if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the computer will run out of memory, if the program doesn't stop it before that happens.
+Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
 
 \subsubsection{Divide and Conquer}
 
-\subsection{Variable assignments}
 
+\subsection{Variable assignments}
 
 
 \section{Application flow chart}
@@ -306,7 +305,7 @@ The recursion does not stop before every combination is found. This is a problem
 	\caption{Flow chart of our lexer}
 \end{figure}
 
-Pat\_scan sub-patterns are always separated by whitespace characters. Because of this, and because of the fact, that the grammar is very simple, we can simply split the pat\_scan pattern at all whitespace, and we're left with a list of each sub-pattern.
+Pat\_scan sub-patterns are separated by whitespace characters. Because of this, and because of the fact that the grammar is very simple, we can simply split the patcan pattern at each whitespace to get a list of sub-patterns, which we will refer to as tokens.
 
 \subsection{Parser}
 \begin{figure}[H]
@@ -316,11 +315,32 @@ Pat\_scan sub-patterns are always separated by whitespace characters. Because of
 	\caption{Flow chart of our parser}
 \end{figure}
 
-The parser takes each token from the received token list, and checks them against our grammar, and depending on which type of sub-pattern it is, it will be parsed as such. Each parsed sub-pattern will then be put into a list, which will be returned in the end.
+The parser takes each token from the lexer's token list, and checks them against our grammar. The tokens are then put into a Token objects, which takes a pattern type and a match object. \\
+The pattern type enables the translator to recognize which type of sub-pattern the token belongs to. The match object is the regular expression object returned by our grammar. This match object contains information about the specific parts of our tokens, such as the number of mismatches belonging to a sequence such as \texttt{AGTCA[2,0,0]}.
 
-The way, which tokens are parsed, is they are being put into a Token object, which takes a pattern type and a match object. The pattern type is so that the translator can recognize which type of sub-pattern the token is. The match object is the object returned when our grammar matched the token successfully. 
+\begin{figure}[H]
+	\begin{lstlisting}
+ 	# Discover sequence with mismatch, insertion, deletion permutations
+    #
+    # @param [String] token_string
+    # @return [MatchData]
+    def get_combination(token_string)
+        return /^(?<sequence>\w+)\[(?<mismatches>\d+),(?<insertions>\d+),(?<deletions>\d+)\]$/.match token_string
+    end
+	\end{lstlisting}
+	\caption{Grammar for matching sequences with the amount of combinations.}
+	\label{fig:gamme_c}
+\end{figure}
 
-This way, we assign names to specific parts of the sub-pattern, so they're easily accessible for the translator. This could for instance be the number of mismatches in a pattern such as \texttt{AGTCA[2,0,0]}
+\newpage
+
+\section{Regular expression performance}
+
+\subsection{Ruby}
+
+\subsection{KMC}
+
+\subsection{Google's engine}
 
 \newpage
 
