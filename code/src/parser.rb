@@ -36,7 +36,7 @@ class Parser
 
             sequence_permutation_match = get_permutation token_string
             unless sequence_permutation_match.nil?
-                @parsed_tokens << Token.new(T::SEQUENCE_PERMUTATION, sequence_permutation_match)
+                @parsed_tokens << Token.new(T::SEQUENCE_COMBINATION, sequence_permutation_match)
                 next
             end
 
