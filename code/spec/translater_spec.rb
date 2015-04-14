@@ -8,8 +8,6 @@ describe Translater, :type => :class do
 
             regex_pattern = Translater.new('AGGATTCA').translate
 
-            pp regex_pattern
-
             match_right = regex_pattern.match('AGGATTCA')
             match_wrong = regex_pattern.match('AGGNTTCA')
 
@@ -17,45 +15,71 @@ describe Translater, :type => :class do
             expect(match_wrong). to be nil
         end
 
-        it 'returns a valid regular expression with mismatches' do
+        it 'returns a valid regular expression with deletions' do
+            regex_pattern = Translater.new('AGTCT[0,0,2]').translate
 
+            match_0 = regex_pattern.match('AGTCT')
+            match_1 = regex_pattern.match('AGTC')
+            match_2 = regex_pattern.match('AGT')
+            match_3 = regex_pattern.match('GT') # should not match
+
+            expect(match_0).to be_an_instance_of MatchData
+            expect(match_1).to be_an_instance_of MatchData
+            expect(match_2).to be_an_instance_of MatchData
+            expect(match_3).to be nil
+        end
+
+        it 'returns a valid regular expression with insertions' do
+            regex_pattern = Translater.new('AGTCT[0,2,0]').translate
+
+            match_0 = regex_pattern.match('AGTCT')
+            match_1 = regex_pattern.match('AGTNCT')
+            match_2 = regex_pattern.match('NAGTNCT')
+            match_3 = regex_pattern.match('NAGTNNCT') # should not match
+
+            expect(match_0).to be_an_instance_of MatchData
+            expect(match_1).to be_an_instance_of MatchData
+            expect(match_2).to be_an_instance_of MatchData
+            expect(match_3).to be nil
+        end
+
+        it 'returns a valid regular expression with mismatches' do
+            regex_pattern = Translater.new('AGTCT[2,0,0]').translate
+
+            match_0 = regex_pattern.match('AGTCT')
+            match_1 = regex_pattern.match('NGTCT')
+            match_2 = regex_pattern.match('NGTNT')
+            match_3 = regex_pattern.match('NNTNT')
+            match_4 = regex_pattern.match('NAGTCT') # should not match
+
+            expect(match_0).to be_an_instance_of MatchData
+            expect(match_1).to be_an_instance_of MatchData
+            expect(match_2).to be_an_instance_of MatchData
+            expect(match_3).to be nil
+            expect(match_4).to be nil
+        end
+
+        it 'returns a valid regular expression with all three' do
             regex_pattern = Translater.new('AGTCT[2,2,2]').translate
 
-            pp regex_pattern
+            match_0 = regex_pattern.match('AGTCT')
+            match_1 = regex_pattern.match('NGTNC')
+            match_2 = regex_pattern.match('CNNCA')
+            match_3 = regex_pattern.match('NNNAGTCT') # should not match
+            match_4 = regex_pattern.match('NNCCCCT') # should not match
+            match_5 = regex_pattern.match('NN') # should not match
 
-            # Known errors:
-            err1 = regex_pattern.match('NAGTCT')
-            err2 = regex_pattern.match('AGTCTN')
-            err3 = regex_pattern.match('AGNTCT')
-            err4 = regex_pattern.match('AGNNTCT')
-
-            expect(err1).to be_an_instance_of MatchData
-            expect(err2).to be_an_instance_of MatchData
-            expect(err3).to be_an_instance_of MatchData
-            expect(err4).to be_an_instance_of MatchData
-
-            match_m = regex_pattern.match('ANNCT')
-            match_i = regex_pattern.match('AGNTCNT')
-            match_d = regex_pattern.match('ACT')
-            match_mi = regex_pattern.match('NANNCNT')
-            match_md = regex_pattern.match('NNT')
-            match_mid = regex_pattern.match('NNNNT')
-            match_wrong = regex_pattern.match('NN')
-
-            expect(match_m).to be_an_instance_of MatchData
-            expect(match_i).to be_an_instance_of MatchData
-            expect(match_d).to be_an_instance_of MatchData
-            expect(match_mi).to be_an_instance_of MatchData
-            expect(match_md).to be_an_instance_of MatchData
-            expect(match_mid).to be_an_instance_of MatchData
-            expect(match_wrong).to be nil
+            expect(match_0).to be_an_instance_of MatchData
+            expect(match_1).to be_an_instance_of MatchData
+            expect(match_2).to be_an_instance_of MatchData
+            expect(match_3).to be nil
+            expect(match_4).to be nil
+            expect(match_5).to be nil
         end
 
         it 'returns a valid regular expression of a range' do
 
             regex_pattern = Translater.new('4...8').translate
-
-            pp regex_pattern
 
             match_right = regex_pattern.match('NNNNNNN')
             match_wrong = regex_pattern.match('NNN')

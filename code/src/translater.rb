@@ -27,7 +27,7 @@ class Translater
                 when T::RANGE
                     expression << translate_range(token)
                 else
-                    raise 'Invalid token type.'
+                    raise 'Invalid token.'
             end
         }
 
@@ -78,13 +78,15 @@ class Translater
     #
     # @return [String list]
     def find_combinations(sequence, m_max, i_max, d_max)
-        # If the length of the sequence is more than 1, it is dividable
         if sequence.length > 1
+            # If the length of the sequence is more than 1, it is dividable
+
             left_tree = find_combinations(sequence[0..(sequence.length/2).floor-1], m_max, i_max, d_max)
             right_tree = find_combinations(sequence[(sequence.length/2).floor..-1], m_max, i_max, d_max)
-        # If it is not dividable, create each combination of mismatches, insertions, and deletions
-        # for that particular character, and return.
         else
+            # If it is not dividable, create each combination of mismatches, insertions, and deletions
+            # for that particular character, and return.
+
             insertion_combinations = []
             i_max.times { |i|
                 insertion_combinations << Leaf.new(".{#{i+1}}#{sequence}", mismatches=0, insertions=i+1, deletions=0)
@@ -100,21 +102,27 @@ class Translater
 
         # Combines each leaf from the left tree with each leaf in the right tree,
         # thus creating all possible combinations of each tree.
+
         left_tree.each{ |left_leaf|
             right_tree.each{ |right_leaf|
+
                 # If a combination would lead to a violation of the given maximum number of
                 # mismatches, insertions, or deletions, the iteration will be skipped.
+
                 if (left_leaf.mismatches + right_leaf.mismatches) > m_max \
                     or (left_leaf.insertions + right_leaf.insertions) > i_max \
                     or (left_leaf.deletions + right_leaf.deletions) > d_max
+
                     next
                 end
+
                 combined << Leaf.new(left_leaf.value + right_leaf.value,
                                      mismatches=left_leaf.mismatches + right_leaf.mismatches,
                                      insertions=left_leaf.insertions + right_leaf.insertions,
                                      deletions=left_leaf.deletions + right_leaf.deletions)
             }
         }
+
         return combined
     end
 
