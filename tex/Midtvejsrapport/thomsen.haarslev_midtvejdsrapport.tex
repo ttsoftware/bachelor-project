@@ -187,7 +187,7 @@ Specifically we wish to solve the following problems:
 
 Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns.\cite{scan-for-matches} These patterns are written in their own language, which from now on will be referred to as patscan patterns, while the program itself will be referred to as scan-for-matches.
 
-The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes: sequences (\texttt{AGTCT}), sequences with mismatches, insertions and deletions (\texttt{AGTCT[1,0,0]}), ranges (\texttt{2...4}), variable assignments (\texttt{p1=AGTCT}) and finally variable usages (\texttt{p1}). The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
+The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes: \textit{sequences} (\texttt{AGTCT}), \textit{sequences with mismatches, insertions and deletions} (\texttt{AGTCT[1,0,0]}) which we will refer to as combinations, \textit{ranges} (\texttt{2...4}), \textit{variable assignments} (\texttt{p1=AGTCT}) and finally \textit{variable usages} (\texttt{p1}). The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
@@ -196,11 +196,12 @@ This means that a sequence of length $n$ with a single mismatch will yield $n^1+
 
 If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
 
-Another powerful feature of patscan is the ability to store a sub-pattern in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. The pattern \texttt{p1=2...4 p1 }
+Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. \\
+An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but inverted as denoted by the \texttt{\~{}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
-Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan format a powerful tool in regards to searching DNA. \\
-A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
+Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very expressive compared to regular expressions. \\
+A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
 
 We will try to translate patscan patterns into regular expressions, and run them on the KMC engine. We hope to achieve similar speeds to those of scan-for-matches, while also achieving the same search results.
 
@@ -223,7 +224,7 @@ We will try to translate patscan patterns into regular expressions, and run them
 \subsection{Grammar}
 \label{Patscan grammar}
 
-The patscan grammar can roughly be summarized as the following: \\
+We have defined the following grammar for the patscan tokens / sub-patterns: \\
 
 \begin{tabular}{ p{5cm} | l | l }
 	\textbf{Token type} & \textbf{Regular expression} & \textbf{Example} \\
@@ -257,7 +258,7 @@ AGTCT[1,0,0]
 ^[^=]+=[^=]+$
 	\end{lstlisting}} & 
     {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-p1=AGTCT
+p1=4...8
 	\end{lstlisting}} \\
     \hline
     Variable usage &
@@ -271,7 +272,7 @@ p1=AGTCT
 
 \subsection{Mismatches, Insertions and Deletions}
 
-The sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
+Sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
 
 \begin{equation}
 	x_1 \ldots x_n[m, i, d] \ \ \{ x_1 \ldots x_n \in A \ | \ m, i, d \in \mathbb{N}_0 \}
@@ -337,32 +338,18 @@ To solve the recursion depth problem, we thought of using a divide and conquer a
 
 After dividing the sequence into characters, we have to conquer each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will return a list of all possibilities, which that character can be.
 
-For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions:
+For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
 
 \begin{center}
 	{a, \^{}a, \_}
 \end{center}
 
-Insertions are a bit special, since they can appear anyway, not just at a character's 'spot'. This means, that for the sequence \texttt{ATCG}, 4 insertions could be between the same two characters (\texttt{A....TCG}), which normally isn't the case. As such, we have the following possibilities for insertions:
+as well as the following for insertions
 
 \begin{center}
 	\texttt{.\{1\}a, .\{2\}a, $\cdots$, .\{n\}a} \\
 	\texttt{a.\{1\}, a.\{2\}, $\cdots$, a.\{n\}}
 \end{center}
-
-All these cases are contained in a Leaf class, that can keep track of how many mismatches, insertions, or deletions its combination has.
-
-Going one recursion level up to 'ab' from figure \ref{fig:tree_example}, we now have a list of possibilities for 'a', and a list of possibilities for 'b'. These are then combined by taking each case of 'a' and combining it with each case of 'b', all the while not making pairs, that would cause the number of mismatches, insertions, or deletions to exceed the maximum number allowed.
-
-In the end, we will have a list of all possible combinations with mismatches, insertions and deletions. 
-
-With this solution, we have solved all recursion and memory problems we had previously. However, if there are one or more allowed insertions, we will have redundancy. This comes from the cases, where a character has a trailing insertion, and the following character may have a leading insertions. So, the both \texttt{\textbf{a.}b} and \texttt{a\textbf{.b}} are the same when combined, but they're two different cases beforehand, which means both will be made.
-
-This redundancy scales on the number of allowed insertions. Each combination will have a number of duplicates, which can be calculated with formula (4), where $i_n$ is the number of maximum allowed insertions, and $i_0$ is one insertion.
-\begin{eqnarray}
-	i_n + i_{n-1} + \cdots + i_0 = duplicates
-\end{eqnarray}
-
 
 
 \subsection{Variable assignments \& usage}
