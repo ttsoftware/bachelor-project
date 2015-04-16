@@ -6,7 +6,7 @@ describe Translater, :type => :class do
 
         it 'returns a valid regular expression of a sequence' do
 
-            regex_pattern = Regexp.new Translater.new('AGGATTCA').translate
+            regex_pattern = Regexp.new '^' + Translater.new('AGGATTCA').translate + '$'
 
             match_right = regex_pattern.match('AGGATTCA')
             match_wrong = regex_pattern.match('AGGNTTCA')
