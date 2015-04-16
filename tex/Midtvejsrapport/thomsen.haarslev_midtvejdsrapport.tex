@@ -352,10 +352,29 @@ as well as the following for insertions
 \end{center}
 
 
-\subsection{Variable assignments}
+\subsection{Variable assignments \& usage}
 
+Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:
 
-\subsection{Variable usage}
+\texttt{p1=ATCG} \\
+\texttt{p2=ATCG[2,0,0]} \\
+\texttt{p3=2...4}
+
+These assignment can be referenced to by using the variable name. An example of such usage could be
+
+\texttt{q1=ACCT 2...5 q1}
+
+In addition just referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
+
+\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
+
+Here, inversion references to the reverse complement of the sequence, stored in the variable.
+
+Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regularity.
+
+Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file, the engine is matching, it is not possible to 'hard code' it as a regular expression.
+
+Using back-referencing in our implementation will cause our regex patterns to lose regularity, and with that, performance.
 
 
 \section{Application flow chart}
