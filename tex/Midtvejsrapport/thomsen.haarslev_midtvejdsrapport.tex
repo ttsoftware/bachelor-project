@@ -185,18 +185,24 @@ Specifically we wish to solve the following problems:
 
 \section{Introduction}
 
-Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns. These patterns are written in its own format, which from now on will be referred to as patscan patterns.\cite{scan-for-matches}
+Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns.\cite{scan-for-matches} These patterns are written in their own language, which from now on will be referred to as patscan patterns, while the program itself will be referred to as scan-for-matches.
 
-The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof.
+The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes: sequences (\texttt{AGTCT}), sequences with mismatches, insertions and deletions (\texttt{AGTCT[1,0,0]}), ranges (\texttt{2...4}), variable assignments (\texttt{p1=AGTCT}) and finally variable usages (\texttt{p1}). The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
+The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
-If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches, since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions.
+If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
+
+Another powerful feature of patscan is the ability to store a sub-pattern in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. The pattern \texttt{p1=2...4 p1 }
+This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan format a powerful tool in regards to searching DNA. \\
 A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
+
+We will try to translate patscan patterns into regular expressions, and run them on the KMC engine. We hope to achieve similar speeds to those of scan-for-matches, while also achieving the same search results.
 
 \newpage
 
@@ -208,9 +214,14 @@ A pattern as simple as \texttt{p1=AGTCC p1 10...50 p1[2,0,1]} describes a comple
 
 \newpage
 
+\section{PatScan as regular expressions}
+
+\newpage
+
 \section{Translation of scan-for-matches patterns into regular expressions}
 
 \subsection{Grammar}
+\label{Patscan grammar}
 
 The patscan grammar can roughly be summarized as the following: \\
 
@@ -343,7 +354,7 @@ as well as the following for insertions
 \subsection{Variable assignments}
 
 
-\subsection{Variable assignments}
+\subsection{Variable usage}
 
 
 \section{Application flow chart}
