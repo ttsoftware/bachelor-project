@@ -194,10 +194,10 @@ This means that a sequence of length $n$ with a single mismatch will yield $n^1+
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
-If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
+If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
 
 Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. \\
-An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but inverted as denoted by the \texttt{\~{}}.\\
+An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{\~{}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very expressive compared to regular expressions. \\
@@ -224,8 +224,9 @@ We will try to translate patscan patterns into regular expressions, and run them
 \subsection{Grammar}
 \label{Patscan grammar}
 
-We have defined the following grammar for the patscan tokens / sub-patterns: \\
+We have defined the following grammar for the patscan language: \\
 
+\begin{figure}[H]
 \begin{tabular}{ p{5cm} | l | l }
 	\textbf{Token type} & \textbf{Regular expression} & \textbf{Example} \\
     \hline
@@ -270,9 +271,12 @@ p1=4...8
 	\end{lstlisting}} \\
 \end{tabular}
 
+\caption{PatScan grammar.}
+\end{figure}
+
 \subsection{Mismatches, Insertions and Deletions}
 
-Sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
+Combination sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
 
 \begin{equation}
 	x_1 \ldots x_n[m, i, d] \ \ \{ x_1 \ldots x_n \in A \ | \ m, i, d \in \mathbb{N}_0 \}
@@ -280,11 +284,7 @@ Sub-patterns can have the following form, which allows for mismatches, insertion
 
 This notation allows for 0 or the given number of mismatches, insertions or deletions, or all possible combinations in between. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-Translating these sub-patterns is not a simple task. This kind of notation does not exist in regular expressions, hence the only way to represent them is by constructing every possible combination of the sequence, matching the patscan notation. To give an example, the pattern \texttt{AAG[1,0,0]} will translate into 
-
-\hspace*{\fill}
-\texttt{((AAG)|([\^{}A]AG)|(A[\^{}A]G)|(AA[\^{}G]))}
-\hspace*{\fill}
+Translating these sub-patterns is not a simple task. This kind of notation does not exist in regular expressions, hence the only way to represent them is by constructing every possible combination of the sequence, matching the patscan notation. As described above this yields approximately $n^{m^{d^{i}}}+1$ combinations.
 
 Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly difficult, as the sequence becomes longer, and the number of allowed mismatches increases.
 
@@ -315,7 +315,7 @@ Adding deletions and insertions will increase the size of $N$, thus drastically 
 
 \subsubsection{Divide and Conquer}
 
-To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which reduces the recursion depth to $logn$. This works by splitting the sequence in two halves per recursion, so at the deepest recursion level, we have a sequence of only a single character.
+To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which would reduce the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, so at the deepest recursion level, we have a sequence of only a single character. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
