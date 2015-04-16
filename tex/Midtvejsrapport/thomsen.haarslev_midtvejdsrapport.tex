@@ -197,7 +197,7 @@ This means that a sequence of length $n$ with a single mismatch will yield $n^1+
 If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately  $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
 
 Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. \\
-An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but inverted as denoted by the \texttt{\~{}}.\\
+An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but inverted as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very expressive compared to regular expressions. \\
@@ -358,7 +358,7 @@ Variable assignment is when you have a pattern of some sort, that you assign to 
 
 \texttt{p1=ATCG} \\
 \texttt{p2=ATCG[2,0,0]} \\
-\texttt{p3=2...4} \\
+\texttt{p3=2...4}
 
 These assignment can be referenced to by using the variable name. An example of such usage could be
 
@@ -367,6 +367,14 @@ These assignment can be referenced to by using the variable name. An example of 
 In addition just referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
 
 \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
+
+Here, inversion references to the reverse complement of the sequence, stored in the variable.
+
+Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regularity.
+
+Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file, the engine is matching, it is not possible to 'hard code' it as a regular expression.
+
+Using back-referencing in our implementation will cause our regex patterns to lose regularity, and with that, performance.
 
 
 \section{Application flow chart}
