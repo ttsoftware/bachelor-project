@@ -32,10 +32,12 @@ describe Translater, :type => :class do
         it 'returns a valid regular expression with insertions' do
             regex_pattern = Regexp.new Translater.new('AGTCT[0,2,0]').translate
 
+            pp regex_pattern
+
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('AGTNCT')
             match_2 = regex_pattern.match('NAGTNCT')
-            match_3 = regex_pattern.match('NAGTNNCT') # should not match
+            match_3 = regex_pattern.match('ANGTNNCT') # should not match
 
             expect(match_0).to be_an_instance_of MatchData
             expect(match_1).to be_an_instance_of MatchData
@@ -50,7 +52,7 @@ describe Translater, :type => :class do
             match_1 = regex_pattern.match('NGTCT')
             match_2 = regex_pattern.match('NGTNT')
             match_3 = regex_pattern.match('NNTNT')
-            match_4 = regex_pattern.match('NAGTCT') # should not match
+            match_4 = regex_pattern.match('NNNCT') # should not match
 
             expect(match_0).to be_an_instance_of MatchData
             expect(match_1).to be_an_instance_of MatchData
@@ -60,7 +62,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with all three' do
-            regex_pattern = Regexp.new Translater.new('AGTCT[2,2,2]').translate
+            regex_pattern = Regexp.new '^' + Translater.new('AGTCT[2,2,2]').translate + '$'
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('NGTNC')
