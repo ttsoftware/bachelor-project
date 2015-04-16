@@ -1,2 +1,2 @@
-p1=NNNNNNNNN p1 10...50 p1[2,0,1]
+p1=NNNNNNNNN 10...50 p1[2,0,1]
 
