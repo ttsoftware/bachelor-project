@@ -365,10 +365,21 @@ This redundancy scales on the number of allowed insertions. Each combination wil
 
 
 
-\subsection{Variable assignments}
+\subsection{Variable assignments \& usage}
 
+Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:
 
-\subsection{Variable usage}
+\texttt{p1=ATCG} \\
+\texttt{p2=ATCG[2,0,0]} \\
+\texttt{p3=2...4} \\
+
+These assignment can be referenced to by using the variable name. An example of such usage could be
+
+\texttt{q1=ACCT 2...5 q1}
+
+In addition just referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
+
+\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
 
 
 \section{Application flow chart}
