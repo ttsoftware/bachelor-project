@@ -185,6 +185,21 @@ Specifically we wish to solve the following problems:
 
 \section{Introduction}
 
+Institute for microbiology at Copenhagen University has a large collection of sequenced DNA material stored on their servers. They estimate somewhere between two and three petabytes of data stored in FASTA and FASTQ files.
+
+Parsing and analysing this large amount of data poses several challenges. The challenge we will look to tackle, is discovering similar DNA or RNA sequences in large datasets. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which mean that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. \\
+This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
+
+Searching through the data currently uses the scan-for-matches program which, while performing very well, is not very user friendly and have some unfortunate limitations when running many consecutive scans.
+
+Recently, Professor Fritz Henglein’s group have developed a regular expression implementation called KMC, which so far have performed five times better than current industry standard engines.
+Since scan-for-matches outperforms the quite fast NR-grep\cite{nrgrep} regular expression implementation, we are hoping that optimized regular expressions running on the KMC engine will be able to outperform NR-grep and subsequently scan-for-matches.
+If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. As such we see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC team to have their engine tested in a new scenario.
+
+\newpage
+
+\section{What is PatScan}
+
 Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns.\cite{scan-for-matches} These patterns are written in their own language, which from now on will be referred to as patscan patterns, while the program itself will be referred to as scan-for-matches.
 
 The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes: \textit{sequences} (\texttt{AGTCT}), \textit{sequences with mismatches, insertions and deletions} (\texttt{AGTCT[1,0,0]}) which we will refer to as combinations, \textit{ranges} (\texttt{2...4}), \textit{variable assignments} (\texttt{p1=AGTCT}) and finally \textit{variable usages} (\texttt{p1}). The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
@@ -352,7 +367,7 @@ as well as the following for insertions
 \end{center}
 
 
-\subsection{Variable assignments \& usage}
+\subsection{Variable assignments usage}
 
 Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:
 
