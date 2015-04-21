@@ -35,25 +35,6 @@ class Translater
         return expression
     end
 
-    def reverse_complement(sequence)
-        reversed = []
-        sequence.split(//).each { |c|
-            case c
-                when 'A'
-                    reversed << 'T'
-                when 'T'
-                    reversed << 'A'
-                when 'C'
-                    reversed << 'G'
-                when 'G'
-                    reversed << 'C'
-                else
-                    reversed << c
-            end
-        }
-        return reversed.join
-    end
-
     # Translates the assigned value, saves it in var_table, and returns it
     #
     # @param [Token] token
@@ -64,10 +45,12 @@ class Translater
                 regex = translate_sequence token.assigned
                 @var_table[token.value['variable_name']] = regex
                 return regex
+
             when T::SEQUENCE_COMBINATION
                 regex = translate_combination token.assigned
                 @var_table[token.value['variable_name']] = regex
                 return regex
+
             when T::RANGE
                 raise 'Not implemented'
         end
@@ -77,6 +60,10 @@ class Translater
         unless @var_table[token.value['variable_name']].nil?
             if token.value['negation'] == '~'
                 return reverse_complement @var_table[token.value['variable_name']]
+            elsif token.value['mismatches'] != nil
+                # The variable usage has mismatches on it
+                parser = Parser.new ['']
+                return translate_combination Token.new(T::VARIABLE, parser.get_combination("#{@var_table[token.value['variable_name']]}[#{token.value['mismatches']},#{token.value['insertions']},#{token.value['deletions']}]"))
             else
                 return @var_table[token.value['variable_name']]
             end
@@ -90,6 +77,13 @@ class Translater
     # @return [String]
     def translate_sequence(token)
         return token.value['sequence']
+    end
+
+    def translate_range(token)
+        from = token.value['from']
+        to = token.value['to']
+
+        return '.{' + from + ',' + to + '}'
     end
 
     # Calls find_combinations to find all possible combinations of
@@ -188,10 +182,25 @@ class Translater
         return combined
     end
 
-    def translate_range(token)
-        from = token.value['from']
-        to = token.value['to']
-
-        return '.{' + from + ',' + to + '}'
+    # Takes the reverse complement on a given DNA or RNA sequence.
+    # @param [String] sequence
+    # @return [String]
+    def reverse_complement(sequence)
+        reversed = []
+        sequence.split(//).each { |c|
+            case c
+                when 'A'
+                    reversed << 'T'
+                when 'T'
+                    reversed << 'A'
+                when 'C'
+                    reversed << 'G'
+                when 'G'
+                    reversed << 'C'
+                else
+                    reversed << c
+            end
+        }
+        return reversed.join
     end
 end
