@@ -80,10 +80,12 @@ class Translater
                 regex = translate_sequence token.assigned
                 @var_table[token.value['variable_name']] = regex
                 return regex
+
             when T::SEQUENCE_COMBINATION
                 regex = translate_combination token.assigned
                 @var_table[token.value['variable_name']] = regex
                 return regex
+
             when T::RANGE
                 raise 'Not implemented'
         end
@@ -93,6 +95,10 @@ class Translater
         unless @var_table[token.value['variable_name']].nil?
             if token.value['negation'] == '~'
                 return reverse_complement @var_table[token.value['variable_name']]
+            elsif token.value['mismatches'] != nil
+                # The variable usage has mismatches on it
+                parser = Parser.new ['']
+                return translate_combination Token.new(T::VARIABLE, parser.get_combination("#{@var_table[token.value['variable_name']]}[#{token.value['mismatches']},#{token.value['insertions']},#{token.value['deletions']}]"))
             else
                 return @var_table[token.value['variable_name']]
             end

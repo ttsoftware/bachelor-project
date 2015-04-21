@@ -37,6 +37,19 @@ describe Parser, :type => :class do
             expect(match_obj).to_not eq nil
             expect(match_obj['negation']).to eq '~'
             expect(match_obj['variable_name']).to eq 'p1'
+            expect(match_obj['mismatches']).to eq nil
+        end
+
+        it 'finds variable names' do
+
+            match_obj = @parser.get_variable 'p1[1,0,0]'
+
+            expect(match_obj).to_not eq nil
+            expect(match_obj['negation']).to eq nil
+            expect(match_obj['variable_name']).to eq 'p1'
+            expect(match_obj['mismatches']).to eq '1'
+            expect(match_obj['insertions']).to eq '0'
+            expect(match_obj['deletions']).to eq '0'
         end
     end
 
