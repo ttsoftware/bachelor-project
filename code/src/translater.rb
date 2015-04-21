@@ -119,7 +119,8 @@ class Translater
                     next
                 end
 
-                # If one of the combination exists in the unique table, it will be skipped
+                # If one of the combination exists in the {unique} table, it will be skipped
+                # This is possible due to the fact that {Hash.has_key} has O(1) time complexity.
 
                 unless unique_combinations.has_key? (left_leaf.value + right_leaf.value)
 
