@@ -17,9 +17,9 @@ class Translater
         @tokens.each { |token|
             case token.type
                 when T::ASSIGNMENT
-                    raise 'not implemented'
+                    raise 'Variable assignment not implemented'
                 when T::VARIABLE
-                    raise 'not implemented'
+                    raise 'Variable usage not implemented'
                 when T::SEQUENCE
                     expression << translate_sequence(token)
                 when T::SEQUENCE_COMBINATION
@@ -100,6 +100,9 @@ class Translater
 
         combined = []
 
+        # Hash table containing all unique combinations in this recursion step
+        unique_combinations = Hash.new
+
         # Combines each leaf from the left tree with each leaf in the right tree,
         # thus creating all possible combinations of each tree.
 
@@ -116,10 +119,18 @@ class Translater
                     next
                 end
 
-                combined << Leaf.new(left_leaf.value + right_leaf.value,
-                                     mismatches=left_leaf.mismatches + right_leaf.mismatches,
-                                     insertions=left_leaf.insertions + right_leaf.insertions,
-                                     deletions=left_leaf.deletions + right_leaf.deletions)
+                # If one of the combination exists in the unique table, it will be skipped
+
+                unless unique_combinations.has_key? (left_leaf.value + right_leaf.value)
+
+                    # Otherwise we add it to the table
+                    unique_combinations[left_leaf.value + right_leaf.value] = true
+
+                    combined << Leaf.new(left_leaf.value + right_leaf.value,
+                                         mismatches=left_leaf.mismatches + right_leaf.mismatches,
+                                         insertions=left_leaf.insertions + right_leaf.insertions,
+                                         deletions=left_leaf.deletions + right_leaf.deletions)
+                end
             }
         }
 
