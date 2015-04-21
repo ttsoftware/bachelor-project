@@ -1,10 +1,11 @@
 class Token
 
-    attr_accessor :type, :value
+    attr_accessor :type, :value, :assigned
 
-    def initialize(type, value)
+    def initialize(type, value, assigned=nil)
         @type = type
         @value = value
+        @assigned = assigned
     end
 end
 
