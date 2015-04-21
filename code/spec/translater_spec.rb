@@ -33,8 +33,6 @@ describe Translater, :type => :class do
             pattern = Translater.new('AGTCT[0,2,0]').translate
             regex_pattern = Regexp.new pattern
 
-            pp regex_pattern
-
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('AGTNCT')
             match_2 = regex_pattern.match('NAGTNCT')
@@ -89,11 +87,20 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression of a range' do
-
             regex_pattern = Regexp.new Translater.new('4...8').translate
 
             match_right = regex_pattern.match('NNNNNNN')
             match_wrong = regex_pattern.match('NNN')
+
+            expect(match_right).to be_an_instance_of MatchData
+            expect(match_wrong).to be nil
+        end
+
+        it 'returns a valid regular expression of a variable assignment and usage' do
+            regex_pattern = Regexp.new Translater.new('p1=ATC[1,0,0] ~p1').translate
+
+            match_right = regex_pattern.match('ANCTNG')
+            match_wrong = regex_pattern.match('ATCANC')
 
             expect(match_right).to be_an_instance_of MatchData
             expect(match_wrong).to be nil

@@ -15,8 +15,25 @@ class Parser
 
             assignment_match = get_assignment token_string
             unless assignment_match.nil?
-                @parsed_tokens << Token.new(T::ASSIGNMENT, assignment_match)
-                next
+                assigned = assignment_match['variable_value']
+
+                sequence_match = get_sequence assigned
+                unless sequence_match.nil?
+                    @parsed_tokens << Token.new(T::ASSIGNMENT, assignment_match, Token.new(T::SEQUENCE, sequence_match))
+                    next
+                end
+
+                combination_match = get_combination assigned
+                unless combination_match.nil?
+                    @parsed_tokens << Token.new(T::ASSIGNMENT, assignment_match, Token.new(T::SEQUENCE_COMBINATION, combination_match))
+                    next
+                end
+
+                range_match = get_range assigned
+                unless range_match.nil?
+                    @parsed_tokens << Token.new(T::ASSIGNMENT, assignment_match, Token.new(T::RANGE, range_match))
+                    next
+                end
             end
 
             variable_match = get_variable token_string
@@ -34,9 +51,9 @@ class Parser
                 next
             end
 
-            sequence_permutation_match = get_combination token_string
-            unless sequence_permutation_match.nil?
-                @parsed_tokens << Token.new(T::SEQUENCE_COMBINATION, sequence_permutation_match)
+            combination_match = get_combination token_string
+            unless combination_match.nil?
+                @parsed_tokens << Token.new(T::SEQUENCE_COMBINATION, combination_match)
                 next
             end
 

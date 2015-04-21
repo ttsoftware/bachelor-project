@@ -7,6 +7,7 @@ class Translater
         lexer = Lexer.new pattern
         parser = Parser.new lexer.tokenize
         @tokens = parser.parse
+        @var_table = Hash.new
     end
 
     # @return [String]
@@ -17,9 +18,9 @@ class Translater
         @tokens.each { |token|
             case token.type
                 when T::ASSIGNMENT
-                    raise 'Variable assignment not implemented'
+                    expression << translate_assignment(token)
                 when T::VARIABLE
-                    raise 'Variable usage not implemented'
+                    expression << translate_variable(token)
                 when T::SEQUENCE
                     expression << translate_sequence(token)
                 when T::SEQUENCE_COMBINATION
@@ -32,6 +33,55 @@ class Translater
         }
 
         return expression
+    end
+
+    def reverse_complement(sequence)
+        reversed = []
+        sequence.split(//).each { |c|
+            case c
+                when 'A'
+                    reversed << 'T'
+                when 'T'
+                    reversed << 'A'
+                when 'C'
+                    reversed << 'G'
+                when 'G'
+                    reversed << 'C'
+                else
+                    reversed << c
+            end
+        }
+        return reversed.join
+    end
+
+    # Translates the assigned value, saves it in var_table, and returns it
+    #
+    # @param [Token] token
+    # @return [String]
+    def translate_assignment(token)
+        case token.assigned.type
+            when T::SEQUENCE
+                regex = translate_sequence token.assigned
+                @var_table[token.value['variable_name']] = regex
+                return regex
+            when T::SEQUENCE_COMBINATION
+                regex = translate_combination token.assigned
+                @var_table[token.value['variable_name']] = regex
+                return regex
+            when T::RANGE
+                raise 'Not implemented'
+        end
+    end
+
+    def translate_variable(token)
+        unless @var_table[token.value['variable_name']].nil?
+            if token.value['negation'] == '~'
+                return reverse_complement @var_table[token.value['variable_name']]
+            else
+                return @var_table[token.value['variable_name']]
+            end
+        end
+        raise 'Variable not yet assigned'
     end
 
     # Takes the sequence from the token and returns it
