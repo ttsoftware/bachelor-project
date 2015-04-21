@@ -30,7 +30,8 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with insertions' do
-            regex_pattern = Regexp.new Translater.new('AGTCT[0,2,0]').translate
+            pattern = Translater.new('AGTCT[0,2,0]').translate
+            regex_pattern = Regexp.new pattern
 
             pp regex_pattern
 
