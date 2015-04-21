@@ -1,6 +1,0 @@
-#! /bin/bash
-
-trap 'echo ""' SIGHUP SIGINT SIGTERM
-
-export LC_CTYPE=C
-cat /dev/urandom | tr -c "" "$(perl -e 'print "a"x127 . "b"x127 . "\\n"x2;')"
