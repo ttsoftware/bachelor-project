@@ -34,9 +34,9 @@ describe Translater, :type => :class do
             regex_pattern = Regexp.new pattern
 
             match_0 = regex_pattern.match('AGTCT')
-            match_1 = regex_pattern.match('AGTNCT')
-            match_2 = regex_pattern.match('NAGTNCT')
-            match_3 = regex_pattern.match('ANGTNNCT') # should not match
+            match_1 = regex_pattern.match('AGTMCT')
+            match_2 = regex_pattern.match('MAGTMCT')
+            match_3 = regex_pattern.match('AMGTMMCT') # should not match
 
             expect(match_0).to be_an_instance_of MatchData
             expect(match_1).to be_an_instance_of MatchData
@@ -48,10 +48,10 @@ describe Translater, :type => :class do
             regex_pattern = Regexp.new Translater.new('AGTCT[2,0,0]').translate
 
             match_0 = regex_pattern.match('AGTCT')
-            match_1 = regex_pattern.match('NGTCT')
-            match_2 = regex_pattern.match('NGTNT')
-            match_3 = regex_pattern.match('NNTNT')
-            match_4 = regex_pattern.match('NNNCT') # should not match
+            match_1 = regex_pattern.match('MGTCT')
+            match_2 = regex_pattern.match('MGTMT')
+            match_3 = regex_pattern.match('MMTMT')
+            match_4 = regex_pattern.match('MMMCT') # should not match
 
             expect(match_0).to be_an_instance_of MatchData
             expect(match_1).to be_an_instance_of MatchData
@@ -64,11 +64,11 @@ describe Translater, :type => :class do
             regex_pattern = Regexp.new '^' + Translater.new('AGTCT[2,2,2]').translate + '$'
 
             match_0 = regex_pattern.match('AGTCT')
-            match_1 = regex_pattern.match('NGTNC')
-            match_2 = regex_pattern.match('CNNCA')
-            match_3 = regex_pattern.match('NNNAGTCT') # should not match
-            match_4 = regex_pattern.match('NNCCCCT') # should not match
-            match_5 = regex_pattern.match('NN') # should not match
+            match_1 = regex_pattern.match('MGTMC')
+            match_2 = regex_pattern.match('CMMCA')
+            match_3 = regex_pattern.match('MMMAGTCT') # should not match
+            match_4 = regex_pattern.match('MMCCCCT') # should not match
+            match_5 = regex_pattern.match('MM') # should not match
 
             expect(match_0).to be_an_instance_of MatchData
             expect(match_1).to be_an_instance_of MatchData
@@ -99,8 +99,8 @@ describe Translater, :type => :class do
         it 'returns a valid regular expression of a variable assignment and usage' do
             regex_pattern = Regexp.new Translater.new('p1=ATC[1,0,0] ~p1').translate
 
-            match_right = regex_pattern.match('ANCTNG')
-            match_wrong = regex_pattern.match('ATCANC')
+            match_right = regex_pattern.match('AMCTMG')
+            match_wrong = regex_pattern.match('ATCAMC')
 
             expect(match_right).to be_an_instance_of MatchData
             expect(match_wrong).to be nil

@@ -371,6 +371,48 @@ A list of all these possibilities are then returned, and it can be combined with
 These lists are combined by combining each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, insertions, and deletions are being kept track of, and if combining two outcomes will result in more mismatches, insertions, or deletions than the maximum allowed, then it is skipped.
 
 
+\subsubsection{Redundancy}
+
+With this implementation, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
+
+If we look at the combination sequence \texttt{ab[0,1,0]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create even more redundancy in the upper levels of the recursion.
+
+On the first conquer step, we will have (4), where $i_{max}$ is the number of allowed mismatches, and $n$ is the number of characters in the sequence.
+\begin{eqnarray}
+	r_0 = n\sum^{i_{max}}_{i=1} i
+\end{eqnarray}
+
+On the next level, we have (5), where $m=1$ if any number of mismatches are allowed, $i$ is the number of insertions allowed, and $d=1$ if any number of deletions are allowed.
+\begin{eqnarray}
+	r_1 \approx r_0(1 + m + 2i + d)
+\end{eqnarray}
+
+To calculate further redundancy, I will use the $c = (1 + m + 2i + d)$, corresponding to the above. I can then use this to calculate the total amount of redundancy, via induction:
+\begin{eqnarray}
+	r_n \approx r_{n-1}c_{n-1}^2
+\end{eqnarray}
+
+Here, $n$ is the recursion depth, and will thus up to $logm$, where m is the length of the patscan sequence.
+
+This is only an approximation, as some combinations will be thrown away if there are more than one allowed mismatches or deletions. Furthermore, the recursion depth varies in the recursion branches based on the length of the original string, like in figure \ref{fig:recursion_depth_example}.
+
+\begin{figure}[H]
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+  level distance = 1.5cm}] 
+\node [arn_n] {abc}
+	child{ node [arn_n] {a}}
+    child{ node [arn_n] {bc}
+		child{ node [arn_n] {b}}
+		child{ node [arn_n] {c}}
+	}
+; 
+\end{tikzpicture}
+	\centering
+	\caption{Tree structure, how recursion depth varies in different branches.}
+	\label{fig:recursion_depth_example}
+\end{figure}
+
+
 \subsection{Variable assignments usage}
 
 Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:

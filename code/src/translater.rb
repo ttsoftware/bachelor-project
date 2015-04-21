@@ -47,6 +47,22 @@ class Translater
                     reversed << 'G'
                 when 'G'
                     reversed << 'C'
+                when 'Y'
+                    reversed << 'R'
+                when 'R'
+                    reversed << 'Y'
+                when 'K'
+                    reversed << 'M'
+                when 'M'
+                    reversed << 'K'
+                when 'B'
+                    reversed << 'V'
+                when 'V'
+                    reversed << 'B'
+                when 'D'
+                    reversed << 'H'
+                when 'H'
+                    reversed << 'D'
                 else
                     reversed << c
             end
@@ -139,12 +155,12 @@ class Translater
 
             insertion_combinations = []
             i_max.times { |i|
-                insertion_combinations << Leaf.new(".{#{i+1}}#{sequence}", mismatches=0, insertions=i+1, deletions=0)
-                insertion_combinations << Leaf.new("#{sequence}.{#{i+1}}", mismatches=0, insertions=i+1, deletions=0)
+                insertion_combinations << Leaf.new("[^N]{#{i+1}}#{sequence}", mismatches=0, insertions=i+1, deletions=0)
+                insertion_combinations << Leaf.new("#{sequence}[^N]{#{i+1}}", mismatches=0, insertions=i+1, deletions=0)
             }
 
             return [Leaf.new(sequence, mismatches=0, insertions=0, deletions=0),
-                    Leaf.new("[^#{sequence}]", mismatches=1, insertions=0, deletions=0),
+                    Leaf.new("[^#{sequence}N]", mismatches=1, insertions=0, deletions=0),
                     Leaf.new('', mismatches=0, insertions=0, deletions=1)] + insertion_combinations
         end
 
