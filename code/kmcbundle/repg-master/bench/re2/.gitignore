@@ -1,0 +1,5 @@
+# ignore binaries
+matchall
+line_based
+matchall-nc
+line_based-nc
