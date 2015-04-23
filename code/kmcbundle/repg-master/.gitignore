@@ -1,9 +1,0 @@
-dist/
-.cabal-sandbox
-cabal.sandbox.config
-*~
-*.prof
-cabal.config
-.DS_Store
-repgbin
-.#*

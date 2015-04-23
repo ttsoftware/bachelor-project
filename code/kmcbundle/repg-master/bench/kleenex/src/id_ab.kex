@@ -1,2 +1,0 @@
-// Identity on a and b
-x := <(a|b)*> ~<.>
