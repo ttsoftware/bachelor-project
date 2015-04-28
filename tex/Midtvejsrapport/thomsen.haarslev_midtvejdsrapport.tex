@@ -290,81 +290,49 @@ We will try to translate patscan patterns into regular expressions, and run them
 \section{Methods}
 \subsection{PatScan as regular expressions (TO BE WRITTEN)}
 
-\subsubsection{Grammar (TO BE REWRITTEN)}
+\subsubsection{Grammar (TO BE WRITTEN)}
 \label{Patscan grammar}
 
-We have defined the following grammar for the patscan language: \\
+We have defined the following grammar for the patscan language:
 
 \begin{figure}[H]
-\begin{tabular}{ p{5cm} | l | l }
-	\textbf{Token type} & \textbf{Regular expression} & \textbf{Example} \\
-    \hline
-    Sequence & 
-  	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[A-Z]+$ 
-	\end{lstlisting}} & 
-    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-AGTCT
-	\end{lstlisting}} \\
-    \hline
-    Sequence with mismatches, insertions and deletions & 
-	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[A-Z]+\[[0-9]+,[0-9]+,[0-9]+\]$ 
-	\end{lstlisting}} &
-    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-AGTCT[1,0,0]
-	\end{lstlisting}} \\
-    \hline
-    Range & 
-	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[0-9]+\.{3}[0-9]+$
-	\end{lstlisting}} & 
-	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-2...4
-	\end{lstlisting}} \\
-    \hline
-    Variable assignment & 
-    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^[^=]+=[^=]+$
-	\end{lstlisting}} & 
-    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-p1=4...8
-	\end{lstlisting}} \\
-    \hline
-    Variable usage &
-	{\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-^~?[\^{}=]+$ 
-	\end{lstlisting}} &
-    {\begin{lstlisting}[numbers=none, backgroundcolor=\color{white}]
-~p1
-	\end{lstlisting}} \\
+\begin{tabular}{|lcll|}
+	\hline
+	$Prog$ & $\rightarrow$ & $StmtSeq$ & \\
+	$StmtSeq$ & $\rightarrow$ & $Stmt\ StmtSeq$ & \\
+	$StmtSeq$ & $\rightarrow$ & $Stmt$ & \\
+	$Stmt$ & $\rightarrow$ & $Exp$ & \\
+	$Stmt$ & $\rightarrow$ & $LVal\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
+	$Stmt$ & $\rightarrow$ & $LVal$ & \textcolor{red}{Variable usage} \\
+	$LVal$ & $\rightarrow$ & Id $Combi$ & \\
+	$LVal$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} Id $Combi$ & \\
+	$Exp$ & $\rightarrow$ & \textbf{num} ... \textbf{num} & \textcolor{red}{Range} \\
+	$Exp$ & $\rightarrow$ & $Seq\ Combi$ & \\
+	$Seq$ & $\rightarrow$ & \textbf{char} $Seq$ & \\
+	$Seq$ & $\rightarrow$ & \textbf{char} & \\
+	$Combi$ & $\rightarrow$ & [\textbf{num},\textbf{num},\textbf{num}] & \\
+	$Combi$ & $\rightarrow$ & $\epsilon$ & \\
+	\hline
 \end{tabular}
-
-\caption{PatScan grammar.}
+\caption{PatScan grammar}
 \end{figure}
 
 \subsubsection{Mismatches, Insertions and Deletions (TO BE RESTRUCTURED)}
 
 Combination sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
-
 \begin{equation}
-	x_1 \ldots x_n[m, i, d] \ \ \{ x_1 \ldots x_n \in A \ | \ m, i, d \in \mathbb{N}_0 \}
+	Sequence[m, i, d] \ \ \{m, i, d \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for 0 or the given number of mismatches, insertions or deletions, or all possible combinations in between. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for up the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-Translating these sub-patterns is not a simple task. This kind of notation does not exist in regular expressions, hence the only way to represent them is by constructing every possible combination of the sequence, matching the patscan notation. As described above this yields approximately $n^{m^{d^{i}}}+1$ combinations.
+This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation.
 
 Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly difficult, as the sequence becomes longer, and the number of allowed mismatches increases.
 
 We tried the following approaches to solving this problem, but ultimately decided on a divide and conquer algorithm. 
 
-\subsubsubsection{Loops}
-
-At the first glance this might seem like the trivial implementation. A single mismatch using loops can be done by simply choosing a different character for the mismatch in each iteration.
-But for every new mismatch dimension, we would need to add another nested loop, which would make our code extremely inflexible and difficult to understand.
-
-\subsubsubsection{Recursion}
+\subsubsubsection{Recursion (TO BE REWRITTEN)}
 
 Solving the problem with recursion one might take each character one at a time, and look at all the possibilities for that character.
 
@@ -420,20 +388,20 @@ as well as the following for insertions
 	\texttt{a.\{1\}, a.\{2\}, $\cdots$, a.\{n\}}
 \end{center}
 
-A list of all these possibilities are then returned, and it can be combined with the list received from the 'b' recursion.
+A list of all these possibilities is then returned, and it can be combined with the list received from the 'b' recursion.
 
 These lists are combined by combining each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, insertions, and deletions are being kept track of, and if combining two outcomes will result in more mismatches, insertions, or deletions than the maximum allowed, then it is skipped.
 
 \begin{spacing}{0.8}
 \begin{algorithm}
-	\caption{find\_combinations
-		\label{alg:find_combinations}}
+	\caption{find\_combinations}
+	\label{alg:find_combinations}
   	\begin{algorithmic}[1]
     		\Require
-    			\Statex \textbf{seq} - sequence string to be translated
-    			\Statex \textbf{$m_{max}$} - allowed number of mismatches
-    			\Statex \textbf{$i_{max}$} - allowed number of insertions
-    			\Statex \textbf{$d_{max}$} - allowed number of deletions
+    			\Statex seq - sequence string to be translated
+    			\Statex $m_{max}$ - allowed number of mismatches
+    			\Statex $d_{max}$ - allowed number of deletions
+    			\Statex $i_{max}$ - allowed number of insertions
     		\Ensure
     			\Statex List of all possible combinations
 		\Statex
@@ -448,7 +416,7 @@ These lists are combined by combining each outcome from the first list, and comb
     		\Let{unique\_combinations}{empty hash table}
     		\ForAll{LL \In left\_tree} \Comment{LL: Left leaf}
     			\ForAll{RL \textbf{in} right\_tree} \Comment{RL: Right leaf}
-    				\If{$LL.m + RL.m > m_{max}$ \Or $LL.i + RL.i > i_{max}$ \Or $LL.d + RL.d > d_{max}$}
+    				\If{$LL.m + RL.m > m_{max}$ \Or $LL.d + RL.d > d_{max}$ \Or $LL.i + RL.i > i_{max}$}
     					\State continue
     				\EndIf
     				\If{\Not LL.seq + RL.seq \In unique\_combinations.keys}
@@ -457,11 +425,12 @@ These lists are combined by combining each outcome from the first list, and comb
     				\EndIf
     			\EndFor
     		\EndFor
+    		\Returns{combined}
   	\end{algorithmic}
 \end{algorithm}
 \end{spacing}
 
-
+\newpage
 \subsubsubsection{Redundancy}
 
 With this implementation, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
@@ -519,7 +488,7 @@ Variable assignment is when you have a pattern of some sort, that you assign to 
 \texttt{p2=ATCG[2,0,0]} \\
 \texttt{p3=2...4}
 
-These assignment can be referenced to by using the variable name. An example of such usage could be
+These assignments can be referenced by using the variable name. An example of such usage could be
 
 \texttt{q1=ACCT 2...5 q1}
 
@@ -527,13 +496,13 @@ In addition just referencing the variable, a variable may also be inverted. This
 
 \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
 
-Here, inversion references to the reverse complement of the sequence, stored in the variable.
+Here, inversion refers to the reverse complement of the sequence stored in the variable.
 
-Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regularity.
+Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regular.
 
-Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file, the engine is matching, it is not possible to 'hard code' it as a regular expression.
+Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file the engine is matching, it is not possible to 'hard code' it as a regular expression.
 
-Using back-referencing in our implementation will cause our regex patterns to lose regularity, and with that, performance.
+Using back-referencing in our implementation will cause our RE patterns to lose regularity, and with that, performance.
 
 \subsection{Correctness (TO BE WRITTEN)}
 
