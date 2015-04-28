@@ -23,6 +23,17 @@
 \usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
+%        Theorem        %
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+
+\newtheorem{mydef}{Definition}
+
+%                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 %   subsubsubsection    %
 
 \usepackage{titlesec}
@@ -189,7 +200,25 @@
 
 \pagenumbering{arabic}
 
-\section{Problem definition}
+\section{Introduction}
+\subsection{Motivation}
+
+Institute for microbiology at University of Copenhagen has a large collection of sequenced DNA material stored on their servers. They estimate somewhere between two and three petabytes of data stored in FASTA and FASTQ files \textbf{NEED REF}.
+
+Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. \\
+This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
+
+Currently, the state-of-the-art method for searching through genomic data is the scan-for-matches program, which, while performing very well, is not very user friendly \textbf{NEED REF} and have some unfortunate limitations when running many consecutive scans. However, scan-for-matches has easy-to-write pattern syntax compared REs, as well as the addition new syntax, which would make the equivalent REs extremely tedious to write.
+
+Recently, the KMC group have developed a regular expression implementation called KMC, which so far has shown surprisingly competitive performance, compared to current industry standard engines\cite{two-pass-greedy}.
+
+Since scan-for-matches outperforms the quite fast NR-grep (nondeterministic reverse grep), which is a pattern matching tool, created by the "search in page" facility at the University of Chile\cite{nrgrep}, we are hoping that optimized regular expressions running on the KMC engine will be able to outperform NR-grep and subsequently scan-for-matches.
+If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. As such we see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
+
+As such, we seek to solve the problem of translating the easy-to-write scan-for-matches patterns into the better-performing REs.
+
+
+\subsection{Thesis Statement (TO BE REWRITTEN)}
 
 We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches\cite{scan-for-matches}, into regular expressions\cite{crash-course-regex} and test their efficiency against the KMC\cite{kmc-website} engine.
 
@@ -201,28 +230,44 @@ Specifically we wish to solve the following problems:
 	\item Can we find weak extensions to regular expressions, which would enable us to support more or all scan-for-matches patterns?
 \end{itemize}
 
-\newpage
+\subsection{DNA/RNA (TO BE WRITTEN)}
 
-\section{Introduction}
+\begin{mydef}
+The alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}$ is:
+\begin{center}
+$\mathcal{A}$ = \texttt{\{ATUGCYRSWKMBDHVN\}}
+\end{center}
+\end{mydef}
 
-Institute for microbiology at Copenhagen University has a large collection of sequenced DNA material stored on their servers. They estimate somewhere between two and three petabytes of data stored in FASTA and FASTQ files.
+\textbf{DEFINE Reverse Complement HERE}
 
-Parsing and analysing this large amount of data poses several challenges. The challenge we will look to tackle, is discovering similar DNA or RNA sequences in large datasets. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which mean that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. \\
-This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
+\subsection{What is scan-for-matches?}
 
-Searching through the data currently uses the scan-for-matches program which, while performing very well, is not very user friendly and have some unfortunate limitations when running many consecutive scans.
+Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.
 
-Recently, Professor Fritz Henglein’s group have developed a regular expression implementation called KMC, which so far have performed five times better than current industry standard engines.
-Since scan-for-matches outperforms the quite fast NR-grep\cite{nrgrep} regular expression implementation, we are hoping that optimized regular expressions running on the KMC engine will be able to outperform NR-grep and subsequently scan-for-matches.
-If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. As such we see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC team to have their engine tested in a new scenario.
+The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes:
 
-\newpage
+\begin{mydef}
+The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
+\end{mydef}
 
-\section{What is PatScan}
+\begin{mydef}
+The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{insertions}, and \textbf{deletions} respectively), is denoted as a \textbf{combination} (Example: \texttt{AGTCT[1,0,0]})
+\end{mydef}
 
-Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price, which is able to locate complex DNA patterns.\cite{scan-for-matches} These patterns are written in their own language, which from now on will be referred to as patscan patterns, while the program itself will be referred to as scan-for-matches.
+\begin{mydef}
+The sub-patterns, that consists of a number, $a \geq 0$, followed by exactly three dots, followed by a number, $b \geq a$, is denoted as a \textbf{range} (Example: \texttt{2...4})
+\end{mydef}
 
-The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes: \textit{sequences} (\texttt{AGTCT}), \textit{sequences with mismatches, insertions and deletions} (\texttt{AGTCT[1,0,0]}) which we will refer to as combinations, \textit{ranges} (\texttt{2...4}), \textit{variable assignments} (\texttt{p1=AGTCT}) and finally \textit{variable usages} (\texttt{p1}). The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
+\begin{mydef}
+The sub-patterns, that consists of a string, denoted as a \textbf{variable name}, followed by an equal sign, and then a \textbf{sequence}, is denoted as a \textbf{variable assignment} (Example: \texttt{p1=AGTCT})
+\end{mydef}
+
+\begin{mydef}
+The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
+\end{mydef}
+
+The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
@@ -235,28 +280,17 @@ Another powerful feature of patscan is the ability to store a sub-pattern match 
 An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{\~{}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
-Combining this match combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very expressive compared to regular expressions. \\
-A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through conventional search methods.
+Combining this combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. \\
+A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through REs.
 
-We will try to translate patscan patterns into regular expressions, and run them on the KMC engine. We hope to achieve similar speeds to those of scan-for-matches, while also achieving the same search results.
+We will try to translate patscan patterns into regular expressions, and run them on the KMC group's RE engine. We hope to achieve similar, or better speeds to those of scan-for-matches, while also achieving the same search results.
 
-\newpage
+\subsection{Regular Expressions (TO BE WRITTEN)}
 
-\section{What is regular expressions}
+\section{Methods}
+\subsection{PatScan as regular expressions (TO BE WRITTEN)}
 
-\newpage
-
-\section{The KMC project}
-
-\newpage
-
-\section{PatScan as regular expressions}
-
-\newpage
-
-\section{Translation of scan-for-matches patterns into regular expressions}
-
-\subsection{Grammar}
+\subsubsection{Grammar (TO BE REWRITTEN)}
 \label{Patscan grammar}
 
 We have defined the following grammar for the patscan language: \\
@@ -309,7 +343,7 @@ p1=4...8
 \caption{PatScan grammar.}
 \end{figure}
 
-\subsection{Mismatches, Insertions and Deletions}
+\subsubsection{Mismatches, Insertions and Deletions (TO BE RESTRUCTURED)}
 
 Combination sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
 
@@ -325,12 +359,12 @@ Starting with mismatches only, writing a general algorithm to translate this exa
 
 We tried the following approaches to solving this problem, but ultimately decided on a divide and conquer algorithm. 
 
-\subsubsection{Loops}
+\subsubsubsection{Loops}
 
 At the first glance this might seem like the trivial implementation. A single mismatch using loops can be done by simply choosing a different character for the mismatch in each iteration.
 But for every new mismatch dimension, we would need to add another nested loop, which would make our code extremely inflexible and difficult to understand.
 
-\subsubsection{Recursion}
+\subsubsubsection{Recursion}
 
 Solving the problem with recursion one might take each character one at a time, and look at all the possibilities for that character.
 
@@ -348,7 +382,7 @@ On our leafs we will have a string with a unique combination of mismatches.
 
 Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
 
-\subsubsection{Divide and Conquer}
+\subsubsubsection{Divide and Conquer}
 
 To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which would reduce the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character. 
 
@@ -428,7 +462,7 @@ These lists are combined by combining each outcome from the first list, and comb
 \end{spacing}
 
 
-\subsubsection{Redundancy}
+\subsubsubsection{Redundancy}
 
 With this implementation, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
@@ -477,7 +511,7 @@ Every time we make a new combination, we check if that combination already exist
 
 We can look up in a hash table in $O(1)$ time, which doesn't increase the runtime by much. However, we will end up with a significantly lower runtime in the long run, as all redundancy is sorted out.
 
-\subsection{Variable assignments usage}
+\subsubsection{Variable assignments \& usage}
 
 Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:
 
@@ -501,53 +535,19 @@ Assignment of a range is something we have chosen not to implement, as it can't 
 
 Using back-referencing in our implementation will cause our regex patterns to lose regularity, and with that, performance.
 
+\subsection{Correctness (TO BE WRITTEN)}
 
-\section{Application flow chart}
+\subsection{Runtime (TO BE WRITTEN)}
 
-\subsection{Lexer}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[scale=1]{lexer.png}
-	\end{center}
-	\caption{Flow chart of our lexer}
-\end{figure}
+\subsection{Data Analysis (TO BE WRITTEN)}
 
-Pat\_scan sub-patterns are separated by whitespace characters. Because of this, and because of the fact that the grammar is very simple, we can simply split the patcan pattern at each whitespace to get a list of sub-patterns, which we will refer to as tokens.
+\section{Results (TO BE WRITTEN)}
 
-\subsection{Parser}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[scale=0.65]{parser.png}
-	\end{center}	
-	\caption{Flow chart of our parser}
-\end{figure}
+\subsection{Experiment design (TO BE WRITTEN)}
 
-The parser takes each token from the lexer's token list, and checks them against our grammar. The tokens are then put into a Token objects, which takes a pattern type and a match object. \\
-The pattern type enables the translator to recognize which type of sub-pattern the token belongs to. The match object is the regular expression object returned by our grammar. This match object contains information about the specific parts of our tokens, such as the number of mismatches belonging to a sequence such as \texttt{AGTCA[2,0,0]}.
+\subsection{Experiment results (TO BE WRITTEN)}
 
-\begin{figure}[H]
-	\begin{lstlisting}
- 	# Discover sequence with mismatch, insertion, deletion permutations
-    #
-    # @param [String] token_string
-    # @return [MatchData]
-    def get_combination(token_string)
-        return /^(?<sequence>\w+)\[(?<mismatches>\d+),(?<insertions>\d+),(?<deletions>\d+)\]$/.match token_string
-    end
-	\end{lstlisting}
-	\caption{Grammar for matching sequences with the amount of combinations.}
-	\label{fig:gamme_c}
-\end{figure}
-
-\newpage
-
-\section{Regular expression performance}
-
-\subsection{Ruby}
-
-\subsection{KMC}
-
-\subsection{Google's engine}
+\section{Conclusion (TO BE WRITTEN)}
 
 \newpage
 
