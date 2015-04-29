@@ -1,0 +1,3 @@
+
+all: FileReader.h FileReader.cpp main.cpp
+   g++ -Wall -c -std=c++11 -l re2 FileReader.cpp main.cpp

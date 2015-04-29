@@ -16,7 +16,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with deletions' do
-            regex_pattern = Regexp.new Translater.new('AGTCT[0,0,2]').translate
+            regex_pattern = Regexp.new Translater.new('AGTCT[0,2,0]').translate
 
             match_0 = regex_pattern.match('AGTCT')
             match_1 = regex_pattern.match('AGTC')
@@ -30,7 +30,7 @@ describe Translater, :type => :class do
         end
 
         it 'returns a valid regular expression with insertions' do
-            pattern = Translater.new('AGTCT[0,2,0]').translate
+            pattern = Translater.new('AGTCT[0,0,2]').translate
             regex_pattern = Regexp.new pattern
 
             match_0 = regex_pattern.match('AGTCT')
@@ -79,7 +79,7 @@ describe Translater, :type => :class do
         end
 
         it 'supports chained tokens' do
-            regex_pattern = Regexp.new Translater.new('AAAGT[2,0,0] 2...4 TNTGCC[1,0,1]').translate
+            regex_pattern = Regexp.new Translater.new('AAAGT[2,0,0] 2...4 TNTGCC[1,1,0]').translate
 
             match_0 = regex_pattern.match('AGTGTNNNNANTGC') # 2 mismatches, 4 random, 1 mismatch & 1 deletion.
 
@@ -104,6 +104,16 @@ describe Translater, :type => :class do
 
             expect(match_right).to be_an_instance_of MatchData
             expect(match_wrong).to be nil
+        end
+
+        it 'matches the same as scan_for_matches' do
+            regex_pattern = Regexp.new Translater.new('AGCGTGGGGAGCAAAC[2,0,1]').translate
+
+            expect(regex_pattern.match('TGCTGTAGGGAGCAAAC')).to be_an_instance_of MatchData
+            expect(regex_pattern.match('AGCCGTGGGGAGCCTAC')).to be_an_instance_of MatchData
+            expect(regex_pattern.match('AGACCTGGGGAGGAAAC')).to be_an_instance_of MatchData
+            expect(regex_pattern.match('CGCAGTGGGGAGCAGAC')).to be_an_instance_of MatchData
+            expect(regex_pattern.match('AGCCTGGGGAGCAGATC')).to be_an_instance_of MatchData
         end
     end
 end

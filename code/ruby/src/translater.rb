@@ -6,6 +6,7 @@ class Translater
 
         lexer = Lexer.new pattern
         parser = Parser.new lexer.tokenize
+
         @tokens = parser.parse
         @var_table = Hash.new
     end
@@ -32,7 +33,7 @@ class Translater
             end
         }
 
-        return expression
+        return "(?i)#{expression}(?-i)"
     end
 
     def reverse_complement(sequence)
@@ -67,6 +68,7 @@ class Translater
                     reversed << c
             end
         }
+
         return reversed.join
     end
 
@@ -96,9 +98,10 @@ class Translater
             if token.value['negation'] == '~'
                 return reverse_complement @var_table[token.value['variable_name']]
             elsif token.value['mismatches'] != nil
+                # TODO: Fix this piece of shit
                 # The variable usage has mismatches on it
                 parser = Parser.new ['']
-                return translate_combination Token.new(T::VARIABLE, parser.get_combination("#{@var_table[token.value['variable_name']]}[#{token.value['mismatches']},#{token.value['insertions']},#{token.value['deletions']}]"))
+                return translate_combination Token.new(T::VARIABLE, parser.get_combination("#{@var_table[token.value['variable_name']]}[#{token.value['mismatches']},#{token.value['deletions']},#{token.value['insertions']}]"))
             else
                 return @var_table[token.value['variable_name']]
             end

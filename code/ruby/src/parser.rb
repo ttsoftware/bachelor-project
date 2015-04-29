@@ -94,7 +94,7 @@ class Parser
     # @param [String] token_string
     # @return [MatchData]
     def get_variable(token_string)
-        return /^(?<negation>~)?(?<variable_name>[^=\[~]+)(\[(?<mismatches>\d+),(?<insertions>\d+),(?<deletions>\d+)\])?$/.match token_string
+        return /^(?<negation>~)?(?<variable_name>[^=\[~]+)(\[(?<mismatches>\d+),(?<deletions>\d+),(?<insertions>\d+)\])?$/.match token_string
     end
 
     # Discover a sequence
@@ -110,7 +110,7 @@ class Parser
     # @param [String] token_string
     # @return [MatchData]
     def get_combination(token_string)
-        return /^(?<sequence>\w+)\[(?<mismatches>\d+),(?<insertions>\d+),(?<deletions>\d+)\]$/.match token_string
+        return /^(?<sequence>\w+)\[(?<mismatches>\d+),(?<deletions>\d+),(?<insertions>\d+)\]$/.match token_string
     end
 
     # Discover ... delimiter

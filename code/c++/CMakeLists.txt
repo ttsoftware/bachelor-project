@@ -6,7 +6,9 @@ set(GXX_COMPILE_FLAGS "-lre2")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GXX_COMPILE_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    main.cc)
+    main.cpp
+    FileService.cpp
+    FileService.h)
 
 #include(ExternalProject)
 #ExternalProject_Add(
