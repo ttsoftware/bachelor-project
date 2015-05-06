@@ -266,38 +266,38 @@ DNA can generally be described as an alphabet of 4 letters, which represent 4 di
 \caption{The four different nucleobases found in the DNA nucleotides.\cite{DNA-biotechacademy}}
 \end{figure}
 
-\begin{mydef}
+\begin{definition}
 The alphabet, that makes up DNA sequences, denoted by $\mathcal{A}_{DNA}$ is:
 \begin{center}
 $\mathcal{A}_{DNA}$ = \texttt{\{ATCG\}}
 \end{center}
-\end{mydef}
+\end{definition}
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
 
 RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymin. However, uracil and thymin is generally considered synonymous.
 
-\begin{mydef}
+\begin{definition}
 The alphabet, that makes up RNA sequences, denoted by $\mathcal{A}_{RNA}$ is:
 \begin{center}
 $\mathcal{A}_{RNA}$ = \texttt{\{AUCG\}}
 \end{center}
-\end{mydef}
+\end{definition}
 
 Besides the 5 basic nucleobases included in $\mathcal{A}_{DNA}$ and $\mathcal{A}_{RNA}$, 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
 
-\begin{mydef}
+\begin{definition}
 The extended alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}_{ext}$ is:
 \begin{center}
 $\mathcal{A}_{ext}$ = \texttt{\{ATUGCYRSWKMBDHVN\}}
 \end{center}
-\end{mydef}
+\end{definition}
 
 A DNA strand can bond with another DNA strand, containing the complementary nucleobases.
 
-\begin{mydef}
+\begin{definition}
 \textbf{complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
-\end{mydef}
+\end{definition}
 
 \begin{figure}[H]
 	\label{Complementarity}
@@ -309,9 +309,9 @@ A DNA strand can bond with another DNA strand, containing the complementary nucl
 
 Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the reverse complement of a given DNA sequence.
 
-\begin{mydef}
+\begin{definition}
 A DNA sequence containing the complementary bases of another DNA sequence, is called the \textbf{reverse complement} of the latter sequence.
-\end{mydef}
+\end{definition}
 
 \subsection{What is scan-for-matches?}
 
@@ -319,29 +319,29 @@ Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan
 
 The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes:
 
-\begin{mydef}
+\begin{definition}
 The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}_{ext}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
-\end{mydef}
+\end{definition}
 
-\begin{mydef}
+\begin{definition}
 The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{deletions}, and \textbf{insertions} respectively), is denoted as a \textbf{combination sequence} (Example: \texttt{AGTCT[1,0,0]})
-\end{mydef}
+\end{definition}
 
-\begin{mydef}
+\begin{definition}
 The sub-patterns, that consists of a number, $a \geq 0$, followed by exactly three dots, followed by a number, $b \geq a$, is denoted as a \textbf{range} (Example: \texttt{2...4})
-\end{mydef}
+\end{definition}
 
-\begin{mydef}
+\begin{definition}
 The sub-patterns, that consists of a string, denoted as a \textbf{variable name}, followed by an equal sign, and then a \textbf{sequence}, is denoted as a \textbf{variable assignment} (Example: \texttt{p1=AGTCT})
-\end{mydef}
+\end{definition}
 
-\begin{mydef}
+\begin{definition}
 The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
-\end{mydef}
+\end{definition}
 
-\begin{mydef}
+\begin{definition}
 The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1} directly in front of the sequence or variable.
-\end{mydef}
+\end{definition}
 
 The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
@@ -365,7 +365,7 @@ We will try to translate patscan patterns into regular expressions, and run them
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{\alpha, \beta\}$ might for an example form the words $\alpha\beta$, $\beta\alpha$, $\alpha\alpha\beta$ or any such conbination of any length, thus forming an infinite set of words.\\
 
-\begin{mydef} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.
+\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.
 	\begin{enumerate}
 		\item An expression containing a single letter $\alpha$ from our alphabet $\Sigma$: $E = \alpha$
 		
@@ -376,15 +376,15 @@ In order to talk about regular expressions, we need to be able to talk in genera
 			E &=& E_1^* \\
 		\end{eqnarray}
 	\end{enumerate}	
-\end{mydef} 
+\end{definition} 
 
 We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as a language denoted by $\mathcal{L}(E)$. \\
 
-\begin{mydef} The language $\mathcal{L}(E)$ for the regular expressions $E$ from the alphabet $\Sigma$.
+\begin{definition} The language $\mathcal{L}(E)$ for the regular expressions $E$ from the alphabet $\Sigma$.
 
 	$\mathcal{L}(0) = \emptyset$\\
 	$\mathcal{L}(\alpha) = \{\alpha\}$
-\end{mydef}
+\end{definition}
 
 ... 
 
@@ -420,7 +420,7 @@ We have defined the following grammar for the patscan language:
 \caption{PatScan grammar}
 \end{figure}
 
-\subsubsection{Mismatches, Insertions and Deletions (TO BE RESTRUCTURED)}
+\subsubsection{Mismatches, Deletions, and Insertions (TO BE RESTRUCTURED)}
 
 Combination sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
 \begin{equation}
@@ -444,7 +444,7 @@ Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking th
 The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When no more recursion steps can be taken, we will have a string with a unique combination of mismatches.Like this, all possible combinations will be constructed, and they can be added to a list of all combinations. Like this, all possible combinations will be constructed.
 \end{example}
 
-Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
+%Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
 
 \subsubsubsection{Divide and Conquer}
 
