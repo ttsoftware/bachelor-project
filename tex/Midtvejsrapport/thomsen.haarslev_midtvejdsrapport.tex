@@ -257,16 +257,7 @@ $\mathcal{A}_{DNA}$ = \texttt{\{ATCG\}}
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
 
-RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymin. However, uracil and thymin is generally considered synonymous.
-
-\begin{mydef}
-The alphabet, that makes up RNA sequences, denoted by $\mathcal{A}_{RNA}$ is:
-\begin{center}
-$\mathcal{A}_{RNA}$ = \texttt{\{AUCG\}}
-\end{center}
-\end{mydef}
-
-Besides the 5 basic nucleobases included in $\mathcal{A}_{DNA}$ and $\mathcal{A}_{RNA}$, 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
+Besides the 4 basic nucleobases, RNA uses uracil (U) instead of thymin, but they can be considered synonymous, and 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
 
 \begin{mydef}
 The extended alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}_{ext}$ is:
@@ -358,13 +349,25 @@ In order to talk about regular expressions, we need to be able to talk in genera
 
 We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as a language denoted by $\mathcal{L}(E)$. \\
 
-\begin{mydef} The language $\mathcal{L}(E)$ for the regular expressions $E$ from the alphabet $\Sigma$.
+\begin{mydef} The language $\mathcal{L}(E)$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
 
-	$\mathcal{L}(0) = \emptyset$\\
-	$\mathcal{L}(\alpha) = \{\alpha\}$
+	\begin{enumerate}
+		\item For single-letter expressions we have
+			\begin{eqnarray}
+				\mathcal{L}(0) &=& \emptyset \\
+				\mathcal{L}(\alpha) &=& \{\alpha\}
+			\end{eqnarray}
+			Where $\alpha \in \Sigma$
+			
+		\item For combined expressions we have
+			\begin{eqnarray}
+				\mathcal{L}(E_1|E_2) &=& \mathcal{L}(E_1) \cup \mathcal{L}(E_2) \\
+				\mathcal{L}(E_1E_2) &=& \mathcal{L}(E_1) \odot \mathcal{L}(E_2) \\
+				\mathcal{L}(E^*) &=& \bigcup^{\infty}_{n = 0}\mathcal{L}(E^n)
+			\end{eqnarray}
+			Where $\mathcal{L}(E_1) \odot \mathcal{L}(E_2) = \{w_1w_2 \ |\  w_1 \in \mathcal{L}(E_1), w_2 \in \mathcal{L}(E_2)\}$, and where $E^n$ denotes E combined with itself $n$ times.
+	\end{enumerate}
 \end{mydef}
-
-... 
 
 \newpage
 
