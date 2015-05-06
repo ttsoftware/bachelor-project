@@ -181,8 +181,12 @@
       {\Large Regular Expression Matching In Genomic Data}\\[0.4cm]
       {\large Rasmus Haarslev - nkh877}\\
       {\large Troels Thomsen - qvw203}\\[0.4cm]
-      {Supervisors: Rasmus Fonseca}\\
-      {\small 23. Februar 2015}\\[0.3cm] 
+      {\textbf{Supervisors:}\\
+      Rasmus Fonseca\\
+      Niels Bjørn Bugge Grathwohl\\
+      Ulrik Rasmussen\\
+      Martin Asser Hansen}\\
+      {\small \textbf{April 30th 2015}}\\[0.3cm] 
       {\small Department of Computer Science}\\
       {\small University of Copenhagen}
     \end{center}
@@ -230,16 +234,57 @@ Specifically we wish to solve the following problems:
 	\item Can we find weak extensions to regular expressions, which would enable us to support more or all scan-for-matches patterns?
 \end{itemize}
 
-\subsection{DNA/RNA (TO BE WRITTEN)}
+\subsection{DNA/RNA}
+
+Deoxyribonucleic acid (DNA) is a molecule, that is found in every known living organism, as well as many viruses. DNA encodes the genetic instructions, that the organism uses in the development and functioning of itself. DNA is a nucleic acid, which is one of three major macromolecules, that is essential for all known forms of life.
+
+DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenin (A), thymin (T), cytosin (C), and guanin (G) (figure \ref{dnabases}).
+
+\begin{figure}[H]
+\label{dnabases}
+\begin{center}
+	\includegraphics[scale=4]{dnabaserne.png}
+\end{center}
+\caption{The four different nucleobases found in the DNA nucleotides.\cite{DNA-biotechacademy}}
+\end{figure}
 
 \begin{mydef}
-The alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}$ is:
+The alphabet, that makes up DNA sequences, denoted by $\mathcal{A}_{DNA}$ is:
 \begin{center}
-$\mathcal{A}$ = \texttt{\{ATUGCYRSWKMBDHVN\}}
+$\mathcal{A}_{DNA}$ = \texttt{\{ATCG\}}
 \end{center}
 \end{mydef}
 
-\textbf{DEFINE Reverse Complement HERE}
+The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
+
+Besides the 4 basic nucleobases, RNA uses uracil (U) instead of thymin, but they can be considered synonymous, and 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
+
+\begin{mydef}
+The extended alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}_{ext}$ is:
+\begin{center}
+$\mathcal{A}_{ext}$ = \texttt{\{ATUGCYRSWKMBDHVN\}}
+\end{center}
+\end{mydef}
+
+A DNA strand can bond with another DNA strand, containing the complementary nucleobases.
+
+\begin{mydef}
+\textbf{complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
+\end{mydef}
+
+\begin{figure}[H]
+	\label{Complementarity}
+	\begin{center}
+		\includegraphics[scale=2.5]{complementarity.jpg}	
+	\end{center}
+	\caption{The four base pairs of complementarity.\cite{DNA-nature}}
+\end{figure}
+
+Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the reverse complement of a given DNA sequence.
+
+\begin{mydef}
+A DNA sequence containing the complementary bases of another DNA sequence, is called the \textbf{reverse complement} of the latter sequence.
+\end{mydef}
 
 \subsection{What is scan-for-matches?}
 
@@ -248,11 +293,11 @@ Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan
 The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes:
 
 \begin{mydef}
-The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
+The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}_{ext}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
 \end{mydef}
 
 \begin{mydef}
-The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{insertions}, and \textbf{deletions} respectively), is denoted as a \textbf{combination} (Example: \texttt{AGTCT[1,0,0]})
+The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{insertions}, and \textbf{deletions} respectively), is denoted as a \textbf{combination} (Example: \texttt{AGTCT[1,0,0]})
 \end{mydef}
 
 \begin{mydef}
@@ -522,7 +567,7 @@ Using back-referencing in our implementation will cause our RE patterns to lose 
 
 \pagenumbering{gobble}
 \bibliographystyle{plain}
-%\nocite{*}
+\nocite{*}
 \bibliography{litterature}
 
 \end{document}
