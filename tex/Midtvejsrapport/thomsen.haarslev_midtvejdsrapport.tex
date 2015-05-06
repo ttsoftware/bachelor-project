@@ -26,9 +26,27 @@
 %        Theorem        %
 
 \usepackage{amsthm}
+\usepackage{thmtools}
 \theoremstyle{definition}
 
-\newtheorem{mydef}{Definition}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em
+]{exstyle}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em
+]{defstyle}
+
+\declaretheorem[style=defstyle]{definition}
+\declaretheorem[style=exstyle]{example}
 
 %                       %
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -306,7 +324,7 @@ The sub-patterns, that consists only of a consecutive sequence of characters fro
 \end{mydef}
 
 \begin{mydef}
-The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{insertions}, and \textbf{deletions} respectively), is denoted as a \textbf{combination} (Example: \texttt{AGTCT[1,0,0]})
+The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{deletions}, and \textbf{insertions} respectively), is denoted as a \textbf{combination sequence} (Example: \texttt{AGTCT[1,0,0]})
 \end{mydef}
 
 \begin{mydef}
@@ -319,6 +337,10 @@ The sub-patterns, that consists of a string, denoted as a \textbf{variable name}
 
 \begin{mydef}
 The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
+\end{mydef}
+
+\begin{mydef}
+The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1} directly in front of the sequence or variable.
 \end{mydef}
 
 The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
@@ -373,34 +395,27 @@ We have defined the following grammar for the patscan language:
 
 \subsubsection{Mismatches, Insertions and Deletions (TO BE RESTRUCTURED)}
 
-Combination sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
+Combination sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
 \begin{equation}
-	Sequence[m, i, d] \ \ \{m, i, d \in \mathbb{N}_0 \}
+	Sequence[m, i, d] \ \ \{m, d, i \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for up the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for up to the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation.
-
-Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly difficult, as the sequence becomes longer, and the number of allowed mismatches increases.
-
-We tried the following approaches to solving this problem, but ultimately decided on a divide and conquer algorithm. 
+This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
 
 \subsubsubsection{Recursion (TO BE REWRITTEN)}
 
-Solving the problem with recursion one might take each character one at a time, and look at all the possibilities for that character.
+The way we used recursion to solve the previously mentioned problem, is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter.
 
-This way we could construct a recursion tree containing all possible combinations, no matter how many mismatches are allowed.
-
-For mismatches the recursion tree would add two new branches per iteration. The first iteration of \texttt{AGCTC[2,0,0]} would add the branches
-
+\begin{example}
+Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and run the algorithm with the remaining letters for every possibility of the \texttt{A}.
 \begin{eqnarray}
-	Left\ branch &=& A\{GCTC[2,0,0]\} \\
-	right\ branch &=&\ \hat{}A\{GCTC[1,0,0]\}
+	Left\ branch &=& func(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
+	right\ branch &=& func(mismatch(\texttt{A}), \texttt{GCTC[1,0,0]})
 \end{eqnarray}
-
-The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose $A$ as our first mismatch. Thus we must choose all possibilities from $N \in \{n, \hat{}n\}$ as a new branch, every time we take a recursion step.
-On our leafs we will have a string with a unique combination of mismatches.
+The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When no more recursion steps can be taken, we will have a string with a unique combination of mismatches.Like this, all possible combinations will be constructed, and they can be added to a list of all combinations. Like this, all possible combinations will be constructed.
+\end{example}
 
 Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
 
