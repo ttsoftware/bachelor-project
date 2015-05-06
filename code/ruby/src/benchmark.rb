@@ -3,18 +3,33 @@ class Benchmark
     def initialize
 
         @enviroment = '../*/benchmark'
-        @output = ''
-    end
 
-    # for all patscan files in the directory
-    def files
-        Dir["#{@enviroment}/**/*.pat"].each { |f|
-            pp f
-        }
+        # find all patscan files in the enviroment
+        @patscan_files = Dir["#{@enviroment}/**/*.pat"].sort!
+
+        # find all fasta files in the enviroment
+        @fasta_files = Dir["#{@enviroment}/../../genome/*.fa"].sort!
     end
 
     def ruby
-        system('./re-scan.rb ')
+
+        threads = []
+
+        # run all tests
+        @patscan_files[0..5].each { |file|
+            threads << Thread.new {
+                #system "#{File.dirname(__FILE__)}/re-scan.rb",  "#{file}", "#{@fasta_files[0]}"
+
+                pid = spawn("#{File.dirname(__FILE__)}/re-scan.rb #{file} #{@fasta_files[0]}")
+            }
+
+            puts "Started #{file}."
+        }
+
+        threads.each { |t|
+            t.join 5
+            t.exit
+        }
     end
 
     def python
@@ -22,6 +37,10 @@ class Benchmark
     end
 
     def re2
+
+    end
+
+    def kmc
 
     end
 end

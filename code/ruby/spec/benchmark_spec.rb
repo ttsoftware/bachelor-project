@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe Benchmark, :type => :class do
 
-    describe '#files' do
+    describe '#ruby' do
 
-        it 'finds all patscan files in subdirectories of benchmark enviroment' do
+        it 'finds benchmarks all patscan files in subdirectories of benchmark enviroment' do
 
-            @benchmark = Benchmark.new
-
-            @benchmark.files
+            benchmark = Benchmark.new
+            benchmark.ruby
         end
     end
 end
