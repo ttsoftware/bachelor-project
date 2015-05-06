@@ -1,4 +1,0 @@
-Vi behøver ikke at matche N'er.
-
-Kan vi eksempelvis bruge Ragel til at generere automater, som vi kan bruge til at frembring data i det samme format som scan-for-matches.
-Scan-for-matches kan kun give os resultater, men ikke hvor henne det ligger.
