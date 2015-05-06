@@ -23,6 +23,24 @@
 \usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
+%         Colors        %
+
+\definecolor{dark-blue}{HTML}{000080}
+\definecolor{dark-green}{HTML}{008000}
+\definecolor{pale-purple}{HTML}{94558D}
+\definecolor{dark-purple}{HTML}{0000AA}
+\definecolor{regular-purple}{HTML}{660099}
+\definecolor{magenta}{HTML}{B200B2}
+\definecolor{light-gray}{HTML}{FAFAFA}
+\definecolor{theorem-gray}{HTML}{F5F5F5}
+\definecolor{dark-gray}{HTML}{2D2D2D}
+\definecolor{comment}{HTML}{808080}
+\definecolor{digit}{HTML}{0000FF}
+
+%                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 %        Theorem        %
 
 \usepackage{amsthm}
@@ -34,7 +52,8 @@ spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries,
 notefont=\mdseries, notebraces={(}{)},
 bodyfont=\normalfont,
-postheadspace=1em
+postheadspace=1em,
+shaded={bgcolor=theorem-gray}
 ]{exstyle}
 
 \declaretheoremstyle[
@@ -42,10 +61,13 @@ spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries,
 notefont=\mdseries, notebraces={(}{)},
 bodyfont=\normalfont,
-postheadspace=1em
+postheadspace=1em,
+shaded={bgcolor=theorem-gray}
 ]{defstyle}
 
+%\declaretheorem[thmbox=M]{definition}
 \declaretheorem[style=defstyle]{definition}
+%\declaretheorem[thmbox=M]{example}
 \declaretheorem[style=exstyle]{example}
 
 %                       %
@@ -107,17 +129,6 @@ postheadspace=1em
 
 \setlength\parindent{0pt}
 \usepackage[parfill]{parskip}
-
-\definecolor{dark-blue}{HTML}{000080}
-\definecolor{dark-green}{HTML}{008000}
-\definecolor{pale-purple}{HTML}{94558D}
-\definecolor{dark-purple}{HTML}{0000AA}
-\definecolor{regular-purple}{HTML}{660099}
-\definecolor{magenta}{HTML}{B200B2}
-\definecolor{light-gray}{HTML}{FAFAFA}
-\definecolor{dark-gray}{HTML}{2D2D2D}
-\definecolor{comment}{HTML}{808080}
-\definecolor{digit}{HTML}{0000FF}
 
 \newcommand*{\FormatDigit}[1]{\textcolor{digit}{#1}}
 
@@ -222,6 +233,7 @@ postheadspace=1em
 
 \pagenumbering{arabic}
 
+\section{Abstract (TO BE WRITTEN)}
 \section{Introduction}
 \subsection{Motivation}
 
@@ -353,7 +365,7 @@ This means that a sequence of length $n$ with a single mismatch will yield $n^1+
 If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
 
 Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. \\
-An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{\~{}}.\\
+An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 Combining this combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. \\
@@ -391,24 +403,26 @@ We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as 
 \newpage
 
 \section{Methods}
-\subsection{PatScan as regular expressions (TO BE WRITTEN)}
+\subsection{PatScan as regular expressions}
 
-\subsubsection{Grammar (TO BE WRITTEN)}
+\subsubsection{Grammar}
 \label{Patscan grammar}
 
 We have defined the following grammar for the patscan language:
 
 \begin{figure}[H]
+\begin{center}
 \begin{tabular}{|lcll|}
 	\hline
 	$Prog$ & $\rightarrow$ & $StmtSeq$ & \\
 	$StmtSeq$ & $\rightarrow$ & $Stmt\ StmtSeq$ & \\
 	$StmtSeq$ & $\rightarrow$ & $Stmt$ & \\
 	$Stmt$ & $\rightarrow$ & $Exp$ & \\
-	$Stmt$ & $\rightarrow$ & $LVal\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
-	$Stmt$ & $\rightarrow$ & $LVal$ & \textcolor{red}{Variable usage} \\
-	$LVal$ & $\rightarrow$ & Id $Combi$ & \\
-	$LVal$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} Id $Combi$ & \\
+	$Stmt$ & $\rightarrow$ & $LVal1\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
+	$Stmt$ & $\rightarrow$ & $LVal2$ & \textcolor{red}{Variable usage} \\
+	$LVal1$ & $\rightarrow$ & \textbf{Id} & \\
+	$LVal2$ & $\rightarrow$ & \textbf{Id} $Combi$ & \\
+	$LVal2$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} \textbf{Id} $Combi$ & \\
 	$Exp$ & $\rightarrow$ & \textbf{num} ... \textbf{num} & \textcolor{red}{Range} \\
 	$Exp$ & $\rightarrow$ & $Seq\ Combi$ & \\
 	$Seq$ & $\rightarrow$ & \textbf{char} $Seq$ & \\
@@ -417,25 +431,40 @@ We have defined the following grammar for the patscan language:
 	$Combi$ & $\rightarrow$ & $\epsilon$ & \\
 	\hline
 \end{tabular}
+\end{center}
 \caption{PatScan grammar}
 \end{figure}
 
-\subsubsection{Mismatches, Deletions, and Insertions (TO BE RESTRUCTURED)}
+There is a limitation to the patscan expressions beyond it's grammar. A variable \textbf{Id} may never be reassigned.
 
-Combination sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
+\subsubsection{Ranges}
+
+Patscan ranges are very similar to RE ranges, and is therefore easily translated. A patscan range, which has the following form:
 \begin{equation}
-	Sequence[m, i, d] \ \ \{m, d, i \in \mathbb{N}_0 \}
+\label{example:range}
+	2...5
+\end{equation}
+It translates into 'between 2 and 5 of any character'. In RE, there is a character for 'any character', which is \texttt{.}, and a quantifier, where you can state how many of a given character you want matched, which is \texttt{\{min,max\}}. Using these, (\ref{example:range}) translates into the following RE:
+\begin{equation}
+.\{2,5\}
+\end{equation}
+
+\subsubsection{Mismatches, Deletions, and Insertions}
+
+Combination sequence sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
+\begin{equation}
+	Sequence[m, d, i] \ \ \{m, d, i \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for up to the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for up to the given number of mismatches, deletions or insertions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
 This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
 
-\subsubsubsection{Recursion (TO BE REWRITTEN)}
+Recursion can be used to solve this problem. However, using recursion alone comes with some problems, that we had to address. 
 
-The way we used recursion to solve the previously mentioned problem, is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter.
+A simple way to find all possible combinations is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter
 
-\begin{example}
+\begin{example}[label=example:recursion]
 Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and run the algorithm with the remaining letters for every possibility of the \texttt{A}.
 \begin{eqnarray}
 	Left\ branch &=& func(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
@@ -444,11 +473,9 @@ Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking th
 The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When no more recursion steps can be taken, we will have a string with a unique combination of mismatches.Like this, all possible combinations will be constructed, and they can be added to a list of all combinations. Like this, all possible combinations will be constructed.
 \end{example}
 
-%Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
+Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter, thus increasing the amount of recursion. The recursion does not stop until every combination is found, which means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program can reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
-\subsubsubsection{Divide and Conquer}
-
-To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which would reduce the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character. 
+In order to guarantee a low recursion depth, we use a divide and conquer algorithm\cite{Algorithms} instead, that reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character, as can be seen in figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -471,6 +498,7 @@ To solve the recursion depth problem, we thought of using a divide and conquer a
 
 After dividing the sequence into characters, we have to conquer each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will return a list of all possibilities, which that character can be.
 
+\begin{example}[label=example:possibilities]
 For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
 
 \begin{center}
@@ -485,13 +513,14 @@ as well as the following for insertions
 \end{center}
 
 A list of all these possibilities is then returned, and it can be combined with the list received from the 'b' recursion.
+\end{example}
 
-These lists are combined by combining each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, insertions, and deletions are being kept track of, and if combining two outcomes will result in more mismatches, insertions, or deletions than the maximum allowed, then it is skipped.
+These lists are combined by taking each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, deletions, and insertions are being kept track of, and if combining two outcomes will result in more mismatches, deletions, or insertions than the maximum allowed, it is skipped.
 
 \begin{spacing}{0.8}
-\begin{algorithm}
-	\caption{find\_combinations}
-	\label{alg:find_combinations}
+\begin{algorithm}[H]
+	\caption{find\_combinations (Divide and conquer)}
+	\label{alg:divideandconquer}
   	\begin{algorithmic}[1]
     		\Require
     			\Statex seq - sequence string to be translated
@@ -526,12 +555,11 @@ These lists are combined by combining each outcome from the first list, and comb
 \end{algorithm}
 \end{spacing}
 
-\newpage
 \subsubsubsection{Redundancy}
 
-With this implementation, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
+Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
-If we look at the combination sequence \texttt{ab[0,1,0]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create even more redundancy in the upper levels of the recursion.
+If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
 On the first conquer step, we will have $r_0$ redundant cases, which is calculated using (4), where $i_{max}$ is the number of allowed insertions, and $n$ is the number of characters in the sequence.
 \begin{eqnarray}
@@ -588,13 +616,13 @@ These assignments can be referenced by using the variable name. An example of su
 
 \texttt{q1=ACCT 2...5 q1}
 
-In addition just referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
+In addition to referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
 
 \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
 
 Here, inversion refers to the reverse complement of the sequence stored in the variable.
 
-Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regular.
+Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, keeping the expressions regular.
 
 Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file the engine is matching, it is not possible to 'hard code' it as a regular expression.
 
