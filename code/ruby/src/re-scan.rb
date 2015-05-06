@@ -18,14 +18,24 @@ if ARGV.length != 2
 end
 
 arg1 = ARGV[0]
-fasta_file = ARGV[1]
+fasta_file = ''
 patscan_pattern = ''
 
 # This a pattern file
 unless (arg1.match /.+\.pat/).nil?
-    File.open(arg1, 'r') { |file| patscan_pattern = file.readlines.join ' ' }
+    File.open(arg1, 'r') { |file| patscan_pattern = (file.readlines.join ' ').rstrip! }
 else
     patscan_pattern = arg1
 end
 
-puts Translater.new(patscan_pattern).translate
+File.open(ARGV[1], 'r') { |file| fasta_file = file.readlines.join ' ' }
+
+regex = Regexp.new Translater.new(patscan_pattern).translate
+
+matches = fasta_file.to_enum(:scan, regex).map { Regexp.last_match }
+
+puts "Found #{matches.size} matches to #{patscan_pattern} in #{arg1}."
+
+matches.each { |m|
+    puts "\t:Found #{m.to_s} at #{m.begin 0}:#{m.end 0}"
+}
