@@ -330,7 +330,34 @@ A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex
 
 We will try to translate patscan patterns into regular expressions, and run them on the KMC group's RE engine. We hope to achieve similar, or better speeds to those of scan-for-matches, while also achieving the same search results.
 
-\subsection{Regular Expressions (TO BE WRITTEN)}
+\subsection{Regular Expressions (TODO)}
+
+In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{\alpha, \beta\}$ might for an example form the words $\alpha\beta$, $\beta\alpha$, $\alpha\alpha\beta$ or any such conbination of any length, thus forming an infinite set of words.\\
+
+\begin{mydef} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.
+	\begin{enumerate}
+		\item An expression containing a single letter $\alpha$ from our alphabet $\Sigma$: $E = \alpha$
+		
+		\item A combination of the two regular expressions $E_1$ and $E_2$:
+		\begin{eqnarray}
+			E &=& E_1 | E_2 \\
+			E &=& E_1E_2 \\
+			E &=& E_1^* \\
+		\end{eqnarray}
+	\end{enumerate}	
+\end{mydef} 
+
+We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as a language denoted by $\mathcal{L}(E)$. \\
+
+\begin{mydef} The language $\mathcal{L}(E)$ for the regular expressions $E$ from the alphabet $\Sigma$.
+
+	$\mathcal{L}(0) = \emptyset$\\
+	$\mathcal{L}(\alpha) = \{\alpha\}$
+\end{mydef}
+
+... 
+
+\newpage
 
 \section{Methods}
 \subsection{PatScan as regular expressions (TO BE WRITTEN)}
