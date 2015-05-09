@@ -64,6 +64,8 @@ class Benchmark
                 }
 
                 puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
+
+                File.delete file
             }
 
             threads.each { |t| t.join }

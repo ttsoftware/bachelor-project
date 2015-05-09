@@ -1,4 +1,4 @@
-Compile time: 3ms.
-Match time: 566ms.
-total time: 569ms.
+Compile time: 1ms.
+Match time: 1ms.
+total time: 2ms.
 Number of matches: 0
