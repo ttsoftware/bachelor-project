@@ -23,12 +23,48 @@
 \usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
+%         Colors        %
+
+\definecolor{dark-blue}{HTML}{000080}
+\definecolor{dark-green}{HTML}{008000}
+\definecolor{pale-purple}{HTML}{94558D}
+\definecolor{dark-purple}{HTML}{0000AA}
+\definecolor{regular-purple}{HTML}{660099}
+\definecolor{magenta}{HTML}{B200B2}
+\definecolor{light-gray}{HTML}{FAFAFA}
+\definecolor{theorem-gray}{HTML}{F5F5F5}
+\definecolor{dark-gray}{HTML}{2D2D2D}
+\definecolor{comment}{HTML}{808080}
+\definecolor{digit}{HTML}{0000FF}
+
+%                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 %        Theorem        %
 
 \usepackage{amsthm}
+\usepackage{thmtools}
 \theoremstyle{definition}
 
-\newtheorem{definition}{Definition}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em
+]{exstyle}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em
+]{defstyle}
+
+\declaretheorem[style=defstyle]{definition}
+\declaretheorem[style=exstyle]{example}
 
 %                       %
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,17 +125,6 @@
 
 \setlength\parindent{0pt}
 \usepackage[parfill]{parskip}
-
-\definecolor{dark-blue}{HTML}{000080}
-\definecolor{dark-green}{HTML}{008000}
-\definecolor{pale-purple}{HTML}{94558D}
-\definecolor{dark-purple}{HTML}{0000AA}
-\definecolor{regular-purple}{HTML}{660099}
-\definecolor{magenta}{HTML}{B200B2}
-\definecolor{light-gray}{HTML}{FAFAFA}
-\definecolor{dark-gray}{HTML}{2D2D2D}
-\definecolor{comment}{HTML}{808080}
-\definecolor{digit}{HTML}{0000FF}
 
 \newcommand*{\FormatDigit}[1]{\textcolor{digit}{#1}}
 
@@ -204,6 +229,7 @@
 
 \pagenumbering{arabic}
 
+\section{Abstract (TO BE WRITTEN)}
 \section{Introduction}
 \subsection{Motivation}
 
@@ -257,7 +283,16 @@ $\mathcal{A}_{DNA}$ = \texttt{\{ATCG\}}
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
 
-Besides the 4 basic nucleobases, RNA uses uracil (U) instead of thymin, but they can be considered synonymous, and 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
+RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymin. However, uracil and thymin is generally considered synonymous.
+
+\begin{definition}
+The alphabet, that makes up RNA sequences, denoted by $\mathcal{A}_{RNA}$ is:
+\begin{center}
+$\mathcal{A}_{RNA}$ = \texttt{\{AUCG\}}
+\end{center}
+\end{definition}
+
+Besides the 5 basic nucleobases included in $\mathcal{A}_{DNA}$ and $\mathcal{A}_{RNA}$, 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
 
 \begin{definition}
 The extended alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}_{ext}$ is:
@@ -297,7 +332,7 @@ The sub-patterns, that consists only of a consecutive sequence of characters fro
 \end{definition}
 
 \begin{definition}
-The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{insertions}, and \textbf{deletions} respectively), is denoted as a \textbf{combination} (Example: \texttt{AGTCT[1,0,0]})
+The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{deletions}, and \textbf{insertions} respectively), is denoted as a \textbf{combination sequence} (Example: \texttt{AGTCT[1,0,0]})
 \end{definition}
 
 \begin{definition}
@@ -312,6 +347,10 @@ The sub-patterns, that consists of a string, denoted as a \textbf{variable name}
 The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
 \end{definition}
 
+\begin{definition}
+The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1} directly in front of the sequence or variable.
+\end{definition}
+
 The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
@@ -322,7 +361,7 @@ This means that a sequence of length $n$ with a single mismatch will yield $n^1+
 If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.
 
 Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. \\
-An example of this could be the pattern \texttt{p1=2...4 10...20 \~{}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{\~{}}.\\
+An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}.\\
 This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 Combining this combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. \\
@@ -334,7 +373,7 @@ We will try to translate patscan patterns into regular expressions, and run them
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{\alpha, \beta\}$ might for an example form the words $\alpha\beta$, $\beta\alpha$, $\alpha\alpha\beta$ or any such conbination of any length, thus forming an infinite set of words.\\
 
-\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define the syntax for a regular expression $E$.
+\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.
 	\begin{enumerate}
 		\item An expression containing a single letter $\alpha$ from our alphabet $\Sigma$: $E = \alpha$
 		
@@ -370,28 +409,29 @@ We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as 
 \end{definition}
 
 
-
 \newpage
 
 \section{Methods}
-\subsection{PatScan as regular expressions (TO BE WRITTEN)}
+\subsection{PatScan as regular expressions}
 
-\subsubsection{Grammar (TO BE WRITTEN)}
+\subsubsection{Grammar}
 \label{Patscan grammar}
 
 We have defined the following grammar for the patscan language:
 
 \begin{figure}[H]
+\begin{center}
 \begin{tabular}{|lcll|}
 	\hline
 	$Prog$ & $\rightarrow$ & $StmtSeq$ & \\
 	$StmtSeq$ & $\rightarrow$ & $Stmt\ StmtSeq$ & \\
 	$StmtSeq$ & $\rightarrow$ & $Stmt$ & \\
 	$Stmt$ & $\rightarrow$ & $Exp$ & \\
-	$Stmt$ & $\rightarrow$ & $LVal\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
-	$Stmt$ & $\rightarrow$ & $LVal$ & \textcolor{red}{Variable usage} \\
-	$LVal$ & $\rightarrow$ & Id $Combi$ & \\
-	$LVal$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} Id $Combi$ & \\
+	$Stmt$ & $\rightarrow$ & $LVal1\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
+	$Stmt$ & $\rightarrow$ & $LVal2$ & \textcolor{red}{Variable usage} \\
+	$LVal1$ & $\rightarrow$ & \textbf{Id} & \\
+	$LVal2$ & $\rightarrow$ & \textbf{Id} $Combi$ & \\
+	$LVal2$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} \textbf{Id} $Combi$ & \\
 	$Exp$ & $\rightarrow$ & \textbf{num} ... \textbf{num} & \textcolor{red}{Range} \\
 	$Exp$ & $\rightarrow$ & $Seq\ Combi$ & \\
 	$Seq$ & $\rightarrow$ & \textbf{char} $Seq$ & \\
@@ -400,45 +440,37 @@ We have defined the following grammar for the patscan language:
 	$Combi$ & $\rightarrow$ & $\epsilon$ & \\
 	\hline
 \end{tabular}
+\end{center}
 \caption{PatScan grammar}
 \end{figure}
 
-\subsubsection{Mismatches, Insertions and Deletions (TO BE RESTRUCTURED)}
+\subsubsection{Mismatches, Deletions, and Insertions (TO BE RESTRUCTURED)}
 
-Combination sub-patterns can have the following form, which allows for mismatches, insertions and deletions in the sub-pattern. 
+Combination sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
 \begin{equation}
-	Sequence[m, i, d] \ \ \{m, i, d \in \mathbb{N}_0 \}
+	Sequence[m, i, d] \ \ \{m, d, i \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for up the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for up to the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
-This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation.
-
-Starting with mismatches only, writing a general algorithm to translate this example is fairly simple, but becomes increasingly difficult, as the sequence becomes longer, and the number of allowed mismatches increases.
-
-We tried the following approaches to solving this problem, but ultimately decided on a divide and conquer algorithm. 
+This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
 
 \subsubsubsection{Recursion (TO BE REWRITTEN)}
 
-Solving the problem with recursion one might take each character one at a time, and look at all the possibilities for that character.
+The way we used recursion to solve the previously mentioned problem, is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter.
 
-This way we could construct a recursion tree containing all possible combinations, no matter how many mismatches are allowed.
-
-For mismatches the recursion tree would add two new branches per iteration. The first iteration of \texttt{AGCTC[2,0,0]} would add the branches
-
+\begin{example}
+Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and run the algorithm with the remaining letters for every possibility of the \texttt{A}.
 \begin{eqnarray}
-	Left\ branch &=& A\{GCTC[2,0,0]\} \\
-	right\ branch &=&\ \hat{}A\{GCTC[1,0,0]\}
+	Left\ branch &=& func(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
+	right\ branch &=& func(mismatch(\texttt{A}), \texttt{GCTC[1,0,0]})
 \end{eqnarray}
+The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When no more recursion steps can be taken, we will have a string with a unique combination of mismatches.Like this, all possible combinations will be constructed, and they can be added to a list of all combinations. Like this, all possible combinations will be constructed.
+\end{example}
 
-The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose $A$ as our first mismatch. Thus we must choose all possibilities from $N \in \{n, \hat{}n\}$ as a new branch, every time we take a recursion step.
-On our leafs we will have a string with a unique combination of mismatches.
+%Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
 
-Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
-
-\subsubsubsection{Divide and Conquer}
-
-To solve the recursion depth problem, we thought of using a divide and conquer algorithm instead, which would reduce the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character. 
+In order to guarantee a low recursion depth, we use a divide and conquer algorithm\cite{Algorithms} instead, that reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character, as can be seen in figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -461,6 +493,7 @@ To solve the recursion depth problem, we thought of using a divide and conquer a
 
 After dividing the sequence into characters, we have to conquer each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will return a list of all possibilities, which that character can be.
 
+\begin{example}[label=example:possibilities]
 For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
 
 \begin{center}
@@ -475,13 +508,14 @@ as well as the following for insertions
 \end{center}
 
 A list of all these possibilities is then returned, and it can be combined with the list received from the 'b' recursion.
+\end{example}
 
-These lists are combined by combining each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, insertions, and deletions are being kept track of, and if combining two outcomes will result in more mismatches, insertions, or deletions than the maximum allowed, then it is skipped.
+These lists are combined by taking each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, deletions, and insertions are being kept track of, and if combining two outcomes will result in more mismatches, deletions, or insertions than the maximum allowed, it is skipped.
 
 \begin{spacing}{0.8}
-\begin{algorithm}
-	\caption{find\_combinations}
-	\label{alg:find_combinations}
+\begin{algorithm}[H]
+	\caption{find\_combinations (Divide and conquer)}
+	\label{alg:divideandconquer}
   	\begin{algorithmic}[1]
     		\Require
     			\Statex seq - sequence string to be translated
@@ -516,12 +550,11 @@ These lists are combined by combining each outcome from the first list, and comb
 \end{algorithm}
 \end{spacing}
 
-\newpage
 \subsubsubsection{Redundancy}
 
-With this implementation, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
+Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
-If we look at the combination sequence \texttt{ab[0,1,0]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create even more redundancy in the upper levels of the recursion.
+If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
 On the first conquer step, we will have $r_0$ redundant cases, which is calculated using (4), where $i_{max}$ is the number of allowed insertions, and $n$ is the number of characters in the sequence.
 \begin{eqnarray}
@@ -578,13 +611,13 @@ These assignments can be referenced by using the variable name. An example of su
 
 \texttt{q1=ACCT 2...5 q1}
 
-In addition just referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
+In addition to referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended to the variable:
 
 \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
 
 Here, inversion refers to the reverse complement of the sequence stored in the variable.
 
-Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, which we want to keep regular.
+Sequence and combination assignments are implemented by translating the sequence/combination and storing the translated regular expression in a table, with the variable name as the key. Then, if the variable is used later in the patscan pattern, the translated sequence/combination may be placed into the full regular expression. This way, there are no actual referencing in the regular expression, keeping the expressions regular.
 
 Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing. This is because there's no way of knowing what a range will actually be besides x-y random characters. Because of this inherent ability to change, depending on where in the file the engine is matching, it is not possible to 'hard code' it as a regular expression.
 
