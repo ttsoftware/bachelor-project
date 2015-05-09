@@ -1,0 +1,8 @@
+Compile time: 1ms.
+Matched: AGCTGGGAGCAAAC after 159ms
+Matched: AGCTGGGGAGCAAA after 202ms
+Matched: AGGTGGGGAGAAAC after 268ms
+Matched: ACGTGGGGAGAAAC after 275ms
+Match time: 363ms.
+total time: 364ms.
+Number of matches: 4

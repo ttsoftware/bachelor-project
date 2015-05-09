@@ -1,0 +1,4 @@
+Trying AGCGTGGGGAGCAAAC in ../patscan-patterns/benchmark/benchmark_0.pat.
+Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
+Finished loading fasta file into memory
+Found 0 matches to AGCGTGGGGAGCAAAC in ../patscan-patterns/benchmark/benchmark_0.pat.

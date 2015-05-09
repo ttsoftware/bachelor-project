@@ -1,0 +1,4 @@
+Trying AGCGTGGGGAGCAAAC[0,1,0] in ../patscan-patterns/benchmark/deletions/benchmark_deletions_1.pat.
+Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
+Finished loading fasta file into memory
+Found 0 matches to AGCGTGGGGAGCAAAC[0,1,0] in ../patscan-patterns/benchmark/deletions/benchmark_deletions_1.pat.
