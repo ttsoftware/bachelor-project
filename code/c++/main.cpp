@@ -53,23 +53,21 @@ int main(int argc, char **argv) {
     RE2 pattern(regexp);
 
     int compileTime = getMilliSpan(compileStart);
-
+    
     cout << "Compile time: " << compileTime << "ms." << endl;
 
     StringPiece input(fasta);
     string value;
-    string values;
 
     int matches = 0;
-
     int matchStart = getMilliCount();
 
-    /*while (RE2::FindAndConsume(&input, pattern, &value)) {
-        fr.write(regexpFile + "_results.txt", value);
+    while (RE2::FindAndConsume(&input, pattern, &value)) {
+        cout << "Matched: " << value << " after " << getMilliSpan(matchStart) << "ms" << endl;
         matches++;
-    }*/
+    }
 
-    int match = RE2::PartialMatch(fasta, pattern);
+    //int match = RE2::PartialMatch(fasta, pattern);
 
     int matchTime = getMilliSpan(matchStart);
 
