@@ -317,7 +317,71 @@ For a given DNA sequence s, \~{s} is the sequence that contains the complementar
 
 \subsection{What is scan-for-matches?}
 
-Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.
+Scan-for-matches is a program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.\\
+
+
+\subsection{Regular Expressions (TODO)}
+
+In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for an example form the words $ab$, $ba$, $aab$ or any such conbination of any length, thus forming an infinite set of words.\\
+
+\begin{definition} An alphabet $\Sigma$ is defined as a finite set of characters.
+
+\end{definition}
+
+\begin{definition} Given an alphabet $\Sigma$, the language $\mathcal{L}$ is defined by $\mathcal{L} \in \Sigma^*$, where $\Sigma^*$ is the set of all words constructed from alphabet $\Sigma$.
+	
+\end{definition} 
+
+\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.\\
+
+	\begin{enumerate}
+		\item An expression containing a single letter $a$ from our alphabet $\Sigma$: $E = a$. 
+		\item The expression which always matches $E = 1$
+		\item The expressions which never matches $E = 0$.
+		\item A combination of the two regular expressions $E_1$ and $E_2$:
+		\begin{eqnarray}
+			E &=& E_1 | E_2 \\
+			E &=& E_1E_2 \\
+			E &=& E_1^*
+		\end{eqnarray}
+	\end{enumerate}	
+\end{definition} 
+
+\newpage
+
+We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a language denoted by $\mathcal{L}(E)$: \\
+
+\begin{definition} The language $\mathcal{L}(E)$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
+
+	\begin{enumerate}
+		\item For single-letter expressions we have
+			\begin{eqnarray}
+				\mathcal{L}(0) &=& \emptyset \\
+				\mathcal{L}(1) &=& \epsilon \\
+				\mathcal{L}(a) &=& \{a\}
+			\end{eqnarray}
+			Where $a \in \Sigma$
+			
+		\item For combined expressions we have
+			\begin{eqnarray}
+				\mathcal{L}(E_1|E_2) &=& \mathcal{L}(E_1) \cup \mathcal{L}(E_2) \\
+				\mathcal{L}(E_1E_2) &=& \mathcal{L}(E_1) \odot \mathcal{L}(E_2) \\
+				\mathcal{L}(E^*) &=& \bigcup^{\infty}_{n = 0}\mathcal{L}(E^n)
+			\end{eqnarray}
+			Where $\mathcal{L}(E_1) \odot \mathcal{L}(E_2) = \{w_1w_2 \ |\  w_1 \in \mathcal{L}(E_1), w_2 \in \mathcal{L}(E_2)\}$, and where \\
+			$E^0 = 1, \ E^{n+1} = EE^n$.
+	\end{enumerate}
+\end{definition}
+
+
+\subsubsection{Parsing regular expressions}
+
+...
+
+\newpage
+
+\section{Methods}
+\subsection{PatScan as regular expressions}
 
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
@@ -332,53 +396,6 @@ This is similar to the back-referencing functionality for capturing groups, whic
 
 Combining this combination notation with the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. \\
 A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through REs.
-
-We will try to translate patscan patterns into regular expressions, and run them on the KMC group's RE engine. We hope to achieve similar, or better speeds to those of scan-for-matches, while also achieving the same search results.
-
-\subsection{Regular Expressions (TODO)}
-
-In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{\alpha, \beta\}$ might for an example form the words $\alpha\beta$, $\beta\alpha$, $\alpha\alpha\beta$ or any such conbination of any length, thus forming an infinite set of words.\\
-
-\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.
-	\begin{enumerate}
-		\item An expression containing a single letter $\alpha$ from our alphabet $\Sigma$: $E = \alpha$
-		
-		\item A combination of the two regular expressions $E_1$ and $E_2$:
-		\begin{eqnarray}
-			E &=& E_1 | E_2 \\
-			E &=& E_1E_2 \\
-			E &=& E_1^* \\
-		\end{eqnarray}
-	\end{enumerate}	
-\end{definition} 
-
-We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as a language denoted by $\mathcal{L}(E)$. \\
-
-\begin{definition} The language $\mathcal{L}(E)$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
-
-	\begin{enumerate}
-		\item For single-letter expressions we have
-			\begin{eqnarray}
-				\mathcal{L}(0) &=& \emptyset \\
-				\mathcal{L}(\alpha) &=& \{\alpha\}
-			\end{eqnarray}
-			Where $\alpha \in \Sigma$
-			
-		\item For combined expressions we have
-			\begin{eqnarray}
-				\mathcal{L}(E_1|E_2) &=& \mathcal{L}(E_1) \cup \mathcal{L}(E_2) \\
-				\mathcal{L}(E_1E_2) &=& \mathcal{L}(E_1) \odot \mathcal{L}(E_2) \\
-				\mathcal{L}(E^*) &=& \bigcup^{\infty}_{n = 0}\mathcal{L}(E^n)
-			\end{eqnarray}
-			Where $\mathcal{L}(E_1) \odot \mathcal{L}(E_2) = \{w_1w_2 \ |\  w_1 \in \mathcal{L}(E_1), w_2 \in \mathcal{L}(E_2)\}$, and where $E^n$ denotes E combined with itself $n$ times.
-	\end{enumerate}
-\end{definition}
-
-
-\newpage
-
-\section{Methods}
-\subsection{PatScan as regular expressions}
 
 \subsubsection{Grammar}
 \label{Patscan grammar}
