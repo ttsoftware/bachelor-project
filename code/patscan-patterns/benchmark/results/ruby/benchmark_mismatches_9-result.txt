@@ -1,4 +1,0 @@
-Trying AGCGTGGGGAGCAAAC[9,0,0] in ../patscan-patterns/benchmark/mismatches/benchmark_mismatches_9.pat.
-Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
-Finished loading fasta file into memory
-Regular expression of length 2422643 created from AGCGTGGGGAGCAAAC[9,0,0], is too big for the ruby regular expression engine.

@@ -19,34 +19,30 @@ end
 
 arg1 = ARGV[0]
 fasta_file = ''
-patscan_pattern = ''
+pattern = ''
 
-# This a pattern file
-unless (arg1.match /.+\.pat/).nil?
-    File.open(arg1, 'r') { |file| patscan_pattern = (file.readlines.join ' ').rstrip! }
+# This a regex file
+if (arg1.match /^.+\.re$/).nil?
+    pattern = arg1
 else
-    patscan_pattern = arg1
+    File.open(arg1, 'r') { |file| pattern = file.readlines.join '' }
 end
-
-puts "Trying #{patscan_pattern} in #{arg1}."
 
 puts "Opening #{ARGV[1]}."
 File.open(ARGV[1], 'r') { |file| fasta_file = file.readlines.join ' ' }
 puts 'Finished loading fasta file into memory'
-
-pattern = Translater.new(patscan_pattern).translate
 
 begin
     regex = Regexp.new pattern
 
     matches = fasta_file.to_enum(:scan, regex).map { Regexp.last_match }
 
-    puts "Found #{matches.size} matches to #{patscan_pattern} in #{arg1}."
+    puts "Found #{matches.size} matches to #{arg1}."
 
     matches.each { |m|
         puts "\t:Found #{m.to_s} at #{m.begin 0}:#{m.end 0}"
     }
 rescue RegexpError => e
     # Regular expression is too big for the ruby engine.
-    puts "Regular expression of length #{pattern.length} created from #{patscan_pattern}, is too big for the ruby regular expression engine."
+    puts "Regular expression of length #{pattern.length}, is too big for the ruby regular expression engine."
 end

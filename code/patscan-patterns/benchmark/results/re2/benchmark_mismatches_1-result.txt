@@ -1,1 +1,6 @@
-Argument 1 must be a file of type .re.
+Trying AGCGTGGGGAGCAAAC[1,0,0].
+Compile time: 0ms.
+Match time: 173ms.
+total time: 173ms.
+Number of matches: 0
+Process killed - 10 seconds expired.

@@ -1,4 +1,10 @@
+Trying AGCGTGGGGAGCAAAC[0,2,0].
 Compile time: 0ms.
-Match time: 0ms.
-total time: 0ms.
-Number of matches: 0
+Matched: AGCTGGGAGCAAAC after 111ms
+Matched: AGCTGGGGAGCAAA after 134ms
+Matched: AGGTGGGGAGAAAC after 169ms
+Matched: ACGTGGGGAGAAAC after 172ms
+Match time: 248ms.
+total time: 248ms.
+Number of matches: 4
+Process killed - 10 seconds expired.

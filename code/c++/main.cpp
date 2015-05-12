@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     RE2 pattern(regexp);
 
     int compileTime = getMilliSpan(compileStart);
-    
+
     cout << "Compile time: " << compileTime << "ms." << endl;
 
     StringPiece input(fasta);

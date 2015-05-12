@@ -1,4 +1,8 @@
-Compile time: 1ms.
+Trying AGCGTGGGGAGCAAAC[0,0,5].
+re2/re2.cc:223: Error compiling '(?i)((AGCGTGGGGAGCAAAC)|(AGCGTGGGGAGCAAA[^N]{1}C)|(AGCGTGGGGAGCAAAC[^N]{1})|(AGCGTGGGGAGCAAA[^N]{2}C...'
+Compile time: 426ms.
+re2/re2.cc:798: Invalid RE2: pattern too large - compile failed
 Match time: 0ms.
-total time: 1ms.
+total time: 426ms.
 Number of matches: 0
+Process killed - 10 seconds expired.
