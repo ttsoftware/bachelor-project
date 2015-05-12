@@ -566,7 +566,7 @@ These lists are combined by taking each outcome from the first list, and combini
     		\EndIf
     		\State
     		\Let{combined}{empty list}
-    		\Let{unique\_combinations}{empty hash table}
+    		\Let{unique\_combinations}{empty set}
     		\ForAll{LL \In left\_tree} \Comment{LL: Left leaf}
     			\ForAll{RL \textbf{in} right\_tree} \Comment{RL: Right leaf}
     				\If{$LL.m + RL.m > m_{max}$ \Or $LL.d + RL.d > d_{max}$ \Or $LL.i + RL.i > i_{max}$}
@@ -643,13 +643,13 @@ This is only an approximation, as some combinations will be thrown away if there
 	\label{fig:recursion_depth_example}
 \end{figure}
 
-Despite of this inaccuracy, it is still trivial, that the amount of redundancy in larger patterns is extremely excessive, as it translates directly into additional runtime.
+Despite of this inaccuracy, it is still trivial, that the amount of redundancy in larger patterns is extremely excessive, as it translates directly into additional running time.
 
 Avoiding this redundancy is very important, and relatively trivial. Every time two cases are combined, it is used as a key in a hash table, and its value set to true. The value doesn't matter, all that matters is that the hash table now has this combination as a key.
 
 Every time we make a new combination, we check if that combination already exists, and if it does, we simply skip it.
 
-We can look up in a hash table in $O(1)$ time, which doesn't increase the runtime by much. However, we will end up with a significantly lower runtime in the long run, as all redundancy is sorted out.
+We can look up in a hash table in $O(1)$ time, which doesn't increase the running time by much. However, we will end up with a significantly lower running time in the long run, as all redundancy is sorted out.
 
 \subsubsection{Variable assignments \& usage}
 
@@ -677,7 +677,33 @@ Using back-referencing in our implementation will cause our RE patterns to lose 
 
 \subsection{Correctness (TO BE WRITTEN)}
 
-\subsection{Runtime (TO BE WRITTEN)}
+Pre-conditions:\\
+seq is a string of length $i > 0$\\
+$m_{max}$ is a non-negative integer\\
+$d_{max}$ is a non-negative integer\\
+$i_{max}$ is a non-negative integer
+
+post-condition:\\
+\textbf{combined} contains all combinations of the initial sequence with up to  $m_{max}$ mismatches, $d_{max}$ deletions, and $i_{max}$ insertions.
+
+\textbf{Recursion:}
+
+For merging in algorithm \ref{alg:divideandconquer}, we have the invariant I(n): \textbf{For a set $A$, and a set $B$, a combination of the two, where each element in $A$ is combined with each element in $B$ separately, yields a set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$}
+
+\begin{itemize}
+\item Initialization:
+\begin{itemize}
+	\item[] Prior to the merging step, the invariant is respected (trivially), as set $A$ and $B$ is empty.
+\end{itemize}
+
+\item Maintenance:
+\begin{itemize}
+ \item[] hej
+\end{itemize}
+\end{itemize}
+
+
+\subsection{Running time (TO BE WRITTEN)}
 
 \subsection{Data Analysis (TO BE WRITTEN)}
 
