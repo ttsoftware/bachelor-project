@@ -567,23 +567,41 @@ These lists are combined by taking each outcome from the first list, and combini
 \end{algorithm}
 \end{spacing}
 
-\subsubsubsection{Redundancy}
+\subsubsubsection{Redundancy MATH IS WRONG}
 
 Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
-On the first conquer step, we will have $r_0$ redundant cases, which is calculated using (4), where $i_{max}$ is the number of allowed insertions, and $n$ is the number of characters in the sequence.
-\begin{eqnarray}
-	r_0 = n\sum^{i_{max}}_{i=1} i
-\end{eqnarray}
+On the first 'combine' step, we will have $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
 
-On the next level, we have $r_1$ redundant cases, calculated using (5), where $m=1$ if any number of mismatches are allowed, $i$ is the number of insertions allowed, and $d=1$ if any number of deletions are allowed.
+\begin{example}
+The following example shows the variations of combining a with b that are the same when combined. The bold characters are combined with the cursive characters.
 \begin{eqnarray}
+	i_{1}: \textbf{a.}b\ \ \textbf{a}.b = 2 - 1 = 1 \\
+	i_{2}: \textbf{a..}b\ \ \textbf{a.}.b\ \ \textbf{a}..b = 3 - 1 = 2 \\
+	i_{3}: \textbf{a...}b\ \ \textbf{a..}.b\ \ \textbf{a.}..b\ \ \textbf{a}...b = 4 - 1 = 3
+\end{eqnarray}
+Here, for $i_{1}$, we have 2 cases, that are the same. One of those are redundant, thus $2 - 1 = 1$ redundant. \\
+\\
+Since all cases for $i_{n-1}$ also applies to $i_{n}$, we end up with
+\begin{eqnarray}
+	\sum_{i=1}^{i_{max}}i
+\end{eqnarray}
+redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us the approximation
+\begin{eqnarray}
+	\label{r_0}
+	r_0 \approx \frac{1}{2}n\sum^{i_{max}}_{i=1} i
+\end{eqnarray}
+\end{example}
+
+On the next level, we have $r_1$ redundant cases, calculated using (\ref{r_1}), where $m=1$ if any number of mismatches are allowed, $i$ is the number of insertions allowed, and $d=1$ if any number of deletions are allowed.
+\begin{eqnarray}
+	\label{r_1}
 	r_1 \approx r_0(1 + m + 2i + d)
 \end{eqnarray}
 
-To calculate further redundancy, I will use $c = (1 + m + 2i + d)$, corresponding to the above. We can then calculate the total amount of redundancy, via induction:
+To calculate further redundancy, we will use $c = (1 + m + 2i + d)$, corresponding to the above. We can then calculate the total amount of redundancy, via induction:
 \begin{eqnarray}
 	r_n \approx r_{n-1}c_{n-1}^2
 \end{eqnarray}
