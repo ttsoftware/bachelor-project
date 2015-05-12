@@ -52,7 +52,8 @@ spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries,
 notefont=\mdseries, notebraces={(}{)},
 bodyfont=\normalfont,
-postheadspace=1em
+postheadspace=1em,
+shaded={bgcolor=theorem-gray}
 ]{exstyle}
 
 \declaretheoremstyle[
@@ -60,10 +61,13 @@ spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries,
 notefont=\mdseries, notebraces={(}{)},
 bodyfont=\normalfont,
-postheadspace=1em
+postheadspace=1em,
+shaded={bgcolor=theorem-gray}
 ]{defstyle}
 
+%\declaretheorem[thmbox=M]{definition}
 \declaretheorem[style=defstyle]{definition}
+%\declaretheorem[thmbox=M]{example}
 \declaretheorem[style=exstyle]{example}
 
 %                       %
@@ -110,6 +114,7 @@ postheadspace=1em
 %       Algorithm       %
 
 \usepackage{xspace}
+\usepackage{algpseudocode}
 \newcommand*\Let[2]{\State #1 $\gets$ #2}
 \newcommand*\Returns[1]{\State \Return #1}
 \newcommand*\Append[2]{\State $#1 << #2$}
@@ -240,12 +245,12 @@ This requires the search functionality to be able to allow for a great deal of v
 
 Currently, the state-of-the-art method for searching through genomic data is the scan-for-matches program, which, while performing very well, is not very user friendly \textbf{NEED REF} and have some unfortunate limitations when running many consecutive scans. However, scan-for-matches has easy-to-write pattern syntax compared REs, as well as the addition new syntax, which would make the equivalent REs extremely tedious to write.
 
-Recently, the KMC group have developed a regular expression implementation called KMC, which so far has shown surprisingly competitive performance, compared to current industry standard engines\cite{two-pass-greedy}.
+Recently, the KMC group have developed a regular expression implementation, which we will refer to as the KMC engine, which so far has shown competitive performance, compared to current industry standard engines\cite{two-pass-greedy}.
 
 Since scan-for-matches outperforms the quite fast NR-grep (nondeterministic reverse grep), which is a pattern matching tool, created by the "search in page" facility at the University of Chile\cite{nrgrep}, we are hoping that optimized regular expressions running on the KMC engine will be able to outperform NR-grep and subsequently scan-for-matches.
-If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. As such we see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
+If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. We see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
 
-As such, we seek to solve the problem of translating the easy-to-write scan-for-matches patterns into the better-performing REs.
+We seek to solve the problem of translating the easy-to-write scan-for-matches patterns into the better-performing REs.
 
 
 \subsection{Thesis Statement (TO BE REWRITTEN)}
@@ -262,9 +267,9 @@ Specifically we wish to solve the following problems:
 
 \subsection{DNA/RNA}
 
-Deoxyribonucleic acid (DNA) is a molecule, that is found in every known living organism, as well as many viruses. DNA encodes the genetic instructions, that the organism uses in the development and functioning of itself. DNA is a nucleic acid, which is one of three major macromolecules, that is essential for all known forms of life.
+Deoxyribonucleic acid (DNA) is a molecule that is found in every known living organism, as well as many viruses. DNA encodes the genetic instructions, that the organism uses in the development and functioning of itself. DNA is a nucleic acid, which is one of three major macromolecules that is essential for all known forms of life.
 
-DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenin (A), thymin (T), cytosin (C), and guanin (G) (figure \ref{dnabases}).
+DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenine (A), thymine (T), cytosine (C), and guanine (G) (figure \ref{dnabases}).
 
 \begin{figure}[H]
 \label{dnabases}
@@ -274,37 +279,26 @@ DNA can generally be described as an alphabet of 4 letters, which represent 4 di
 \caption{The four different nucleobases found in the DNA nucleotides.\cite{DNA-biotechacademy}}
 \end{figure}
 
-\begin{definition}
-The alphabet, that makes up DNA sequences, denoted by $\mathcal{A}_{DNA}$ is:
-\begin{center}
-$\mathcal{A}_{DNA}$ = \texttt{\{ATCG\}}
-\end{center}
-\end{definition}
-
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
 
-RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymin. However, uracil and thymin is generally considered synonymous.
+RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymine. However, uracil and thymine is generally considered synonymous, as both bases binds with adenine.
 
-\begin{definition}
-The alphabet, that makes up RNA sequences, denoted by $\mathcal{A}_{RNA}$ is:
-\begin{center}
-$\mathcal{A}_{RNA}$ = \texttt{\{AUCG\}}
-\end{center}
-\end{definition}
-
-Besides the 5 basic nucleobases included in $\mathcal{A}_{DNA}$ and $\mathcal{A}_{RNA}$, 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
-
-\begin{definition}
-The extended alphabet, that makes up DNA and RNA sequences, denoted by $\mathcal{A}_{ext}$ is:
-\begin{center}
-$\mathcal{A}_{ext}$ = \texttt{\{ATUGCYRSWKMBDHVN\}}
-\end{center}
-\end{definition}
-
-A DNA strand can bond with another DNA strand, containing the complementary nucleobases.
+A DNA strand can bond with another DNA strand containing the complementary nucleobases.
 
 \begin{definition}
 \textbf{complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Base & Complementary base \\
+\hline
+G & C \\
+T/U & A \\
+C & G \\
+A & T/U \\
+\hline
+\end{tabular}
+\end{center}
 \end{definition}
 
 \begin{figure}[H]
@@ -312,46 +306,18 @@ A DNA strand can bond with another DNA strand, containing the complementary nucl
 	\begin{center}
 		\includegraphics[scale=2.5]{complementarity.jpg}	
 	\end{center}
-	\caption{The four base pairs of complementarity.\cite{DNA-nature}}
+	\caption{This figure shows the hydrogen bonds between the nucleobases, which makes up the basis for complementarity.\cite{DNA-nature}}
 \end{figure}
 
-Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the reverse complement of a given DNA sequence.
+Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the complement of a given DNA sequence. The reverse of a complement is called the \textbf{reverse complement}.
 
 \begin{definition}
-A DNA sequence containing the complementary bases of another DNA sequence, is called the \textbf{reverse complement} of the latter sequence.
+For a given DNA sequence s, \~{s} is the sequence that contains the complementary bases of s, in reverse order.
 \end{definition}
 
 \subsection{What is scan-for-matches?}
 
 Scan for matches is a program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.
-
-The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes:
-
-\begin{definition}
-The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}_{ext}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
-\end{definition}
-
-\begin{definition}
-The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}_{ext}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{deletions}, and \textbf{insertions} respectively), is denoted as a \textbf{combination sequence} (Example: \texttt{AGTCT[1,0,0]})
-\end{definition}
-
-\begin{definition}
-The sub-patterns, that consists of a number, $a \geq 0$, followed by exactly three dots, followed by a number, $b \geq a$, is denoted as a \textbf{range} (Example: \texttt{2...4})
-\end{definition}
-
-\begin{definition}
-The sub-patterns, that consists of a string, denoted as a \textbf{variable name}, followed by an equal sign, and then a \textbf{sequence}, is denoted as a \textbf{variable assignment} (Example: \texttt{p1=AGTCT})
-\end{definition}
-
-\begin{definition}
-The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
-\end{definition}
-
-\begin{definition}
-The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1} directly in front of the sequence or variable.
-\end{definition}
-
-The complete grammar we use for our translation can be found in section \ref{Patscan grammar}.
 
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. \\
 This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
@@ -416,50 +382,99 @@ We can also interpret the regular expression $E$ from the alphabet $\Sigma$, as 
 
 \subsubsection{Grammar}
 \label{Patscan grammar}
+Scan-for-patches has an alphabet, which is the set of characters allowed in a patscan sequence. This set is from the nucleobases, that is found in DNA and RNA.
+\begin{definition}
+The alphabet, that makes up DNA sequences, denoted by $\mathcal{A}_{DNA}$ is:
+\begin{center}
+$\mathcal{A}_{DNA}$ = \texttt{\{A, T, C, G\}}
+\end{center}
+\end{definition}
 
-We have defined the following grammar for the patscan language:
+\begin{definition}
+The alphabet, that makes up RNA sequences, denoted by $\mathcal{A}_{RNA}$ is:
+\begin{center}
+$\mathcal{A}_{RNA}$ = \texttt{\{A, U, C, G\}}
+\end{center}
+\end{definition}
+
+Besides the five basic nucleobases in $\mathcal{A}_{DNA} \cup \mathcal{A}_{RNA}$, 11 ambiguity characters also exist.\cite{DNA-sciencedaily} These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent  an uncertainty of which nucleobases is actually at that spot.
+
+\begin{definition}
+The alphabet, that makes up DNA and RNA sequences, as well as the ambiguity characters, denoted by $\mathcal{A}$ is:
+\begin{center}
+$\mathcal{A}$ = \texttt{\{A, T, U, G, C, Y, R, S, W, K, M, B, D, H, V, N\}}
+\end{center}
+\end{definition}
+
+The patscan language has the following grammar, and char is any character from the alphabet $\mathcal{A}$.
 
 \begin{figure}[H]
 \begin{center}
 \begin{tabular}{|lcll|}
 	\hline
 	$Prog$ & $\rightarrow$ & $StmtSeq$ & \\
-	$StmtSeq$ & $\rightarrow$ & $Stmt\ StmtSeq$ & \\
-	$StmtSeq$ & $\rightarrow$ & $Stmt$ & \\
+	$StmtSeq$ & $\rightarrow$ & list of $Stmt$ & \\
 	$Stmt$ & $\rightarrow$ & $Exp$ & \\
-	$Stmt$ & $\rightarrow$ & $LVal1\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
-	$Stmt$ & $\rightarrow$ & $LVal2$ & \textcolor{red}{Variable usage} \\
-	$LVal1$ & $\rightarrow$ & \textbf{Id} & \\
+	\enspace & $|$ & $LVal1\ =\ Exp$ &  \textcolor{red}{Variable assignment} \\
+	\enspace & $|$ & $LVal2$ & \textcolor{red}{Variable usage} \\
+	$LVal1$ & $\rightarrow$ & \textbf{Id} & \textcolor{red}{Ids may not be reassigned}\\
 	$LVal2$ & $\rightarrow$ & \textbf{Id} $Combi$ & \\
-	$LVal2$ & $\rightarrow$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} \textbf{Id} $Combi$ & \\
+	\enspace & $|$ & {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} \textbf{Id} $Combi$ & \\
 	$Exp$ & $\rightarrow$ & \textbf{num} ... \textbf{num} & \textcolor{red}{Range} \\
-	$Exp$ & $\rightarrow$ & $Seq\ Combi$ & \\
-	$Seq$ & $\rightarrow$ & \textbf{char} $Seq$ & \\
-	$Seq$ & $\rightarrow$ & \textbf{char} & \\
+	\enspace & $|$ & $Seq\ Combi$ & \\
+	$Seq$ & $\rightarrow$ & list of \textbf{char} & \\
 	$Combi$ & $\rightarrow$ & [\textbf{num},\textbf{num},\textbf{num}] & \\
-	$Combi$ & $\rightarrow$ & $\epsilon$ & \\
+	\enspace & $|$ & $\epsilon$ & \\
 	\hline
 \end{tabular}
 \end{center}
 \caption{PatScan grammar}
 \end{figure}
 
-\subsubsection{Mismatches, Deletions, and Insertions (TO BE RESTRUCTURED)}
+The patscan language can be broken down into a few simple components or tokens, which we will refer to as sub-patterns. We have divided the sub-patterns into the following classes:
 
-Combination sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
+\begin{definition}
+The sub-patterns, that consists only of a consecutive sequence of characters from $\mathcal{A}$, is denoted as a \textbf{sequence} (Example: \texttt{AGTCT})
+\\\\
+The sub-patterns, that consists of a consecutive sequence of characters from $\mathcal{A}$, followed by square brackets, containing three numbers (each representing \textbf{mismatches}, \textbf{deletions}, and \textbf{insertions} respectively), is denoted as a \textbf{combination sequence} (Example: \texttt{AGTCT[1,0,0]})
+\\\\
+The sub-patterns, that consists of a number, $a \geq 0$, followed by exactly three dots, followed by a number, $b \geq a$, is denoted as a \textbf{range} (Example: \texttt{2...4})
+\\\\
+The sub-patterns, that consists of a string, denoted as a \textbf{variable name}, followed by an equal sign, and then a \textbf{sequence}, is denoted as a \textbf{variable assignment} (Example: \texttt{p1=AGTCT})
+\\\\
+The sub-patterns, that consists only of a \textbf{variable name}, is denoted as a \textbf{variable usage} (Example: \texttt{p1})
+\\\\
+The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1} directly in front of the sequence or variable.
+\end{definition}
+
+\subsubsection{Ranges}
+
+Patscan ranges are very similar to RE ranges, and is therefore easily translated. A patscan range, which has the following form:
 \begin{equation}
-	Sequence[m, i, d] \ \ \{m, d, i \in \mathbb{N}_0 \}
+\label{example:range}
+	2...5
+\end{equation}
+It translates into 'between 2 and 5 of any character'. In RE, there is a character for 'any character', which is \texttt{.}, and a quantifier, where you can state how many of a given character you want matched, which is \texttt{\{min,max\}}. Using these, (\ref{example:range}) translates into the following RE:
+\begin{equation}
+.\{2,5\}
+\end{equation}
+
+\subsubsection{Mismatches, Deletions, and Insertions}
+
+Combination sequence sub-patterns can have the following form, which allows for mismatches, deletions and insertions in the sub-pattern. 
+\begin{equation}
+	Sequence[m, d, i] \ \ \{m, d, i \in \mathbb{N}_0 \}
 \end{equation} 
 
-This notation allows for up to the given number of mismatches, insertions or deletions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
+This notation allows for up to the given number of mismatches, deletions or insertions. This means we for example can have $m$ mismatches and $i$ insertions, but not necessarily $d$ deletions.
 
 This kind of notation does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
 
-\subsubsubsection{Recursion (TO BE REWRITTEN)}
+Recursion can be used to solve this problem. However, using recursion alone comes with some problems, that we had to address. 
 
-The way we used recursion to solve the previously mentioned problem, is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter.
+A simple way to find all possible combinations is by looking at each letter in the sequence, and run the algorithm for each possibility for that letter
 
-\begin{example}
+\begin{example}[label=example:recursion]
 Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and run the algorithm with the remaining letters for every possibility of the \texttt{A}.
 \begin{eqnarray}
 	Left\ branch &=& func(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
@@ -468,7 +483,7 @@ Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking th
 The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When no more recursion steps can be taken, we will have a string with a unique combination of mismatches.Like this, all possible combinations will be constructed, and they can be added to a list of all combinations. Like this, all possible combinations will be constructed.
 \end{example}
 
-%Adding deletions and insertions will increase the size of $N$, thus drastically increasing the recursion depth. The recursion does not stop until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth or run out of memory before completing.
+Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter, thus increasing the amount of recursion. The recursion does not stop until every combination is found, which means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program can reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
 In order to guarantee a low recursion depth, we use a divide and conquer algorithm\cite{Algorithms} instead, that reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character, as can be seen in figure \ref{fig:tree_example}. 
 
@@ -491,7 +506,7 @@ In order to guarantee a low recursion depth, we use a divide and conquer algorit
 	\label{fig:tree_example}
 \end{figure}
 
-After dividing the sequence into characters, we have to conquer each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will return a list of all possibilities, which that character can be.
+After dividing the sequence into characters, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will make a list of all possibilities, which that character can be.
 
 \begin{example}[label=example:possibilities]
 For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
@@ -518,16 +533,17 @@ These lists are combined by taking each outcome from the first list, and combini
 	\label{alg:divideandconquer}
   	\begin{algorithmic}[1]
     		\Require
-    			\Statex seq - sequence string to be translated
+    			\Statex $seq$ - sequence string to be translated
     			\Statex $m_{max}$ - allowed number of mismatches
     			\Statex $d_{max}$ - allowed number of deletions
     			\Statex $i_{max}$ - allowed number of insertions
     		\Ensure
     			\Statex List of all possible combinations
 		\Statex
+		\Function{find\_combinations}{$seq$, $m_{max}$, $d_{max}$, $i_{max}$}
     		\If{$seq.length > 1$}
-    			\Let{left\_tree}{self(seq[0..(seq.length/2).floor-1], $m_{max}$, $i_{max}$, $d_{max}$)}
-    			\Let{right\_tree}{self(seq[(seq.length/2).floor..-1], $m_{max}$, $i_{max}$, $d_{max}$)}
+    			\Let{left\_tree}{\Call{find\_combinations}{seq[0..(seq.length/2).floor-1], $m_{max}$, $i_{max}$, $d_{max}$}}
+    			\Let{right\_tree}{\Call{find\_combinations}{seq[(seq.length/2).floor..-1], $m_{max}$, $i_{max}$, $d_{max}$}}
     		\Else
     			\Returns{List of all mismatch, insertion, and deletion combinations of seq}
     		\EndIf
@@ -546,13 +562,14 @@ These lists are combined by taking each outcome from the first list, and combini
     			\EndFor
     		\EndFor
     		\Returns{combined}
+    		\EndFunction
   	\end{algorithmic}
 \end{algorithm}
 \end{spacing}
 
 \subsubsubsection{Redundancy}
 
-Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy, when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
+Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
