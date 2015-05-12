@@ -1,9 +1,10 @@
 class Benchmark
 
     # @param [Integer] runtime Seconds for each thread to run
-    def initialize(runtime)
+    def initialize(compiletime, runtime)
 
         @runningtime = runtime
+        @compiletime = compiletime
 
         @abs_env = "#{File.dirname(__FILE__)}/../../patscan-patterns/benchmark"
         @enviroment = '../*/benchmark'
@@ -42,22 +43,20 @@ class Benchmark
                     }
                 }
 
-                sleep @runningtime
+                sleep @compiletime
 
-                Thread.kill t # only allow compile time of @runningtime seconds
+                Thread.kill t # only allow compile time of @compiletime seconds
                 t.join
 
-                file = re_file
-
                 # define output file for current input file
-                result_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
+                result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
                 result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
 
                 File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}." }
 
-                unless File.exist? file
+                unless File.exist? re_file
                     File.open(result_file, 'a') { |f|
-                        f.puts "No such file #{file} - compile failed or did not finish."
+                        f.puts "No such file #{re_file} - compile failed or did not finish."
                     }
                     next
                 end
@@ -65,7 +64,7 @@ class Benchmark
                 threads << Thread.new {
 
                     pid = spawn(
-                        "#{runtime} #{file} #{@fasta_files[0]}",
+                        "#{runtime} #{re_file} #{@fasta_files[0]}",
                         [:out, :err] => [result_file, 'a']
                     )
 
@@ -81,10 +80,10 @@ class Benchmark
                     end
 
                     File.open(result_file, 'a') { |f| f.puts "Process killed - #{@runningtime} seconds expired." }
-                    File.delete file
+                    File.delete re_file
                 }
 
-                puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
+                puts "Started #{file} with command '#{runtime} #{re_file} #{@fasta_files[0]}'"
             }
 
             threads.each { |t| t.join }

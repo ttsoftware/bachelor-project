@@ -22,10 +22,10 @@ fasta_file = ''
 pattern = ''
 
 # This a regex file
-unless (arg1.match /.+\.re/).nil?
-    File.open(arg1, 'r') { |file| pattern = (file.readlines.join ' ').rstrip! }
-else
+if (arg1.match /^.+\.re$/).nil?
     pattern = arg1
+else
+    File.open(arg1, 'r') { |file| pattern = file.readlines.join '' }
 end
 
 puts "Opening #{ARGV[1]}."
