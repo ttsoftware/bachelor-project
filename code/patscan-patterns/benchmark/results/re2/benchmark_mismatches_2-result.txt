@@ -1,1 +1,3 @@
-Argument 1 must be a file of type .re.
+Trying AGCGTGGGGAGCAAAC[2,0,0].
+Compile time: 1ms.
+Process killed - 10 seconds expired.

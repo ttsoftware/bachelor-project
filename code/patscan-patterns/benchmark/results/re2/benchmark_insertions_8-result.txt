@@ -1,1 +1,4049 @@
-Argument 1 must be a file of type .re.
+Trying AGCGTGGG[0,0,2].
+Compile time: 1ms.
+Matched: AGCTGCTGGG after 62ms
+Matched: 
+agctgtggg after 63ms
+Matched: gagctgtggg after 65ms
+Matched: agctg
+tggg after 65ms
+Matched: AGCAGCTGGG after 69ms
+Matched: AGGCGATGGG after 70ms
+Matched: cagctgtggg after 74ms
+Matched: AGCAGTGTGG after 75ms
+Matched: ATGCTGTGGG after 83ms
+Matched: aggcgtggtg after 83ms
+Matched: agcagtgtgg after 85ms
+Matched: agctgtggtg after 87ms
+Matched: gagcgtggtg after 90ms
+Matched: agcagctggg after 92ms
+Matched: AGGCGTGGCG after 93ms
+Matched: AAGCGGTGGG after 94ms
+Matched: GAGCGTGCGG after 94ms
+Matched: AGCTGTGGCG after 96ms
+Matched: aggcgtggtg after 104ms
+Matched: AGCGTGTGTG after 107ms
+Matched: AGCCTGTGGG after 109ms
+Matched: GAGACGTGGG after 113ms
+Matched: AGCAGATGGG after 115ms
+Matched: AGCTGCTGGG after 118ms
+Matched: aagcagtggg after 120ms
+Matched: CAAGCGTGGG after 121ms
+Matched: GAGTCGTGGG after 122ms
+Matched: aggcgtgagg after 122ms
+Matched: AGGCTGTGGG after 128ms
+Matched: AAGCCGTGGG after 128ms
+Matched: AGGCTGTGGG after 129ms
+Matched: AAGCTGTGGG after 129ms
+Matched: AGGCTGTGGG after 129ms
+Matched: 
+AGCTGTGGG after 129ms
+Matched: tcagcgtggg after 130ms
+Matched: agctggtggg after 130ms
+Matched: agcgtagtgg after 137ms
+Matched: ACGCGTGTGG after 144ms
+Matched: AGCAGCTGGG after 144ms
+Matched: AGCAGGTGGG after 144ms
+Matched: agacgttggg after 145ms
+Matched: agcgtgaagg after 148ms
+Matched: ACGCTGTGGG after 150ms
+Matched: agacgttggg after 152ms
+Matched: CAgcgtggtg after 158ms
+Matched: agcagctggg after 158ms
+Matched: agcagtgtgg after 159ms
+Matched: agacagtggg after 159ms
+Matched: agacagtggg after 159ms
+Matched: agcagtaggg after 159ms
+Matched: aggctgtggg after 159ms
+Matched: agacggtggg after 159ms
+Matched: AGGGCGTGGG after 162ms
+Matched: AGGCTGTGGG after 163ms
+Matched: AGCGTGCAGG after 164ms
+Matched: agacgatggg after 171ms
+Matched: agcagctggg after 172ms
+Matched: aagcagtggg after 172ms
+Matched: AGCGTGGATG after 181ms
+Matched: AGCGCCTGGG after 189ms
+Matched: AGCTGTGGCG after 189ms
+Matched: agcgtgg
+ag after 189ms
+Matched: agcgct
+ggg after 194ms
+Matched: AGCAGTGGAG after 194ms
+Matched: AAAGCGTGGG after 202ms
+Matched: AAGGCGTGGG after 204ms
+re2/dfa.cc:1159: DFA memory cache could be too small: only room for 231 states.
+Matched: aggcgtggtg after 213ms
+Matched: agcaagtggg after 221ms
+Matched: agcagtggtg after 222ms
+Matched: agcagtggtg after 223ms
+Matched: agcgctcggg after 224ms
+Matched: agctgctggg after 227ms
+Matched: agctgctggg after 227ms
+Matched: agctgctggg after 228ms
+Matched: agctgctggg after 228ms
+Matched: agctgctggg after 229ms
+Matched: agacgatggg after 239ms
+Matched: A
+GCTGTGGG after 250ms
+Matched: AGCTGTGCGG after 251ms
+Matched: agcagttggg after 262ms
+Matched: agcttgtggg after 267ms
+Matched: agcgtggaag after 270ms
+Matched: taggcgtggg after 276ms
+Matched: tagcagtggg after 276ms
+Matched: agcagctggg after 279ms
+Matched: agcagtgagg after 282ms
+Matched: agcagtggtg after 284ms
+Matched: cagcgtggcg after 286ms
+Matched: tagctgtggg after 291ms
+Matched: agccgtggag after 292ms
+Matched: AGCTGTGGTG after 298ms
+Matched: AGCAGTGGTG after 298ms
+Matched: agcagctggg after 299ms
+Matched: AGAACGTGGG after 299ms
+Matched: agcgcgtggg after 301ms
+Matched: CAGGCGTGGG after 312ms
+Matched: AGCAGGTGGG after 312ms
+Matched: AGCGTGTGTG after 314ms
+Matched: GAGCCGTGGG after 315ms
+Matched: AGCGTGTGAG after 318ms
+Matched: GAGCAGTGGG after 327ms
+Matched: AGCGTTGAGG after 328ms
+Matched: CAGCAGTGGG after 330ms
+Matched: agacagtggg after 334ms
+Matched: AGCTGCTGGG after 340ms
+Matched: agcggtgg
+g after 341ms
+Matched: CAGCAGTGGG after 343ms
+Matched: AGCGGGTGGG after 343ms
+Matched: TAGGCGTGGG after 344ms
+Matched: AGCATGTGGG after 347ms
+Matched: aggcgtgcgg after 355ms
+Matched: AGCAGTGGAG after 357ms
+Matched: aggcgtggtg after 357ms
+Matched: AGCAGGTGGG after 358ms
+Matched: agctgtgagg after 363ms
+Matched: AGCAGTTGGG after 364ms
+Matched: agcagctggg after 364ms
+Matched: ccagcgtggg after 365ms
+Matched: agcgtggt
+g after 371ms
+Matched: agctgtggag after 373ms
+Matched: AGACAGTGGG after 380ms
+Matched: agcg
+ctggg after 381ms
+Matched: AGCTGCTGGG after 382ms
+Matched: aggcgtggtg after 382ms
+Matched: CAGCAGTGGG after 386ms
+Matched: AGTCTGTGGG after 389ms
+Matched: AGCTGTGCGG after 390ms
+Matched: CAGCTGTGGG after 395ms
+Matched: cagcgctggg after 397ms
+Matched: agtcagtggg after 398ms
+Matched: atgtcgtggg after 399ms
+Matched: aggccgtggg after 400ms
+Matched: agaccgtggg after 400ms
+Matched: AGGCAGTGGG after 404ms
+Matched: AGCTGTGGAG after 405ms
+Matched: AGCTGTGGAG after 405ms
+Matched: AGC
+TGTGGG after 409ms
+Matched: AGCAGCTGGG after 410ms
+Matched: aagcg
+tggg after 411ms
+Matched: gagcagtggg after 412ms
+Matched: AGCAGTGAGG after 412ms
+Matched: aggctgtggg after 413ms
+Matched: GAGCGTAGGG after 418ms
+Matched: agctgatggg after 418ms
+Matched: agcagtgtgg after 419ms
+Matched: gagcgctggg after 419ms
+Matched: ATGCAGTGGG after 419ms
+Matched: AGACTGTGGG after 420ms
+Matched: AGCAGTGGAG after 420ms
+Matched: AGACGGTGGG after 425ms
+Matched: AGCCTGTGGG after 426ms
+Matched: AGCAGTGGAG after 426ms
+Matched: cagctgtggg after 427ms
+Matched: agcagatggg after 428ms
+Matched: agactgtggg after 429ms
+Matched: agacgatggg after 435ms
+Matched: AGGCGTGGTG after 436ms
+Matched: AGACGTGGAG after 437ms
+Matched: AGCTGGTGGG after 439ms
+Matched: AGCAGTGAGG after 441ms
+Matched: aggcg
+tggg after 444ms
+Matched: AGGCTGTGGG after 447ms
+Matched: agcagtgagg after 448ms
+Matched: AGCGCTGTGG after 450ms
+Matched: AG
+CGTCGGG after 450ms
+Matched: agcagctggg after 451ms
+Matched: aggcgtggtg after 453ms
+Matched: ATGCTGTGGG after 456ms
+Matched: aggcgtggtg after 457ms
+Matched: ccagcgtggg after 462ms
+Matched: acgcgtggtg after 465ms
+Matched: aggcgtggtg after 465ms
+Matched: GAGCGTGTGG after 466ms
+Matched: GAGCGTAGGG after 468ms
+Matched: A
+GCGGTGGG after 469ms
+Matched: aggcgtggtg after 474ms
+Matched: AAGcagtggg after 478ms
+Matched: AGCTG
+TGGG after 479ms
+Matched: AGCCTGTGGG after 479ms
+Matched: agc
+gctggg after 481ms
+Matched: AGTGCGTGGG after 482ms
+Matched: AGCCCGTGGG after 482ms
+Matched: AGCTGTCGGG after 483ms
+Matched: AGCAGCTGGG after 486ms
+Matched: AGTCAGTGGG after 488ms
+Matched: CAGCAGTGGG after 491ms
+Matched: AAGCGATGGG after 491ms
+Matched: AGGCAGTGGG after 491ms
+Matched: AGCAGTTGGG after 492ms
+Matched: agacgtggtg after 494ms
+Matched: tagcggtggg after 501ms
+Matched: AGCAAGTGGG after 501ms
+Matched: aggcgtggtg after 501ms
+Matched: aggcgtggtg after 501ms
+Matched: aggcgtggtg after 501ms
+Matched: AGCGCTGGAG after 503ms
+Matched: aagcgttggg after 505ms
+Matched: gagcgtgtgg after 508ms
+Matched: aggcgtggtg after 509ms
+Matched: AGCGTGAgag after 510ms
+Matched: AGCATGTGGG after 516ms
+Matched: agacgtggtg after 521ms
+Matched: aggcgtgcgg after 521ms
+Matched: aggcgtggtg after 521ms
+Matched: agcgtgcagg after 523ms
+Matched: agctgtgtgg after 527ms
+Matched: aggcgtggtg after 528ms
+Matched: AGCAGTGTGG after 529ms
+Matched: AGACTGTGGG after 530ms
+Matched: ag
+cgctggg after 531ms
+Matched: aggcgtggtg after 535ms
+Matched: aggcgtggtg after 535ms
+Matched: gagcgtggtg after 538ms
+Matched: aggcgtggtg after 538ms
+Matched: aggcgtggtg after 538ms
+Matched: tagcagtggg after 539ms
+Matched: aggcgtggtg after 542ms
+Matched: aggcgtggtg after 543ms
+Matched: aggcgtggtg after 543ms
+Matched: agcgtagtgg after 544ms
+Matched: aagcgtggtg after 544ms
+Matched: agacgtggtg after 545ms
+Matched: CAGACGTGGG after 545ms
+Matched: CCAGCGTGGG after 546ms
+Matched: aggctgtggg after 546ms
+Matched: aggcgtggtg after 550ms
+Matched: agcagctggg after 551ms
+Matched: aggcgtggtg after 554ms
+Matched: aggcgtggtg after 559ms
+Matched: GAGCAGTGGG after 559ms
+Matched: gagacgtggg after 560ms
+Matched: AGCTGCTGGG after 561ms
+Matched: agcagctggg after 564ms
+Matched: agcagctggg after 567ms
+Matched: agacgatggg after 574ms
+Matched: AAGCTGTGGG after 576ms
+Matched: tagcgatggg after 577ms
+Matched: aagcgtggtg after 577ms
+Matched: agcagtggag after 579ms
+Matched: AGACGTGG
+G after 582ms
+Matched: ATGCGTTGGG after 583ms
+Matched: AGCGTGTGTG after 583ms
+Matched: agcgtaaggg after 584ms
+Matched: agcagatggg after 587ms
+Matched: aggcgtggtg after 589ms
+Matched: AGCGAGTGGG after 590ms
+Matched: aggcgtggtg after 591ms
+Matched: aggcgtggcg after 591ms
+Matched: agcgctggag after 591ms
+Matched: agcagtaggg after 592ms
+Matched: agcaggtggg after 596ms
+Matched: AGCAGCTGGG after 598ms
+Matched: aggcgtggtg after 602ms
+Matched: cagcagtggg after 604ms
+Matched: aggcgtggtg after 605ms
+Matched: aggcgtggtg after 605ms
+Matched: CAGCTGTGGG after 606ms
+Matched: AGCAGTGGTG after 611ms
+Matched: AGCGATAGGG after 611ms
+Matched: agcgtaaggg after 612ms
+Matched: gagcgttggg after 618ms
+Matched: aggcgtggtg after 622ms
+Matched: AGC
+GGTGGG after 625ms
+Matched: agcagctggg after 627ms
+Matched: AGTCGATGGG after 631ms
+Matched: 
+AGCTGTGGG after 631ms
+Matched: AGGCGTGGTG after 632ms
+Matched: AGCAAGTGGG after 643ms
+Matched: aggcgtggtg after 644ms
+Matched: agcagctggg after 646ms
+Matched: agtcagtggg after 646ms
+Matched: agcagtgcgg after 646ms
+Matched: atgcagtggg after 651ms
+Matched: AGCAGCTGGG after 652ms
+Matched: AGCGCTGGTG after 652ms
+Matched: GCAGCGTGGG after 652ms
+Matched: aggcgtggtg after 654ms
+Matched: cagc
+gtggg after 654ms
+Matched: aggcgtggtg after 656ms
+Matched: agcagctggg after 656ms
+Matched: gagcagtggg after 657ms
+Matched: AAGGCGTGGG after 658ms
+Matched: AGTCGTAGGG after 660ms
+Matched: AGACGTGAGG after 670ms
+Matched: AGCGTTTGGG after 674ms
+Matched: aggcgtggtg after 675ms
+Matched: aggcgtggtg after 677ms
+Matched: aggcgtggtg after 680ms
+Matched: aggcgtggtg after 681ms
+Matched: aggcgtggtg after 682ms
+Matched: agcgtg
+gtg after 687ms
+Matched: aggcgtggtg after 687ms
+Matched: CAGCTGTGGG after 693ms
+Matched: AGCAGTTGGG after 693ms
+Matched: AGCGTGCCGG after 693ms
+Matched: agcagctggg after 695ms
+Matched: AGCCAGTGGG after 700ms
+Matched: GAGCCGTGGG after 701ms
+Matched: agcagttggg after 702ms
+Matched: AGCAGTGAGG after 704ms
+Matched: AGCGTGGA
+G after 707ms
+Matched: AGCGTATGGG after 707ms
+Matched: cagcgtggtg after 708ms
+Matched: aggcgtggtg after 709ms
+Matched: aGCagctggg after 709ms
+Matched: aggcgtggtg after 713ms
+Matched: AGTCAGTGGG after 716ms
+Matched: aggcgtggcg after 720ms
+Matched: aggcgtggtg after 720ms
+Matched: aggcgtggtg after 721ms
+Matched: aggcgtggtg after 722ms
+Matched: aggcgtggtg after 723ms
+Matched: aggcgtggtg after 723ms
+Matched: aggcgtggtg after 724ms
+Matched: agcagctggg after 724ms
+Matched: aggcgtggtg after 725ms
+Matched: agcagctggg after 731ms
+Matched: aggcgtgagG after 735ms
+Matched: agctgctggg after 736ms
+Matched: tagcagtggg after 737ms
+Matched: ag
+cgtgagg after 739ms
+Matched: ATGCAGTGGG after 739ms
+Matched: aggcgtggtg after 740ms
+Matched: agcagctggg after 745ms
+Matched: AGGCGTGGTg after 751ms
+Matched: AGCGCTTGGG after 752ms
+Matched: aggcgtggtg after 753ms
+Matched: agcgtgaagg after 754ms
+Matched: AGCTGT
+GGG after 754ms
+Matched: atgctgtggg after 758ms
+Matched: gagcagtggg after 760ms
+Matched: AGCTGCTGGG after 760ms
+Matched: AGCCGTTGGG after 761ms
+Matched: AGCCGCTGGG after 764ms
+Matched: AGCTGTGTGG after 767ms
+Matched: CAGCGTGAGG after 768ms
+Matched: AGCGGGTGGG after 768ms
+Matched: ATGCGTGGTG after 769ms
+Matched: tagCAGTGGG after 773ms
+Matched: agcagatggg after 775ms
+Matched: aggcgtggtg after 780ms
+Matched: AAGCGCTGGG after 788ms
+Matched: AGCGTGGCTG after 788ms
+Matched: AGTCGGTGGG after 789ms
+Matched: AGCACGTGGG after 791ms
+Matched: TAGGCGTGGG after 792ms
+Matched: AGCGCTGTGG after 793ms
+Matched: AGCTGTGAGG after 793ms
+Matched: GAGCGTTGGG after 794ms
+Matched: AGACGTGCGG after 794ms
+Matched: AGCGCTGTGG after 794ms
+Matched: AGGCAGTGGG after 795ms
+Matched: AGTCTGTGGG after 797ms
+Matched: CAGCGTGGCG after 797ms
+Matched: AGGGCGTGGG after 801ms
+Matched: GGAGCGTGGG after 801ms
+Matched: AGCAGTGAGG after 801ms
+Matched: GAAGCGTGGG after 802ms
+Matched: AGTCTGTGGG after 806ms
+Matched: AGGCGTGTGG after 808ms
+Matched: GAGCGTGAGG after 811ms
+Matched: AAGCAGTGGG after 811ms
+Matched: AGCGTGTGAG after 812ms
+Matched: CAGGCGTGGG after 812ms
+Matched: AGCGTATGGG after 812ms
+Matched: AGGCCGTGGG after 814ms
+Matched: AGCCTGTGGG after 815ms
+Matched: AGCTGTG
+GG after 820ms
+Matched: AGACGATGGG after 820ms
+Matched: AGCGTGGCCG after 820ms
+Matched: agcagctggg after 823ms
+Matched: AGCACGTGGG after 824ms
+Matched: agcgt
+tggg after 825ms
+Matched: ATGCGCTGGG after 831ms
+Matched: agcggtggcg after 833ms
+Matched: AGCGGTGAGG after 833ms
+Matched: AGCAGTGGCG after 834ms
+Matched: AGGCGTGGAG after 838ms
+Matched: CAGCTGTGGG after 843ms
+Matched: TAGCCGTGGG after 844ms
+Matched: aggcgtggag after 851ms
+Matched: GATGCGTGGG after 853ms
+Matched: AGCAGTGGAG after 853ms
+Matched: aaGCAGTGGG after 853ms
+Matched: AGCAGATGGG after 854ms
+Matched: GAGGCGTGGG after 866ms
+Matched: AGCGT
+GGTG after 866ms
+Matched: aggcgtggtg after 872ms
+Matched: AGCGTGGCAG after 873ms
+Matched: AGCAGGTGGG after 875ms
+Matched: agcagctggg after 880ms
+Matched: agcaggtggg after 882ms
+Matched: AGCTGTGGTG after 883ms
+Matched: AGACAGTGGG after 883ms
+Matched: CAGCAGTGGG after 885ms
+Matched: AGGTCGTGGG after 887ms
+Matched: AGCCTGTGGG after 889ms
+Matched: AGCAGATGGG after 889ms
+Matched: AAGCGTTGGG after 890ms
+Matched: aagcgctggg after 897ms
+Matched: 
+ATGCGTGGG after 898ms
+Matched: agcagtggcg after 904ms
+Matched: aggcgtggtg after 909ms
+Matched: ccagcgtggg after 909ms
+Matched: aggcgtggtg after 912ms
+Matched: AGTGCGTGGG after 914ms
+Matched: AGCGTGTGCG after 916ms
+Matched: AGCTTGTGGG after 920ms
+Matched: GAGACGTGGG after 924ms
+Matched: aggcgtggtg after 924ms
+Matched: agacgtggtg after 925ms
+Matched: agacgatggg after 925ms
+Matched: aggcgtggcg after 925ms
+Matched: agaccgtggg after 925ms
+Matched: aagcgctggg after 926ms
+Matched: agcgctggtg after 932ms
+Matched: AGCTGTGTGG after 933ms
+Matched: AGACCGTGGG after 933ms
+Matched: AGGCTGTGGG after 933ms
+Matched: ATGCAgtggg after 933ms
+Matched: cagctgtggg after 939ms
+Matched: AGCTAGTGGG after 939ms
+Matched: aggcgtggtg after 941ms
+Matched: 
+AGCCGTGGG after 950ms
+Matched: AGCGGTGGTG after 951ms
+Matched: AGCTGCTGGG after 954ms
+Matched: AGCCAGTGGG after 954ms
+Matched: aagcgttggg after 955ms
+Matched: gagcgtggtg after 959ms
+Matched: AGCAGTCGGG after 960ms
+Matched: AGCGATGGTG after 960ms
+Matched: ACGCGTGGAG after 960ms
+Matched: AGCGGCTGGG after 961ms
+Matched: CAGCGTGAGG after 962ms
+Matched: AGACGTGAGG after 963ms
+Matched: AGCTGTGG
+G after 964ms
+Matched: ATGCGTGTGG after 965ms
+Matched: AGCGTGCAGG after 967ms
+Matched: aggcgtggtg after 968ms
+Matched: AGCCGTGTGG after 973ms
+Matched: AGTCAGTGGG after 973ms
+Matched: agcagtggtg after 975ms
+Matched: agcgtgaagg after 980ms
+Matched: agcagtggag after 983ms
+Matched: atgcgtggtg after 986ms
+Matched: agcgtgctgg after 987ms
+Matched: AGTCAGTGGG after 992ms
+Matched: agacgttggg after 993ms
+Matched: agctgtggag after 993ms
+Matched: AGCTGCTGGG after 993ms
+Matched: AGCAGGTGGG after 998ms
+Matched: atgcagtggg after 998ms
+Matched: AGCCTGTGGG after 1000ms
+Matched: A
+GCGATGGG after 1000ms
+Matched: AATGCGTGGG after 1001ms
+Matched: aggcgtggtg after 1002ms
+Matched: AGCAGTGGAG after 1004ms
+Matched: AGCTGTGGAG after 1004ms
+Matched: AGCAGTGAGG after 1004ms
+Matched: ATGCCGTGGG after 1006ms
+Matched: TGAGCGtggg after 1006ms
+Matched: GAGCAGTGGG after 1008ms
+Matched: ACTGCGTGGG after 1012ms
+Matched: CAGGCGTGGG after 1012ms
+Matched: cagcagtggg after 1013ms
+Matched: aggcgtggtg after 1017ms
+Matched: aggcgtggtg after 1018ms
+Matched: AGCGCCTGGG after 1018ms
+Matched: CAGCGATGGG after 1020ms
+Matched: AGCGGCTGGG after 1021ms
+Matched: AGGCGTAGGG after 1021ms
+Matched: GAGCTGTGGG after 1021ms
+Matched: CAAGCGTGGG after 1027ms
+Matched: AGCAGTGG
+G after 1032ms
+Matched: AGCAGTGTGG after 1033ms
+Matched: AGCAGTGAGG after 1034ms
+Matched: aggcgtggtg after 1039ms
+Matched: AGCAGCTGGG after 1041ms
+Matched: AGCGGTGTGG after 1041ms
+Matched: AGCTGTGGCG after 1042ms
+Matched: AGCAGTGTGG after 1042ms
+Matched: ccagcgtggg after 1044ms
+Matched: aggctgtggg after 1047ms
+Matched: aggcgtgagg after 1048ms
+Matched: AGCAGGTGGG after 1050ms
+Matched: ATGCTGTGGG after 1054ms
+Matched: AGACTGTGGG after 1055ms
+Matched: ACGCGCTGGG after 1056ms
+Matched: AGCAGTGAGG after 1061ms
+Matched: AGGCAGTGGG after 1062ms
+Matched: AGCAGTGGAG after 1063ms
+Matched: AGC
+GTTGGG after 1064ms
+Matched: AGCAGATGGG after 1064ms
+Matched: AGGCTGTGGG after 1068ms
+Matched: AGCTCGTGGG after 1074ms
+Matched: AGAGCGTGGG after 1084ms
+Matched: GCAGCGTGGG after 1086ms
+Matched: AGGCAGTGGG after 1086ms
+Matched: AGCCTGTGGG after 1088ms
+Matched: TAGCGATGGG after 1089ms
+Matched: AATGCGTGGG after 1091ms
+Matched: aggcgtggtg after 1092ms
+Matched: AGCTGTGGAG after 1093ms
+Matched: AGCAGTGAGG after 1093ms
+Matched: ATGCCGTGGG after 1095ms
+Matched: ATGCCGTGGG after 1095ms
+Matched: ATGCCGTGGG after 1095ms
+Matched: ATGCCGTGGG after 1095ms
+Matched: ATGCCGTGGG after 1095ms
+Matched: TGAGCGtggg after 1095ms
+Matched: GAGCAGTGGG after 1095ms
+Matched: ACTGCGTGGG after 1101ms
+Matched: CAGGCGTGGG after 1101ms
+Matched: aggcgtggtg after 1102ms
+Matched: agtcgctggg after 1103ms
+Matched: cagctgtggg after 1103ms
+Matched: agctgttggg after 1105ms
+Matched: agacgatggg after 1105ms
+Matched: agcgcctggg after 1108ms
+Matched: AGCTGTGGTG after 1111ms
+Matched: AGCTGT
+GGG after 1115ms
+Matched: AGCTGATGGG after 1116ms
+Matched: AGGCCGTGGG after 1116ms
+Matched: CAGCAGTGGG after 1119ms
+Matched: AGGCAGTGGG after 1120ms
+Matched: AGACAGTGGG after 1122ms
+Matched: CAGCTGTGGG after 1122ms
+Matched: AGCTGCTGGG after 1124ms
+Matched: TAGCGCTGGG after 1127ms
+Matched: agcgaatggg after 1129ms
+Matched: cagcgtggtg after 1132ms
+Matched: AGCGGCTGGG after 1135ms
+Matched: AGGCCGTGGG after 1136ms
+Matched: TGAGCGTGGG after 1136ms
+Matched: AGCCGTGTGG after 1137ms
+Matched: AGCAGCTGGG after 1137ms
+Matched: AGCGCTTGGG after 1139ms
+Matched: AGCTCGTGGG after 1141ms
+Matched: AGGCTGTGGG after 1141ms
+Matched: AAGACGTGGG after 1142ms
+Matched: AGCAGCTGGG after 1142ms
+Matched: AGCGAGTGGG after 1143ms
+Matched: AGGGCGTGGG after 1144ms
+Matched: Aagcagtggg after 1145ms
+Matched: AGCCGTGGAG after 1146ms
+Matched: CAGCGT
+GGG after 1153ms
+Matched: AGCAGGTGGG after 1153ms
+Matched: ATGCCGTGGG after 1156ms
+Matched: AGCTGCTGGG after 1159ms
+Matched: agcagctggg after 1160ms
+Matched: AGCGAGTGGG after 1161ms
+Matched: AGCA
+GTGGG after 1169ms
+Matched: AGCGAGTGGG after 1170ms
+Matched: aggcgtggtg after 1170ms
+Matched: GAGCGTgcgg after 1177ms
+Matched: AGACAGTGGG after 1178ms
+Matched: AGCAGATGGG after 1179ms
+Matched: CAGCCGTGGG after 1180ms
+Matched: agc
+gtggtg after 1185ms
+Matched: aggcgtggtg after 1186ms
+Matched: aagcgctggg after 1186ms
+Matched: aggcgtggtg after 1186ms
+Matched: aggcgtggtg after 1189ms
+Matched: GAGCGTGAGG after 1191ms
+Matched: a
+gcggtggg after 1192ms
+Matched: AGCACGTGGG after 1192ms
+Matched: ATGCTGTGGG after 1193ms
+Matched: AGCGCTGG
+G after 1197ms
+Matched: gagctgtggg after 1200ms
+Matched: gagcgtggtg after 1201ms
+Matched: aggcgtggtg after 1207ms
+Matched: aatgcgtggg after 1208ms
+Matched: ACgcgtggtg after 1208ms
+Matched: aggcgtggtg after 1209ms
+Matched: aggctgtggg after 1212ms
+Matched: AGGCTGTGGG after 1214ms
+Matched: AGCGCTAGGG after 1214ms
+Matched: AGCAGTGGAG after 1214ms
+Matched: gagcgtggag after 1216ms
+Matched: aggcgtggtg after 1220ms
+Matched: AGCGTTAGGG after 1221ms
+Matched: AGCGTGCTGG after 1224ms
+Matched: AGCAGCTGGG after 1227ms
+Matched: 
+AGCGTGGCG after 1228ms
+Matched: agtctgtggg after 1232ms
+Matched: agcgcctggg after 1232ms
+Matched: AAGCTGTGGG after 1236ms
+Matched: AGCTGGTGGG after 1237ms
+Matched: GAGCTGTGGG after 1237ms
+Matched: agcagctggg after 1243ms
+Matched: AGCTGGTGGG after 1243ms
+Matched: CCAGCGTGGG after 1244ms
+Matched: AGCGTGGTCG after 1245ms
+Matched: AGCCTGTGGG after 1245ms
+Matched: AGCAGTGAGG after 1247ms
+Matched: AGGCGTAGGG after 1249ms
+Matched: GAGCAGTGGG after 1249ms
+Matched: GAGCGTG
+GG after 1250ms
+Matched: GAGCGCTGGG after 1250ms
+Matched: AGCAGCTGGG after 1253ms
+Matched: agcagctggg after 1256ms
+Matched: AGCTGCTGGG after 1257ms
+Matched: CACGCGTGGG after 1258ms
+Matched: AAGCGTGAGG after 1259ms
+Matched: AG
+CAGTGGG after 1259ms
+Matched: gagcgtggtg after 1262ms
+Matched: agactgtggg after 1263ms
+Matched: AGCTGTGGAG after 1267ms
+Matched: aggcgtggcg after 1269ms
+Matched: caagcgtggg after 1271ms
+Matched: agcagctggg after 1272ms
+Matched: AGCTGTGCGG after 1278ms
+Matched: AGCTGTTGGG after 1278ms
+Matched: AGCATGTGGG after 1280ms
+Matched: TAGTCGTGGG after 1281ms
+Matched: AGACTGTGGG after 1281ms
+Matched: ACGCAGTGGG after 1286ms
+Matched: aggcgtggcg after 1289ms
+Matched: ATGACGTGGG after 1289ms
+Matched: aagcgctggg after 1293ms
+Matched: agCACGTGGG after 1296ms
+Matched: ATGCGTGTGG after 1296ms
+Matched: GAGCTGTGGG after 1298ms
+Matched: atgcgatggg after 1302ms
+Matched: aggcgtggtg after 1303ms
+Matched: agcagtggtg after 1307ms
+Matched: agtctgtggg after 1308ms
+Matched: GAGCTGTGGG after 1314ms
+Matched: agcgtagtgg after 1314ms
+Matched: AGTCAGTGGG after 1316ms
+Matched: ATGCTGTGGG after 1317ms
+Matched: cagcgctggg after 1322ms
+Matched: AGCAGTGAGG after 1323ms
+Matched: AGCCAGTGGG after 1324ms
+Matched: AGAACGTGGG after 1331ms
+Matched: AAGCAGTGGG after 1334ms
+Matched: CAGCAGTGGG after 1335ms
+Matched: AGCAGATGGG after 1335ms
+Matched: AGAACGTGGG after 1343ms
+Matched: AGCTGTGGAG after 1345ms
+Matched: AGCAGTGTGG after 1346ms
+Matched: aagcgtggtg after 1346ms
+Matched: aggcgtggtg after 1352ms
+Matched: GAGCGCTGGG after 1354ms
+Matched: AGCGT
+GTGG after 1358ms
+Matched: AGCTG
+TGGG after 1360ms
+Matched: AAGCGTGAGG after 1362ms
+Matched: AGGCAGTGGG after 1364ms
+Matched: GAGCGATGGG after 1366ms
+Matched: agtcggtggg after 1367ms
+Matched: AGCAGATGGG after 1374ms
+Matched: AGGCTGTGGG after 1383ms
+Matched: AGCTGTGTGG after 1388ms
+Matched: aggcgtggtg after 1388ms
+Matched: AGCAGTAGGG after 1389ms
+Matched: AGCAGGTGGG after 1390ms
+Matched: AGCAGTGCGG after 1390ms
+Matched: agctggtggg after 1395ms
+Matched: AGCGTGCCGG after 1396ms
+Matched: ATGCTGTGGG after 1396ms
+Matched: AGCAGCTGGG after 1397ms
+Matched: AGTCAGTGGG after 1397ms
+Matched: AGGCGTGTGG after 1400ms
+Matched: AGCAGCTGGG after 1402ms
+Matched: tagcgatggg after 1403ms
+Matched: aggctgtggg after 1404ms
+Matched: AGACCGTGGG after 1410ms
+Matched: agcatgtggg after 1411ms
+Matched: agcatgtggg after 1412ms
+Matched: tagctgtggg after 1412ms
+Matched: cagcgtggcg after 1414ms
+Matched: AGGCTGTGGG after 1415ms
+Matched: TAGCGATGGG after 1416ms
+Matched: GAGCAGTGGG after 1417ms
+Matched: agcagctggg after 1418ms
+Matched: AGCATGTGGG after 1423ms
+Matched: CAGGCGTGGG after 1424ms
+Matched: agctgctggg after 1425ms
+Matched: aggcgatggg after 1429ms
+Matched: aggctgtggg after 1429ms
+Matched: AGCTGGTGGG after 1431ms
+Matched: gagcgtggtg after 1433ms
+Matched: AGCGTGAGCG after 1437ms
+Matched: AGTCGGTGGG after 1438ms
+Matched: aggcgtggtg after 1439ms
+Matched: AGGCGTGAGG after 1440ms
+Matched: CAGGCGTGGg after 1440ms
+Matched: AGCGCATGGG after 1445ms
+Matched: CCAGCGTGGG after 1446ms
+Matched: agcagctggg after 1447ms
+Matched: AGCCCGTGGG after 1447ms
+Matched: agcagatggg after 1453ms
+Matched: AGCGTGTGTG after 1456ms
+Matched: aggcgtggtg after 1460ms
+Matched: atgcgtgtGg after 1461ms
+Matched: AGCAGTAGGG after 1462ms
+Matched: agcagctggg after 1462ms
+Matched: agctgatggg after 1465ms
+Matched: AGTTCGTGGG after 1468ms
+Matched: agcagt
+ggg after 1468ms
+Matched: CAGCAGTGGG after 1472ms
+Matched: cagctgtggg after 1474ms
+Matched: AGCGTGTTGG after 1475ms
+Matched: aggcgtggtg after 1479ms
+Matched: AGGCGTGGTG after 1481ms
+Matched: ACGCAGTGGG after 1482ms
+Matched: agcgctggag after 1483ms
+Matched: AGCGTGGCTG after 1484ms
+Matched: AGCAGTGTGG after 1485ms
+Matched: GAGCCGTGGG after 1490ms
+Matched: agcagctggg after 1490ms
+Matched: AGCCAGTGGG after 1491ms
+Matched: GAGCAGTGGG after 1492ms
+Matched: AGCCTGTGGG after 1492ms
+Matched: ATGCAGTGGG after 1493ms
+Matched: AGCGTGCAGG after 1497ms
+Matched: CAGCTGTGGG after 1498ms
+Matched: AGCACGTGGG after 1498ms
+Matched: AGCGCATGGG after 1498ms
+Matched: AGTACGTGGG after 1499ms
+Matched: CAGCAGTGGG after 1499ms
+Matched: AGCAGTGGCG after 1500ms
+Matched: AGCGGGTGGG after 1500ms
+Matched: AGTCAGTGGG after 1501ms
+Matched: atgctgtggg after 1502ms
+Matched: atgctgtggg after 1502ms
+Matched: ACGCTGTGGG after 1502ms
+Matched: ACGCTGTGGG after 1502ms
+Matched: ACGCTGTGGG after 1502ms
+Matched: acgctgtggg after 1502ms
+Matched: acgctgtggg after 1502ms
+Matched: acgctgtggg after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: AGCTGTCGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: AGCTGTCGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1503ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ATGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: ATGCTGTGGG after 1504ms
+Matched: ACGCTGTGGG after 1504ms
+Matched: GAGCGTTGGG after 1504ms
+Matched: ATGCGGTGGG after 1505ms
+Matched: AGACGTGAGG after 1505ms
+Matched: GAGCTGTGGG after 1507ms
+Matched: GAGCCGTGGG after 1507ms
+Matched: CAGGCGTGGG after 1509ms
+Matched: AGCTGTAGGG after 1511ms
+Matched: AGCagatggg after 1512ms
+Matched: AGCTGGTGGG after 1512ms
+Matched: AGGCTGTGGG after 1513ms
+Matched: ACGCCGTGGG after 1513ms
+Matched: AGCTGCTGGG after 1513ms
+Matched: CAGCTGTGGG after 1513ms
+Matched: AGCCAGTGGG after 1516ms
+Matched: AGC
+AGTGGG after 1517ms
+Matched: GAGCAGTGGG after 1518ms
+Matched: GAGCAGTGGG after 1518ms
+Matched: AGCCGGTGGG after 1519ms
+Matched: TA
+GCGTGGG after 1519ms
+Matched: AGCCGTGGAG after 1519ms
+Matched: CAGCGCTGGG after 1523ms
+Matched: AAGCGTGAGG after 1524ms
+Matched: 
+agcgtggag after 1526ms
+Matched: AGCAGGTGGG after 1528ms
+Matched: AGACGTGTGG after 1531ms
+Matched: AGCGTGCTGG after 1532ms
+Matched: agtctgtggg after 1535ms
+Matched: GATGCGTGGG after 1536ms
+Matched: GAGCGTTGGG after 1538ms
+Matched: agcatgtggg after 1542ms
+Matched: ATGCGTGTGG after 1544ms
+Matched: AGGCGTGTGG after 1545ms
+Matched: AGGCTGTGGG after 1545ms
+Matched: AGGCGGTGGG after 1545ms
+Matched: AAGCGTGAGG after 1546ms
+Matched: gagcagtggg after 1551ms
+Matched: aggcgtgagg after 1556ms
+Matched: AGCACGTGGG after 1558ms
+Matched: ATGCGTAGGG after 1558ms
+Matched: AAGCGCTGGG after 1558ms
+Matched: aggcgtggtg after 1563ms
+Matched: tgagcgtggg after 1564ms
+Matched: aggcgtggtg after 1565ms
+Matched: AGTCAGTGGG after 1566ms
+Matched: CAGCGTGAGG after 1567ms
+Matched: AGCCTGTGGG after 1572ms
+Matched: AGACCGTGGG after 1573ms
+Matched: AGCGTGCGCG after 1574ms
+Matched: agcagctggg after 1579ms
+Matched: AGCCTGTGGG after 1582ms
+Matched: CAG
+CGTGGG after 1585ms
+Matched: CAGCTGTGGG after 1585ms
+Matched: AGCATGTGGG after 1586ms
+Matched: CAGCTGTGGG after 1586ms
+Matched: AGCGTAGAGG after 1591ms
+Matched: AGTCGGTGGG after 1592ms
+Matched: CAGTCGTGGG after 1593ms
+Matched: AGCTGT
+GGG after 1595ms
+Matched: CAAGCGTGGG after 1595ms
+Matched: AGGCTGTGGG after 1596ms
+Matched: ATGCTGTGGG after 1597ms
+Matched: GAGCGTGTGG after 1599ms
+Matched: AGCCTGTGGG after 1599ms
+Matched: aggcgtggtg after 1599ms
+Matched: agctgctggg after 1600ms
+Matched: AGCAGGTGGG after 1606ms
+Matched: aggcgctggg after 1607ms
+Matched: CAGCGTGGAG after 1608ms
+Matched: AGCAGTGTGG after 1609ms
+Matched: AAGCCGTGGG after 1609ms
+Matched: AGCTGTGGTG after 1610ms
+Matched: AGGCAGTGGG after 1611ms
+Matched: AGCAGTGTGG after 1613ms
+Matched: gaggcgtggg after 1620ms
+Matched: aggcgtggtg after 1621ms
+Matched: aggcgtggtg after 1622ms
+Matched: aggcgtggtg after 1627ms
+Matched: AGCCTGTGGG after 1628ms
+Matched: AAGCGTGTGG after 1628ms
+Matched: AGCGTGCTGG after 1632ms
+Matched: AGGACGTGGG after 1633ms
+Matched: AGCGGGTGGG after 1633ms
+Matched: AGCCGTGTGG after 1635ms
+Matched: AGGCGTGGTG after 1637ms
+Matched: AGGCGCTGGG after 1637ms
+Matched: AGCAGATGGG after 1638ms
+Matched: AGCGTGCAGG after 1638ms
+Matched: CAGGCGTGGG after 1639ms
+Matched: AGCGATGGCG after 1639ms
+Matched: AGCTGCTGGG after 1641ms
+Matched: CAGCGCTGGG after 1643ms
+Matched: AGCGCTCGGG after 1644ms
+Matched: AGCACGTGGG after 1644ms
+Matched: AGGCTGTGGG after 1646ms
+Matched: AGCGCT
+GGG after 1648ms
+Matched: AGCAG
+TGGG after 1651ms
+Matched: AGCCGTGGAG after 1651ms
+Matched: AGACAGTGGG after 1651ms
+Matched: aggcgtggtg after 1653ms
+Matched: aggcgtggtg after 1655ms
+Matched: AGCGTGGATG after 1658ms
+Matched: GAGCTGTGGG after 1659ms
+Matched: agcagctggg after 1659ms
+Matched: GCAGCGTGGG after 1660ms
+Matched: agctgtgagg after 1664ms
+Matched: AGACAGTGGG after 1666ms
+Matched: AGCCAGTGGG after 1667ms
+Matched: AGCGTATGGG after 1669ms
+Matched: agcagatggg after 1670ms
+Matched: AGCGTGGCTG after 1672ms
+Matched: AGCAGCTGGG after 1672ms
+Matched: GCAGCGTGGG after 1678ms
+Matched: aggcgtggtg after 1680ms
+Matched: CAGCTGTGGG after 1680ms
+Matched: ATGCAGTGGG after 1681ms
+Matched: agctgtggtg after 1681ms
+Matched: AGCGTGGCAG after 1682ms
+Matched: AGCTGTGTGG after 1683ms
+Matched: aggcgtggtg after 1688ms
+Matched: AGCTTGTGGG after 1688ms
+Matched: AGCCGCTGGG after 1689ms
+Matched: agcgtgtgcg after 1692ms
+Matched: CAGCTGTGGG after 1696ms
+Matched: AGCAAGTGGG after 1696ms
+Matched: GAGCAGTGGG after 1696ms
+Matched: agcgct
+ggg after 1698ms
+Matched: CAGCTGTGGG after 1700ms
+Matched: AGCGCGTGGG after 1701ms
+Matched: AAGCAGTGGG after 1702ms
+Matched: AGCAGTGGTG after 1706ms
+Matched: AGCATGTGGG after 1707ms
+Matched: GAGCTGTGGG after 1707ms
+Matched: gagctgtggg after 1710ms
+Matched: AGCTG
+TGGG after 1713ms
+Matched: AAGCCGTGGG after 1713ms
+Matched: agcagtggtg after 1714ms
+Matched: AGCTGTGTGG after 1714ms
+Matched: GAGCGTGAGG after 1715ms
+Matched: AGCCAGTGGG after 1715ms
+Matched: AGGCTGTGGG after 1718ms
+Matched: AGCGTGGT
+G after 1719ms
+Matched: AGCTGTGGTG after 1719ms
+Matched: AGGCGTGTGG after 1719ms
+Matched: AGCGCTTGGG after 1719ms
+Matched: AGCGCTGCGG after 1720ms
+Matched: CCAGCGTGGG after 1720ms
+Matched: aggc
+gtggg after 1724ms
+Matched: gagcagtggg after 1724ms
+Matched: AGGCTGTGGG after 1725ms
+Matched: CAGCGTGGCG after 1726ms
+Matched: AGTCAGTGGG after 1726ms
+Matched: AGCTGTGGTG after 1726ms
+Matched: GCAGCGTGGG after 1727ms
+Matched: CAGCGATGGG after 1729ms
+Matched: AGCG
+CTGGG after 1729ms
+Matched: aggcgtggtg after 1731ms
+Matched: AGCTGTGGCG after 1732ms
+Matched: AGCGCGTGGG after 1733ms
+Matched: AGCGATGTGG after 1734ms
+Matched: AGCGTGAGCG after 1736ms
+Matched: AGCATGTGGG after 1737ms
+Matched: AGCGCTGGTG after 1737ms
+Matched: AGCCTGTGGG after 1738ms
+Matched: CCAGCGTGGG after 1738ms
+Matched: AGGCGTGCGG after 1738ms
+Matched: GAGCTGTGGG after 1738ms
+Matched: aggcggtggg after 1739ms
+Matched: AGCGTGGCAG after 1744ms
+Matched: AGCTGTGGTG after 1744ms
+Matched: AGCGTGCAGG after 1745ms
+Matched: AGGCTGTGGG after 1745ms
+Matched: AGCAGGTGGG after 1745ms
+Matched: AGGCTGTGGG after 1745ms
+Matched: GAGCTGTGGG after 1746ms
+Matched: AGGCGATGGG after 1748ms
+Matched: AGCAGTGTGG after 1749ms
+Matched: AGCTGTGAGG after 1750ms
+Matched: AAGGCGTGGG after 1751ms
+Matched: CAGCGGTGGG after 1751ms
+Matched: AGCCTGTGGG after 1751ms
+Matched: AGCTGT
+GGG after 1752ms
+Matched: AGCAG
+TGGG after 1755ms
+Matched: AGGCGCTGGG after 1757ms
+Matched: GAGCGTGGAG after 1757ms
+Matched: AGCTGTGTGG after 1758ms
+Matched: agcaggtggg after 1758ms
+Matched: AAGCAGTGGG after 1758ms
+Matched: CAGCGCTGGG after 1761ms
+Matched: AGCATGTGGG after 1761ms
+Matched: CAGCGCTGGG after 1763ms
+Matched: AGCTGTGTGG after 1765ms
+Matched: aggctgtggg after 1766ms
+Matched: agcagatggg after 1766ms
+Matched: AGCTGTGGCG after 1767ms
+Matched: AGCCGGTGGG after 1767ms
+Matched: AAGCTGTGGG after 1773ms
+Matched: AGCATGTGGG after 1775ms
+Matched: AGGCGTGAGG after 1776ms
+Matched: AGCGCTGAGG after 1776ms
+Matched: AGCGTGGCAG after 1779ms
+Matched: AGCCAGTGGG after 1779ms
+Matched: AGTCGGTGGG after 1779ms
+Matched: AGCTGCTGGG after 1783ms
+Matched: AGGCCGTGGG after 1785ms
+Matched: AAGCTGTGGG after 1786ms
+Matched: AGCTGTGGAG after 1788ms
+Matched: ATGCTGTGGG after 1789ms
+Matched: AGCATGTGGG after 1796ms
+Matched: AGCCGGTGGG after 1797ms
+Matched: CAGCGCTGGG after 1797ms
+Matched: AGCGCT
+GGG after 1798ms
+Matched: GAGCGCTGGG after 1798ms
+Matched: AGCCGGTGGG after 1798ms
+Matched: AGCAGATGGG after 1799ms
+Matched: CAGCGTGAGG after 1799ms
+Matched: agcttgtggg after 1800ms
+Matched: AGCAGTAGGG after 1802ms
+Matched: AACGCGTGGG after 1804ms
+Matched: TTAGCGTGGG after 1805ms
+Matched: AGC
+GTGTGG after 1805ms
+Matched: ATGCAGTGGG after 1805ms
+Matched: GATGCGTGGG after 1807ms
+Matched: CAGCCGTGGG after 1807ms
+Matched: AAGCGTGGTG after 1813ms
+Matched: AGCAGGTGGG after 1813ms
+Matched: CAGCTGTGGG after 1813ms
+Matched: AGCGCTGGTG after 1814ms
+Matched: AAGGCGTGGG after 1814ms
+Matched: GGAGCGTGGG after 1814ms
+Matched: AGCCTGTGGG after 1818ms
+Matched: AGCTGCTGGG after 1818ms
+Matched: AGGGCGTGGG after 1818ms
+Matched: AGCGAATGGG after 1818ms
+Matched: AGCCTGTGGG after 1820ms
+Matched: AGCTGGTGGG after 1823ms
+Matched: cagCTGTGGG after 1824ms
+Matched: AGCGCTCGGG after 1825ms
+Matched: AGGCGGTGGG after 1826ms
+Matched: TGAGCGTGGG after 1826ms
+Matched: AGCGCGTGGG after 1827ms
+Matched: GAGCGTGGTG after 1827ms
+Matched: AGCAGTGGCG after 1828ms
+Matched: AGCTGCTGGG after 1829ms
+Matched: agcagctggg after 1832ms
+Matched: AGCAGGTGGG after 1838ms
+Matched: CAAGCGTGGG after 1838ms
+Matched: AGGCAGTGGG after 1839ms
+Matched: GAGCAGTGGG after 1840ms
+Matched: AGCAGTGTGG after 1841ms
+Matched: AGCAGTGAGG after 1845ms
+Matched: aggcgtggtg after 1847ms
+Matched: AGCAGCTGGG after 1848ms
+Matched: AGCAGTGTGG after 1852ms
+Matched: ccagcgtggg after 1853ms
+Matched: AGCCGTGCGG after 1854ms
+Matched: aggctgtggg after 1854ms
+Matched: AGCAGCTGGG after 1855ms
+Matched: agccgtggtg after 1856ms
+Matched: agacgtggtg after 1856ms
+Matched: GAGCAGTGGG after 1860ms
+Matched: AGCGTGAGCG after 1860ms
+Matched: AAGGCGTGGG after 1861ms
+Matched: AGCTCGTGGG after 1861ms
+Matched: GAGCAGTGGG after 1862ms
+Matched: AGGCAGTGGG after 1863ms
+Matched: GAGCGGTGGG after 1863ms
+Matched: AGCCTGTGGG after 1864ms
+Matched: AAGGCGTGGG after 1864ms
+Matched: ag
+cgtgtgg after 1873ms
+Matched: agcagctggg after 1874ms
+Matched: AGGCCGTGGG after 1874ms
+Matched: AGCAGTGGAG after 1875ms
+Matched: GAGCTGTGGG after 1875ms
+Matched: AGCGATTGGG after 1880ms
+Matched: Aggccgtggg after 1883ms
+Matched: tagctGTGGG after 1883ms
+Matched: AGCCGCTGGG after 1884ms
+Matched: aagcgtggtg after 1885ms
+Matched: aggcgtggtg after 1885ms
+Matched: aggcg
+tggg after 1886ms
+Matched: AGCGTGTGTG after 1893ms
+Matched: agacgtggtg after 1893ms
+Matched: aagcgctggg after 1897ms
+Matched: AGCACGTGGG after 1898ms
+Matched: AGCTGATGGG after 1899ms
+Matched: AGGCTGTGGG after 1900ms
+Matched: aggcgtggtg after 1900ms
+Matched: AGCAG
+TGGG after 1900ms
+Matched: aggcgtggtg after 1903ms
+Matched: AGCGGGTGGG after 1905ms
+Matched: AGCAGGTGGG after 1905ms
+Matched: AGCTGTTGGG after 1906ms
+Matched: CAGCGGTGGG after 1906ms
+Matched: AGCTGTGAGG after 1906ms
+Matched: agctggTGGG after 1908ms
+Matched: AGCGGATGGG after 1911ms
+Matched: aggcagtggg after 1912ms
+Matched: AGCAGCTGGG after 1914ms
+Matched: TAGCGCTGGG after 1914ms
+Matched: AGGCTGTGGG after 1914ms
+Matched: CAGCAGTGGG after 1915ms
+Matched: AGGCGTGGAG after 1918ms
+Matched: AGCTGTGTGG after 1920ms
+Matched: GAGCGTgcgg after 1921ms
+Matched: AGACAGTGGG after 1925ms
+Matched: agcttgtggg after 1927ms
+Matched: AGGCAGTGGG after 1928ms
+Matched: GAGCGGTGGG after 1928ms
+Matched: agcagctggg after 1933ms
+Matched: AGCTGTCGGG after 1935ms
+Matched: AGCCGTGTGG after 1935ms
+Matched: GAGCGTGGAG after 1935ms
+Matched: agcagctggg after 1937ms
+Matched: aagcgctggg after 1937ms
+Matched: AGCTGCTGGG after 1939ms
+Matched: CAGCCGTGGG after 1941ms
+Matched: AGCAGTGAGG after 1941ms
+Matched: GAGACGTGGG after 1942ms
+Matched: agctgtggtg after 1946ms
+Matched: AGCGTGCTGG after 1946ms
+Matched: TAGCGATGGG after 1947ms
+Matched: AATGCGTGGG after 1948ms
+Matched: aggcgtggtg after 1948ms
+Matched: AGCAGTGGAG after 1949ms
+Matched: AGCTGTGGAG after 1949ms
+Matched: AGCAGTGAGG after 1949ms
+Matched: ATGCCGTGGG after 1952ms
+Matched: GAGCGt
+ggg after 1953ms
+Matched: gagcagtggg after 1953ms
+Matched: agcaagtggg after 1955ms
+Matched: ACTGCGTGGG after 1957ms
+Matched: AGCAGTGGCG after 1957ms
+Matched: CAGGCGTGGG after 1959ms
+Matched: AGACAGTGGG after 1961ms
+Matched: agcttgtggg after 1963ms
+Matched: AGGCAGTGGG after 1964ms
+Matched: GAGCGGTGGG after 1964ms
+Matched: agcagctggg after 1969ms
+Matched: AGCAGGTGGG after 1976ms
+Matched: AAGC
+GTGGG after 1976ms
+Matched: AGGCAGTGGG after 1977ms
+Matched: 
+AGCAGTGGG after 1979ms
+Matched: AGCAGTGTGG after 1980ms
+Matched: aagcgtggtg after 1993ms
+Matched: acgacgtggg after 1995ms
+Matched: AGTCAGTGGG after 1996ms
+Matched: aggcgtggtg after 1997ms
+Matched: cagcggtggg after 1998ms
+Matched: GAGCGTGTGG after 2000ms
+Matched: ACAGCGTGGG after 2003ms
+Matched: agcgtcaggg after 2004ms
+Matched: agcgtcaggg after 2004ms
+Matched: AGCTGTGGAG after 2004ms
+Matched: agcgctg
+gg after 2007ms
+Matched: CAGGCGTGGG after 2008ms
+Matched: gagcggtggg after 2016ms
+Matched: GTAGCGTGGG after 2018ms
+Matched: AGCCGTGGCG after 2022ms
+Matched: AGCACGTGGG after 2022ms
+Matched: AGCAGTGAGG after 2022ms
+Matched: AGCGCTGGTG after 2027ms
+Matched: 
+AGCAGTGGG after 2031ms
+Matched: AAGCGCTGGG after 2041ms
+Matched: atgctgtggg after 2042ms
+Matched: GAGCAGTGGG after 2042ms
+Matched: AGACAGTGGG after 2043ms
+Matched: AGCAGTGGAG after 2044ms
+Matched: ATGCGATGGG after 2050ms
+Matched: atgcgtgagg after 2052ms
+Matched: agccagtggg after 2052ms
+Matched: AGCAGTGAGG after 2053ms
+Matched: TAGCGTGGCG after 2057ms
+Matched: AGCCTGTGGG after 2059ms
+Matched: AGTCAGTGGG after 2064ms
+Matched: AGACTGTGGG after 2065ms
+Matched: agtcgctggg after 2065ms
+Matched: caggcgtggg after 2065ms
+Matched: AAGCTGTGGG after 2067ms
+Matched: AGGGCGTGGG after 2069ms
+Matched: ATGCAGTGGG after 2070ms
+Matched: aggcgtggtg after 2071ms
+Matched: aggcgtgtgg after 2072ms
+Matched: AGCGGTGGAG after 2072ms
+Matched: aggcgtggtg after 2073ms
+Matched: aggcgtggtg after 2076ms
+Matched: aggcgtggtg after 2079ms
+Matched: agacgtggtg after 2079ms
+Matched: AGCTGTGAGG after 2080ms
+Matched: AGCAGTTGGG after 2086ms
+Matched: AGCAGTGTGG after 2090ms
+Matched: AGCAGATGGG after 2092ms
+Matched: GAGCGTGG
+G after 2092ms
+Matched: AGCGCCTGGG after 2093ms
+Matched: CAGCAGTGGG after 2094ms
+Matched: AAGCAGTGGG after 2099ms
+Matched: AGCATGTGGG after 2100ms
+Matched: ATGCGTGCGG after 2100ms
+Matched: AGGCTGTGGG after 2101ms
+Matched: AGCGTGCAGG after 2103ms
+Matched: CAGCGTGAGG after 2103ms
+Matched: T
+AGCGTGGG after 2105ms
+Matched: agcagctggg after 2109ms
+Matched: aggc
+gtggg after 2112ms
+Matched: CCAGCGTGGG after 2113ms
+Matched: AGCAGCTGGG after 2114ms
+Matched: AAGCGCTGGG after 2116ms
+Matched: atgcagtggg after 2121ms
+Matched: AGGCGATGGG after 2121ms
+Matched: AGCTGCTGGG after 2123ms
+Matched: TAGACGTGGG after 2124ms
+Matched: CAGTCGTGGG after 2126ms
+Matched: AGCGCTGGAG after 2127ms
+Matched: AGACTGTGGG after 2128ms
+Matched: CAGCAGTGGG after 2128ms
+Matched: AGCGAATGGG after 2128ms
+Matched: AGCGGTGGAG after 2128ms
+Matched: aggcAGTGGG after 2131ms
+Matched: AGACAGTGGG after 2131ms
+Matched: cagctgtggg after 2132ms
+Matched: AGCGATGTGG after 2133ms
+Matched: gagctgtggg after 2135ms
+Matched: AGCTGGTGGG after 2136ms
+Matched: AGCTGTAGGG after 2137ms
+Matched: agacagtggg after 2142ms
+Matched: agacagtggg after 2142ms
+Matched: agacggtggg after 2142ms
+Matched: tagcagtggg after 2143ms
+Matched: AGTCAGTGGG after 2145ms
+Matched: AGCGATGCGG after 2147ms
+Matched: AGAGCGTGGG after 2158ms
+Matched: AGCGTGAGCG after 2163ms
+Matched: AAGGCGTGGG after 2163ms
+Matched: AGGACGTGGG after 2163ms
+Matched: AGCAGTGG
+G after 2164ms
+Matched: GAGCGGTGGG after 2167ms
+Matched: AGCCTGTGGG after 2167ms
+Matched: AAGGCGTGGG after 2167ms
+Matched: aggcgtggtg after 2173ms
+Matched: aggcgtggtg after 2175ms
+Matched: AGGCAGTGGG after 2177ms
+Matched: A
+GCCGTGGG after 2178ms
+Matched: aggcgtggtg after 2180ms
+Matched: agcagctggg after 2184ms
+Matched: AGGCTGTGGG after 2184ms
+Matched: AGCAGTGGAG after 2184ms
+Matched: tagctgtggg after 2190ms
+Matched: AGCAAGTGGG after 2192ms
+Matched: aggcgtggtg after 2193ms
+Matched: agcagctggg after 2193ms
+Matched: AGTCCGTGGG after 2198ms
+Matched: AGTCGTCGGG after 2198ms
+Matched: aggcgtggtg after 2200ms
+Matched: AGCTgtggtg after 2200ms
+Matched: agacgtggtg after 2200ms
+Matched: AG
+CAGTGGG after 2205ms
+Matched: aggcgtggtg after 2205ms
+Matched: agactgtggg after 2207ms
+Matched: AGCAGTGTGG after 2208ms
+Matched: agactgtggg after 2215ms
+Matched: AGCGATGGTG after 2215ms
+Matched: AGTCAGTGGG after 2215ms
+Matched: ccagcgtggg after 2218ms
+Matched: agacgtggtg after 2219ms
+Matched: agccgtggtg after 2221ms
+Matched: AGCCGTGGTG after 2221ms
+Matched: agcagctggg after 2223ms
+Matched: aggcgtggtg after 2229ms
+Matched: caggcgtggg after 2234ms
+Matched: ATGCAGTGGG after 2240ms
+Matched: CAGCGTGTGG after 2241ms
+Matched: AGCAGGTGGG after 2242ms
+Matched: ATGCAGTGGG after 2247ms
+Matched: agcagctggg after 2248ms
+Matched: gagcgtggtg after 2248ms
+Matched: ccagcgtggg after 2256ms
+Matched: aagcgctggg after 2257ms
+Matched: AGCGACtggg after 2258ms
+Matched: aggcgtggtg after 2258ms
+Matched: aggcgtggtg after 2259ms
+Matched: CAGCGCTGGG after 2265ms
+Matched: AGCTG
+TGGG after 2270ms
+Matched: aggcgtggtg after 2271ms
+Matched: AGACAGTGGG after 2272ms
+Matched: aggcgtggtg after 2272ms
+Matched: agacgtggtg after 2273ms
+Matched: AGGCGTGAGG after 2279ms
+Matched: GAGCAGTGGG after 2280ms
+Matched: agctgtgtgg after 2287ms
+Matched: AGCT
+GTGGG after 2287ms
+Matched: AGGCTGTGGG after 2288ms
+Matched: TAGCAGTGGG after 2288ms
+Matched: CAGCGTGGAG after 2289ms
+Matched: AGGCGTGAGG after 2293ms
+Matched: AGCAGGTGGG after 2294ms
+Matched: AGCGCGTGGG after 2294ms
+Matched: agctgttggg after 2294ms
+Matched: GAGACGTGGG after 2295ms
+Matched: GAGCAGTGGG after 2295ms
+Matched: AGGCGT
+GGG after 2297ms
+Matched: aggcgtggtg after 2302ms
+Matched: CAGCTGTGGG after 2305ms
+Matched: ATGCAGTGGG after 2306ms
+Matched: AGACGCTGGG after 2307ms
+Matched: AGCGTGCGAG after 2311ms
+Matched: AGCGTTCGGG after 2311ms
+Matched: aggcgtggtg after 2313ms
+Matched: agcagtggag after 2314ms
+Matched: AGCCAGTGGG after 2317ms
+Matched: AAGACGTGGG after 2321ms
+Matched: AGCTGCTGGG after 2321ms
+Matched: CAGTCGTGGG after 2323ms
+Matched: AGCTGTGGAG after 2325ms
+Matched: CAGACGTGGG after 2325ms
+Matched: ccagcgtggg after 2330ms
+Matched: AGCAGTAGGG after 2333ms
+Matched: TAGCTGTGGG after 2334ms
+Matched: AGCTGGTGGG after 2337ms
+Matched: aggctgtggg after 2338ms
+Matched: AGCAAGTGGG after 2338ms
+Matched: agtcgctggg after 2339ms
+Matched: acgcagtggg after 2339ms
+Matched: agcgtggcag after 2341ms
+Matched: AGCACGTGGG after 2346ms
+Matched: ATGCGTGGTG after 2347ms
+Matched: AGCAGGTGGG after 2348ms
+Matched: AGTCAGTGGG after 2348ms
+Matched: TAGCGCTGGG after 2348ms
+Matched: AGGCTGTGGG after 2353ms
+Matched: gagcgtggtg after 2355ms
+Matched: AGCAGTGGCG after 2360ms
+Matched: agcgctggag after 2361ms
+Matched: AGCGTTGGAG after 2361ms
+Matched: agccagtggg after 2362ms
+Matched: AGCACGTGGG after 2363ms
+Matched: AGCGCTGTGG after 2365ms
+Matched: AGGCCGTGGG after 2365ms
+Matched: AGACTGTGGG after 2367ms
+Matched: AGCCGGTGGG after 2368ms
+Matched: AGCGTGCTGG after 2369ms
+Matched: AGCGGTAGGG after 2370ms
+Matched: GAGCAGTGGG after 2371ms
+Matched: aggcgtggag after 2373ms
+Matched: AGACTGTGGG after 2382ms
+Matched: AGCAGTGCGG after 2383ms
+Matched: AGCAGTGAGG after 2384ms
+Matched: agcagctggg after 2385ms
+Matched: AGCAGGTGGG after 2392ms
+Matched: CAAGCGTGGG after 2392ms
+Matched: AGGCAGTGGG after 2392ms
+Matched: GAGCAGTGGG after 2394ms
+Matched: AGCAGTGTGG after 2394ms
+Matched: AGCAGCTGGG after 2401ms
+Matched: AGCTGTGGCG after 2405ms
+Matched: ccagcgtggg after 2406ms
+Matched: agctgatggg after 2406ms
+Matched: AGCGTGTCGG after 2406ms
+Matched: AGCCGTGCGG after 2407ms
+Matched: aggctgtggg after 2407ms
+Matched: aggcgtgagg after 2411ms
+Matched: ATGCTGTGGG after 2415ms
+Matched: AGACTGTGGG after 2418ms
+Matched: ACGCGCTGGG after 2419ms
+Matched: AGCAGTGAGG after 2422ms
+Matched: AGCAGTGGAG after 2424ms
+Matched: AGCAGATGGG after 2428ms
+Matched: AGGCTGTGGG after 2429ms
+Matched: AGCTCGTGGG after 2435ms
+Matched: AGAGCGTGGG after 2444ms
+Matched: CAG
+CGTGGG after 2444ms
+Matched: AGGCAGTGGG after 2445ms
+Matched: AGGCCGTGGG after 2446ms
+Matched: TAGCGATGGG after 2450ms
+Matched: AATGCGTGGG after 2450ms
+Matched: aggcgtggtg after 2450ms
+Matched: AGCAGTGGAG after 2451ms
+Matched: AGCTGTGGAG after 2451ms
+Matched: AGCAGTGAGG after 2451ms
+Matched: ATGCCGTGGG after 2455ms
+Matched: ATGCCGTGGG after 2455ms
+Matched: ATGCCGTGGG after 2455ms
+Matched: ATGCCGTGGG after 2455ms
+Matched: TGAGCGtggg after 2456ms
+Matched: GAGCAGTGGG after 2456ms
+Matched: ACTGCGTGGG after 2460ms
+Matched: AGCAGTGGCG after 2460ms
+Matched: cagcagtggg after 2463ms
+Matched: aggcgtggtg after 2464ms
+Matched: aggcgtggtg after 2464ms
+Matched: AGCGCCTGGG after 2465ms
+Matched: CAGCGATGGG after 2466ms
+Matched: AGCAGCTGGG after 2467ms
+Matched: GAGCTGTGGG after 2468ms
+Matched: agcagtggag after 2471ms
+Matched: agcagt
+ggg after 2472ms
+Matched: aggcgtggtg after 2472ms
+Matched: AGCTGATGGG after 2472ms
+Matched: AGCGTGGCAG after 2477ms
+Matched: AGCTGCTGGG after 2479ms
+Matched: GAGCTGTGGG after 2479ms
+Matched: AAGCGCTGGG after 2481ms
+Matched: GAGGCGTGGG after 2483ms
+Matched: AAGCTGTGGG after 2483ms
+Matched: AGCTGTGTGG after 2483ms
+Matched: aggcgtggtg after 2485ms
+Matched: aggcgtggtg after 2486ms
+Matched: AGCGATGAGG after 2486ms
+Matched: aggcgt
+ggg after 2487ms
+Matched: ccagcgtggg after 2487ms
+Matched: aagcgctggg after 2498ms
+Matched: agcagctggg after 2501ms
+Matched: aggcgtggtg after 2501ms
+Matched: agtctgtggg after 2502ms
+Matched: CAGCGTCGGG after 2507ms
+Matched: AGCTGTGTGG after 2507ms
+Matched: AGCGGTGGCG after 2508ms
+Matched: AGCTGGTGGG after 2509ms
+Matched: AGTCGTGAGG after 2514ms
+Matched: AGCAAGTGGG after 2515ms
+Matched: agctgtgg
+g after 2515ms
+Matched: AGGCAGTGGG after 2519ms
+Matched: AGCAGTTGGG after 2520ms
+Matched: AGCTGCTGGG after 2520ms
+Matched: AGGCAGTGGG after 2520ms
+Matched: AAGCGTGGCG after 2521ms
+Matched: AGGCAGTGGG after 2523ms
+Matched: AGCTGTGCGG after 2523ms
+Matched: AAGCTGTGGG after 2524ms
+Matched: CAGGCGTGGG after 2525ms
+Matched: AGCGGTG
+GG after 2525ms
+Matched: agcgtgatgg after 2527ms
+Matched: GAGCCGTGGG after 2528ms
+Matched: AGCAGCTGGG after 2532ms
+Matched: agacgtggtg after 2533ms
+Matched: GAGCAGTGGG after 2535ms
+Matched: AAGGCGTGGG after 2535ms
+Matched: AGCTCGTGGG after 2535ms
+Matched: aagcgctggg after 2537ms
+Matched: 
+AGCAGTGGG after 2538ms
+Matched: GAGCGGTGGG after 2540ms
+Matched: AGCCTGTGGG after 2540ms
+Matched: AAGGCGTGGG after 2540ms
+Matched: AGGCAGTGGG after 2547ms
+Matched: gagcgtgtgg after 2548ms
+Matched: agcagctggg after 2548ms
+Matched: AGCAGTGGAG after 2548ms
+Matched: GAGCTGTGGG after 2549ms
+Matched: AGCGATTGGG after 2554ms
+Matched: tagctGTGGG after 2555ms
+Matched: AGCCGCTGGG after 2556ms
+Matched: aagcgtggtg after 2557ms
+Matched: aggcgtggtg after 2559ms
+Matched: aggcgtggtg after 2559ms
+Matched: caggcgtggg after 2560ms
+Matched: agcagctggg after 2563ms
+Matched: AGCGTGTGTG after 2564ms
+Matched: agacgtggtg after 2568ms
+Matched: aagcgctggg after 2569ms
+Matched: agcagctggg after 2569ms
+Matched: aggcgtggtg after 2570ms
+Matched: AGCACGTGGG after 2571ms
+Matched: AGCTGATGGG after 2571ms
+Matched: AGGCTGTGGG after 2572ms
+Matched: aggcgtggtg after 2572ms
+Matched: AGCAGTG
+GG after 2574ms
+Matched: aggcgtggtg after 2576ms
+Matched: AGCGGGTGGG after 2577ms
+Matched: AGCAGGTGGG after 2578ms
+Matched: AGCTGTTGGG after 2578ms
+Matched: AGCG
+GTGGG after 2579ms
+Matched: AGCTGTGAGG after 2579ms
+Matched: agctggTGGG after 2584ms
+Matched: aggcgtggtg after 2585ms
+Matched: AGCGGATGGG after 2586ms
+Matched: aggcagtggg after 2587ms
+Matched: aggcgtggtg after 2588ms
+Matched: AGCGGTGAGG after 2588ms
+Matched: AGCAGTGAGG after 2594ms
+Matched: GAGCAGTGGG after 2602ms
+Matched: CAGCGGTGGG after 2605ms
+Matched: AGCAAGTGgg after 2607ms
+Matched: aggcgtggtg after 2612ms
+Matched: aggcgtggtg after 2613ms
+Matched: aggcgtggtg after 2614ms
+Matched: AGCCAGTGGG after 2616ms
+Matched: AGTCGTGTGG after 2616ms
+Matched: CATGCGTGGG after 2616ms
+Matched: GCAGCGTGGG after 2619ms
+Matched: AAGCGTCGGG after 2619ms
+Matched: AGCGATGAGG after 2620ms
+Matched: G
+AGCGTGGG after 2622ms
+Matched: AGCTGATGGG after 2624ms
+Matched: agcagctggg after 2628ms
+Matched: AGCGACTGGG after 2629ms
+Matched: AGTCGTTGGG after 2629ms
+Matched: CAGCTGTGGG after 2631ms
+Matched: GAGCGTGAGG after 2631ms
+Matched: AGCATGTGGG after 2631ms
+Matched: AGCAGTGAGG after 2634ms
+Matched: aggcgtggtg after 2640ms
+Matched: ccagcgtggg after 2640ms
+Matched: gagcgtggtg after 2641ms
+Matched: aggcgtggtg after 2642ms
+Matched: AGGCGGTGGG after 2642ms
+Matched: AGCCGCTGGG after 2648ms
+Matched: AGCGTGGT
+G after 2648ms
+Matched: agctgttggg after 2649ms
+Matched: agacgatggg after 2649ms
+Matched: agccgtgtgg after 2650ms
+Matched: CAGCGGTGGG after 2654ms
+Matched: AGCGAGTGGG after 2654ms
+Matched: AGCCAGTGGG after 2655ms
+Matched: AGCTGTGGTG after 2656ms
+Matched: aggcgtggtg after 2656ms
+Matched: aggcgtggtg after 2656ms
+Matched: AGGCGGTGGG after 2656ms
+Matched: GAGGCGTGGG after 2657ms
+Matched: 
+AGCGTGTGG after 2658ms
+Matched: AGGCAGTGGG after 2661ms
+Matched: AGCGTTGTGG after 2661ms
+Matched: AGCTGTGTGG after 2662ms
+Matched: CAGCCGTGGG after 2662ms
+Matched: AGGGCGTGGG after 2662ms
+Matched: AGCAGGTGGG after 2662ms
+Matched: AGCTTGTGGG after 2663ms
+Matched: AGCGTGAAGG after 2667ms
+Matched: AGCGTAGAGG after 2667ms
+Matched: agcgttggtg after 2673ms
+Matched: ccagcgtggg after 2676ms
+Matched: aggcgtggtg after 2676ms
+Matched: atgcgtggtg after 2679ms
+Matched: AGCTGTGAGG after 2682ms
+Matched: aggcgtggtg after 2683ms
+Matched: AGCGTTTGGG after 2684ms
+Matched: AAAGCGTGGG after 2685ms
+Matched: TAGGCGTGGG after 2689ms
+Matched: tagctgtggg after 2692ms
+Matched: agcagctggg after 2695ms
+Matched: CAGCAGTGGG after 2698ms
+Matched: GAGCAGTGGG after 2698ms
+Matched: atgcgatggg after 2699ms
+Matched: gagcagtggg after 2704ms
+Matched: tagcggtggg after 2705ms
+Matched: aggcgtggtg after 2706ms
+Matched: agc
+gtggag after 2706ms
+Matched: agctgatggg after 2706ms
+Matched: aggcgtggtg after 2708ms
+Matched: agtgcgtggg after 2711ms
+Matched: aggcgtggtg after 2711ms
+Matched: TAGCTGTGGG after 2712ms
+Matched: aggcgtggtg after 2714ms
+Matched: aggcgtggtg after 2719ms
+Matched: aggcgtggtg after 2720ms
+Matched: aggcgtggtg after 2723ms
+Matched: ATGCAGTGGG after 2725ms
+Matched: AGACGTG
+GG after 2735ms
+Matched: agcgtagtgg after 2736ms
+Matched: agacgatggg after 2741ms
+Matched: cagctgtggg after 2742ms
+Matched: aggcgtggtg after 2742ms
+Matched: aggcgtggtg after 2743ms
+Matched: caggcgtggg after 2743ms
+Matched: aggcgtggtg after 2743ms
+Matched: agcagtggag after 2746ms
+Matched: AGCTGCTGGG after 2755ms
+Matched: TGAGCGTGGG after 2756ms
+Matched: AGCAGGTGGG after 2757ms
+Matched: AGCGGTGGAG after 2758ms
+Matched: agactgtggg after 2759ms
+Matched: agCACGTGGG after 2760ms
+Matched: AGCGTTGGTG after 2761ms
+Matched: agctgtgagg after 2763ms
+Matched: AGCGTTGAGG after 2765ms
+Matched: agctgctggg after 2767ms
+Matched: CAGCTGTGGG after 2769ms
+Matched: atgcagtggg after 2771ms
+Matched: AGCGTGGCTG after 2775ms
+Matched: ACGCGGTGGG after 2776ms
+Matched: AGCGTGTAGG after 2776ms
+Matched: AGCGTGAGAG after 2776ms
+Matched: AGGCTGTGGG after 2779ms
+Matched: ACGCGTGGTG after 2779ms
+Matched: A
+GCGTGAGG after 2783ms
+Matched: AGCCAGTGGG after 2784ms
+Matched: AGCTGTGGAG after 2787ms
+Matched: agcagtggtg after 2790ms
+Matched: agcgctggag after 2791ms
+Matched: agctgt
+ggg after 2792ms
+Matched: AGGCTGTGGG after 2799ms
+Matched: AGGCGTGGAG after 2804ms
+Matched: agcagctggg after 2806ms
+Matched: AGCAGCTGGG after 2808ms
+Matched: CAGCTGTGGG after 2808ms
+Matched: ATGCTGTGGG after 2808ms
+Matched: AGCAGCTGGG after 2812ms
+Matched: AGCAGTG
+GG after 2812ms
+Matched: atgcgtggtg after 2816ms
+Matched: agactgtggg after 2818ms
+Matched: AGGCAGTGGG after 2819ms
+Matched: AGTCTGTGGG after 2820ms
+Matched: AGTCTGTGGG after 2821ms
+Matched: AGCAGCTGGG after 2821ms
+Matched: AGCTGATGGG after 2823ms
+Matched: tagcgatggg after 2829ms
+Matched: CAGCTGTGGG after 2829ms
+Matched: AGTCTGTGGG after 2836ms
+Matched: aggctgtggg after 2837ms
+Matched: AGGCAGTGGG after 2837ms
+Matched: AGTCAGTGGG after 2839ms
+Matched: AGCGATGCGG after 2841ms
+Matched: AAG
+CGTGGG after 2841ms
+Matched: agacagtggg after 2844ms
+Matched: agcgatggag after 2845ms
+Matched: AAGCAGTGGG after 2846ms
+Matched: agcagctggg after 2850ms
+Matched: AGCAGCTGGG after 2858ms
+Matched: AGCGTGGCTG after 2858ms
+Matched: AGC
+AGTGGG after 2859ms
+Matched: AGTCAGTGGG after 2862ms
+Matched: agacgatggg after 2864ms
+Matched: aggcgtggtg after 2864ms
+Matched: AGTGCGTGGG after 2866ms
+Matched: AGTCTGTGGG after 2866ms
+Matched: agcgtgagtg after 2866ms
+Matched: AGTCAGTGGG after 2869ms
+Matched: AGCAGCTGGG after 2873ms
+Matched: cagcgctggg after 2874ms
+Matched: AGACGGTGGG after 2878ms
+Matched: AGCAGCTGGG after 2880ms
+Matched: AGCAGCTGGG after 2880ms
+Matched: AGCGTGGCTG after 2881ms
+Matched: GAAGCGTGGG after 2881ms
+Matched: ACGCGGTGGG after 2882ms
+Matched: agcgtcggag after 2887ms
+Matched: aggcgtggtg after 2889ms
+Matched: AGGCAGTGGG after 2890ms
+Matched: AGCCCGTGGG after 2895ms
+Matched: aggcgtggtg after 2895ms
+Matched: AAGCAGTGGG after 2896ms
+Matched: AGGCAGTGGG after 2897ms
+Matched: AGGCAGTGGG after 2897ms
+Matched: aggcgtggtg after 2897ms
+Matched: atgccgtggg after 2901ms
+Matched: CAGCGGTGGG after 2902ms
+Matched: TAGCGGTGGG after 2903ms
+Matched: AGCGCTGAGG after 2905ms
+Matched: agacgatggg after 2905ms
+Matched: agctgtggtg after 2905ms
+Matched: agccgtggtg after 2911ms
+Matched: agcagctggg after 2911ms
+Matched: agccagtggg after 2911ms
+Matched: CA
+GCGTGGG after 2912ms
+Matched: TCAGCGTGGG after 2912ms
+Matched: cagcgtggag after 2914ms
+Matched: agactgtggg after 2918ms
+Matched: atgcagtggg after 2919ms
+Matched: aggcgtggtg after 2920ms
+Matched: CAGCTGTGGG after 2923ms
+Matched: ca
+gcgtggg after 2927ms
+Matched: aagcgtggtg after 2928ms
+Matched: ATGCGATGGG after 2931ms
+Matched: AGCTGATGGG after 2931ms
+Matched: AGGCCGTGGG after 2932ms
+Matched: AGCGTCTGGG after 2933ms
+Matched: aagcgtgtgg after 2935ms
+Matched: AGCAGTAGGG after 2940ms
+Matched: ATGCTGTGGG after 2940ms
+Matched: AGCGTACGGG after 2941ms
+Matched: AGCTGATGGG after 2941ms
+Matched: AGGCCGTGGG after 2941ms
+Matched: CAGCTGTGGG after 2943ms
+Matched: atgcgtggtg after 2947ms
+Matched: agctgtggtg after 2948ms
+Matched: AGCAGTGGTG after 2949ms
+Matched: AGGCAGTGGG after 2952ms
+Matched: CAGCTGTGGG after 2952ms
+Matched: AGCGGTG
+GG after 2956ms
+Matched: AGTCTGTGGG after 2957ms
+Matched: TGAGCGTGGG after 2957ms
+Matched: AGCTGATGGG after 2958ms
+Matched: aaGCGGTGGG after 2963ms
+Matched: agcagtggag after 2965ms
+Matched: agcagttggg after 2969ms
+Matched: agcttgtggg after 2970ms
+Matched: agcgatggag after 2970ms
+Matched: agctgatggg after 2971ms
+Matched: agcagtgtgg after 2971ms
+Matched: AGCAGTGGAG after 2971ms
+Matched: agcg
+ctggg after 2972ms
+Matched: AGCTGTGAGG after 2972ms
+Matched: agcagctggg after 2975ms
+Matched: AGCAAGTGGG after 2979ms
+Matched: agcagctggg after 2980ms
+Matched: AAGCAGTGGG after 2980ms
+Matched: aggcgtgagg after 2980ms
+Matched: gagcgtggtg after 2981ms
+Matched: AGCTGGTGGG after 2983ms
+Matched: cagcagtggg after 2987ms
+Matched: agcagatggg after 2987ms
+Matched: gaggcgtggg after 2991ms
+Matched: agacgtggtg after 2997ms
+Matched: AGCTGATGGG after 2998ms
+Matched: AGCTGTGGTG after 2999ms
+Matched: agcagatggg after 3004ms
+Matched: AGACAGTGGG after 3004ms
+Matched: GAGGCGTGGG after 3004ms
+Matched: AGCGGGTGGG after 3004ms
+Matched: CCAGCGTGGG after 3006ms
+Matched: cagcggtggg after 3010ms
+Matched: CAGCGCTGGG after 3014ms
+Matched: GAGCAGTGGG after 3019ms
+Matched: AGCGTGTGTG after 3020ms
+Matched: AGTCTGTGGG after 3028ms
+Matched: GAGCAGTGGG after 3031ms
+Matched: AGCACGTGGG after 3033ms
+Matched: AGCGCTGTGG after 3034ms
+Matched: AGACTGTGGG after 3034ms
+Matched: AGCCGGTGGG after 3035ms
+Matched: agctgtggtg after 3037ms
+Matched: GAGCAGTGGG after 3040ms
+Matched: AGCTGCTGGG after 3041ms
+Matched: AGCGGGTGGG after 3042ms
+Matched: CAGCCGTGGG after 3042ms
+Matched: AGCAGTGAGG after 3043ms
+Matched: agcgtgtgtg after 3044ms
+Matched: AG
+CGTGAGG after 3050ms
+Matched: AGTCAGTGGG after 3051ms
+Matched: AGCAAGTGGG after 3053ms
+Matched: agctgtgtgg after 3057ms
+Matched: CAGCTGTGGG after 3058ms
+Matched: AGCAGTGAGG after 3060ms
+Matched: agctgtgtgg after 3062ms
+Matched: AGCAGTGAGG after 3064ms
+Matched: AGCTG
+TGGG after 3064ms
+Matched: TAGCTGTGGG after 3071ms
+Matched: agacagtggg after 3072ms
+Matched: AGCTGTGGAG after 3073ms
+Matched: CA
+GCGTGGG after 3090ms
+Matched: agacagtggg after 3093ms
+Matched: AGCAGTGAGG after 3096ms
+Matched: AAGCGTGTGG after 3097ms
+Matched: AGCCTGTGGG after 3097ms
+Matched: GAGCAGTGGG after 3098ms
+Matched: 
+AGCGTGGTG after 3102ms
+Matched: agacagtggg after 3103ms
+Matched: ATGCTGTGGG after 3113ms
+Matched: aatgcgtggg after 3113ms
+Matched: AGCTGCTGGG after 3113ms
+Matched: AGCGGGTGGG after 3119ms
+Matched: AGCCTGTGGG after 3120ms
+Matched: CAGCAGTGGG after 3121ms
+Matched: A
+GGCGTGGG after 3122ms
+Matched: GAGCAGTGGG after 3126ms
+Matched: AGCCTGTGGG after 3127ms
+Matched: AGCAGTTGGG after 3128ms
+Matched: AGTCTGTGGG after 3128ms
+Matched: CTAGCGTGGG after 3129ms
+Matched: AGCGGTGTGG after 3134ms
+Matched: AGCTGCTGGG after 3134ms
+Matched: AGCTGCTGGG after 3135ms
+Matched: AGCGTGTGAG after 3135ms
+Matched: AGGCGATGGG after 3135ms
+Matched: CAGCGTCGGG after 3138ms
+Matched: 
+AGCGCTGGG after 3139ms
+Matched: CAGCTGTGGG after 3141ms
+Matched: AAGCGTGAGG after 3141ms
+Matched: AGCGTGGCCG after 3148ms
+Matched: cagacgtggg after 3148ms
+Matched: aggacgtggg after 3149ms
+Matched: CATGCGTGGG after 3153ms
+Matched: cagcagtggg after 3156ms
+Matched: AGCCTGTGGG after 3163ms
+Matched: aggctgtggg after 3170ms
+Matched: agcgtggaag after 3171ms
+Matched: aggcgtgtgg after 3171ms
+Matched: agcctgtggg after 3177ms
+Matched: agcagtgagg after 3177ms
+Matched: atgctgtggg after 3177ms
+Matched: AGCAGGTGGG after 3178ms
+Matched: AG
+CAGTGGG after 3178ms
+Matched: AGCGTGATGG after 3179ms
+Matched: CAGCTGTGGG after 3179ms
+Matched: agcagatggg after 3180ms
+Matched: aagcagtggg after 3185ms
+Matched: AGCGTAGAGG after 3187ms
+Matched: AGCAGCTGGG after 3187ms
+Matched: AGCGTCAGGG after 3194ms
+Matched: AGGCGGTGGG after 3195ms
+Matched: agcgtc
+ggg after 3200ms
+Matched: AGCCGTGGTG after 3201ms
+Matched: agctgtgagg after 3202ms
+Matched: AGCAGTGGAG after 3202ms
+Matched: AGGCAGTGGG after 3204ms
+Matched: GAGCTGTGGG after 3206ms
+Matched: AGCTGCTGGG after 3206ms
+Matched: AGGCAGTGGG after 3208ms
+Matched: AGGCGCTGGG after 3209ms
+Matched: AAGCGGTGGG after 3209ms
+Matched: AGCGGTGGAG after 3209ms
+Matched: AGCGCTTGGG after 3209ms
+Matched: AGCAGCTGGG after 3212ms
+Matched: AGCGCTGTGG after 3213ms
+Matched: GAGCGATGGG after 3213ms
+Matched: CCAGCGTGGG after 3214ms
+Matched: AGACGTTGGG after 3214ms
+Matched: AGGCTGTGGG after 3215ms
+Matched: A
+GCAGTGGG after 3215ms
+Matched: AGCAGGTGGG after 3215ms
+Matched: AGCAGCTGGG after 3217ms
+Matched: AGCAGTGGAG after 3217ms
+Matched: AAGCTGTGGG after 3218ms
+Matched: 
+AGCAGTGGG after 3219ms
+Matched: AGCAGATGGG after 3219ms
+Matched: AGACCGTGGG after 3220ms
+Matched: AGCTGGTGGG after 3226ms
+Matched: AGCGTTGTGG after 3226ms
+Matched: ATGCGTGTGG after 3227ms
+Matched: AGcagtgtgg after 3235ms
+Matched: agctgtgtgg after 3236ms
+Matched: AGCTGTGAGG after 3238ms
+Matched: cagccgtggg after 3241ms
+Matched: AGGCAGTGGG after 3242ms
+Matched: atgctgtggg after 3247ms
+Matched: aggcgtggtg after 3249ms
+Matched: AGCTGTGGAG after 3250ms
+Matched: CAGCGATGGG after 3252ms
+Matched: AGCGTG
+GCG after 3252ms
+Matched: CGAGCGTGGG after 3253ms
+Matched: GAAGCGTGGG after 3262ms
+Matched: AGCTGTTGGG after 3263ms
+Matched: AGCGCTGTGG after 3264ms
+Matched: AGGCAGTGGG after 3264ms
+Matched: AGAGCGTGGG after 3264ms
+Matched: AGGCTGTGGG after 3270ms
+Matched: gagcgtggtg after 3270ms
+Matched: agcgtggctg after 3270ms
+Matched: AAGCTGTGGG after 3271ms
+Matched: TAGGCGTGGG after 3271ms
+Matched: AGCT
+GTGGG after 3273ms
+Matched: cagctgtggg after 3274ms
+Matched: AGCAGGTGGG after 3275ms
+Matched: AGCGTGGCAG after 3276ms
+Matched: CAGACGTGGG after 3276ms
+Matched: agcgtgagag after 3278ms
+Matched: AGCGTAGGTG after 3282ms
+Matched: CAGTCGTGGG after 3282ms
+Matched: AG
+CCGTGGG after 3282ms
+Matched: AGCTGTGGAG after 3285ms
+Matched: ggagcgtggg after 3286ms
+Matched: agctgtggag after 3286ms
+Matched: CAGCGTTGGG after 3286ms
+Matched: tagctgtggg after 3287ms
+Matched: TGAGCGTGGG after 3290ms
+Matched: aggcgtggtg after 3292ms
+Matched: AGCGTGGACG after 3292ms
+Matched: AGCGAGTGGG after 3294ms
+Matched: GAGCGTGGAG after 3294ms
+Matched: GAGCAGTGGG after 3299ms
+Matched: AAGCGTGGAG after 3300ms
+Matched: AGCAGTGGAG after 3300ms
+Matched: aagcgtggag after 3301ms
+Matched: GAGCGTAGGG after 3301ms
+Matched: AGCGAATGGG after 3304ms
+Matched: AGCAGGTGGG after 3304ms
+Matched: AGTCTGTGGG after 3305ms
+Matched: CAGGCGTGGG after 3305ms
+Matched: ggagcgtggg after 3312ms
+Matched: CAGCGT
+GGG after 3314ms
+Matched: AGCTGGTGGG after 3317ms
+Matched: T
+AGCGTGGG after 3317ms
+Matched: aggcagtggg after 3319ms
+Matched: gagcagtggg after 3320ms
+Matched: aggcgtggtg after 3321ms
+Matched: atggcgtggg after 3323ms
+Matched: AGCAGTGTGG after 3326ms
+Matched: agcagttggg after 3327ms
+Matched: GAGCAGTGGG after 3328ms
+Matched: AGCACGTGGG after 3328ms
+Matched: AGCCGGTGGG after 3333ms
+Matched: agctgtggtg after 3334ms
+Matched: agcagctggg after 3340ms
+Matched: agccagtggg after 3341ms
+Matched: agcgtggtag after 3342ms
+Matched: tagctgtggg after 3346ms
+Matched: agtcgtggag after 3346ms
+Matched: agtcgttggg after 3349ms
+Matched: AGCAGTGAGG after 3350ms
+Matched: agctgtgagg after 3350ms
+Matched: agtcgtggtg after 3350ms
+Matched: AGGCTGTGGG after 3355ms
+Matched: atgcagtggg after 3356ms
+Matched: AAGCG
+TGGG after 3357ms
+Matched: AGCGT
+GGAG after 3357ms
+Matched: AGCTGGTGGG after 3359ms
+Matched: AGCAGGTGGG after 3359ms
+Matched: AGCTGCTGGG after 3360ms
+Matched: AGCCGGTGGG after 3361ms
+Matched: CAGCGTGGTG after 3363ms
+Matched: AGCAGCTGGG after 3364ms
+Matched: CAGGCGTGGG after 3365ms
+Matched: AGGGCGTGGG after 3366ms
+Matched: AGCAGGTGGG after 3367ms
+Matched: AGCTGTGGAG after 3368ms
+Matched: ATGTCGTGGG after 3368ms
+Matched: AAGCTGTGGG after 3370ms
+Matched: GAGCGGTGGG after 3370ms
+Matched: AAGCTGTGGG after 3371ms
+Matched: AGGCGTCGGG after 3371ms
+Matched: agccagtggg after 3372ms
+Matched: agcgttggtg after 3375ms
+Matched: agcagctggg after 3384ms
+Matched: aggcgtggtg after 3388ms
+Matched: AGCGTTGTGG after 3390ms
+Matched: AGCCCGTGGG after 3390ms
+Matched: CAGCCGTGGG after 3391ms
+Matched: agcgtgcagg after 3392ms
+Matched: agctgtgtgg after 3397ms
+Matched: AGCGTGG
+CG after 3398ms
+Matched: AGCTGTGAGG after 3399ms
+Matched: ATGCG
+TGGG after 3409ms
+Matched: aggcgtggtg after 3409ms
+Matched: AGCTGTGGAG after 3410ms
+Matched: TGAGCGtggg after 3411ms
+Matched: GAGCAGTGGG after 3412ms
+Matched: CAGGCGTGGG after 3415ms
+Matched: aggcgtggtg after 3416ms
+Matched: agcgtagtgg after 3418ms
+Matched: AAGCAGTGGG after 3419ms
+Matched: aggcgtggtg after 3426ms
+Matched: AGCAGTGGTG after 3427ms
+Matched: AGCAGTGGTG after 3427ms
+Matched: agcagctggg after 3428ms
+Matched: aagcgctggg after 3429ms
+Matched: aggcgtggtg after 3433ms
+Matched: agcagtgagg after 3434ms
+Matched: gagcgtggtg after 3434ms
+Matched: agcagtggag after 3438ms
+Matched: aagcagtggg after 3439ms
+Matched: GAGCAGTGGG after 3440ms
+Matched: AGACGTGGAG after 3440ms
+Matched: AGCAGGTGGG after 3440ms
+Matched: GAGACGTGGG after 3441ms
+Matched: AAGCAGTGGG after 3441ms
+Matched: CAGCGTGGCG after 3441ms
+Matched: agctgtggag after 3443ms
+Matched: agcgatggcg after 3445ms
+Matched: atgcggtggg after 3448ms
+Matched: AGCAGCTGGG after 3449ms
+Matched: agctgttggg after 3454ms
+Matched: ACCGCGTGGG after 3455ms
+Matched: AGCTGTTGGG after 3456ms
+Matched: GACGCGTGGG after 3456ms
+Matched: aggccgtggg after 3456ms
+Matched: ACGCGGTGGG after 3456ms
+Matched: AGCAGTGAGG after 3458ms
+Matched: AGGCCGTGGG after 3461ms
+Matched: GAAGCGTGGG after 3461ms
+Matched: agtcgctggg after 3468ms
+Matched: AGGCGTAGGG after 3469ms
+Matched: AGCAGGTGGG after 3475ms
+Matched: AGCAGTGAGG after 3476ms
+Matched: CAGCAGTGGG after 3476ms
+Matched: GGAGCGTGGG after 3484ms
+Matched: GAAGCGTGGG after 3490ms
+Matched: AGCCGTGGAG after 3490ms
+Matched: agcagctggg after 3492ms
+Matched: CAGGCGTGGG after 3493ms
+Matched: ACAGCGTGGG after 3493ms
+Matched: GAGCTGTGGG after 3493ms
+Matched: GAGACGTGGG after 3493ms
+Matched: AGGCAGTGGG after 3495ms
+Matched: caggcgtggg after 3498ms
+Matched: agacagtggg after 3500ms
+Matched: CAGCGCTGGG after 3505ms
+Matched: AGACAGTGGG after 3506ms
+Matched: AGTGCGTGGG after 3506ms
+Matched: agcagtggcg after 3507ms
+Matched: GAGCGTGAGG after 3508ms
+Matched: AGCAGCTGGG after 3508ms
+Matched: AGCTGTTGGG after 3508ms
+Matched: AGCTGTTGGG after 3512ms
+Matched: AAGACGTGGG after 3514ms
+Matched: AGCAGCTGGG after 3516ms
+Matched: agcagctggg after 3516ms
+Matched: agcgatggag after 3519ms
+Matched: agcgatggtg after 3521ms
+Matched: agcagctggg after 3522ms
+Matched: caggcgtggg after 3530ms
+Matched: agcgtgttgg after 3533ms
+Matched: agctgctggg after 3534ms
+Matched: agccggtggg after 3535ms
+Matched: aggcgtggtg after 3537ms
+Matched: AGCAGGTGGG after 3538ms
+Matched: aggcgtggtg after 3541ms
+Matched: AGCTTGTGGG after 3543ms
+Matched: AGCGTGCAGG after 3543ms
+Matched: aggcgtggtg after 3544ms
+Matched: aggcgtggtg after 3547ms
+Matched: aggcgtggtg after 3547ms
+Matched: agcgtagtgg after 3548ms
+Matched: AGCCGGTGGG after 3550ms
+Matched: AGCGTATGGG after 3551ms
+Matched: AAGCTGTGGG after 3551ms
+Matched: CCAGCGTGGG after 3556ms
+Matched: AGCATGTGGG after 3557ms
+Matched: CAAGCGTGGG after 3558ms
+Matched: aggcgtgagg after 3558ms
+Matched: aggcgtggtg after 3558ms
+Matched: GAGCGTTGGG after 3558ms
+Matched: AGCTGGTGGG after 3562ms
+Matched: AGCAGTGGAG after 3564ms
+Matched: AAGCGTGGCG after 3568ms
+Matched: AGCCAGTGGG after 3571ms
+Matched: aggcgtggtg after 3575ms
+Matched: agcagctggg after 3576ms
+Matched: CAGGCGTGGG after 3579ms
+Matched: agcaagtggg after 3581ms
+Matched: AGCAGTGAGG after 3582ms
+Matched: AGGCTGTGGG after 3585ms
+Matched: AGCTGTGAGG after 3587ms
+Matched: AGACGCTGGG after 3587ms
+Matched: AGCTGTGAGG after 3587ms
+Matched: AGCAGCTGGG after 3589ms
+Matched: AGCAGCTGGG after 3590ms
+Matched: GAGCGTGAGG after 3593ms
+Matched: CAGCGTGG
+G after 3593ms
+Matched: CAGCCGTGGG after 3596ms
+Matched: AGCCGCTGGG after 3598ms
+Matched: AGCCGGTGGG after 3599ms
+Matched: agtacgtggg after 3600ms
+Matched: ccagcgtggg after 3604ms
+Matched: AGCTGGTGGG after 3607ms
+Matched: agcagtgtgg after 3614ms
+Matched: aggcgtggtg after 3614ms
+Matched: ccagcgtggg after 3614ms
+Matched: AGCAGTGGAG after 3619ms
+Matched: AGCGCCTGGG after 3620ms
+Matched: agcagtgagg after 3625ms
+Matched: AGCAGTGGTG after 3627ms
+Matched: AGACGTTGGG after 3627ms
+Matched: CAGCTGTGGG after 3627ms
+Matched: AGCCAGTGGG after 3627ms
+Matched: aggcgtggtg after 3633ms
+Matched: agcaggtggg after 3637ms
+Matched: AGGCTGTGGG after 3643ms
+Matched: AGGCGCTGGG after 3647ms
+Matched: agcgtggctg after 3647ms
+Matched: AGCAGTAGGG after 3649ms
+Matched: agcgctggag after 3649ms
+Matched: ATGCTGTGGG after 3650ms
+Matched: AGCGAATGGG after 3654ms
+Matched: AGCTGGTGGG after 3655ms
+Matched: AAGCGTGGTG after 3655ms
+Matched: agcagctggg after 3656ms
+Matched: AGACGATGGG after 3657ms
+Matched: TAAGCGTGGG after 3657ms
+Matched: AGCTGTGGCG after 3657ms
+Matched: AGACGTGCGG after 3661ms
+Matched: AGCTGCTGGG after 3664ms
+Matched: AGCAGTTGGG after 3670ms
+Matched: AGGCTGTGGG after 3671ms
+Matched: AGGCTGTGGG after 3676ms
+Matched: AGCAGTGGAG after 3676ms
+Matched: gagcgtggtg after 3676ms
+Matched: CAGCAGTGGG after 3677ms
+Matched: GAGCAGTGGG after 3677ms
+Matched: AGCTTGTGGG after 3678ms
+Matched: ATGCTGTGGG after 3678ms
+Matched: agctgtggag after 3682ms
+Matched: AGCAGTAGGG after 3686ms
+Matched: agcgctggag after 3687ms
+Matched: GAG
+CGTGGG after 3690ms
+Matched: AGGCTGTGGG after 3699ms
+Matched: t
+agcgtggg after 3699ms
+Matched: agcagctggg after 3701ms
+Matched: AGGCTGTGGG after 3702ms
+Matched: CAGCAGTGGG after 3702ms
+Matched: AGCTTGTGGG after 3704ms
+Matched: ATGCTGTGGG after 3705ms
+Matched: AGCTGTGGAG after 3707ms
+Matched: AGCTGCTGGG after 3708ms
+Matched: aggcgtggtg after 3708ms
+Matched: agacgtggtg after 3713ms
+Matched: AGGCAGTGGG after 3714ms
+Matched: aggcgtggtg after 3715ms
+Matched: aagcgttggg after 3723ms
+Matched: agctgatggg after 3723ms
+Matched: AGCAGTAGGG after 3725ms
+Matched: AGCAGCTGGG after 3727ms
+Matched: AGCTGTAGGG after 3727ms
+Matched: agctgttggg after 3729ms
+Matched: aggcgtggcg after 3729ms
+Matched: AGCTgctggg after 3730ms
+Matched: AGGCAGTGGG after 3731ms
+Matched: agctgtgtgg after 3736ms
+Matched: AGGACGTGGG after 3737ms
+Matched: aggcgctggg after 3738ms
+Matched: AGCAGTGGAG after 3738ms
+Matched: AG
+CAGTGGG after 3744ms
+Matched: GAGCAGTGGG after 3744ms
+Matched: A
+GCAGTGGG after 3745ms
+Matched: AGCAGCTGGG after 3745ms
+Matched: AGCTCGTGGG after 3748ms
+Matched: CAGCAGTGGG after 3752ms
+Matched: AAGCTGTGGG after 3752ms
+Matched: AGCAG
+TGGG after 3752ms
+Matched: AGGCAGTGGG after 3754ms
+Matched: aggcgtggtg after 3755ms
+Matched: AGCTGTGAGG after 3756ms
+Matched: AGCTGTGTGG after 3757ms
+Matched: GGAGCGTGGG after 3759ms
+Matched: agctGCTGGG after 3760ms
+Matched: CAGCAGTGGG after 3760ms
+Matched: CAGCGCTGGG after 3760ms
+Matched: AGCTGGTGGG after 3761ms
+Matched: AGCTGGTGGG after 3764ms
+Matched: agctgtgtgg after 3767ms
+Matched: TAGCAGTGGG after 3767ms
+Matched: AGCAGCTGGG after 3767ms
+Matched: AGCTGTGTGG after 3767ms
+Matched: AGGCTGTGGG after 3771ms
+Matched: CAGCGTGAGG after 3771ms
+Matched: CAGCAGTGGG after 3772ms
+Matched: GAGCTGTGGG after 3772ms
+Matched: AGCCCGTGGG after 3773ms
+Matched: CAGCAGTGGG after 3777ms
+Matched: ATGCCGTGGG after 3778ms
+Matched: ATGCAGTGGG after 3778ms
+Matched: AGCGTGTTGG after 3778ms
+Matched: A
+GCAGTGGG after 3778ms
+Matched: AGCTGTGAGG after 3779ms
+Matched: AGCAGGTGGG after 3780ms
+Matched: AGCA
+GTGGG after 3780ms
+Matched: AGGCTGTGGG after 3780ms
+Matched: ATGCTGTGGG after 3780ms
+Matched: GCAGCGTGGG after 3781ms
+Matched: AGGCGGTGGG after 3786ms
+Matched: CAGCAGTGGG after 3787ms
+Matched: AGCGGCTGGG after 3788ms
+Matched: AAGCGCTGGG after 3788ms
+Matched: GAGGCGTGGG after 3792ms
+Matched: AGCTGTGTGG after 3792ms
+Matched: AGCGTGCAGG after 3793ms
+Matched: AGCCGGTGGG after 3793ms
+Matched: ATGCAGTGGG after 3793ms
+Matched: CAGCGCTGGG after 3795ms
+Matched: atgcgttggg after 3798ms
+Matched: aggcgtggtg after 3799ms
+Matched: agcagttggg after 3800ms
+Matched: aggcgtggtg after 3802ms
+Matched: agcagctggg after 3804ms
+Matched: agcaggtggg after 3807ms
+Matched: aggcgtggtg after 3810ms
+Matched: gagcgtggtg after 3812ms
+Matched: AGCCGTGGAG after 3813ms
+Matched: AGGCGTGGAG after 3814ms
+Matched: aggcgtggtg after 3819ms
+Matched: aggcgtggtg after 3819ms
+Matched: aggcgtggtg after 3819ms
+Matched: AGCAGCTGGG after 3820ms
+Matched: GCAGCGTGGG after 3821ms
+Matched: AGCTGTGGCG after 3821ms
+Matched: GCAGCGTGGG after 3822ms
+Matched: AGCGTGTCGG after 3822ms
+Matched: agcagctggg after 3826ms
+Matched: AGAGCGTGGG after 3830ms
+Matched: C
+AGCGTGGG after 3832ms
+Matched: AGGCAGTGGG after 3833ms
+Matched: AGGCCGTGGG after 3833ms
+Matched: AGCGATGCGG after 3836ms
+Matched: AGCTGTGGTG after 3842ms
+Matched: AGCTGTGGTG after 3843ms
+Matched: aagcgtggtg after 3848ms
+Matched: agctgttggg after 3854ms
+Matched: agacgatggg after 3854ms
+Matched: cagcgtgagg after 3855ms
+Matched: AGCGATGGAG after 3856ms
+Matched: gagcgtggtg after 3869ms
+Matched: CAGCGTTGGG after 3870ms
+Matched: aggcgtggtg after 3875ms
+Matched: AGCCTGTGGG after 3878ms
+Matched: AGCAGCTGGG after 3878ms
+Matched: agctgtggag after 3884ms
+Matched: AGCAGCTGGG after 3885ms
+Matched: AGCAGTGGAG after 3885ms
+Matched: AGCCAGTGGG after 3886ms
+Matched: agctgtgtgg after 3886ms
+Matched: AGCTGTGAGG after 3886ms
+Matched: AGCTGGTGGG after 3888ms
+Matched: AGCGTGTGAG after 3891ms
+Matched: AGCCGTGTGG after 3891ms
+Matched: CAGACGTGGG after 3891ms
+Matched: AGCGCTGGAG after 3893ms
+Matched: AGCAGTGAGG after 3895ms
+Matched: AGCAAGTGGG after 3898ms
+Matched: ACAGCGTGGG after 3899ms
+Matched: AGCAGTTGGG after 3899ms
+Matched: AGCTGGTGGG after 3899ms
+Matched: GAGCCGTGGG after 3900ms
+Matched: AGCAGGTGGG after 3903ms
+Matched: AGGGCGTGGG after 3903ms
+Matched: GAGGCGTGGG after 3904ms
+Matched: AGACGTGGAG after 3906ms
+Matched: AGCTGCTGGG after 3906ms
+Matched: AGCATGTGGG after 3908ms
+Matched: aggcgtggtg after 3911ms
+Matched: agcagctggg after 3913ms
+Matched: aggcgtggtg after 3917ms
+Matched: aggcgtggtg after 3919ms
+Matched: GAGCTGTGGG after 3920ms
+Matched: aggcgtggtg after 3921ms
+Matched: agcctgtggg after 3927ms
+Matched: AGCCGTGGTG after 3931ms
+Matched: aggcgtggtg after 3933ms
+Matched: CAGCTGTGGG after 3935ms
+Matched: AGCAGCTGGG after 3935ms
+Matched: AGGCTGTGGG after 3936ms
+Matched: atgcagtggg after 3937ms
+Matched: aatgcgtggg after 3941ms
+Matched: agcagtggag after 3942ms
+Matched: agctagtggg after 3943ms
+Matched: AGCTGTGAGG after 3944ms
+Matched: AGCAGTGGTG after 3944ms
+Matched: caggcgtggg after 3944ms
+Matched: AGCCGTAGGG after 3949ms
+Matched: gagcagtggg after 3950ms
+Matched: agcgtggt
+g after 3957ms
+Matched: CAGCGTGGAG after 3958ms
+Matched: AGCAGTGTGG after 3958ms
+Matched: CAGCTGTGGG after 3966ms
+Matched: AGCTGATGGG after 3967ms
+Matched: aagcgctggg after 3972ms
+Matched: AGACAGTGGG after 3973ms
+Matched: AGCGCTGTGG after 3974ms
+Matched: GAGCTGTGGG after 3976ms
+Matched: CAGCGTGTGG after 3977ms
+Matched: agcagtggag after 3978ms
+Matched: aggcgtggtg after 3980ms
+Matched: agcatgtggg after 3980ms
+Matched: AGCAGTGGAG after 3981ms
+Matched: G
+AGCGTGGG after 3982ms
+Matched: AGCCGTGTGG after 3985ms
+Matched: GAGCGTGGAG after 3986ms
+Matched: agcgct
+ggg after 3987ms
+Matched: AGCTGCTGGG after 3989ms
+Matched: AGCGGGTGGG after 3994ms
+Matched: CAGCCGTGGG after 3994ms
+Matched: AGCAGTGAGG after 3995ms
+Matched: GAGACGTGGG after 3995ms
+Matched: GAGCAGTGGG after 3997ms
+Matched: AGCGCTGTGG after 4001ms
+Matched: AGACTGTGGG after 4002ms
+Matched: AGCCGGTGGG after 4003ms
+Matched: AGCGTGCTGG after 4006ms
+Matched: AGCTGTAGGG after 4007ms
+Matched: GAGCAGTGGG after 4008ms
+Matched: aggcgtggag after 4009ms
+Matched: aggcagtggg after 4011ms
+Matched: aggcgtggtg after 4014ms
+Matched: gagcgtgagg after 4018ms
+Matched: agtcgtggag after 4018ms
+Matched: CAGCGTCGGG after 4019ms
+Matched: AGGCAGTGGG after 4024ms
+Matched: AGCTGTGGAG after 4029ms
+Matched: GAGGCGTGGG after 4030ms
+Matched: GAGCAGTGGG after 4031ms
+Matched: AGGCAGTGGG after 4032ms
+Matched: agcagtaggg after 4033ms
+Matched: AGCTTGTGGG after 4036ms
+Matched: agctggtggg after 4043ms
+Matched: agctgatggg after 4047ms
+Matched: agcaagtggg after 4049ms
+Matched: AGCAGTGGAG after 4050ms
+Matched: agctgtgagg after 4054ms
+Matched: agcagctggg after 4056ms
+Matched: aggcgtggtg after 4058ms
+Matched: aggcgtggtg after 4058ms
+Matched: tagcgtggtg after 4059ms
+Matched: agctgtggtg after 4061ms
+Matched: aggcgtggtg after 4064ms
+Matched: ttagcgtggg after 4067ms
+Matched: AGCGTGCGTG after 4067ms
+Matched: TAGCGTGAGG after 4068ms
+Matched: AGCAGGTGGG after 4068ms
+Matched: aagcgctggg after 4075ms
+Matched: AAGCAGTGGG after 4076ms
+Matched: atgcagtggg after 4077ms
+Matched: aggcgtgagg after 4081ms
+Matched: AGCGTCAGGG after 4081ms
+Matched: agcgtgcagg after 4083ms
+Matched: tagcGATGGG after 4087ms
+Matched: AGACAGTGGG after 4087ms
+Matched: agcgtagagg after 4089ms
+Matched: tagcgtggtg after 4090ms
+Matched: AGCGCTGGTG after 4092ms
+Matched: AGCAGTGAGG after 4097ms
+Matched: agcgtgatgg after 4104ms
+Matched: AG
+CGTAGGG after 4105ms
+Matched: CTAGCGTGgg after 4107ms
+Matched: AGCTGTGTGG after 4108ms
+Matched: AGTCAGTGGG after 4108ms
+Matched: AGCAGTGGAG after 4112ms
+Matched: CAGCGTGGTG after 4118ms
+Matched: AGCGTGGATG after 4120ms
+Matched: agacagtggg after 4124ms
+Matched: aggcgtggtg after 4125ms
+Matched: aggcgtggtg after 4125ms
+Matched: TAGCAGTGGG after 4127ms
+Matched: agcgtgatgg after 4131ms
+Matched: AAGCGTGGAG after 4131ms
+Matched: AGCAGCTGGG after 4132ms
+Matched: GATGCGTGGG after 4133ms
+Matched: agcgtgcagg after 4135ms
+Matched: agcgttggag after 4140ms
+Matched: agcgggtggg after 4141ms
+Matched: AGTCAGTGGG after 4146ms
+Matched: AGCCAGTGGG after 4147ms
+Matched: GGAGCGTGGG after 4147ms
+Matched: aggcgtggtg after 4148ms
+Matched: agctgtggtg after 4149ms
+Matched: agctgctggg after 4150ms
+Matched: agctgtgtgg after 4151ms
+Matched: agcgatggtg after 4155ms
+Matched: TCAGCGTGGG after 4156ms
+Matched: cagcgtgg
+g after 4157ms
+Matched: AG
+CGTGGCG after 4163ms
+Matched: aggcgtggtg after 4163ms
+Matched: agcagctggg after 4167ms
+Matched: agcagctggg after 4169ms
+Matched: aagcgctggg after 4169ms
+Matched: caggcgtggg after 4170ms
+Matched: agcagtg
+gg after 4175ms
+Matched: AGCAGTGTGG after 4178ms
+Matched: AAGACGTGGG after 4178ms
+Matched: aggcgtggtg after 4179ms
+Matched: ATGCAGTGGG after 4184ms
+Matched: AGGCAGTGGG after 4185ms
+Matched: AGCGT
+GGTG after 4190ms
+Matched: agcagctggg after 4191ms
+Matched: a
+gcagtggg after 4192ms
+Matched: agctgctggg after 4193ms
+Matched: AGCTGATGGG after 4193ms
+Matched: agcagttggg after 4193ms
+Matched: ccagcgtggg after 4194ms
+Matched: atgcgtaggg after 4194ms
+Matched: ACAGCGTGGG after 4198ms
+Matched: AGAGCGTGGG after 4199ms
+Matched: GAGCAGTGGG after 4204ms
+Matched: CAAGCGTGGG after 4206ms
+Matched: GAGCTGTGGG after 4207ms
+Matched: AAGACGTGGG after 4209ms
+Matched: agcaagtggg after 4213ms
+Matched: AGCAGGTGGG after 4214ms
+Matched: ACAGCGTGGG after 4217ms
+Matched: cagccgtggg after 4219ms
+Matched: agctgtggtg after 4219ms
+Matched: aggcgtggtg after 4221ms
+Matched: agcagtgtgg after 4221ms
+Matched: AGCGTGGCCG after 4226ms
+Matched: AGCAAGTGGG after 4227ms
+Matched: agtcagtggg after 4228ms
+Matched: AGACTGTGGG after 4230ms
+Matched: AGCTGTGTGG after 4230ms
+Matched: agccgtgagg after 4236ms
+Matched: gagcagtggg after 4236ms
+Matched: CCAGCGTGGG after 4236ms
+Matched: CAGCAGTGGG after 4237ms
+Matched: AGTCCGTGGG after 4237ms
+Matched: ATGCAGTGGG after 4238ms
+Matched: agccagtggg after 4244ms
+Matched: aggcgctggg after 4248ms
+Matched: ATGACGTGGG after 4258ms
+Matched: AGCGAGTGGG after 4258ms
+Matched: GAGCTGTGGG after 4259ms
+Matched: GAGCCGTGGG after 4262ms
+Matched: AGCAGTAGGG after 4264ms
+Matched: AGCCTGTGGG after 4264ms
+Matched: CAGCGATGGG after 4270ms
+Matched: AGCAGTGAGG after 4273ms
+Matched: AGCTGTGAGG after 4277ms
+Matched: AGCAGGTGGG after 4279ms
+Matched: GAGCCGTGGG after 4279ms
+Matched: agcttgtggg after 4280ms
+Matched: agcagtggtg after 4280ms
+Matched: AGGCAGTGGG after 4287ms
+Matched: agctgctggg after 4295ms
+Matched: agacgatggg after 4295ms
+Matched: agcgaatGGG after 4301ms
+Matched: AGCGTCGTGG after 4310ms
+Matched: AGGCTGTGGG after 4311ms
+Matched: AGCAGTGGAG after 4312ms
+Matched: cagtcgtggg after 4316ms
+Matched: AGCAGCTGGG after 4316ms
+Matched: AGCAGTTGGG after 4318ms
+Matched: cagcagtggg after 4320ms
+Matched: agtcgatggg after 4322ms
+Matched: cagcagtggg after 4322ms
+Matched: agctgtgagg after 4322ms
+Matched: AGCGGGTGGG after 4325ms
+Matched: AGACAGTGGG after 4338ms
+Matched: AAGCTGTGGG after 4338ms
+Matched: agcagctggg after 4338ms
+Matched: AGCTGTGTGG after 4343ms
+Matched: AGCGTGCGAG after 4345ms
+Matched: AGCCAGTGGG after 4346ms
+Matched: AAGCGCTGGG after 4346ms
+Matched: AGACGATGGG after 4346ms
+Matched: AGCCAGTGGG after 4352ms
+Matched: agcaggtggg after 4357ms
+Matched: agctgtggtg after 4359ms
+Matched: AGCGG
+TGGG after 4364ms
+Matched: AGGCTGTGGG after 4367ms
+Matched: aggcgtggtg after 4369ms
+Matched: AGCGGCTGGG after 4371ms
+Matched: AAGCAGTGGG after 4371ms
+Matched: agcagctggg after 4373ms
+Matched: gagcgtggtg after 4373ms
+Matched: agctgtgtgg after 4378ms
+Matched: AGCAGTGAGG after 4379ms
+Matched: GAGCCGTGGG after 4380ms
+Matched: agcagtggtg after 4384ms
+Matched: atgtcgtggg after 4387ms
+Matched: agcaggtggg after 4388ms
+Matched: AGCGTGGTAG after 4388ms
+Matched: agcgatgtgg after 4394ms
+Matched: at
+gcgtggg after 4395ms
+Matched: AGCAGTGGAG after 4395ms
+Matched: AGCT
+GTGGG after 4396ms
+Matched: AGGCAGTGGG after 4404ms
+Matched: agactgtggg after 4405ms
+Matched: agtcagtggg after 4410ms
+Matched: agcgtgtgtg after 4415ms
+Matched: AAGCAGTGGG after 4418ms
+Matched: aggcgtggtg after 4427ms
+Matched: aagcgctggg after 4432ms
+Matched: GAGTCGTGGG after 4433ms
+Matched: aggcgtgagg after 4434ms
+Matched: tagctgtggg after 4442ms
+Matched: GAGCTGTGGG after 4446ms
+Matched: GAGCGTGGTG after 4446ms
+Matched: aggcagtggg after 4449ms
+Matched: aggacgtggg after 4449ms
+Matched: AGCGTGGCTG after 4449ms
+Matched: gagcagtggg after 4453ms
+Matched: GAGCAGTGGG after 4461ms
+Matched: AGCCAGTGGG after 4462ms
+Matched: AGCGTGTGTG after 4462ms
+Matched: GAGCGTGGAG after 4462ms
+Matched: AGGTCGTGGG after 4468ms
+Matched: AGCGTGGTCG after 4469ms
+Matched: AGCTGTGGAG after 4475ms
+Matched: AGCGGCTGGG after 4475ms
+Matched: AGACTGTGGG after 4478ms
+Matched: agcagctggg after 4481ms
+Matched: agcagtggtg after 4497ms
+Matched: agcagtggcg after 4498ms
+Matched: agcgtggatg after 4502ms
+Matched: CAAGCGTGGG after 4503ms
+Matched: aggcgtggtg after 4504ms
+Matched: AGCGCTGGTG after 4505ms
+Matched: AGGCTGTGGG after 4506ms
+Matched: atgcgctggg after 4506ms
+Matched: 
+AGCCGTGGG after 4508ms
+Matched: AGCAGTGGAG after 4510ms
+Matched: GAAGCGTGGG after 4511ms
+Matched: AGGCAGTGGG after 4512ms
+Matched: gagcgtggtg after 4519ms
+Matched: 
+cagcgtggg after 4519ms
+Matched: GAGCGGTGGG after 4521ms
+Matched: CAGCCGTGGG after 4524ms
+Matched: AGACCGTGGG after 4526ms
+Matched: aagcgctggg after 4527ms
+Matched: agcagtggag after 4532ms
+Matched: AGCCGATGGG after 4534ms
+Matched: agccgtggag after 4534ms
+Matched: AGGCTGTGGG after 4534ms
+Matched: a
+gcgtggtg after 4535ms
+Matched: CAGCAGTGGG after 4535ms
+Matched: catgcgtggg after 4535ms
+Matched: agcgtgcagg after 4536ms
+Matched: tagcgatggg after 4538ms
+Matched: TGAGCGTGGG after 4539ms
+Matched: AGCCAGTGGG after 4540ms
+Matched: AGGCAGTGGG after 4541ms
+Matched: AGCAGCTGGG after 4546ms
+Matched: agcgttggag after 4550ms
+Matched: AGGCTGTGGG after 4556ms
+Matched: GAGCTGTGGG after 4557ms
+Matched: agcagctggg after 4558ms
+Matched: AGCGTG
+GAG after 4562ms
+Matched: AGCTGCTGGG after 4565ms
+Matched: AGCTGTTGGG after 4570ms
+Matched: atgctgtggg after 4571ms
+Matched: AGACGTGGAG after 4579ms
+Matched: AGCAGGTGGG after 4582ms
+Matched: agtgCGTGGG after 4586ms
+Matched: GAGCAGTGGG after 4587ms
+Matched: AGCAGTTGGG after 4594ms
+Matched: AGCTGTTGGG after 4595ms
+Matched: cagcgtggtg after 4602ms
+Matched: AGCAGTGAGG after 4602ms
+Matched: CAGCTGTGGG after 4603ms
+Matched: AGCTGGTGGG after 4607ms
+Matched: aggctgtggg after 4610ms
+Matched: aagcagtggg after 4610ms
+Matched: agcagttggg after 4611ms
+Matched: agcgtggtag after 4616ms
+Matched: agctgtgagg after 4617ms
+Matched: ATGCAGTGGG after 4618ms
+Matched: aagcgctggg after 4621ms
+Matched: CAGCTGTGGG after 4622ms
+Matched: CAGCGTGTGG after 4631ms
+Matched: CAGCGTGCGG after 4632ms
+Matched: AGCCGCTGGG after 4632ms
+Matched: AGCTGTGTGG after 4640ms
+Matched: AGCCAGTGGG after 4641ms
+Matched: gagcgtggtg after 4649ms
+Matched: AGCCGTGGAG after 4649ms
+Matched: agcgtaggtg after 4655ms
+Matched: acgcagtggg after 4655ms
+Matched: AGCGGTGAGG after 4661ms
+Matched: AGCAGTGAGG after 4663ms
+Matched: AGCTGCTGGG after 4663ms
+Matched: AGCGCTGGAG after 4663ms
+Matched: AGCGGTGGTG after 4663ms
+Matched: AGCAGTTGGG after 4664ms
+Matched: AGCGAGTGGG after 4667ms
+Matched: agcggtggag after 4668ms
+Matched: tagcagtggg after 4669ms
+Matched: agcagttggg after 4669ms
+Matched: agctgtggtg after 4671ms
+Matched: agctggtggg after 4672ms
+Matched: AGACGTTGGG after 4677ms
+Matched: agcgtaggtg after 4686ms
+Matched: AGGCAGTggg after 4686ms
+Matched: TAGCTGTGGG after 4687ms
+Matched: atgcagtggg after 4695ms
+Matched: AAGCAGTGGG after 4702ms
+Matched: ctagcgtggg after 4709ms
+Matched: AGCTTGTGGG after 4710ms
+Matched: agcttgtggg after 4710ms
+Matched: aggcgtggtg after 4718ms
+Matched: AGCATGTGGG after 4723ms
+Matched: AGCTGTTGGG after 4724ms
+Matched: AGTCTGTGGG after 4724ms
+Matched: aggcgtggtg after 4725ms
+Matched: atgctgtggg after 4731ms
+Matched: ATGCAGTGGG after 4731ms
+Matched: AAGCTGTGGG after 4732ms
+Matched: agcagctggg after 4732ms
+Matched: AGCTGATGGG after 4745ms
+Matched: aggcgtggtg after 4746ms
+Matched: agtctgtggg after 4746ms
+Matched: cagcgtggag after 4747ms
+Matched: aggcgtggtg after 4752ms
+Matched: agcagctggg after 4753ms
+Matched: gagcgtggtg after 4754ms
+Matched: AAGCTGTGGG after 4754ms
+Matched: ACGTCGTGGG after 4755ms
+Matched: tagcagtggg after 4759ms
+Matched: agcagctggg after 4761ms
+Matched: AGCAAGTGGG after 4761ms
+Matched: AGCGACTGGG after 4762ms
+Matched: agac
+gtggg after 4762ms
+Matched: AGCTGTCGGG after 4768ms
+Matched: AGCTGTGAGG after 4768ms
+Matched: CAGCTGTGGG after 4768ms
+Matched: AGCAGATGGG after 4769ms
+Matched: GAGCAGTGGG after 4769ms
+Matched: AGCTGTTGGG after 4774ms
+Matched: AGCTGTAGGG after 4775ms
+Matched: A
+GCAGTGGG after 4776ms
+Matched: CAGCGGTGGG after 4778ms
+Matched: atgtcgtggg after 4780ms
+Matched: AGCCGTGGAG after 4781ms
+Matched: CCAGCGTGGG after 4787ms
+Matched: AGG
+CGTGGG after 4788ms
+Matched: ACGCGATGGG after 4788ms
+Matched: AGCGTAGTGG after 4791ms
+Matched: aagcgctggg after 4799ms
+Matched: AGCTGCTGGG after 4804ms
+Matched: AGTCGCTGGG after 4805ms
+Matched: AGCTGTTGGG after 4807ms
+Matched: GCAGCGTGGG after 4813ms
+Matched: aggcggtggg after 4814ms
+Matched: agcgatgagg after 4815ms
+Matched: AGCAGTGTGG after 4815ms
+Matched: tagcgtggtg after 4821ms
+Matched: aggcgtggtg after 4821ms
+Matched: agctgtgtgg after 4825ms
+Matched: agcgt
+ggtg after 4826ms
+Matched: AGCGCCTGGG after 4827ms
+Matched: ccagcgtggg after 4828ms
+Matched: AGCCAGTGGG after 4829ms
+Matched: TAGCGTGGTG after 4833ms
+Matched: aggcgtggtg after 4835ms
+Matched: AGGCGGTGGG after 4836ms
+Matched: aggcgtggtg after 4836ms
+Matched: AGCAGTAGGG after 4836ms
+Matched: AGCAGTGGTG after 4836ms
+Matched: AGCTGCTGGG after 4837ms
+Matched: agacgtggtg after 4837ms
+Matched: GAGCAGTGGG after 4841ms
+Matched: aagcgctggg after 4843ms
+Matched: agcgt
+ggtg after 4849ms
+Matched: AGCAAGTGGG after 4850ms
+Matched: aggcgtggtg after 4851ms
+Matched: AGCGGCTGGG after 4853ms
+Matched: GTAGCGTGGG after 4853ms
+Matched: AGGCGCTGGG after 4856ms
+Matched: AGCGCTCGGG after 4856ms
+Matched: agcagctggg after 4860ms
+Matched: agcagctggg after 4862ms
+Matched: agctgtgtgg after 4864ms
+Matched: ccagcgtggg after 4864ms
+Matched: agcttgtggg after 4868ms
+Matched: AGCGTGCTGG after 4871ms
+Matched: agcagctggg after 4877ms
+Matched: agacgtgagg after 4878ms
+Matched: cagcagtggg after 4878ms
+Matched: AGCTGTGGAG after 4881ms
+Matched: AGCAGCTGGG after 4883ms
+Matched: TAGACGTGGG after 4894ms
+Matched: agctgctggg after 4901ms
+Matched: AGCCAGTGGG after 4902ms
+Matched: aagcgctggg after 4907ms
+Matched: aagctgtggg after 4908ms
+Matched: ATGCAGTGGG after 4909ms
+Matched: AAGCAGTGGG after 4916ms
+Matched: ATGCG
+TGGG after 4916ms
+Matched: agcgatggag after 4917ms
+Matched: gagccgtggg after 4928ms
+Matched: gagctgtggg after 4931ms
+Matched: AGGCAGTGGG after 4931ms
+Matched: ATGCAGTGGG after 4931ms
+Matched: AGAACGTGGG after 4937ms
+Matched: AGCTTGTGGG after 4937ms
+Matched: agctgctggg after 4938ms
+Matched: agacgatggg after 4938ms
+Matched: GAGCTGTGGG after 4939ms
+Matched: AGCGTGGCAG after 4941ms
+Matched: aagcagtggg after 4942ms
+Matched: AGCAGTGGCG after 4945ms
+Matched: GAGCGTGGAG after 4945ms
+Matched: agacgtggtg after 4945ms
+Matched: aggcgtggtg after 4951ms
+Matched: AGCAGTGGAG after 4952ms
+Matched: AGCAGGTGGG after 4952ms
+Matched: agcagttggg after 4953ms
+Matched: agcagctggg after 4953ms
+Matched: AGCGCT
+GGG after 4956ms
+Matched: agctagtggg after 4958ms
+Matched: agcgtgtgtg after 4959ms
+Matched: AGCGCTTGGG after 4960ms
+Matched: AGCGCTGAGG after 4961ms
+Matched: agctggtggg after 4961ms
+Matched: ag
+cggtggg after 4961ms
+Matched: aggcagtggg after 4965ms
+Matched: agtcgatggg after 4968ms
+Matched: AAAGCGTGGG after 4969ms
+Matched: AGCAGTGAGG after 4972ms
+Matched: tagtcgtggg after 4981ms
+Matched: GATGCGTGGG after 4982ms
+Matched: GAGCAGTGGG after 4983ms
+Matched: tagctgtggg after 4987ms
+Matched: agcga
+tggg after 4989ms
+Matched: AGCGATGGAG after 4991ms
+Matched: AGCGGGTGGG after 4992ms
+Matched: AGCTGTggtg after 4994ms
+Matched: AGCCGTGAGG after 4999ms
+Matched: AGGCTGTGGG after 5004ms
+Matched: AGCTGTGAGG after 5008ms
+Matched: gagctgtggg after 5008ms
+Matched: CAGACGTGGG after 5009ms
+Matched: agctgtgtgg after 5012ms
+Matched: AGCAGTGGAG after 5015ms
+Matched: AGCTAGTGGG after 5016ms
+Matched: tcagcgtggg after 5017ms
+Matched: agcaggtggg after 5018ms
+Matched: AGCCAGTGGG after 5029ms
+Matched: agcggatggg after 5030ms
+Matched: CAGCGTGTGG after 5030ms
+Matched: agcagtggag after 5031ms
+Matched: agcagtcggg after 5032ms
+Matched: aaagcgtggg after 5037ms
+Matched: AG
+CTGTGGG after 5039ms
+Matched: GAGCGCTGGG after 5039ms
+Matched: GAGGCGTGGG after 5039ms
+Matched: AGCAGTGTGG after 5045ms
+Matched: aggcgctggg after 5047ms
+Matched: ATGCCGTGGg after 5054ms
+Matched: AGCAGCTGGG after 5056ms
+Matched: agcgtgtgtg after 5059ms
+Matched: AGGCGTGGTG after 5060ms
+Matched: AGGCAGTGGG after 5061ms
+Matched: GAGGCGTGGG after 5062ms
+Matched: AGGCAGTGGG after 5064ms
+Matched: AGCAGCTGGG after 5064ms
+Matched: agcgtgaagG after 5067ms
+Matched: aggcgtgagg after 5068ms
+Matched: agcagttggg after 5068ms
+Matched: aggcgtggag after 5068ms
+Matched: gagctgtggg after 5070ms
+Matched: AGCTGTGGTG after 5073ms
+Matched: agacgtggtg after 5074ms
+Matched: AGCAGTGTGG after 5075ms
+Matched: ATGGCGTGGG after 5075ms
+Matched: agctgtgtgg after 5082ms
+Matched: agctgtgagg after 5083ms
+Matched: atgcgctggg after 5083ms
+Matched: AGCAGCTGGG after 5083ms
+Matched: aggcgtggtg after 5084ms
+Matched: atgcgatggg after 5085ms
+Matched: AGCAGGTGGG after 5090ms
+Matched: AGCTGTGGTG after 5091ms
+Matched: AGTCTGTGGG after 5095ms
+Matched: AG
+CTGTGGG after 5097ms
+Matched: AGCGTGAGTG after 5099ms
+Matched: AGCTGTAGGG after 5101ms
+Matched: AAGCCGTGGG after 5103ms
+Matched: AGCAGTGGTG after 5114ms
+Matched: AGCTGTGTGG after 5120ms
+Matched: aggctgtggg after 5121ms
+Matched: ccagcgtggg after 5122ms
+Matched: AAGCGGTGGG after 5122ms
+Matched: agcgatggtg after 5123ms
+Matched: agcaagtggg after 5130ms
+Matched: AGCTGCTGGG after 5134ms
+Matched: GATGCGTGGG after 5135ms
+Matched: AGCCCGTGGG after 5135ms
+Matched: aggcagtggg after 5135ms
+Matched: AGCTGGTGGG after 5136ms
+Matched: AGCCGTGAGG after 5138ms
+Matched: CAGCGCTGGG after 5138ms
+Matched: CAGCTGTGGG after 5138ms
+Matched: agctgtgtgg after 5141ms
+Matched: agcagatggg after 5144ms
+Matched: AGCTGTGTGG after 5145ms
+Matched: aggcagtggg after 5149ms
+Matched: AGCGTGTGTG after 5149ms
+Matched: 
+AGCGTGCGG after 5156ms
+Matched: AGCTGTGGAG after 5160ms
+Matched: AGCGCTCGGG after 5165ms
+Matched: AGGCTGTGGG after 5166ms
+Matched: AGAC
+GTGGG after 5166ms
+Matched: aggcagtggg after 5168ms
+Matched: agctgtgtgg after 5175ms
+Matched: cagacgtggg after 5180ms
+Matched: AGACGGTGGG after 5181ms
+Matched: agcagctggg after 5188ms
+Matched: AGCGTTGGAG after 5190ms
+Matched: GAGACGTGGG after 5190ms
+Matched: AGGCGTGGAG after 5195ms
+Matched: aggcgtggtg after 5197ms
+Matched: AGTCGTGGTG after 5198ms
+Matched: AGGCTGTGGG after 5198ms
+Matched: GAGCTGTGGG after 5199ms
+Matched: CATGCGTGGG after 5206ms
+Matched: ATGCGTGAGG after 5206ms
+Matched: AGCAGCTGGG after 5207ms
+Matched: AGC
+TGTGGG after 5209ms
+Matched: AGCCAGTggg after 5210ms
+Matched: agtcagtggg after 5211ms
+Matched: agcgtggccg after 5212ms
+Matched: GAGCCGTGGG after 5214ms
+Matched: TAGCAGTGGG after 5217ms
+Matched: AGGCTGTGGG after 5219ms
+Matched: agcacgtggg after 5220ms
+Matched: aagcgtgtgg after 5220ms
+Matched: AGCTGCTGGG after 5221ms
+Matched: AAGCCGTGGG after 5221ms
+Matched: AGCAGCTGGG after 5227ms
+Matched: AGCGTATGGG after 5227ms
+Matched: AGGGCGTGGG after 5229ms
+Matched: cagcgatggg after 5235ms
+Matched: AGACGGTGGG after 5235ms
+Matched: AGCTTGTGGG after 5235ms
+Matched: AAGCTGTGGG after 5236ms
+Matched: agtcagtggg after 5236ms
+Matched: AGCAGCTGGG after 5241ms
+Matched: AGCAGCTGGG after 5244ms
+Matched: agcaggtggg after 5244ms
+Matched: caagcgtggg after 5244ms
+Matched: aggcagtggg after 5245ms
+Matched: AGCATGTGGG after 5251ms
+Matched: AGCCGTGGTG after 5251ms
+Matched: agcgttggag after 5257ms
+Matched: atgcgtgtgg after 5258ms
+Matched: tagcagtggg after 5258ms
+Matched: caagcgtggg after 5262ms
+Matched: AGCTGCTGGG after 5263ms
+Matched: AGCCGGTGGG after 5267ms
+Matched: AAGCTGTGGG after 5269ms
+Matched: AGACAGTGGG after 5272ms
+Matched: agcaagtggg after 5272ms
+Matched: AGTCAGTGGG after 5274ms
+Matched: AGGCAGTGGG after 5274ms
+Matched: AGCAGTGGAG after 5278ms
+Matched: ggagcGTGGG after 5279ms
+Matched: AGACTGTGGG after 5280ms
+Matched: aggcgtggtg after 5280ms
+Matched: cagcgttggg after 5284ms
+Matched: agctgctggg after 5286ms
+Matched: ATGCAGTGGG after 5291ms
+Matched: agtcagtggg after 5292ms
+Matched: ATGCAGTGGG after 5295ms
+Matched: AGGCTGTGGG after 5295ms
+Matched: GAGGCGTGGG after 5300ms
+Matched: AGCAGATGGG after 5302ms
+Matched: AGCCCGTGGG after 5303ms
+Matched: CCAGCGTGGG after 5304ms
+Matched: AGCTGTTGGG after 5310ms
+Matched: AGCGTGCAGG after 5315ms
+Matched: agctgtgtgg after 5318ms
+Matched: AGCAAGTGGG after 5318ms
+Matched: AGCGTGGCTG after 5320ms
+Matched: AGCTGGTGGG after 5324ms
+Matched: AGACAGTGGG after 5325ms
+Matched: cagcagtggg after 5325ms
+Matched: ccagcgtggg after 5328ms
+Matched: atagcgtggg after 5332ms
+Matched: AAGCGCTGGG after 5333ms
+Matched: CAGCGTGGAG after 5337ms
+Matched: AGTCAGTGGG after 5339ms
+Matched: agtcgttggg after 5340ms
+Matched: agtcagtggg after 5341ms
+Matched: AGCGGTCGGG after 5343ms
+Matched: AGGCTGTGGG after 5344ms
+Matched: AGGTCGTGGG after 5352ms
+Matched: agcacGTGGG after 5354ms
+Matched: AGCAGTGTGG after 5355ms
+Matched: gagacgtggg after 5360ms
+Matched: agctggtggg after 5362ms
+Matched: AGCAGTGTGG after 5362ms
+Matched: agcagctggg after 5363ms
+Matched: 
+AGCAGTGGG after 5363ms
+Matched: agccggtggg after 5363ms
+Matched: A
+GCAGTGGG after 5366ms
+Matched: AGCAGTCGGG after 5367ms
+Matched: CGAGCGTGGG after 5369ms
+Matched: AGCGATGTGG after 5370ms
+Matched: ATGCGTGGAG after 5370ms
+Matched: AGCGGTGGAG after 5375ms
+Matched: CAGCGCTGGG after 5375ms
+Matched: AGCTGTCGGG after 5375ms
+Matched: AGACTGTGGG after 5377ms
+Matched: AGCCGTAGGG after 5377ms
+Matched: AAGCGTGGTG after 5379ms
+Matched: TAGCGTGTGG after 5380ms
+Matched: TAGCGTGTGG after 5380ms
+Matched: AGCGTGTGAG after 5383ms
+Matched: AGCAGCTGGG after 5385ms
+Matched: agacagtggg after 5386ms
+Matched: aggcgtggtg after 5387ms
+Matched: ATGCGTGAGG after 5389ms
+Matched: AGCAGTGCGG after 5390ms
+Matched: AGCTGTGTGG after 5391ms
+Matched: AGCTGTGCGG after 5396ms
+Matched: ATGCGTGAGG after 5398ms
+Matched: AGCTGTGGTG after 5402ms
+Matched: AGCTGTGGCG after 5404ms
+Matched: AGCAGCTGGG after 5409ms
+Matched: AAGCGCTGGG after 5409ms
+Matched: AGCTGTGAGG after 5418ms
+Matched: aggcgtggtg after 5418ms
+Matched: aggcgtggtg after 5419ms
+Matched: GAGCGTGCGG after 5425ms
+Matched: aggcagtggg after 5425ms
+Matched: agctgtaggg after 5430ms
+Matched: ag
+cgctggg after 5432ms
+Matched: cagcgctggg after 5439ms
+Matched: AGACGTGCGG after 5444ms
+Matched: ACAGCGTGGG after 5445ms
+Matched: agcctgtggg after 5445ms
+Matched: CAGCAGTGGG after 5446ms
+Matched: AGTCAGTGGG after 5446ms
+Matched: AGACAGTGGG after 5448ms
+Matched: CAGGCGTGGG after 5450ms
+Matched: GAAGCGTGGG after 5451ms
+Matched: AGCGGTGAGG after 5452ms
+Matched: Aggcgtggtg after 5452ms
+Matched: agc
+tgtggg after 5453ms
+Matched: ATGCTGTGGG after 5453ms
+Matched: AGACTGTGGG after 5458ms
+Matched: AGTGCGTGGG after 5460ms
+Matched: AGCCTGTGGG after 5461ms
+Matched: agctgctggg after 5462ms
+Matched: AGCAGATGGG after 5465ms
+Matched: AGCCAGTGGG after 5472ms
+Matched: AGCTGTGAGG after 5472ms
+Matched: AGGCTGTGGG after 5475ms
+Matched: AGTCAGTGGG after 5476ms
+Matched: TAGCAGTGGG after 5476ms
+Matched: AGCAGTggag after 5488ms
+Matched: agcgtgagcg after 5488ms
+Matched: AGCAGTAGGG after 5496ms
+Matched: AGTCTGTGGG after 5497ms
+Matched: AGCAGTCGGG after 5500ms
+Matched: AGGCAGTGGG after 5502ms
+Matched: GAGCGTGAGG after 5511ms
+Matched: AAGCTGTGGG after 5512ms
+Matched: agcgtgagtg after 5517ms
+Matched: ATGCTGTGGG after 5520ms
+Matched: aggcgtggtg after 5534ms
+Matched: AGCAGCTGGG after 5535ms
+Matched: agcttgtggg after 5535ms
+Matched: agacgtggtg after 5551ms
+Matched: agcagtgtgg after 5554ms
+Matched: agcagtggag after 5559ms
+Matched: AAGCAGTGGG after 5561ms
+Matched: 
+AGCCGTGGG after 5564ms
+Matched: AGTCTGTGGG after 5566ms
+Matched: agcagctggg after 5567ms
+Matched: agacgtggtg after 5568ms
+Matched: aggcgtggtg after 5582ms
+Matched: AGCTGCTGGG after 5583ms
+Matched: AAGTCGTGGG after 5590ms
+Matched: ccagcgtggg after 5590ms
+Matched: AGCAGTGGAG after 5591ms
+Matched: TAGCAGTGGG after 5591ms
+Matched: agtcgatggg after 5606ms
+Matched: agcagtgagg after 5607ms
+Matched: atgcagtggg after 5608ms
+Matched: agacagtggg after 5608ms
+Matched: agacgtggtg after 5612ms
+Matched: aggcgtgagg after 5614ms
+Matched: aggcgtggtg after 5614ms
+Matched: caggcgtggg after 5617ms
+Matched: aggcgtggtg after 5623ms
+Matched: aggcgtggtg after 5623ms
+Matched: agcatgtggg after 5630ms
+Matched: aggcgtggtg after 5631ms
+Matched: aggcgtggtg after 5631ms
+Matched: AGCTGTGTGG after 5632ms
+Matched: agcagctggg after 5637ms
+Matched: agacagtggg after 5639ms
+Matched: agcgtgagcg after 5642ms
+Matched: taggcgtggg after 5644ms
+Matched: aggcgtggtg after 5645ms
+Matched: AGGCGCTGGG after 5647ms
+Matched: agtcgtggtg after 5650ms
+Matched: agcggttggg after 5651ms
+Matched: AAGCAGTGGG after 5653ms
+Matched: agctg
+tggg after 5660ms
+Matched: ccagcgtggg after 5666ms
+Matched: agacgtggtg after 5667ms
+Matched: aggcgtggtg after 5667ms
+Matched: cagctgtggg after 5667ms
+Matched: aagcgtggag after 5673ms
+Matched: aggcgtggtg after 5674ms
+Matched: aggcgtggtg after 5675ms
+Matched: AGCTGTCGGG after 5675ms
+Matched: ccagcgtggg after 5679ms
+Matched: aggcgtggtg after 5680ms
+Matched: aggcgtggtg after 5682ms
+Matched: aggCAGTGGG after 5685ms
+Matched: agcagctggg after 5693ms
+Matched: AGCG
+TGGCG after 5694ms
+Matched: aggcgtggtg after 5696ms
+Matched: aagcgttggg after 5699ms
+Matched: atgcggtggg after 5702ms
+Matched: AAGCAGTGGG after 5704ms
+Matched: aggcgtggcg after 5704ms
+Matched: AGCTGTGTGG after 5705ms
+Matched: AGGCAGTGGG after 5710ms
+Matched: agcagctggg after 5711ms
+Matched: aggcgtggtg after 5714ms
+Matched: aggtcgtggg after 5717ms
+Matched: aggcgtggtg after 5719ms
+Matched: agcagctggg after 5719ms
+Matched: agcagctggg after 5726ms
+Matched: ACGCGTGGCG after 5727ms
+Matched: AGGCAGTGGG after 5732ms
+Matched: aggcgtggtg after 5732ms
+Matched: TAGCGTTGGG after 5739ms
+Matched: AGCGATGAGG after 5744ms
+Matched: CAGCTGTGGG after 5745ms
+Matched: AGCTGGTGGG after 5746ms
+Matched: AGCAGTGGTG after 5746ms
+Matched: AGCTGCTGGG after 5747ms
+Matched: GAGCTGTGGG after 5752ms
+Matched: agcgatggag after 5758ms
+Matched: aagccgtggg after 5761ms
+Matched: agcagctggg after 5762ms
+Matched: AGGGCGTGGG after 5764ms
+Matched: agcgtggt
+g after 5767ms
+Matched: AGCAGTGGTG after 5768ms
+Matched: AG
+CGGTGGG after 5769ms
+Matched: AGCCTGTGGG after 5769ms
+Matched: CAGCGTTGGG after 5769ms
+Matched: AGCTTGTGGG after 5772ms
+Matched: AGCAG
+TGGG after 5773ms
+Matched: AGCGATGGAG after 5774ms
+Matched: AGAACGTGGG after 5775ms
+Matched: aggcgtggtg after 5776ms
+Matched: AG
+CAGTGGG after 5779ms
+Matched: AGCAGCTGGG after 5780ms
+Matched: AGCTGTCGGG after 5781ms
+Matched: AGGCGTGGAG after 5781ms
+Matched: AGCTGTCGGG after 5784ms
+Matched: AGCAGTTGGG after 5784ms
+Matched: cagcagtggg after 5788ms
+Matched: GAGCTGTGGG after 5792ms
+Matched: GAGCAGTGGG after 5796ms
+Matched: caggcgtggg after 5799ms
+Matched: AGCGCTTGGG after 5800ms
+Matched: agacgctggg after 5803ms
+Matched: AGCAGTAGGG after 5805ms
+Matched: CAGCCGTGGG after 5806ms
+Matched: agctgtgagg after 5813ms
+Matched: aggcgtg
+gg after 5813ms
+Matched: agcctgtggg after 5820ms
+Matched: agcgtgcgtg after 5820ms
+Matched: agcagttggg after 5827ms
+Matched: agctgttggg after 5832ms
+Matched: CAGCCGTGGG after 5835ms
+Matched: TAGCAGTGGG after 5835ms
+Matched: ATGACGTGGG after 5838ms
+Matched: GAGCGTGG
+G after 5838ms
+Matched: 
+GAGCGTGGG after 5839ms
+Matched: aggctGTGGG after 5840ms
+Matched: AGGCAGTGGG after 5841ms
+Matched: caggcgtggg after 5842ms
+Matched: AGCTGTTGGG after 5842ms
+Matched: aggcgtggtg after 5848ms
+Matched: aggcgtggtg after 5848ms
+Matched: cagcgtggtg after 5849ms
+Matched: atgcagtggg after 5850ms
+Matched: atgcgtggtg after 5850ms
+Matched: agcgtgcg
+g after 5856ms
+Matched: AGCGTCTGGG after 5859ms
+Matched: AGACGTAGGG after 5862ms
+Matched: AGCCAGTGGG after 5863ms
+Matched: AGCCCGTGGG after 5865ms
+Matched: AGGGCGTGGG after 5865ms
+Matched: AGTCTGTGGG after 5867ms
+Matched: AGCTGCTGGG after 5868ms
+Matched: AGCGAGTGGG after 5870ms
+Matched: ACGCAGTGGG after 5871ms
+Matched: AGCTGTGGAG after 5872ms
+Matched: CCAGCGTGGG after 5872ms
+Matched: agggcgtggg after 5874ms
+Matched: AGCAGGTGGG after 5876ms
+Matched: AGCAGCTGGG after 5877ms
+Matched: gagcagtggg after 5881ms
+Matched: GAGCTGTGGG after 5881ms
+Matched: AGCTGATGGG after 5882ms
+Matched: AGCTGTGGTG after 5882ms
+Matched: agcagctggg after 5883ms
+Matched: agcagctggg after 5883ms
+Matched: GAGACGTGGG after 5884ms
+Matched: AGCCGTGG
+G after 5884ms
+Matched: CAGCAGTGGG after 5890ms
+Matched: agcagctggg after 5893ms
+Matched: GAGCAGTGGG after 5895ms
+Matched: AGACAGTGGG after 5899ms
+Matched: CAGCTGTGGG after 5900ms
+Matched: AGTGCGTGGG after 5900ms
+Matched: aggcgtggtg after 5906ms
+Matched: AGCGCTGGAG after 5907ms
+Matched: AGCAGTGCGG after 5908ms
+Matched: AGCAGTGTGG after 5909ms
+Matched: CAGCTGTGGG after 5913ms
+Matched: CAGCTGTGGG after 5914ms
+Matched: CAGCAGTGGG after 5915ms
+Matched: AGC
+GCTGGG after 5916ms
+Matched: GAGCGTGCGG after 5918ms
+Matched: AGC
+GTGGTG after 5918ms
+Matched: AGCGGTGCGG after 5923ms
+Matched: gagctgtggg after 5927ms
+Matched: aagcgtggtg after 5928ms
+Matched: AGCATGTGGG after 5929ms
+Matched: AGTCGGTGGG after 5930ms
+Matched: CAGCGTGGAG after 5931ms
+Matched: aggcgtggtg after 5935ms
+Matched: AGCGGTGGTG after 5935ms
+Matched: AGGCAGTGGG after 5936ms
+Matched: AGACGCTGGG after 5942ms
+Matched: AGCTGTGAGG after 5945ms
+Matched: AGCA
+GTGGG after 5951ms
+Matched: AGCggctggg after 5954ms
+Matched: aggcgtggtg after 5958ms
+Matched: agc
+gtgagg after 5959ms
+Matched: CAGCGTGAGG after 5961ms
+Matched: agcgtggcag after 5965ms
+Matched: GAGCGTGAGG after 5966ms
+Matched: atgcgtggtg after 5967ms
+Matched: acgctgtggg after 5974ms
+Matched: atgccgtggg after 5974ms
+Matched: GAGCAGTGGG after 5975ms
+Matched: cagcgtggtg after 5976ms
+Matched: AGGCCGTGGG after 5978ms
+Matched: agacgtggtg after 5979ms
+Matched: AGCGAGTGGG after 5984ms
+Matched: atagcgtggg after 5989ms
+Matched: AGCAGATGGG after 5990ms
+Matched: aagcgctggg after 5990ms
+Matched: agcgatggag after 5991ms
+Matched: Aggcgtggtg after 5992ms
+Matched: agctgtggtg after 5997ms
+Matched: AGGCTGTGGG after 5998ms
+Matched: AGGCGGTGGG after 5998ms
+Matched: agctg
+tggg after 6001ms
+Matched: aggctgtggg after 6001ms
+Matched: AGGCTGTGGG after 6006ms
+Matched: AGTCGTAGGG after 6010ms
+Matched: aggcgtggtg after 6017ms
+Matched: AGCGGTGGTG after 6019ms
+Matched: AGCGGGTGGG after 6022ms
+Matched: aggcgtggtg after 6029ms
+Matched: AGCAAGTGGG after 6041ms
+Matched: gagcgtgagg after 6045ms
+Matched: AGCTGCTGGG after 6047ms
+Matched: aggcgtggtg after 6051ms
+Matched: AGCGTGGCAG after 6055ms
+Matched: aggcgtggtg after 6057ms
+Matched: atgcgtggtg after 6058ms
+Matched: aggcgtggtg after 6060ms
+Matched: AGCAGT
+GGG after 6060ms
+Matched: aggcgtggtg after 6065ms
+Matched: agccgtggtg after 6067ms
+Matched: aggcgtggtg after 6068ms
+Matched: CAGCAGTGGG after 6072ms
+Matched: AAGCGATGGG after 6074ms
+Matched: CAGCGTGGAG after 6074ms
+Matched: agccgctggg after 6077ms
+Matched: agcgtgctgg after 6080ms
+Matched: agctgttggg after 6081ms
+Matched: agacgatggg after 6081ms
+Matched: agacgatggg after 6082ms
+Matched: aggcgtggtg after 6082ms
+Matched: aggcgtggtg after 6082ms
+Matched: agctgtggtg after 6083ms
+Matched: AGTCTGTGGG after 6089ms
+Matched: agcagctggg after 6090ms
+Matched: AGCTGTGTGG after 6093ms
+Matched: AGCGAGTGGG after 6095ms
+Matched: AGCTGGTGGG after 6095ms
+Matched: AGCAGTGAGG after 6103ms
+Matched: AGCTGGTGGG after 6104ms
+Matched: AGCTGGTGGG after 6105ms
+Matched: AGCTGTGTGG after 6108ms
+Matched: ATGCTGTGGG after 6111ms
+Matched: AGCGGCTGGG after 6111ms
+Matched: CAGCAGTGGG after 6111ms
+Matched: AGCAGTGGTG after 6112ms
+Matched: CAGCGCTGGG after 6117ms
+Matched: CAGCGTGGAG after 6118ms
+Matched: agctgtgtgg after 6119ms
+Matched: AGCAGTTGGG after 6119ms
+Matched: agcgtaggag after 6119ms
+Matched: AGCGCTGCGG after 6123ms
+Matched: AGCTGTGGAG after 6124ms
+Matched: AGCT
+GTGGG after 6125ms
+Matched: AGCGTGTGTG after 6125ms
+Matched: TGAGCGTGGG after 6129ms
+Matched: cagctgtggg after 6131ms
+Matched: AGGCAGTGGG after 6134ms
+Matched: aggcgtggtg after 6135ms
+Matched: aggcgtggtg after 6141ms
+Matched: aggcgtggtg after 6143ms
+Matched: cagcgtggtg after 6145ms
+Matched: aggcgctggg after 6146ms
+Matched: agcatgtggg after 6151ms
+Matched: agacgtggtg after 6152ms
+Matched: aggcgtgagg after 6152ms
+Matched: tagcgatggg after 6153ms
+Matched: AGCTGTGTGG after 6154ms
+Matched: AGGCAGTGGG after 6154ms
+Matched: AGCAG
+TGGG after 6155ms
+Matched: AGGCGATGGG after 6158ms
+Matched: aggcgtggtg after 6159ms
+Matched: agggcgtggg after 6160ms
+Matched: CAGCAGTGGG after 6165ms
+Matched: aggcgtggtg after 6166ms
+Matched: AGCTGTGGTG after 6167ms
+Matched: agctgtggtg after 6169ms
+Matched: AGCAGTGGTG after 6172ms
+Matched: AGCCTGTGGG after 6175ms
+Matched: AGCGCTGGTG after 6176ms
+Matched: AGGACGTGGG after 6177ms
+Matched: AA
+GCGTGGG after 6177ms
+Matched: agcagtcggg after 6183ms
+Matched: agacgatggg after 6184ms
+Matched: agacgatggg after 6184ms
+Matched: aggcgtggcg after 6184ms
+Matched: agcagctggg after 6190ms
+Matched: AGCAAGTGGG after 6191ms
+Matched: AGCAGTGGTG after 6191ms
+Matched: GAGCTGTGGG after 6192ms
+Matched: AGCGTGCGCG after 6195ms
+Matched: AGGCGCTGGG after 6196ms
+Matched: a
+gcgtggtg after 6199ms
+Matched: agcagctggg after 6208ms
+Matched: gagcgtggtg after 6211ms
+Matched: agcagtggtg after 6224ms
+Matched: AGCAGTGGCG after 6231ms
+Matched: cagcgtggtg after 6232ms
+Matched: AGCTGGTGGG after 6235ms
+Matched: aagcgtggtg after 6239ms
+Matched: CAGACGTGGG after 6239ms
+Matched: CAGCAGTGGG after 6240ms
+Matched: AAGCTGTGGG after 6245ms
+Matched: AGCTGTGGAG after 6252ms
+Matched: aggcgtggtg after 6253ms
+Matched: aggcgtggtg after 6254ms
+Matched: aggcgtggtg after 6255ms
+Matched: agcagctggg after 6262ms
+Matched: aggcgtggtg after 6263ms
+Matched: agcggctggg after 6263ms
+Matched: AGCTGGTGGG after 6271ms
+Matched: aggcgtggtg after 6274ms
+Matched: aggcgtggtg after 6278ms
+Matched: ccagcgtggg after 6279ms
+Matched: AGCTGTGG
+G after 6284ms
+Matched: AAAGCGTGGG after 6285ms
+Matched: AGCCAGTGGG after 6287ms
+Matched: AAGCAGTGGG after 6287ms
+Matched: CAGCAGTGGG after 6292ms
+Matched: AGCGATAGGG after 6293ms
+Matched: ACGCCGTGGG after 6296ms
+Matched: AGCGGTGAGG after 6298ms
+Matched: AGCAGTGTGG after 6300ms
+Matched: CAGGCGTGGG after 6302ms
+Matched: aggcgtggtg after 6304ms
+Matched: CATGCGTGGG after 6311ms
+Matched: AGCAGATGGG after 6312ms
+Matched: AGCGTGGCTG after 6313ms
+Matched: AG
+CTGTGGG after 6316ms
+Matched: AGCACGTGGG after 6318ms
+Matched: CAGCAGTGGG after 6320ms
+Matched: GAGCAGTGGG after 6320ms
+Matched: TAGCTGtggg after 6325ms
+Matched: AGCAGTGGTG after 6326ms
+Matched: AGACGTAGGG after 6327ms
+Matched: AGGCGATGGG after 6329ms
+Matched: CGAGCGTGGG after 6330ms
+Matched: AGCAGCTGGG after 6333ms
+Matched: AAGCAGTGGG after 6334ms
+Matched: AGC
+GTGAGG after 6338ms
+Matched: aagcgctggg after 6341ms
+Matched: GAGGCGTGGG after 6348ms
+Matched: CAGCGTGTGG after 6348ms
+Matched: AGCGGGTGGG after 6349ms
+Matched: AGCCGGTGGG after 6349ms
+Matched: AGGCAGTGGG after 6352ms
+Matched: AGCGGTGGTG after 6352ms
+Matched: ATGCTGTGGG after 6352ms
+Matched: AGCGTGTAGG after 6355ms
+Matched: ATGCGTGGTG after 6356ms
+Matched: GAGCTGTGGG after 6360ms
+Matched: AGGCTGTGGG after 6362ms
+Matched: aggcgtgagg after 6365ms
+Matched: AGCAGTGTGG after 6371ms
+Matched: AGTCTGTGGG after 6372ms
+Matched: cagcgtggtg after 6373ms
+Matched: GAAGCGTGGG after 6376ms
+Matched: AGCTGGTGGG after 6380ms
+Matched: CAGCGATGGG after 6381ms
+Matched: agctgtgagg after 6387ms
+Matched: agactgtggg after 6388ms
+Matched: AGGCGATGGG after 6391ms
+Matched: AGGCTGTGGG after 6392ms
+Matched: AGGCGTGAGG after 6395ms
+Matched: AGGCTGTGGG after 6396ms
+Matched: AGGCAGTGGG after 6396ms
+Matched: AAGCTGTGGG after 6397ms
+Matched: aggcagtggg after 6405ms
+Matched: AGCCGTGGCG after 6406ms
+Matched: AGCAGT
+GGG after 6408ms
+Matched: AGCAGGTGGG after 6411ms
+Matched: ag
+ctgtggg after 6412ms
+Matched: GAGCAGTGGG after 6416ms
+Matched: agcagctggg after 6419ms
+Matched: AGCTGGTGGG after 6422ms
+Matched: cagacgtggg after 6424ms
+Matched: AGCTGCTGGG after 6427ms
+Matched: AGCAGTGTGG after 6428ms
+Matched: agctgtggtg after 6434ms
+Matched: AGCGCTGTGG after 6436ms
+Matched: AGCGTCAGGG after 6441ms
+Matched: GAGCAGTGGG after 6442ms
+Matched: GAGCTGTGGG after 6447ms
+Matched: AGCAGCTGGG after 6448ms
+Matched: AGCAGTTGGG after 6449ms
+Matched: AGCCAGTGGG after 6449ms
+Matched: AGGACGTGGG after 6456ms
+Matched: agcgtagtgg after 6456ms
+Matched: AGAGCGTGGG after 6457ms
+Matched: aggcgtggtg after 6457ms
+Matched: AAGCAGTGGG after 6465ms
+Matched: CAGCGATGGG after 6469ms
+Matched: AGCTTGTGGG after 6470ms
+Matched: AAGCTGTGGG after 6472ms
+Matched: aggcgtggtg after 6475ms
+Matched: aggtcgtggg after 6480ms
+Matched: aggcgtggtg after 6480ms
+Matched: AGCCGCTGGG after 6480ms
+Matched: AGCCGTTGGG after 6482ms
+Matched: AGACGGTGGG after 6484ms
+Matched: agctgtgagg after 6488ms
+Matched: AGCAGATGGG after 6490ms
+Matched: AGCGTGGCTG after 6493ms
+Matched: CAGCTGTGGG after 6494ms
+Matched: AGCCGTGTGG after 6494ms
+Matched: CCAGCGTGGG after 6497ms
+Matched: CAGCGTGGTG after 6498ms
+Matched: AGCAGTGTGG after 6498ms
+Matched: AGCTGTGTGG after 6499ms
+Matched: TCAGCGTGGG after 6500ms
+Matched: AAGCTGTGGG after 6501ms
+Matched: agcggtggcg after 6505ms
+Matched: AGCAGCTGGG after 6515ms
+Matched: ag
+acgtggg after 6515ms
+Matched: AGCGTGTTGG after 6516ms
+Matched: CAGCGTGGTG after 6516ms
+Matched: CATGCGTGGG after 6516ms
+Matched: agcagctggg after 6522ms
+Matched: CAGCGTGGAG after 6523ms
+Matched: aggcgtggtg after 6524ms
+Matched: cagctgtggg after 6525ms
+Matched: agacgatggg after 6528ms
+Matched: agacgatggg after 6529ms
+Matched: aggcgtggcg after 6529ms
+Matched: agaccgtggg after 6529ms
+Matched: AGC
+TGTGGG after 6531ms
+Matched: AGCTCGTGGG after 6531ms
+Matched: AGGCGTTGGG after 6531ms
+Matched: agcgtgatgg after 6535ms
+Matched: AGCTCGTGGG after 6539ms
+Matched: gaGCGCTGGG after 6540ms
+Matched: CAGCAGtggg after 6541ms
+Matched: AGCGTGGATG after 6543ms
+Matched: agcagctggg after 6547ms
+Matched: aggcgtgagg after 6548ms
+Matched: aggcgtggtg after 6552ms
+Matched: agccgtgtgg after 6555ms
+Matched: aggcgtggtg after 6567ms
+Matched: agtcgatggg after 6569ms
+Matched: aggcgtggtg after 6576ms
+Matched: agct
+gtggg after 6577ms
+Matched: agcagtggag after 6583ms
+Matched: AGCC
+GTGGG after 6584ms
+Matched: AGCAGCTGGG after 6593ms
+Matched: AGCCAGTGGG after 6593ms
+Matched: AGCGCTGTGG after 6595ms
+Matched: tagcgatggg after 6597ms
+Matched: aggcgtggtg after 6598ms
+Matched: AGCAAGTGGG after 6600ms
+Matched: AGCAGATGGG after 6600ms
+Matched: GAGCCGTGGG after 6605ms
+Matched: AGGCGTGAGG after 6606ms
+Matched: GAGGCGTGGG after 6606ms
+Matched: AGCAGCTGGG after 6608ms
+Matched: AGCAGCTGGG after 6609ms
+Matched: AGACGATGGG after 6611ms
+Matched: agcagctggg after 6613ms
+Matched: AGACAGTGGG after 6616ms
+Matched: AGCAGTGAGG after 6616ms
+Matched: agactgtggg after 6617ms
+Matched: AGGCGGTGGG after 6617ms
+Matched: CTAGCGTGGG after 6619ms
+Matched: AGGCGATGGG after 6623ms
+Matched: AGCGAGTGGG after 6625ms
+Matched: 
+agcgtggtg after 6629ms
+Matched: aggcgtggtg after 6630ms
+Matched: aggcgtgagg after 6631ms
+Matched: agtcgtggtg after 6631ms
+Matched: atcgcgtggg after 6632ms
+Matched: AGGCGTGTGG after 6632ms
+Matched: AAGCGATGGG after 6633ms
+Matched: AGCAGCTGGG after 6633ms
+Matched: AGGCAGTGGG after 6636ms
+Matched: AGCAGGTGGG after 6636ms
+Matched: AAGCTGTGGG after 6637ms
+Matched: AGCAAGTGGG after 6639ms
+Matched: ATGCCGTGGG after 6641ms
+Matched: atgcagtggg after 6641ms
+Matched: ATGCAGTGGG after 6643ms
+Matched: AGGTCGTGGG after 6645ms
+Matched: AGCCTGTGGG after 6647ms
+Matched: AGCTGTGAGG after 6648ms
+Matched: CAGCGTGGAG after 6649ms
+Matched: AGCAGTGGAG after 6649ms
+Matched: AGCTTGTGGG after 6649ms
+Matched: agcagtgagg after 6653ms
+Matched: cagcagtggg after 6655ms
+Matched: AGCAAGTGGG after 6656ms
+Matched: agcgtg
+gtg after 6660ms
+Matched: agacgtggtg after 6661ms
+Matched: aggcgtggtg after 6662ms
+Matched: aggcgtggtg after 6662ms
+Matched: AGCAGTAGGG after 6664ms
+Matched: aagcgctggg after 6665ms
+Matched: AGCTGGTGGG after 6668ms
+Matched: AG
+CAGTGGG after 6670ms
+Matched: AGACTGTGGG after 6670ms
+Matched: caggcgtggg after 6672ms
+Matched: GAGCGTGTGG after 6673ms
+Matched: AAGCGCTGGG after 6674ms
+Matched: ACGCGTGAGG after 6679ms
+Matched: aggcgtggtg after 6679ms
+Matched: GAGCGTGAGG after 6680ms
+Matched: AGCGGATGGG after 6681ms
+Matched: CAGCTGTGGG after 6682ms
+Matched: CAGCAGTGGG after 6685ms
+Matched: AGCGTATGGG after 6688ms
+Matched: AGCTGTGGTG after 6688ms
+Matched: AGCAGCTGGG after 6689ms
+Matched: tagcgatggg after 6694ms
+Matched: A
+AGCGTGGG after 6696ms
+Matched: AGCAGTGGAG after 6701ms
+Matched: agccagtggg after 6702ms
+Matched: aggcgtggtg after 6702ms
+Matched: agctgctggg after 6705ms
+Matched: agctgtgg
+g after 6705ms
+Matched: gagcgtggtg after 6705ms
+Matched: aggcgtggtg after 6706ms
+Matched: AGGACGTGGG after 6707ms
+Matched: agctgctggg after 6713ms
+Matched: tagcgatggg after 6718ms
+Matched: AGCTGTGGAG after 6719ms
+Matched: agcagctggg after 6720ms
+Matched: AGGCGATGGG after 6721ms
+Matched: aggcgtggtg after 6723ms
+Matched: agcgtgccgg after 6729ms
+Matched: AGTCGTTGGG after 6731ms
+Matched: AGCCGTGGTG after 6733ms
+Matched: aAGCTGtggg after 6734ms
+Matched: cagctgtggG after 6735ms
+Matched: aggcgtgcgg after 6741ms
+Matched: aggcgtggtg after 6741ms
+Matched: aggcgtggtg after 6742ms
+Matched: agcctgtggg after 6743ms
+Matched: CAGCGGTGGG after 6746ms
+Matched: GAGCCGTGGG after 6748ms
+Matched: AGCGCTGGTG after 6749ms
+Matched: AGCT
+GTGGG after 6750ms
+Matched: AGCAGTTGGG after 6751ms
+Matched: agactgtggg after 6751ms
+Matched: AGCGCTGAGG after 6753ms
+Matched: AGGCAGTGGG after 6756ms
+Matched: aggcgtgtgg after 6757ms
+Matched: GAGACGTGGG after 6758ms
+Matched: GGAGCGTGGG after 6762ms
+Matched: agctgctggg after 6763ms
+Matched: aggcgtggtg after 6765ms
+Matched: atgctgtggg after 6766ms
+Matched: cagcggtggg after 6766ms
+Matched: aggcgctggg after 6771ms
+Matched: AGTCAGTGGG after 6774ms
+Matched: AGGCTGTGGG after 6774ms
+Matched: AGACAGTGGG after 6778ms
+Matched: AAGCTGTGGG after 6780ms
+Matched: agCGCTTGGG after 6781ms
+Matched: AGCtgtggtg after 6782ms
+Matched: ATGCGTAGGG after 6789ms
+Matched: atgcggtggg after 6789ms
+Matched: CAGCTGTGGG after 6795ms
+Matched: agctgttggg after 6796ms
+Matched: agacgatggg after 6796ms
+Matched: 
+agcgctggg after 6802ms
+Matched: AGCCAGTGGG after 6805ms
+Matched: aggcagtggg after 6808ms
+Matched: AGCGTGAGAG after 6810ms
+Matched: AGGCTGTGGG after 6816ms
+Matched: aggcgtggtg after 6818ms
+Matched: CCAGCGTGGG after 6819ms
+Matched: AGCTGCTGGG after 6825ms
+Matched: AGTCAGTGGG after 6830ms
+Matched: GAGCTGTGGG after 6834ms
+Matched: AGCTGGTGGG after 6834ms
+Matched: AGACAGTGGG after 6835ms
+Matched: AGCTGTGAGG after 6835ms
+Matched: agctgtggtg after 6835ms
+Matched: AGCCTGTGGG after 6836ms
+Matched: AGGCTGTGGG after 6844ms
+Matched: AGCAGTGTGG after 6845ms
+Matched: CAGCGTGGCG after 6845ms
+Matched: gagctgtggg after 6851ms
+Matched: aggcgtggtg after 6856ms
+Matched: agcgttaggg after 6860ms
+Matched: AGCGATGAGG after 6861ms
+Matched: AGACAGTGGG after 6861ms
+Matched: AGCTGTGGTG after 6867ms
+Matched: CAGCTGTGGG after 6867ms
+Matched: AGCCAGTGGG after 6868ms
+Matched: CAGCTGTGGG after 6868ms
+Matched: AAGCGGTGGG after 6868ms
+Matched: AGCAGTGGAG after 6869ms
+Matched: AGCAGGTGGG after 6869ms
+Matched: AGCGCTGGCG after 6873ms
+Matched: AGCTGCTGGG after 6874ms
+Matched: aggcgtggtg after 6876ms
+Matched: aggcgtggtg after 6880ms
+Matched: AGCTTGTGGG after 6881ms
+Matched: aggcgtggtg after 6882ms
+Matched: gagcgtggtg after 6882ms
+Matched: agtcgctggg after 6884ms
+Matched: agcggctggg after 6887ms
+Matched: ATGCgctggg after 6894ms
+Matched: AGCAGTGTGG after 6896ms
+Matched: aggcgtggtg after 6898ms
+Matched: cagcgtggtg after 6898ms
+Matched: aggcgtggtg after 6903ms
+Matched: agctgtggag after 6906ms
+Matched: AGGACGTGGG after 6915ms
+Matched: aggcgtggtg after 6916ms
+Matched: aggcgtggtg after 6923ms
+Matched: TAGCGATGGG after 6924ms
+Matched: AGCAGTGTGG after 6927ms
+Matched: AGCGTTGGTG after 6927ms
+Matched: AAGCTGTGGG after 6928ms
+Matched: AGCGCTGAGG after 6931ms
+Matched: AGCGTGCGCG after 6931ms
+Matched: aagtcgtggg after 6935ms
+Matched: gagcgtggtg after 6935ms
+Matched: aggcgtggtg after 6949ms
+Matched: CAGACGTGGG after 6952ms
+Matched: aggcgtggtg after 6956ms
+Matched: aggcagtggg after 6956ms
+Matched: agcccgtggg after 6957ms
+Matched: AGCGTGTGTG after 6958ms
+Matched: agcagctggg after 6960ms
+Matched: agacgatggg after 6966ms
+Matched: agacgatggg after 6966ms
+Matched: aggcgtggcg after 6967ms
+Matched: aggcgtggtg after 6971ms
+Matched: AGGGCGTGGG after 6973ms
+Matched: AGCGTGTGTG after 6975ms
+Matched: aggcgtggtg after 6978ms
+Matched: AGCTGCTGGG after 6979ms
+Matched: AGCAGGTGGG after 6981ms
+Matched: AGGCGTGAGG after 6981ms
+Matched: AGGCAGTGGG after 6982ms
+Matched: AGTCGGTGGG after 6982ms
+Matched: AGACGTG
+GG after 6983ms
+Matched: AGCGCTGAGG after 6986ms
+Matched: CAGCTGTGGG after 6987ms
+Matched: AAGGCGTGGG after 6995ms
+Matched: aggcgtggtg after 6996ms
+Matched: aggcgtggtg after 6997ms
+Matched: agacgctggg after 7003ms
+Matched: aggcgtggtg after 7006ms
+Matched: agctgtggtg after 7008ms
+Matched: AGCAGTAGGG after 7010ms
+Matched: CAGCAGTGGG after 7010ms
+Matched: cagcgtgg
+g after 7011ms
+Matched: agcgtgacgg after 7011ms
+Matched: aggcgtggtg after 7012ms
+Matched: AGCTGATGGG after 7014ms
+Matched: AGGCAGTGGG after 7015ms
+Matched: agcagtggtg after 7020ms
+Matched: aagcgctggg after 7023ms
+Matched: aagcgctggg after 7026ms
+Matched: aagcgctggg after 7026ms
+Matched: ccagcgtggg after 7027ms
+Matched: tagcgatggg after 7029ms
+Matched: AGAACGTGGG after 7030ms
+Matched: tagcgatggg after 7035ms
+Matched: aggcgtggtg after 7040ms
+Matched: aggcgtggtg after 7044ms
+Matched: cagcagtggg after 7048ms
+Matched: agcagtgcgg after 7048ms
+Matched: AGCAGTGGAG after 7050ms
+Matched: agcagctggg after 7058ms
+Matched: AGCAGTGTGG after 7061ms
+Matched: aggcgtggtg after 7065ms
+Matched: AGCCAGTGGG after 7073ms
+Matched: agcagtggag after 7073ms
+Matched: TAGCAGTGGG after 7083ms
+Matched: AGGCTGTGGG after 7086ms
+Matched: atgcgtggtg after 7088ms
+Matched: AGCTG
+TGGG after 7088ms
+Matched: AGGCCGTGGG after 7089ms
+Matched: tagcagtggg after 7092ms
+Matched: aggcgtggtg after 7103ms
+Matched: AGACTGTGGG after 7103ms
+Matched: AGCCGGTGGG after 7104ms
+Matched: AGCAGGTGGG after 7106ms
+Matched: GAGCTGTGGG after 7108ms
+Matched: aggcgtggtg after 7112ms
+Matched: AGCTGTGGCG after 7117ms
+Matched: cagcgtgagg after 7119ms
+Matched: agcaagtggg after 7120ms
+Matched: agctgatggg after 7126ms
+Matched: agcagtgagg after 7134ms
+Matched: agcgat
+ggg after 7135ms
+Matched: aggcgtgagg after 7135ms
+Matched: AGCCTGTGGG after 7138ms
+Matched: CAGCTGTGGG after 7141ms
+Matched: aggcgtggtg after 7142ms
+Matched: GAGCAGTGGG after 7143ms
+Matched: aggcagtggg after 7143ms
+Matched: aggcgtggtg after 7145ms
+Matched: aggcgtggtg after 7148ms
+Matched: cagcgtggtg after 7151ms
+Matched: aagcagtggg after 7151ms
+Matched: AGCTGTGAGG after 7156ms
+Matched: aagcgctggg after 7158ms
+Matched: AGCCTGTGGG after 7159ms
+Matched: TAGCAGTGGG after 7165ms
+Matched: AGCTTGTGGG after 7168ms
+Matched: agcgggtggg after 7173ms
+Matched: GAGCTGTGGG after 7176ms
+Matched: agcagctggg after 7178ms
+Matched: agcga
+tggg after 7179ms
+Matched: cagcagtggg after 7183ms
+Matched: AGCTAGTGGG after 7183ms
+Matched: AGCAGATGGG after 7184ms
+Matched: agggcgtggg after 7187ms
+Matched: agcgatgg
+g after 7188ms
+Matched: AAGCTGTGGG after 7189ms
+Matched: agctgtgtgg after 7190ms
+Matched: AGCCTGTGGG after 7191ms
+Matched: AGTACGTGGG after 7195ms
+Matched: aagcgctggg after 7195ms
+Matched: aggcgtggtg after 7196ms
+Matched: aggcgtggtg after 7196ms
+Matched: AGCTGTGGTG after 7198ms
+Matched: aggcgtggtg after 7202ms
+Matched: agcgtgtgtg after 7202ms
+Matched: ATGCAGTGGG after 7205ms
+Matched: ATGCAGTGGG after 7205ms
+Matched: AAGCAGTGGG after 7207ms
+Matched: CAGCAGTGGG after 7207ms
+Matched: CAGACGTGGG after 7210ms
+Matched: CAGCCGTGGG after 7214ms
+Matched: AGCAGTTGGG after 7215ms
+Matched: GAGCTGTGGG after 7215ms
+Matched: gcagcgtggg after 7220ms
+Matched: AGCGTGGCAG after 7222ms
+Matched: AGCAGTGGCG after 7226ms
+Matched: AGATCGTGGG after 7227ms
+Matched: AGCCAGTGGG after 7227ms
+Matched: aggcgtggtg after 7228ms
+Matched: AGACAGTGGG after 7229ms
+Matched: AGCGCTGTGG after 7230ms
+Matched: agcgataggg after 7231ms
+Matched: ccagcgtggg after 7231ms
+Matched: agcagatggg after 7232ms
+Matched: agcgggtggg after 7234ms
+Matched: cagctgtggg after 7234ms
+Matched: AAGCTGTGGG after 7236ms
+Matched: AGcaggtggg after 7238ms
+Matched: acgcgtggag after 7240ms
+Matched: agcagctggg after 7244ms
+Matched: agcagtgtgg after 7245ms
+Matched: agcgtgttgg after 7253ms
+Matched: agGCTgtggg after 7254ms
+Matched: GAGCGCTGGG after 7258ms
+Matched: GAGCGGTGGG after 7260ms
+Matched: cagcagtggg after 7261ms
+Matched: aggcgtggtg after 7262ms
+Matched: 
+agcaGTGGG after 7268ms
+Matched: AGTCGGTGGG after 7268ms
+Matched: agcctgtggg after 7270ms
+Matched: aggcgtgagg after 7274ms
+Matched: agctgtggtg after 7275ms
+Matched: 
+AGCGTGAGG after 7276ms
+Matched: ATGCTGTGGG after 7277ms
+Matched: AGCTGGTGGG after 7285ms
+Matched: AGGCTGTGGG after 7285ms
+Matched: agcagtggag after 7285ms
+Matched: AGGCAGTGGG after 7289ms
+Matched: AAGCGGTGGG after 7290ms
+Matched: agtctgtggg after 7290ms
+Matched: AGCTGTGTGG after 7291ms
+Matched: aggcgtggtg after 7293ms
+Matched: TAAGCGTGGG after 7295ms
+Matched: gagctgtggg after 7297ms
+Matched: agcggtggtg after 7300ms
+Matched: AGGCTGTGGG after 7301ms
+Matched: AGCTGCTGGG after 7304ms
+Matched: agactgtggg after 7306ms
+Matched: ACTGCGTGGG after 7307ms
+Matched: AGCGTGAGAG after 7311ms
+Matched: AGGCCGTGGG after 7313ms
+Matched: AGCTGCTGGG after 7321ms
+Matched: atgcgtaggg after 7323ms
+Matched: agctgtggtg after 7326ms
+Matched: aagcgttggg after 7326ms
+Matched: agcagctggg after 7329ms
+Matched: AGGCGTGAGG after 7329ms
+Matched: agcagctggg after 7330ms
+Matched: AAGCAGTGGG after 7330ms
+Matched: agcagctggg after 7331ms
+Matched: AGAC
+GTGGG after 7344ms
+Matched: agc
+gttggg after 7346ms
+Matched: agcatgtggg after 7353ms
+Matched: agcatgtggg after 7354ms
+Matched: AGCGTGTAGG after 7355ms
+Matched: AGCGCTGGAG after 7356ms
+Matched: agcagtgtgg after 7361ms
+Matched: AGCTGTGGAG after 7366ms
+Matched: CTAGCGTGGG after 7370ms
+Matched: agcagctggg after 7371ms
+Matched: atgtcgtggg after 7372ms
+Matched: AGCAGTGGAG after 7382ms
+Matched: GAGCAGTGGG after 7397ms
+Matched: aggacgtggg after 7398ms
+Matched: GAGC
+GTGGG after 7399ms
+Matched: aggcagtggg after 7407ms
+Matched: CCAGCGTGGG after 7411ms
+Matched: AAGCTGTGGG after 7413ms
+Matched: CAGCTGTGGG after 7414ms
+Matched: AAGCGATGGG after 7414ms
+Matched: ATGCAGTGGG after 7415ms
+Matched: AGCACGTGGG after 7417ms
+Matched: AGCAAGTGGG after 7418ms
+Matched: aagcggtggg after 7419ms
+Matched: AGACTGTGGG after 7422ms
+Matched: AGCTGTGCGG after 7428ms
+Matched: 
+GAGCGTGGG after 7429ms
+Matched: aggcgtggtg after 7432ms
+Matched: AGCAGTGTGG after 7438ms
+Matched: agcagtgtgg after 7444ms
+Matched: AGCAGTGGTG after 7445ms
+Matched: GAGCTGTGGG after 7446ms
+Matched: TAGCGTGGTG after 7453ms
+Matched: AGGCTGTGGG after 7455ms
+Matched: AGCAGGTGGG after 7457ms
+Matched: agagcgtggg after 7458ms
+Matched: aggcgtggtg after 7462ms
+Matched: AGCAGTGAGG after 7465ms
+Matched: GAGACGTGGG after 7468ms
+Matched: tacgcgtggg after 7469ms
+Matched: AGCCAGTGGG after 7469ms
+Matched: AGGCTGTGGG after 7470ms
+Matched: CAGCGTGGTG after 7476ms
+Matched: AGACGTAGGG after 7478ms
+Matched: CAGCAGTGGG after 7478ms
+Matched: AGGCAGTGGG after 7484ms
+Matched: TAGCAGTGGG after 7485ms
+Matched: AGCAGT
+GGG after 7485ms
+Matched: TAGCAGTGGG after 7485ms
+Matched: TAGCGGTGGG after 7485ms
+Matched: CAGCTGTGGG after 7490ms
+Matched: AGCAAGTGGG after 7493ms
+Matched: AGCAGTGTGG after 7499ms
+Matched: AGCGTGTGTG after 7500ms
+Matched: GAGCAGTGGG after 7501ms
+Matched: agcaggtggg after 7507ms
+Matched: AGCAGTGTGG after 7508ms
+Matched: aagacgtggg after 7508ms
+Matched: AGCTCGTGGG after 7509ms
+Matched: CAGCGGTGGG after 7510ms
+Matched: AGCAGGTGGG after 7515ms
+Matched: aaagcgtggg after 7517ms
+Matched: AGCTGTG
+GG after 7518ms
+Matched: AGAACGTGGG after 7519ms
+Matched: cagcagtggg after 7522ms
+Matched: AGCTGCTGGG after 7523ms
+Matched: AGCAGGTGGG after 7526ms
+Matched: GCAGCGTGGG after 7526ms
+Matched: ACGCGTGGAG after 7529ms
+Matched: gagcgctggg after 7532ms
+Matched: agccgctggg after 7532ms
+Matched: CAGCGCTGGG after 7532ms
+Matched: agcagctggg after 7535ms
+Matched: ATGCTGTGGG after 7535ms
+Matched: AGCCGTGGAG after 7540ms
+Matched: AGCGTGTGTG after 7541ms
+Matched: agcgatggtg after 7542ms
+Matched: AGGCTGTGGG after 7550ms
+Matched: agctGGTGGG after 7556ms
+Matched: aggcgtggtg after 7557ms
+Matched: agcagtgagg after 7558ms
+Matched: agcagctggg after 7562ms
+Matched: G
+AGCGtggg after 7563ms
+Matched: TAGCTGTGGG after 7565ms
+Matched: aagctgtggg after 7566ms
+Matched: AGCGCATGGG after 7567ms
+Matched: agcgt
+tggg after 7570ms
+Matched: aggcgtggtg after 7575ms
+Matched: GCAGCGTGGG after 7576ms
+Matched: AGCTGTGGAG after 7576ms
+Matched: AGACGCTGGG after 7576ms
+Matched: AGCAGTGGAG after 7580ms
+Matched: aagacgtggg after 7582ms
+Matched: aggcgtggtg after 7584ms
+Matched: aagcgctggg after 7591ms
+Matched: agcagctggg after 7595ms
+Matched: AGGCGTGgag after 7606ms
+Matched: aggcgtggtg after 7606ms
+Matched: agacgtaggg after 7611ms
+Matched: agcagctggg after 7614ms
+Matched: CAGCTGTGGG after 7615ms
+Matched: agcaggtggg after 7615ms
+Matched: aggcg
+tggg after 7617ms
+Matched: agctgtaggg after 7622ms
+Matched: CAGCGGTGGG after 7623ms
+Matched: agcagtggtg after 7626ms
+Matched: catgcgtggg after 7630ms
+Matched: agctgatggg after 7630ms
+Matched: agcctgtggg after 7632ms
+Matched: agaccgtggg after 7632ms
+Matched: agcctgtggg after 7638ms
+Matched: agctggtggg after 7639ms
+Matched: aggctgtggg after 7639ms
+Matched: agcaagtggg after 7640ms
+Matched: TAGCTGTGGG after 7641ms
+Matched: agccagtggg after 7646ms
+Matched: agcagctggg after 7647ms
+Matched: AGCTGCTGGG after 7648ms
+Matched: agcggtgtgg after 7649ms
+Matched: agcagctggg after 7654ms
+Matched: AGCGTCGGCG after 7655ms
+Matched: CAGCCGTGGG after 7662ms
+Matched: AGCAGTGGTG after 7663ms
+Matched: AGGCTGTGGG after 7664ms
+Matched: aggcgtggtg after 7665ms
+Matched: aggcgtggtg after 7665ms
+Matched: gatgCgtggg after 7670ms
+Matched: aagcgctggg after 7671ms
+Matched: agcgcctggg after 7671ms
+Matched: agctgtggag after 7672ms
+Matched: agctgtgagg after 7679ms
+Matched: AGGCGTTGGG after 7680ms
+Matched: AGGCGTGGTG after 7684ms
+Matched: aggcgtggtg after 7693ms
+Matched: AGGCGCTGGG after 7694ms
+Matched: gagcgatggg after 7702ms
+Matched: GATGCGTGGG after 7704ms
+Matched: TGAGCGTGGG after 7704ms
+Matched: AGCGTGAGAG after 7708ms
+Matched: AGCAGATGGG after 7718ms
+Matched: aggcgtggtg after 7723ms
+Matched: AGCgtgtgtg after 7727ms
+Matched: cagcgtggcg after 7731ms
+Matched: AGCCTGTGGG after 7733ms
+Matched: agacgtaggg after 7733ms
+Matched: agcgt
+tggg after 7734ms
+Matched: ccagcgtggg after 7735ms
+Matched: aggcgtggtg after 7739ms
+Matched: AGCAAGTGGG after 7740ms
+Matched: AAGCGATGGG after 7741ms
+Matched: AGCGTCTGGG after 7747ms
+Matched: aggcgtggtg after 7749ms
+Matched: AGCGTCGGCG after 7750ms
+Matched: atgctgtggg after 7754ms
+Matched: AGCAGGTGGG after 7757ms
+Matched: AGCG
+GTGGG after 7758ms
+Matched: AGCAGTGTGG after 7762ms
+Matched: gagcgtggtg after 7765ms
+Matched: agcagctggg after 7765ms
+Matched: c
+agcgtggg after 7766ms
+Matched: agcagctggg after 7769ms
+Matched: GAGCGCTGGG after 7772ms
+Matched: agcagctggg after 7774ms
+Matched: agcagctggg after 7786ms
+Matched: AAGCGTGGAG after 7787ms
+Matched: AGGCGCTGGG after 7789ms
+Matched: agcgataggg after 7793ms
+Matched: agctgtaggg after 7794ms
+Matched: AGCTGCTGGG after 7794ms
+Matched: atgctgtggg after 7795ms
+Matched: AGCCAGTGGG after 7796ms
+Matched: aagcgctggg after 7796ms
+Matched: agcgttggag after 7801ms
+Matched: GAAGCGTGGG after 7803ms
+Matched: aggcgtggtg after 7804ms
+Matched: Atgctgtggg after 7808ms
+Matched: AGACAGTGGG after 7813ms
+Matched: AGAGCGTGGG after 7818ms
+Matched: AGCCTGTGGG after 7821ms
+Matched: aggcgtggtg after 7826ms
+Matched: gagctgtggg after 7828ms
+Matched: AGCTGTGGAG after 7828ms
+Process killed - 10 seconds expired.

@@ -24,48 +24,67 @@ class Benchmark
 
             slice.each { |file|
 
-                if engine != 'ruby'
-                    # we must first generate the regex pattern.
+                patscan_pattern = ''
+                File.open(file, 'r') { |f| patscan_pattern = (f.readlines.join ' ').rstrip! }
 
-                    # define the .re file location
-                    re_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.pat$/, '\k<path>/\k<name>.re'
+                # we must first generate the regex pattern.
 
-                    puts "Trying #{file}."
+                # define the .re file location
+                re_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.pat$/, '\k<path>/\k<name>.re'
 
-                    patscan_pattern = ''
-                    File.open(file, 'r') { |f| patscan_pattern = (f.readlines.join ' ').rstrip! }
+                puts "Trying #{file}."
+
+                t = Thread.new {
 
                     pattern = Translater.new(patscan_pattern).translate
                     File.open(re_file, 'w') { |f|
                         f.write pattern
                     }
+                }
 
-                    file = re_file
-                end
+                sleep @runningtime
+
+                Thread.kill t # only allow compile time of @runningtime seconds
+                t.join
+
+                file = re_file
 
                 # define output file for current input file
                 result_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
+                result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
+
+                File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}." }
+
+                unless File.exist? file
+                    File.open(result_file, 'a') { |f|
+                        f.puts "No such file #{file} - compile failed or did not finish."
+                    }
+                    next
+                end
 
                 threads << Thread.new {
 
                     pid = spawn(
                         "#{runtime} #{file} #{@fasta_files[0]}",
-                        :out => ["#{@abs_env}/results/#{engine}/#{result_file}", 'w']
+                        [:out, :err] => [result_file, 'a']
                     )
 
-                    # only run this thread for @runtime seconds.
+                    Process.detach pid # do not collect termination information
+
+                    # only run this thread for @runningtime seconds.
                     sleep @runningtime
 
                     begin
-                        Process.kill('SIGKILL', pid)
+                        Process.kill 'SIGKILL', pid # sigkill
                     rescue Errno::ESRCH => e
                         # no such process it already finished, which is nice.
                     end
+
+                    File.open(result_file, 'a') { |f| f.puts "Process killed - #{@runningtime} seconds expired." }
+                    File.delete file
                 }
 
                 puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
-
-                File.delete file
             }
 
             threads.each { |t| t.join }

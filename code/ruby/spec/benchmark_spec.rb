@@ -6,7 +6,7 @@ describe Benchmark, :type => :class do
 
         it 'finds benchmarks all patscan files in subdirectories of benchmark enviroment' do
 
-            benchmark = Benchmark.new 10
+            benchmark = Benchmark.new 20
             benchmark.ruby
         end
     end
