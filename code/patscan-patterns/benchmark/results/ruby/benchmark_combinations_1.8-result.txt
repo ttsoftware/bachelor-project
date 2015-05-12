@@ -1,0 +1,2 @@
+Trying AGCGTGGGGAGCAAAC[5,1,1].
+No such file ../patscan-patterns/benchmark/mixed_combinations/benchmark_combinations_1.8.re - compile failed or did not finish.

@@ -1,0 +1,3 @@
+Trying AGCGTGGGGAGCAAAC[1,1,2].
+/home/troels/.rvm/gems/ruby-2.2.0@global/gems/bundler-1.8.3/lib/bundler/shared_helpers.rb:83: warning: Insecure world writable dir /home/troels in PATH, mode 040777
+Process killed - 30 seconds expired.
