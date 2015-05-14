@@ -3,6 +3,7 @@ class Translater
     def initialize(pattern)
 
         @value = pattern
+        @counter = 0
 
         lexer = Lexer.new pattern
         parser = Parser.new lexer.tokenize
@@ -33,6 +34,7 @@ class Translater
             end
         }
 
+        puts @counter
         return "(?i)#{expression}(?-i)"
     end
 
@@ -164,8 +166,8 @@ class Translater
 
             insertion_combinations = []
             i_max.times { |i|
-                insertion_combinations << Leaf.new("[^N]{#{i+1}}#{sequence}", mismatches=0, insertions=i+1, deletions=0)
-                insertion_combinations << Leaf.new("#{sequence}[^N]{#{i+1}}", mismatches=0, insertions=i+1, deletions=0)
+                insertion_combinations << Leaf.new('[^N]' * (i+1) + sequence, mismatches=0, insertions=i+1, deletions=0)
+                insertion_combinations << Leaf.new(sequence + '[^N]' * (i+1), mismatches=0, insertions=i+1, deletions=0)
             }
 
             return [Leaf.new(sequence, mismatches=0, insertions=0, deletions=0),
@@ -197,7 +199,9 @@ class Translater
                 # If one of the combination exists in the {unique} table, it will be skipped
                 # This is possible due to the fact that {Hash.has_key} has O(1) time complexity.
 
-                unless unique_combinations.has_key? (left_leaf.value + right_leaf.value)
+                if unique_combinations.has_key? (left_leaf.value + right_leaf.value)
+                    @counter += 1
+                else
 
                     # Otherwise we add it to the table
                     unique_combinations[left_leaf.value + right_leaf.value] = true

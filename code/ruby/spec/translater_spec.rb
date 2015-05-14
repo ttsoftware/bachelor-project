@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Translater, :type => :class do
 
     describe '#translate' do
-
         it 'returns a valid regular expression of a sequence' do
 
             regex_pattern = Regexp.new '^' + Translater.new('AGGATTCA').translate + '$'
