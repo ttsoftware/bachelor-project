@@ -236,34 +236,21 @@ shaded={bgcolor=theorem-gray}
 
 \section{Abstract (TO BE WRITTEN)}
 \section{Introduction}
-\subsection{Motivation}
 
 Institute for microbiology at University of Copenhagen has a large collection of sequenced DNA material stored on their servers. They estimate somewhere between two and three petabytes of data stored in FASTA and FASTQ files \textbf{NEED REF}.
 
 Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. \\
 This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
 
-Currently, the state-of-the-art method for searching through genomic data is the scan-for-matches program, which, while performing very well, is not very user friendly \textbf{NEED REF} and have some unfortunate limitations when running many consecutive scans. However, scan-for-matches has easy-to-write pattern syntax compared REs, as well as the addition new syntax, which would make the equivalent REs extremely tedious to write.
+Currently, the state-of-the-art method for searching through genomic data is the scan-for-matches program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.
+
+While scan-for-matches performs very well and has a very compact language, it is not very user friendly \textbf{NEED REF} and have some unfortunate limitations when running many consecutive scans.
 
 Recently, the KMC group have developed a regular expression implementation, which we will refer to as the KMC engine, which so far has shown competitive performance, compared to current industry standard engines\cite{two-pass-greedy}.
-
-Since scan-for-matches outperforms the quite fast NR-grep (nondeterministic reverse grep), which is a pattern matching tool, created by the "search in page" facility at the University of Chile\cite{nrgrep}, we are hoping that optimized regular expressions running on the KMC engine will be able to outperform NR-grep and subsequently scan-for-matches.
+We are hoping that optimized regular expressions running on the KMC engine will be able to match or outperform scan-for-matches.
 If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. We see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
 
-We seek to solve the problem of translating the easy-to-write scan-for-matches patterns into the better-performing REs.
-
-
-\subsection{Thesis Statement (TO BE REWRITTEN)}
-
-We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches\cite{scan-for-matches}, into regular expressions\cite{crash-course-regex} and test their efficiency against the KMC\cite{kmc-website} engine.
-
-Specifically we wish to solve the following problems:
-
-\begin{itemize}
-	\item Is it possible to programatically convert patterns used by the scan-for-matches program into regular expressions for the KMC engine? If not all patterns used by scan-for-matches then which ones?
-	\item Is it possible to achieve speeds matching or exceeding scan-for-matches with the generated regular expressions and the KMC engine?
-	\item Can we find weak extensions to regular expressions, which would enable us to support more or all scan-for-matches patterns?
-\end{itemize}
+We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches\cite{scan-for-matches}, into regular expressions\cite{crash-course-regex} and test their efficiency against the KMC\cite{kmc-website} engine and other industry standard regular expression implementations.
 
 \subsection{DNA/RNA}
 
@@ -314,11 +301,6 @@ Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. 
 \begin{definition}
 For a given DNA sequence s, \~{s} is the sequence that contains the complementary bases of s, in reverse order.
 \end{definition}
-
-\subsection{What is scan-for-matches?}
-
-Scan-for-matches is a program developed by Ross Overbeek, David Joerg and Morgan Price\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.\\
-
 
 \subsection{Regular Expressions (TODO)}
 
@@ -374,9 +356,28 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 \end{definition}
 
 
-\subsubsection{Parsing regular expressions}
+\subsubsection{Implementing regular expressions}
 
-...
+Now that we have defined regular expressions formally, we want to be able to match them against strings. We say that a regular expression $E$ match a string $S$ if $S \in \mathcal{L}(E)$.
+The most common way of solving this problem, and also the way industry standard regular expression implementations such as google's RE2 solve this problem\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{finite automaton}.\\
+
+\begin{definition} A \textbf{finite automaton} can be defined as a five tuple $(Q, \Sigma, \delta, q_0, F)$ where
+\label{finite automaton defintion}
+
+\begin{itemize}
+	\item $Q$ is the finite set of states
+	\item $\Sigma$ is the language
+	\item $\delta$ is the transition function $\delta \subseteq Q \times \Sigma \cup {\epsilon} \rightarrow Q$ defining any transition $(q_i \longrightarrow q_j) \in \delta$.
+	\item $q_0$ is the initial state $q_0 \in Q$.
+	\item $F$ is the set of accepting states $F \subseteq Q$.
+\end{itemize}
+
+\end{definition}
+
+\ \\
+
+For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA.
+DFA varies only slightly from definition \ref{finite automaton defintion}, in the sense that any transition from a uniqe state $q_i$ in a DFA only has one possible receiving state $q_j$.
 
 \newpage
 

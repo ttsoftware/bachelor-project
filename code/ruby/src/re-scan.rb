@@ -7,7 +7,7 @@ require_relative 'leaf'
 require_relative 'grammar/token'
 
 ##
-# We expect argument 1 to be a pat-scan pattern, or a file which contains a pat-scan pattern.
+# We expect argument 1 to be a re pattern, or a file which contains a re pattern.
 # We expect argument 2 to be a FASTA or FASTQ file
 # We output a string containing a regular expression.
 ##
