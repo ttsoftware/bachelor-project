@@ -635,48 +635,63 @@ These lists are combined by taking each outcome from the first list, and combini
 \end{algorithm}
 \end{spacing}
 
-\subsubsubsection{Redundancy MATH IS WRONG}
+\subsubsubsection{Redundancy}
 
 Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
-On the first 'combine' step, we will have $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
+Assuming we have an even number of characters in the sequence, and that only insertions are allowed, we have that on the first 'combine' step, there is $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
 
 \begin{example}
-The following example shows the variations of combining a with b that are the same when combined. The bold characters are combined with the cursive characters.
+The following example shows the variations of a with b that are the same when combined. The bold characters are combined with the cursive characters.
 \begin{eqnarray}
 	i_{1}: \textbf{a.}b\ \ \textbf{a}.b = 2 - 1 = 1 \\
 	i_{2}: \textbf{a..}b\ \ \textbf{a.}.b\ \ \textbf{a}..b = 3 - 1 = 2 \\
 	i_{3}: \textbf{a...}b\ \ \textbf{a..}.b\ \ \textbf{a.}..b\ \ \textbf{a}...b = 4 - 1 = 3
 \end{eqnarray}
-Here, for $i_{1}$, we have 2 cases, that are the same. One of those are redundant, thus $2 - 1 = 1$ redundant. \\
-\\
+Here, for $i_{1}$, we have 2 cases, that are the same. One of those are redundant, thus $2 - 1 = 1$ redundant case. \\
 Since all cases for $i_{n-1}$ also applies to $i_{n}$, we end up with
 \begin{eqnarray}
 	\sum_{i=1}^{i_{max}}i
 \end{eqnarray}
-redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us the approximation
+redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us:
 \begin{eqnarray}
 	\label{r_0}
-	r_0 \approx \frac{1}{2}n\sum^{i_{max}}_{i=1} i
+	r_0 = \frac{1}{2}n\sum^{i_{max}}_{i=1} i
 \end{eqnarray}
 \end{example}
 
-On the next level, we have $r_1$ redundant cases, calculated using (\ref{r_1}), where $m=1$ if any number of mismatches are allowed, $i$ is the number of insertions allowed, and $d=1$ if any number of deletions are allowed.
+On the next combine step, we have $r_1$ redundant cases. In order to calculate $r_1$, I will define $c = 1 + 2i$ as the number of cases in the \textit{base case}, meaning the number of cases in the lowest level of recursion. Each redundant case will be combined with all cases in the second set, which contains $c^2$ cases. All non-redundant cases from the first set will also be combined with all redundant cases of the second set. Because there is maximum of the number of insertions allowed in a single case, where this maximum varies, we will introduce a factor $\kappa$, that represents the scaling factor, that corrects the number of elements in a given set, corresponding to the number of insertions allowed.
+\begin{eqnarray}
+	2r_0\frac{c^2}{\kappa_0} - r_0^2
+\end{eqnarray}
+
+\begin{example}
+We have a set $A$ and another set $B$, each containing $\frac{c^2}{\kappa}$ elements, of which $r_0$ are redundant.
+
+All $r_0$ redundant elements in $A$ will combine with all elements in $B$, creating $r_0\frac{c^2}{\kappa}$ redundant cases. Likewise, all $\frac{c^2}{\kappa}-r_0$ non-redundant case in $A$ will combine with all $r_0$ redundant cases in $B$, creating $r_0(\frac{c^2}{\kappa}-r_0)$ additional redundant cases. There are $\frac{1}{4}n$ combination steps on this level, which gives us:
 \begin{eqnarray}
 	\label{r_1}
-	r_1 \approx r_0(1 + m + 2i + d)
+	r_1 &=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0(\frac{c^2}{\kappa_1} - r_0))\\
+		&=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0\frac{c^2}{\kappa_1} - r_0^2))\\
+		&=& \frac{1}{4}n(2r_0\frac{c^2}{\kappa_1} - r_0^2)
 \end{eqnarray}
+\end{example}
 
-To calculate further redundancy, we will use $c = (1 + m + 2i + d)$, corresponding to the above. We can then calculate the total amount of redundancy, via induction:
+We can then calculate the total amount of redundancy of any sequence with $logn$ recursion depth, via induction:
 \begin{eqnarray}
-	r_n \approx r_{n-1}c_{n-1}^2
+	r_x &=& \frac{1}{2^{x+1}}n (r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} + r_{x-1}(\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}))\\
+		&=& \frac{1}{2^{x+1}}n (r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} + r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}^2)\\
+		\label{r_x}
+		&=& \frac{1}{2^{x+1}}n (2r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}^{2^{x+1}})
 \end{eqnarray}
 
-Here, $n$ is the recursion depth, and will thus go up to $logm$, where $m$ is the length of the patscan sequence.
+Here, $x$ is the recursion depth, and will thus go up to $logn$, where $n$ is the length of the patscan sequence.
 
-This is only an approximation, as some combinations will be thrown away if there are more mismatches, insertions, or deletions than is allowed. Furthermore, the recursion depth varies in the recursion branches based on the length of the original string, like in figure \ref{fig:recursion_depth_example}.
+Given a pattern, where mismatches and deletions are allowed as well as insertions, the amount of redundancy increases, as $c$ will become larger.
+
+Despite result reached in formula \ref{r_x}, inaccuracy occurs, as the recursion depth varies in the recursion branches based on the length of the original string, like in figure \ref{fig:recursion_depth_example}.
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -690,11 +705,11 @@ This is only an approximation, as some combinations will be thrown away if there
 ; 
 \end{tikzpicture}
 	\centering
-	\caption{Tree structure, how recursion depth varies in different branches.}
+	\caption{Tree structure showing how recursion depth varies in different branches.}
 	\label{fig:recursion_depth_example}
 \end{figure}
 
-Despite of this inaccuracy, it is still trivial, that the amount of redundancy in larger patterns is extremely excessive, as it translates directly into additional running time.
+Despite of this inaccuracy, it is still trivial, that the amount of redundancy in is excessive, as it translates directly into additional running time.
 
 Avoiding this redundancy is very important, and relatively trivial. Every time two cases are combined, it is used as a key in a hash table, and its value set to true. The value doesn't matter, all that matters is that the hash table now has this combination as a key.
 
@@ -726,7 +741,7 @@ Assignment of a range is something we have chosen not to implement, as it can't 
 
 Using back-referencing in our implementation will cause our RE patterns to lose regularity, and with that, performance.
 
-\subsection{Correctness (TO BE WRITTEN)}
+\subsection{Correctness}
 
 Pre-conditions:\\
 seq is a string of length $i > 0$\\
@@ -749,12 +764,100 @@ For merging in algorithm \ref{alg:divideandconquer}, we have the invariant I(n):
 
 \item Maintenance:
 \begin{itemize}
- \item[] hej
+	\item[] For merging step $k$, the algorithm will have two sets of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of the elements in the two original sets. Any combination that would not satisfy the condition will never be created in the first place.
+\end{itemize}
+
+\item Termination:
+\begin{itemize}
+	\item[] When the recursion terminates, the invariant will be true on the entire output.
 \end{itemize}
 \end{itemize}
 
+\textbf{Outer loop:}
 
-\subsection{Running time (TO BE WRITTEN)}
+For the outer loop we have the following invariant: \textbf{For an element $A[i]$, combining it with each element in a set $B$, yields a new set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$}
+
+\begin{itemize}
+\item Initialization:
+\begin{itemize}
+	\item[] For $i = 0$, the invariant is respected (trivially), as $A[i]$ and $B$ are empty.
+\end{itemize}
+
+\item Maintenance:
+\begin{itemize}
+	\item[] For $i = k$, the loop will have an element $A[i]$, and a set of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of $A[i]$, and the set $B$. Any combination that would not satisfy the condition will never be created in the first place.
+\end{itemize}
+
+\item Termination:
+\begin{itemize}
+	\item[] When the loop terminates, the invariant will be true on the entire output.
+\end{itemize}
+\end{itemize}
+
+\textbf{Inner loop:}
+
+For the inner loop we have the following invariant: \textbf{For an element $a$, and another element $B[j]$, a combination of the two yields a new element $c$, such that it satisfies $c_m \leq m_{max}$, $c_d \leq d_{max}$, $c_i \leq i_{max}$}
+
+\begin{itemize}
+\item Initialization:
+\begin{itemize}
+	\item[] For $j = 0$, the invariant is respected (trivially), as $a$ and $B[j]$ are \textbf{null}.
+\end{itemize}
+
+\item Maintenance:
+\begin{itemize}
+	\item[] For $j = k$, the loop will have an element $a$, and an element $B[j]$, which both respect the condition in the invariant. $a$ and $B[j]$ will be combined to a new element $c$. If the condition in the invariant is not satisfied, construction of $c$ will be skipped, maintaining a true invariant.
+\end{itemize}
+
+\item Termination:
+\begin{itemize}
+	\item[] When the loop terminates, the invariant will be true on the output.
+\end{itemize}
+\end{itemize}
+
+\subsection{Running time}
+
+In the divide step, our algorithm (algorithm \ref{alg:divideandconquer}) first splits a given sequence in half multiple times until it reaches base case (where length of the sequence is one). It does this recursively with a branching factor of two, meaning the running time so far is 
+\begin{eqnarray}
+	T(n) = 2T(\frac{n}{2}) = O(log_2n)
+\end{eqnarray}
+
+The conquer step, where we construct each combination of every base case, is trivially solved by constructing a set of the combinations. It constructs one element if any mismatches are allowed, which it can do in $O(1)$ constant time. It constructs one element if any deletions are allowed, which it can also do in $O(1)$ constant time. It constructs two elements for each insertions that is allowed, which take $O(2i)$ time. It does this for every base case, which leaves us with a total running time of $O(ni)$, where $i$ is the number of insertions allowed.
+\begin{eqnarray}
+	T(n) = O(log_2n) + O(ni)
+\end{eqnarray}
+
+In the combine step, we combine each element of two sets $A$ and $B$. Each combination takes $O(1)$ constant time, and it does this operation $SIZE(A) \cdot SIZE(B)$ times. The sets $A$ and $B$ were created in the same way recursively, which means the total running time of each recursion level increases exponentially. In total we have a running time of $O(i^{2^{log_2(n)}})$, where $i$ is the number of insertions, and $n$ is the length of the sequence.
+
+The running time of every combination step before the final one combined is significantly smaller than the final combination step, which means that they are consumed by the exponentially larger running time of the last iteration. This gives us a running time of:
+\begin{eqnarray}
+	T(n) = O(log_2n) + O(ni) + O(i^{2^{log_2(n)}})
+\end{eqnarray}
+
+The running time of the divide and conquer step also consumed by the combine step, leaving us with a running time of
+\begin{eqnarray}
+	O(i^{2^{log_2(n)}})
+\end{eqnarray}
+
+\begin{example}
+If we have the sequence \texttt{ATGCAATT[0,0,2]}, we will have a recursion depth, and thus the divide step has a running time of:
+\begin{eqnarray}
+	log_2(8) = 3
+\end{eqnarray}
+
+The conquer step will then have a running time of
+\begin{eqnarray}
+	8\cdot 2 = 16
+\end{eqnarray}
+
+The final step of the combine step will have a running time of
+\begin{eqnarray}
+	2^{2^{log_2(8)}} = 256
+\end{eqnarray}
+
+It can thus be seen, that the running time of the combine step consumes the running time of both the divide and the conquer step.
+\end{example}
+
 
 \subsection{Data Analysis (TO BE WRITTEN)}
 
