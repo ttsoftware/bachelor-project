@@ -19,7 +19,7 @@
 \usepackage{etoolbox}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{positioning,shapes, shadows, arrows}
+\usetikzlibrary{positioning,shapes, shadows, arrows, automata}
 \usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -376,8 +376,58 @@ The most common way of solving this problem, and also the way industry standard 
 
 \ \\
 
-For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA.
-DFA varies only slightly from definition \ref{finite automaton defintion}, in the sense that any transition from a uniqe state $q_i$ in a DFA only has one possible receiving state $q_j$.
+For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA. \\
+DFA varies only slightly from definition \ref{finite automaton defintion}, in the sense that any transition from a state $q_i$ in a DFA only has one possible receiving state $q_j$. An example of this is seen in figure \ref{dfa_simple}. \\
+
+\begin{figure}[H]
+  \begin{center}
+
+\begin{tikzpicture}[>=stealth', auto, node distance=3cm]
+  \node[initial,state] (1) {$1$};
+  \node[state] (2) [right of=1] {$2$};
+  \node[state,accepting] (3) [right of=2] {$3$};
+  
+  \path[->] (1) edge node {a} (2);
+  %\path[->] (2) edge [bend right] node {c} (3);
+  \path[->] (2) edge [loop above] node {b} (3);
+  \path[->] (2) edge node {c} (3);
+\end{tikzpicture}
+	
+	\caption{DFA matching the RE \underline{$ab*c$}}
+	\label{dfa_simple}
+  \end{center}
+\end{figure}
+
+An NFA on the other hand has a set of active states, because any given state can have multiple receiving states which all needs to be evaluated until they reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
+
+\begin{figure}[H]
+  \begin{center}
+
+\begin{tikzpicture}[>=stealth', node distance=3cm]
+  \node[initial,state] (1) {$1$};
+  \node[state] (2) [right of=1] {$2$};
+  \node[state] (3) [above of=2] {$3$};
+  \node[state] (4) [below of=2] {$4$};
+  \node[state,accepting] (5) [right of=2] {$5$};
+  
+  \tikzset{edge_label/.style={->}} 
+  \tikzset{every node/.style={fill=white}} 
+  
+  \path[->] (1) edge [edge_label] node {a} (2);
+  \path[->] (1) edge [edge_label] node {a} (3);
+  \path[->] (1) edge [edge_label] node {a} (4);
+  \path[->] (2) edge [edge_label] node {b} (5);
+  \path[->] (3) edge [edge_label] node {c} (5);
+  \path[->] (4) edge [edge_label] node {d} (5);
+\end{tikzpicture}
+	
+	\caption{NFA matching the RE \underline{$ab|c|d$}}
+	\label{nfa_simple}
+  \end{center}
+\end{figure}
+
+In figure \ref{nfa_simple} we see how the NFA can choose between multiple receiving states upon finding an $a$ in our input sequence, and thus have to try all of the concurrently in order to try to reach our accepting state. \\
+It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size.\cite{nfa-to-dfa}
 
 \newpage
 
@@ -585,63 +635,48 @@ These lists are combined by taking each outcome from the first list, and combini
 \end{algorithm}
 \end{spacing}
 
-\subsubsubsection{Redundancy}
+\subsubsubsection{Redundancy MATH IS WRONG}
 
 Using algorithm \ref{alg:divideandconquer} without modifications, we will have a lot of redundancy when translating insertions. This comes from the fact, that we wish to construct all possible combinations, and that we do it recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
-Assuming we have an even number of characters in the sequence, and that only insertions are allowed, we have that on the first 'combine' step, there is $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
+On the first 'combine' step, we will have $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
 
 \begin{example}
-The following example shows the variations of a with b that are the same when combined. The bold characters are combined with the cursive characters.
+The following example shows the variations of combining a with b that are the same when combined. The bold characters are combined with the cursive characters.
 \begin{eqnarray}
 	i_{1}: \textbf{a.}b\ \ \textbf{a}.b = 2 - 1 = 1 \\
 	i_{2}: \textbf{a..}b\ \ \textbf{a.}.b\ \ \textbf{a}..b = 3 - 1 = 2 \\
 	i_{3}: \textbf{a...}b\ \ \textbf{a..}.b\ \ \textbf{a.}..b\ \ \textbf{a}...b = 4 - 1 = 3
 \end{eqnarray}
-Here, for $i_{1}$, we have 2 cases, that are the same. One of those are redundant, thus $2 - 1 = 1$ redundant case. \\
+Here, for $i_{1}$, we have 2 cases, that are the same. One of those are redundant, thus $2 - 1 = 1$ redundant. \\
+\\
 Since all cases for $i_{n-1}$ also applies to $i_{n}$, we end up with
 \begin{eqnarray}
 	\sum_{i=1}^{i_{max}}i
 \end{eqnarray}
-redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us:
+redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us the approximation
 \begin{eqnarray}
 	\label{r_0}
-	r_0 = \frac{1}{2}n\sum^{i_{max}}_{i=1} i
+	r_0 \approx \frac{1}{2}n\sum^{i_{max}}_{i=1} i
 \end{eqnarray}
 \end{example}
 
-On the next combine step, we have $r_1$ redundant cases. In order to calculate $r_1$, I will define $c = 1 + 2i$ as the number of cases in the \textit{base case}, meaning the number of cases in the lowest level of recursion. Each redundant case will be combined with all cases in the second set, which contains $c^2$ cases. All non-redundant cases from the first set will also be combined with all redundant cases of the second set. Because there is maximum of the number of insertions allowed in a single case, where this maximum varies, we will introduce a factor $\kappa$, that represents the scaling factor, that corrects the number of elements in a given set, corresponding to the number of insertions allowed.
-\begin{eqnarray}
-	2r_0\frac{c^2}{\kappa_0} - r_0^2
-\end{eqnarray}
-
-\begin{example}
-We have a set $A$ and another set $B$, each containing $c^2$ elements, of which $r_0$ are redundant.
-
-All $r_0$ redundant elements in $A$ will combine with all elements in $B$, creating $r_0c^2$ redundant cases. Likewise, all $c^2-r_0$ non-redundant case in $A$ will combine with all $r_0$ redundant cases in $B$, creating $r_0(c^2-r_0)$ additional redundant cases. There are $\frac{1}{4}n$ combination steps on this level, which gives us:
+On the next level, we have $r_1$ redundant cases, calculated using (\ref{r_1}), where $m=1$ if any number of mismatches are allowed, $i$ is the number of insertions allowed, and $d=1$ if any number of deletions are allowed.
 \begin{eqnarray}
 	\label{r_1}
-	r_1 &=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0(\frac{c^2}{\kappa_1} - r_0))\\
-		&=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0\frac{c^2}{\kappa_1} - r_0^2))\\
-		&=& \frac{1}{4}n(2r_0\frac{c^2}{\kappa_1} - r_0^2)
+	r_1 \approx r_0(1 + m + 2i + d)
 \end{eqnarray}
-\end{example}
 
-We can then calculate the total amount of redundancy of any sequence with $logn$ recursion depth, via induction:
+To calculate further redundancy, we will use $c = (1 + m + 2i + d)$, corresponding to the above. We can then calculate the total amount of redundancy, via induction:
 \begin{eqnarray}
-	r_x &=& \frac{1}{2^{x+1}}n (r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} + r_{x-1}(\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}))\\
-		&=& \frac{1}{2^{x+1}}n (r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} + r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}^2)\\
-		\label{r_x}
-		&=& \frac{1}{2^{x+1}}n (2r_{x-1}\frac{c^{2^{x+1}}}{\kappa_x} - r_{x-1}^{2^{x+1}})
+	r_n \approx r_{n-1}c_{n-1}^2
 \end{eqnarray}
 
-Here, $x$ is the recursion depth, and will thus go up to $logn$, where $n$ is the length of the patscan sequence.
+Here, $n$ is the recursion depth, and will thus go up to $logm$, where $m$ is the length of the patscan sequence.
 
-Given a pattern, where mismatches and deletions are allowed as well as insertions, the amount of redundancy increases, as $c$ will become larger.
-
-Despite result reached in formula \ref{r_x}, inaccuracy occurs, as the recursion depth varies in the recursion branches based on the length of the original string, like in figure \ref{fig:recursion_depth_example}.
+This is only an approximation, as some combinations will be thrown away if there are more mismatches, insertions, or deletions than is allowed. Furthermore, the recursion depth varies in the recursion branches based on the length of the original string, like in figure \ref{fig:recursion_depth_example}.
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -655,11 +690,11 @@ Despite result reached in formula \ref{r_x}, inaccuracy occurs, as the recursion
 ; 
 \end{tikzpicture}
 	\centering
-	\caption{Tree structure showing how recursion depth varies in different branches.}
+	\caption{Tree structure, how recursion depth varies in different branches.}
 	\label{fig:recursion_depth_example}
 \end{figure}
 
-Despite of this inaccuracy, it is still trivial, that the amount of redundancy in is excessive, as it translates directly into additional running time.
+Despite of this inaccuracy, it is still trivial, that the amount of redundancy in larger patterns is extremely excessive, as it translates directly into additional running time.
 
 Avoiding this redundancy is very important, and relatively trivial. Every time two cases are combined, it is used as a key in a hash table, and its value set to true. The value doesn't matter, all that matters is that the hash table now has this combination as a key.
 
@@ -691,7 +726,7 @@ Assignment of a range is something we have chosen not to implement, as it can't 
 
 Using back-referencing in our implementation will cause our RE patterns to lose regularity, and with that, performance.
 
-\subsection{Correctness}
+\subsection{Correctness (TO BE WRITTEN)}
 
 Pre-conditions:\\
 seq is a string of length $i > 0$\\
@@ -714,56 +749,10 @@ For merging in algorithm \ref{alg:divideandconquer}, we have the invariant I(n):
 
 \item Maintenance:
 \begin{itemize}
-	\item[] For merging step $k$, the algorithm will have two sets of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of the elements in the two original sets. Any combination that would not satisfy the condition will never be created in the first place.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the recursion terminates, the invariant will be true on the entire output.
+ \item[] hej
 \end{itemize}
 \end{itemize}
 
-\textbf{Outer loop:}
-
-For the outer loop we have the following invariant: \textbf{For an element $A[i]$, combining it with each element in a set $B$, yields a new set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$}
-
-\begin{itemize}
-\item Initialization:
-\begin{itemize}
-	\item[] For $i = 0$, the invariant is respected (trivially), as $A[i]$ and $B$ are empty.
-\end{itemize}
-
-\item Maintenance:
-\begin{itemize}
-	\item[] For $i = k$, the loop will have an element $A[i]$, and a set of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of $A[i]$, and the set $B$. Any combination that would not satisfy the condition will never be created in the first place.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the loop terminates, the invariant will be true on the entire output.
-\end{itemize}
-\end{itemize}
-
-\textbf{Inner loop:}
-
-For the inner loop we have the following invariant: \textbf{For an element $a$, and another element $B[j]$, a combination of the two yields a new element $c$, such that it satisfies $c_m \leq m_{max}$, $c_d \leq d_{max}$, $c_i \leq i_{max}$}
-
-\begin{itemize}
-\item Initialization:
-\begin{itemize}
-	\item[] For $j = 0$, the invariant is respected (trivially), as $a$ and $B[j]$ are \textbf{null}.
-\end{itemize}
-
-\item Maintenance:
-\begin{itemize}
-	\item[] For $j = k$, the loop will have an element $a$, and an element $B[j]$, which both respect the condition in the invariant. $a$ and $B[j]$ will be combined to a new element $c$. If the condition in the invariant is not satisfied, construction of $c$ will be skipped, thus not constructed in the first place.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the loop terminates, the invariant will be true on the output.
-\end{itemize}
-\end{itemize}
 
 \subsection{Running time (TO BE WRITTEN)}
 

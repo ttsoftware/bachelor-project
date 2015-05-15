@@ -6,7 +6,16 @@ Book{tag,
     isbn      = "0385527403"
 }
 
-@article{optimally-streaming,
+@article{nfa-to-dfa,
+    author = {Mahesh Viswanathan},
+    title = {Introduction to Theory of Computation},
+    journal = {Illinois state university website},
+    year = 2013,
+    howpublished = "\url{https://courses.engr.illinois.edu/cs373/fa2013/Lectures/lec05.pdf}",
+    pages = {5-7}
+}
+
+@article{matching-in-the-wild,
     author = {Russ Cox},
     title = {Regular Expression Matching in the Wild},
     journal = {His own website - swtch.com},
