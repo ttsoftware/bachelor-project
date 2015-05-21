@@ -298,7 +298,7 @@ Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. 
 For a given DNA sequence s, \~{s} is the sequence that contains the complementary bases of s, in reverse order.
 \end{definition}
 
-\subsection{Regular Expressions (TODO)}
+\subsection{Regular Expressions}
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for an example form the words $ab$, $ba$, $aab$ or any such conbination of any length, thus forming an infinite set of words.\\
 
@@ -842,14 +842,29 @@ The final step of the combine step will have a running time of
 It can thus be seen, that the running time of the combine step consumes the running time of both the divide and the conquer step.
 \end{example}
 
+\newpage
 
-\subsection{Data Analysis (TO BE WRITTEN)}
+\subsection{Data Analysis}
 
-\section{Results (TO BE WRITTEN)}
+We have chosen chromosome number 22 from the human genome. Chromosome 22 is the smallest chromosome in the human genome making it better suited for testing. 
+Our version of chromosome 22 contains a lot of noise in the form of N's, specifying unknown bases during sequencing.~\cite{human-genome} We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic use scenario.
 
-\subsection{Experiment design (TO BE WRITTEN)}
+We could possibly have removed the N's and the linebreaks from the fasta file, in order to reduce the file size and thus reduce the runningtime of the regular expressions which we generate. However we felt that this would not significantly improve our results, and also make our test further from a real-world scenario.
+
+\section{Results}
+
+\subsection{Experiment design}
+
+We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. 
+We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KCM.
+ 
+Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computers. Each thread is also given a time limit of 15 minutes after which the thread is killed. This time limit is given for two reasons. First of all we suspect that some of the regular expressions might never (or close to never) finish, and second of all the difference between taking 15 minutes and 20 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+
+The outputs of our wrapper programs are piped to a result file for each regular expression implementation and subsequently each pattern. 
 
 \subsection{Experiment results (TO BE WRITTEN)}
+
+\newpage
 
 \section{Conclusion (TO BE WRITTEN)}
 
