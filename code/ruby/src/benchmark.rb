@@ -52,11 +52,11 @@ class Benchmark
                 result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
                 result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
 
-                File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}." }
+                File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}.\n~" }
 
                 unless File.exist? re_file
                     File.open(result_file, 'a') { |f|
-                        f.puts "No such file #{re_file} - compile failed or did not finish."
+                        f.puts "ERROR: No such file #{re_file} - compile failed or did not finish."
                     }
                     next
                 end
@@ -79,7 +79,7 @@ class Benchmark
                         # no such process it already finished, which is nice.
                     end
 
-                    File.open(result_file, 'a') { |f| f.puts "Process killed - #{@runningtime} seconds expired." }
+                    File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
                     File.delete re_file
                 }
 
