@@ -21,6 +21,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes, shadows, arrows, automata}
 \usepackage{listings}
+\usepackage{fancyhdr}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %         Colors        %
@@ -230,12 +231,25 @@ shaded={bgcolor=theorem-gray}
 
 \newpage
 
+\begin{center}
+\textbf{Abstract}
+\end{center}
+
+Scan-For-Matches is the state-of-the-art solution for DNA sequence analysis, which are no longer being maintained. We present an algorithm for translating Scan-For-Matches patterns into regular expressions. By translating into regular expressions, we are able to measure the performance of searching through genomic data on more modern and sophisticated string search engines. 
+
+\newpage
+
 \tableofcontents
 \newpage
 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{08/06-2015}
+\lhead{Troels Thomsen, Rasmus Haarslev}
+\chead{Bachelor Thesis}
 \pagenumbering{arabic}
 
-\section{Abstract (TO BE WRITTEN)}
+
 \section{Introduction}
 
 The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
