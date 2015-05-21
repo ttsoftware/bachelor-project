@@ -118,6 +118,7 @@ shaded={bgcolor=theorem-gray}
 \newcommand*\Let[2]{\State #1 $\gets$ #2}
 \newcommand*\Returns[1]{\State \Return #1}
 \newcommand*\Append[2]{\State $#1 << #2$}
+\newcommand{\setalglineno}[1]{\setcounter{ALC@line}{\numexpr#1-1}}
 \algrenewcommand\algorithmicrequire{\textbf{Input:}}
 \algrenewcommand\algorithmicensure{\textbf{Output:}}
 \renewcommand{\algorithmicforall}{\textbf{foreach}}
@@ -537,7 +538,7 @@ The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the rig
 
 Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter, thus increasing the amount of recursion. The recursion does not stop until every combination is found, which means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program can reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
-In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms} instead, that reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have a single sequence of only a single character, as can be seen in figure \ref{fig:tree_example}. 
+In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms} instead, that reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -558,13 +559,13 @@ In order to guarantee a low recursion depth, we use a divide and conquer algorit
 	\label{fig:tree_example}
 \end{figure}
 
-After dividing the sequence into characters, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), the algorithm will make a list of all possibilities, which that character can be.
+After dividing the sequence into characters, and we reach \emph{base case}, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), algorithm~\ref{alg:divideandconquer} will make a list of all possibilities, which that character can be.
 
 \begin{example}[label=example:possibilities]
-For character 'a' from figure \ref{fig:tree_example}, we have the following possibilities for mismatches and deletions
+When reaching base case for a character $a$, algorithm~\ref{alg:divideandconquer} will construct the following possibilities for mismatches and deletions
 
 \begin{center}
-	{a, \^{}a, \_}
+	\texttt{a, \^{}a, \_}
 \end{center}
 
 \noindent as well as the following for insertions
@@ -574,14 +575,14 @@ For character 'a' from figure \ref{fig:tree_example}, we have the following poss
 	\texttt{a.\{1\}, a.\{2\}, $\cdots$, a.\{n\}}
 \end{center}
 
-\noindent All these 'outcomes' makes up the base case for 'a', and a list of all these possibilities is then returned, and it can be combined with the list received from the 'b' recursion.
+\noindent This list of possibilities for $a$ represents that $a$ may take the form of a mismatch (\texttt{\^{}a}), its original form, or any of the other forms in the lest, This list of possibilities is then returned, and it can be combined with the list received from the 'b' recursion.
 \end{example}
 
-These lists are combined by taking each outcome from the first list, and combining it with each outcome of the second list. The total number of mismatches, deletions, and insertions are being kept track of, and if combining two outcomes will result in more mismatches, deletions, or insertions than the maximum allowed, it is skipped.
+\emph{Combining} two such lists means that each element in the left list is concatenated behind each element in the right list. Like so, a new list of size $m x n$ will be created. The total number of mismatches, deletions, and insertions are being kept track of, and if combining two elements will result in more mismatches, deletions, or insertions than the maximum allowed, it is skipped.
 
 \begin{spacing}{0.8}
 \begin{algorithm}[H]
-	\caption{find\_combinations (Divide and conquer)}
+	\caption{find\_combinations}
 	\label{alg:divideandconquer}
   	\begin{algorithmic}[1]
     		\Require
@@ -594,20 +595,20 @@ These lists are combined by taking each outcome from the first list, and combini
 		\Statex
 		\Function{find\_combinations}{$seq$, $m_{max}$, $d_{max}$, $i_{max}$}
     		\If{$seq.length > 1$}
-    			\Let{left\_tree}{\Call{find\_combinations}{seq[0..(seq.length/2).floor-1], $m_{max}$, $i_{max}$, $d_{max}$}}
-    			\Let{right\_tree}{\Call{find\_combinations}{seq[(seq.length/2).floor..-1], $m_{max}$, $i_{max}$, $d_{max}$}}
+    			\Let{left\_tree}{\Call{find\_combinations}{seq[0..(seq.length/2).floor-1], $m_{max}$, $i_{max}$, $d_{max}$}} \label{alg:divide:leftT}
+    			\Let{right\_tree}{\Call{find\_combinations}{seq[(seq.length/2).floor..-1], $m_{max}$, $i_{max}$, $d_{max}$}} \label{alg:divide:rightT}
     		\Else
-    			\Returns{List of all mismatch, insertion, and deletion combinations of seq}
+    			\Returns{List of all mismatch, insertion, and deletion combinations of seq} \label{alg:divide:conquer}
     		\EndIf
     		\State
     		\Let{combined}{empty list}
     		\Let{unique\_combinations}{empty set}
     		\ForAll{LL \In left\_tree} \Comment{LL: Left leaf}
-    			\ForAll{RL \textbf{in} right\_tree} \Comment{RL: Right leaf}
-    				\If{$LL.m + RL.m > m_{max}$ \Or $LL.d + RL.d > d_{max}$ \Or $LL.i + RL.i > i_{max}$}
+    			\ForAll{RL \textbf{in} right\_tree} \label{alg:divide:inner} \Comment{RL: Right leaf}
+    				\If{$LL.m + RL.m > m_{max}$ \Or $LL.d + RL.d > d_{max}$ \Or $LL.i + RL.i > i_{max}$} \label{alg:divide:invariant1}
     					\State continue
     				\EndIf
-    				\If{\Not LL.seq + RL.seq \In unique\_combinations.keys}
+    				\If{\Not LL.seq + RL.seq \In unique\_combinations.keys} \label{alg:divide:invariant2}
     					\Append{unique\_combinations}{LL.seq + RL.seq}
     					\Append{combined}{LL + RL}
     				\EndIf
@@ -618,6 +619,72 @@ These lists are combined by taking each outcome from the first list, and combini
   	\end{algorithmic}
 \end{algorithm}
 \end{spacing}
+
+
+\subsubsubsection{Correctness}
+
+We wish to show that algorithm~\ref{alg:divideandconquer} is correct, by showing that given a set of parameters, that meets a pre-condition, algorithm~\ref{alg:divideandconquer} will arrive at a result, that satisfies a post-condition. Additionally, we must also make sure, that algorithm~\ref{alg:divideandconquer} satisfies an invariant in all iterations.
+
+Pre-conditions:
+\begin{itemize}
+\item[-] seq is a string of length $i > 0$
+\item[-] $m_{max}$ is a non-negative integer
+\item[-] $d_{max}$ is a non-negative integer
+\item[-] $i_{max}$ is a non-negative integer
+\end{itemize}
+
+post-condition:
+\begin{itemize}
+\item[-] The list $combined$ contains all combinations of the initial sequence with up to  $m_{max}$ mismatches, $d_{max}$ deletions, and $i_{max}$ insertions.
+\end{itemize}
+
+
+We start by showing the correctness of the inner loop. For this, we have the following loop invariant, which must be satisfied during all iterations of the loop.
+
+\textbf{For an element $a$, and another element $B[j]$, a combination of the two yields a new unique element $c$, such that it satisfies $c_m \leq m_{max}$, $c_d \leq d_{max}$, $c_i \leq i_{max}$, where $c_m$, $c_d$, $c_i$ is the number of $c$'s mismatches, deletions and insertions respectively.}
+
+\begin{itemize}
+\item Initialization:
+\begin{itemize}
+	\item[] Prior to the loop at line~\ref{alg:divide:inner}, the invariant is respected (trivially), as $B[j]$ is \textbf{null}.
+\end{itemize}
+
+\item Maintenance:
+\begin{itemize}
+	\item[] For $j = k$, the loop will have an element $a$ (\texttt{LL} in the algorithm), and an element $B[j]$ (RL in the algorithm), which both respect the condition in the invariant. Before combining $a$ and $B[j]$, the condition in the invariant is checked at line~\ref{alg:divide:invariant1} and line~\ref{alg:divide:invariant2}, and if it is not satisfied, the combining of $a$ and $B[j]$ is skipped.
+\end{itemize}
+
+\item Termination:
+\begin{itemize}
+	\item[] When the loop terminates, the invariant will be true on the output.
+\end{itemize}
+\end{itemize}
+
+Since the invariant is satisfied for the inner loop, meaning it is correct, the same can be concluded for the outer loop, as it iterates over iterations of the inner loop, which means the invariant for the outer loop can be seen as multiple of the inner loop's invariant.
+
+
+Next, we want to show that the recursion is correct. For this we have the invariant $I(n)$:
+
+\textbf{For a set $A$, and a set $B$, a combination of the two, where each element in $A$ is combined with each element in $B$ separately, yields a set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$, where $e_m$, $e_d$, $e_i$ is the number of $e$'s mismatches, deletions and insertions respectively.}
+
+
+\begin{itemize}
+\item Initialization:
+\begin{itemize}
+	\item[] Prior to the recursion step at line~\ref{alg:divide:leftT} and line~\ref{alg:divide:rightT}, the invariant is respected (trivially), as set $A$ and $B$ are empty..
+\end{itemize}
+
+\item Maintenance:
+\begin{itemize}
+	\item[] For combining at step $k$, the algorithm will have two sets of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of the elements in the two original sets. This combining follows the invariant of the inner loop, and will thus also respect the recursion invariant.
+\end{itemize}
+
+\item Termination:
+\begin{itemize}
+	\item[] When the recursion terminates, the invariant will be true on the entire output.
+\end{itemize}
+\end{itemize}
+
 
 \subsubsubsection{Redundancy}
 
@@ -701,6 +768,7 @@ Every time we make a new combination, we check if that combination already exist
 
 We can look up in a hash table in $O(1)$ time, which doesn't increase the running time by much. However, we will end up with a significantly lower running time in the long run, as all redundancy is sorted out.
 
+
 \subsubsection{Variable assignments \& usage}
 
 Variable assignment is when you have a pattern of some sort, that you assign to a variable, so that it may be reused later. Any kind of non-variable pattern may be used in a variable pattern. Hence, we have three different variable assignments:
@@ -725,79 +793,6 @@ Assignment of a range is something we have chosen not to implement, as it can't 
 
 Using back-referencing in our implementation will cause our RE patterns to lose regularity, and with that, performance.
 
-\subsection{Correctness}
-
-Pre-conditions:\\
-seq is a string of length $i > 0$\\
-$m_{max}$ is a non-negative integer\\
-$d_{max}$ is a non-negative integer\\
-$i_{max}$ is a non-negative integer
-
-post-condition:\\
-\textbf{combined} contains all combinations of the initial sequence with up to  $m_{max}$ mismatches, $d_{max}$ deletions, and $i_{max}$ insertions.
-
-\textbf{Recursion:}
-
-For merging in algorithm \ref{alg:divideandconquer}, we have the invariant I(n): \textbf{For a set $A$, and a set $B$, a combination of the two, where each element in $A$ is combined with each element in $B$ separately, yields a set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$}
-
-\begin{itemize}
-\item Initialization:
-\begin{itemize}
-	\item[] Prior to the merging step, the invariant is respected (trivially), as set $A$ and $B$ is empty.
-\end{itemize}
-
-\item Maintenance:
-\begin{itemize}
-	\item[] For merging step $k$, the algorithm will have two sets of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of the elements in the two original sets. Any combination that would not satisfy the condition will never be created in the first place.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the recursion terminates, the invariant will be true on the entire output.
-\end{itemize}
-\end{itemize}
-
-\textbf{Outer loop:}
-
-For the outer loop we have the following invariant: \textbf{For an element $A[i]$, combining it with each element in a set $B$, yields a new set $C$, such that all $e \in C$ satisfies $e_m \leq m_{max}$, $e_d \leq d_{max}$, $e_i \leq i_{max}$}
-
-\begin{itemize}
-\item Initialization:
-\begin{itemize}
-	\item[] For $i = 0$, the invariant is respected (trivially), as $A[i]$ and $B$ are empty.
-\end{itemize}
-
-\item Maintenance:
-\begin{itemize}
-	\item[] For $i = k$, the loop will have an element $A[i]$, and a set of valid elements (respects the condition in the invariant), from which it will construct a new set of all combinations of $A[i]$, and the set $B$. Any combination that would not satisfy the condition will never be created in the first place.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the loop terminates, the invariant will be true on the entire output.
-\end{itemize}
-\end{itemize}
-
-\textbf{Inner loop:}
-
-For the inner loop we have the following invariant: \textbf{For an element $a$, and another element $B[j]$, a combination of the two yields a new element $c$, such that it satisfies $c_m \leq m_{max}$, $c_d \leq d_{max}$, $c_i \leq i_{max}$}
-
-\begin{itemize}
-\item Initialization:
-\begin{itemize}
-	\item[] For $j = 0$, the invariant is respected (trivially), as $a$ and $B[j]$ are \textbf{null}.
-\end{itemize}
-
-\item Maintenance:
-\begin{itemize}
-	\item[] For $j = k$, the loop will have an element $a$, and an element $B[j]$, which both respect the condition in the invariant. $a$ and $B[j]$ will be combined to a new element $c$. If the condition in the invariant is not satisfied, construction of $c$ will be skipped, maintaining a true invariant.
-\end{itemize}
-
-\item Termination:
-\begin{itemize}
-	\item[] When the loop terminates, the invariant will be true on the output.
-\end{itemize}
-\end{itemize}
 
 \subsection{Running time}
 
