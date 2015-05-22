@@ -33,7 +33,7 @@
 \definecolor{regular-purple}{HTML}{660099}
 \definecolor{magenta}{HTML}{B200B2}
 \definecolor{light-gray}{HTML}{FAFAFA}
-\definecolor{theorem-gray}{HTML}{F5F5F5}
+\definecolor{theorem-gray}{HTML}{F0F0F0}
 \definecolor{dark-gray}{HTML}{2D2D2D}
 \definecolor{comment}{HTML}{808080}
 \definecolor{digit}{HTML}{0000FF}
@@ -118,7 +118,6 @@ shaded={bgcolor=theorem-gray}
 \usepackage{algpseudocode}
 \newcommand*\Let[2]{\State #1 $\gets$ #2}
 \newcommand*\Returns[1]{\State \Return #1}
-\newcommand*\Append[2]{\State $#1 << #2$}
 \newcommand{\setalglineno}[1]{\setcounter{ALC@line}{\numexpr#1-1}}
 \algrenewcommand\algorithmicrequire{\textbf{Input:}}
 \algrenewcommand\algorithmicensure{\textbf{Output:}}
@@ -261,7 +260,7 @@ While scan-for-matches performs very well, has a very compact language, and is u
 Recently, the KMC group have developed a regular expression implementation, which we will refer to as the KMC engine, which so far has shown competitive performance, compared to current industry standard engines~\cite{two-pass-greedy}. We are hoping that optimized regular expressions running on the KMC engine will be able to match or outperform scan-for-matches.
 If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. We see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
 
-We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches~\cite{scan-for-matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against the KMC~\cite{kmc-website} engine and other industry standard regular expression implementations.
+We wish to determine the possibility of converting sequence analysis patterns used for scan-for-matches~\cite{scan-for-matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against the KMC~\cite{kmc-website} engine and other industry standard regular expression implementations, such as Google's RE2, Python's RE implementation, and Ruby's RE implementation.
 
 \subsection{DNA/RNA}
 
@@ -274,7 +273,7 @@ DNA can generally be described as an alphabet of 4 letters, which represent 4 di
 \begin{center}
 	\includegraphics[scale=4]{dnabaserne.png}
 \end{center}
-\caption{The four different nucleobases found in the DNA nucleotides.\cite{DNA-biotechacademy}}
+\caption{The four different nucleobases found in the DNA nucleotides~\cite{DNA-biotechacademy}.}
 \end{figure}
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
@@ -304,7 +303,7 @@ A & T/U \\
 	\begin{center}
 		\includegraphics[scale=2.5]{complementarity.jpg}	
 	\end{center}
-	\caption{This figure shows the hydrogen bonds between the nucleobases, which makes up the basis for complementarity~\cite{DNA-nature}}.
+	\caption{This figure shows the hydrogen bonds between the nucleobases, which makes up the basis for complementarity~\cite{DNA-nature}.}
 \end{figure}
 
 Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the complement of a given DNA sequence. The reverse of a complement is called the \textbf{reverse complement}.
@@ -317,15 +316,15 @@ For a given DNA sequence s, \~{s} is the sequence that contains the complementar
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for an example form the words $ab$, $ba$, $aab$ or any such conbination of any length, thus forming an infinite set of words.\\
 
-\begin{definition} An alphabet $\Sigma$ is defined as a finite set of characters.
+\begin{definition} An alphabet $\Sigma$ is defined as a finite non-empty set of characters.
 
 \end{definition}
 
-\begin{definition} Given an alphabet $\Sigma$, the language $\mathcal{L}$ is defined by $\mathcal{L} \in \Sigma^*$, where $\Sigma^*$ is the set of all words constructed from alphabet $\Sigma$.
+\begin{definition} Given an alphabet $\Sigma$, the language $\mathcal{A}$ is defined by $\mathcal{A} \subseteq \Sigma^*$, where $\Sigma^*$ is the set of all words constructed from alphabet $\Sigma$.
 	
 \end{definition} 
 
-\begin{definition} Given an alphabet $\Sigma$ consisting of a finite set of characters, we can define a regular expression $E$.\\
+\begin{definition} Given an alphabet $\Sigma$, we can define a regular expression $E$.\\
 
 	\begin{enumerate}
 		\item An expression containing a single letter $a$ from our alphabet $\Sigma$: $E = a$. 
@@ -344,13 +343,13 @@ In order to talk about regular expressions, we need to be able to talk in genera
 
 We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a language denoted by $\mathcal{L}(E)$: \\
 
-\begin{definition} The language $\mathcal{L}(E)$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
+\begin{definition} The language $\mathcal{L}(E) \subseteq \Sigma^*$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
 
 	\begin{enumerate}
 		\item For single-letter expressions we have
 			\begin{eqnarray}
 				\mathcal{L}(0) &=& \emptyset \\
-				\mathcal{L}(1) &=& \epsilon \\
+				\mathcal{L}(1) &=& \{\epsilon\} \\
 				\mathcal{L}(a) &=& \{a\}
 			\end{eqnarray}
 			Where $a \in \Sigma$
@@ -376,11 +375,11 @@ The most common way of solving this problem, and also the way industry standard 
 \label{finite automaton defintion}
 
 \begin{itemize}
-	\item $Q$ is the finite set of states
-	\item $\Sigma$ is the language
-	\item $\delta$ is the transition function $\delta \subseteq Q \times \Sigma \cup {\epsilon} \rightarrow Q$ defining any transition $(q_i \longrightarrow q_j) \in \delta$.
-	\item $q_0$ is the initial state $q_0 \in Q$.
-	\item $F$ is the set of accepting states $F \subseteq Q$.
+	\item $Q$ is a finite set of states
+	\item $\Sigma$ is an alphabet
+	\item $\delta$ is a transition function $\delta \subseteq Q \times (\Sigma \cup \{\epsilon\}) \times Q$
+	\item $q_0$ is an initial state $q_0 \in Q$.
+	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
 
 \end{definition}
@@ -438,7 +437,7 @@ An NFA on the other hand has a set of active states, because any given state can
 \end{figure}
 
 In figure \ref{nfa_simple} we see how the NFA can choose between multiple receiving states upon finding an $a$ in our input sequence, and thus have to try all of the concurrently in order to try to reach our accepting state. \\
-It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size.\cite{nfa-to-dfa}
+It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
 
 \newpage
 
@@ -530,22 +529,22 @@ Patscan ranges are very similar to RE ranges, and is therefore easily translated
 \label{example:range}
 	2...5
 \end{equation}
-It translates into 'from 2 to 5 of any character'. In RE, there is a character for 'any character', which is \texttt{.}, and a quantifier, where you can state how many of a given character you want matched, which is \texttt{\{min,max\}}. Using these, (\ref{example:range}) translates into the following RE:
+It translates into 'from 2 to 5 of any character'. In the general syntax of RE, there is a character for 'any character', which is \texttt{.}, and a quantifier, where you can state how many of a given character you want matched, which is \texttt{\{min,max\}}. Using these, (\ref{example:range}) translates into the following RE:
 \begin{equation}
 .\{2,5\}
 \end{equation}
 
 \subsubsection{Mismatches, Deletions, and Insertions}
 
-Combination sequences does not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
+Combination sequences do not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence, matching the patscan notation, which is the problem we sought to solve.
 
-A recursive algorithm $f$ that solves this problem can easily be written, but it will have a running time of exponential growth. The way this is done, is by looking at each letter in the sequence, and branch out for each choice of mismatch, deletion or insertions for the given letter.
+A recursive algorithm $f$ that solves this problem can easily be written, but it will have a running time of exponential growth, when the length of the sequence increases. The way this is done, is by looking at each letter in the sequence, and branch out for each choice of mismatch, deletion or insertions for the given letter.
 
 \begin{example}[label=example:recursion]
-Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and calling $f$ with the remaining letters for every possibility of the \texttt{A}.
+Looking at the combination sequence \texttt{AGCTC[2,0,0]}, we start by taking the \texttt{A}, and call $f$ with the remaining letters for every possibility of the \texttt{A}.
 \begin{eqnarray}
-	Left\ branch &=& func(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
-	right\ branch &=& func(mismatch(\texttt{A}), \texttt{GCTC[1,0,0]})
+	Left\ branch &=& f(\texttt{A}, \texttt{GCTC[2,0,0]}) \\
+	right\ branch &=& f(mismatch(\texttt{A}), \texttt{GCTC[1,0,0]})
 \end{eqnarray}
 The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the right branch will do the same but with only one mismatch available, since we already chose \texttt{A} as our first mismatch. When $f$ reaches base case, we will have a string with a unique combination of mismatches. Like this, all possible combinations will be constructed, and they can be added to a list of all combinations.
 \end{example}
@@ -623,8 +622,8 @@ When reaching base case for a character $a$, algorithm~\ref{alg:divideandconquer
     					\State continue
     				\EndIf
     				\If{\Not LL.seq + RL.seq \In unique\_combinations.keys} \label{alg:divide:invariant2}
-    					\Append{unique\_combinations}{LL.seq + RL.seq}
-    					\Append{combined}{LL + RL}
+    					\Let{unique\_combinations}{LL.seq + RL.seq}
+    					\Let{combined}{LL + RL}
     				\EndIf
     			\EndFor
     		\EndFor
@@ -706,7 +705,13 @@ Using algorithm \ref{alg:divideandconquer} without modifications, we will have a
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both, and by keeping it, will create exponentially more redundancy, the more levels of the recursion there is.
 
-Assuming we have an even number of characters in the sequence, and that only insertions are allowed, we have that on the first 'combine' step, there is $r_0$ redundant cases. In the following example, $i_{max}$ is the maximum number of allowed insertions.
+Assuming we have an even number of characters in the sequence, and that only insertions are allowed, we have that on the first 'combine' step, there is
+\begin{eqnarray}
+	\label{r_0}
+	r_0 = \frac{1}{2}n\sum^{i_{max}}_{i=1} i
+\end{eqnarray}
+
+redundant cases, where $\frac{1}{2}n$ is the number of combine steps in this recursion level.
 
 \begin{example}
 The following example shows the variations of a with b that are the same when combined. The bold characters are combined with the cursive characters.
@@ -720,16 +725,18 @@ Since all cases for $i_{n-1}$ also applies to $i_{n}$, we end up with
 \begin{eqnarray}
 	\sum_{i=1}^{i_{max}}i
 \end{eqnarray}
-redundant cases for each combination step in each branch. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us:
+redundant cases for each combination step in each branch, where $i_{max}$ is the maximum number of insertions. If $n$ is the number of characters in the sequence, there are $\frac{1}{2}n$ combination steps on this level, which gives us:
 \begin{eqnarray}
-	\label{r_0}
 	r_0 = \frac{1}{2}n\sum^{i_{max}}_{i=1} i
 \end{eqnarray}
 \end{example}
 
-On the next combine step, we have $r_1$ redundant cases. In order to calculate $r_1$, I will define $c = 1 + 2i$ as the number of cases in the \textit{base case}, meaning the number of cases in the lowest level of recursion. Each redundant case will be combined with all cases in the second set, which contains $c^2$ cases. All non-redundant cases from the first set will also be combined with all redundant cases of the second set. Because there is maximum of the number of insertions allowed in a single case, where this maximum varies, we will introduce a factor $\kappa$, that represents the scaling factor, that corrects the number of elements in a given set, corresponding to the number of insertions allowed.
+On the next combine step, we have $r_1$ redundant cases. In order to calculate $r_1$, I will define $c = 1 + 2i$ as the number of cases in the \textit{base case}, meaning the number of cases in the lowest level of recursion. Each redundant case will be combined with all cases in the second set, which contains $c^2$ cases. All non-redundant cases from the first set will also be combined with all redundant cases of the second set. 
+
+Because there is maximum of the number of insertions allowed in a single case, where this maximum varies, a lot of combinations will be skipped, resulting in fewer cases than $c^2$. To correct for this, we will introduce a factor $\kappa$, that represents the scaling factor, that corrects the number of elements in a given set, corresponding to the number of insertions allowed.
 \begin{eqnarray}
-	2r_0\frac{c^2}{\kappa_0} - r_0^2
+	\label{r_1}
+	r_1 = \frac{1}{4}n(2r_0\frac{c^2}{\kappa_1} - r_0^2)
 \end{eqnarray}
 
 \begin{example}
@@ -737,7 +744,6 @@ We have a set $A$ and another set $B$, each containing $\frac{c^2}{\kappa}$ elem
 
 All $r_0$ redundant elements in $A$ will combine with all elements in $B$, creating $r_0\frac{c^2}{\kappa}$ redundant cases. Likewise, all $\frac{c^2}{\kappa}-r_0$ non-redundant case in $A$ will combine with all $r_0$ redundant cases in $B$, creating $r_0(\frac{c^2}{\kappa}-r_0)$ additional redundant cases. There are $\frac{1}{4}n$ combination steps on this level, which gives us:
 \begin{eqnarray}
-	\label{r_1}
 	r_1 &=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0(\frac{c^2}{\kappa_1} - r_0))\\
 		&=& \frac{1}{4}n(r_0\frac{c^2}{\kappa_1} + r_0\frac{c^2}{\kappa_1} - r_0^2))\\
 		&=& \frac{1}{4}n(2r_0\frac{c^2}{\kappa_1} - r_0^2)
@@ -776,11 +782,7 @@ Despite result reached in formula \ref{r_x}, inaccuracy occurs, as the recursion
 
 Despite of this inaccuracy, it is still trivial, that the amount of redundancy in is excessive, as it translates directly into additional running time.
 
-Avoiding this redundancy is very important, and relatively trivial. Every time two cases are combined, it is used as a key in a hash table, and its value set to true. The value doesn't matter, all that matters is that the hash table now has this combination as a key.
-
-Every time we make a new combination, we check if that combination already exists, and if it does, we simply skip it.
-
-We can look up in a hash table in $O(1)$ time, which doesn't increase the running time by much. However, we will end up with a significantly lower running time in the long run, as all redundancy is sorted out.
+Avoiding this redundancy is very important, and relatively trivial. Every time two cases are combined, it is put in a set, and we can thus avoid having duplicates. By avoiding duplicates in early on in algorithm~\ref{alg:divideandconquer}, we will have far fewer operations later, which saves us a lot of memory and running time.
 
 
 \subsubsection{Variable assignments \& usage}
@@ -815,41 +817,22 @@ In the divide step, our algorithm (algorithm \ref{alg:divideandconquer}) first s
 	T(n) = 2T(\frac{n}{2}) = O(log_2n)
 \end{eqnarray}
 
-The conquer step, where we construct each combination of every base case, is trivially solved by constructing a set of the combinations. It constructs one element if any mismatches are allowed, which it can do in $O(1)$ constant time. It constructs one element if any deletions are allowed, which it can also do in $O(1)$ constant time. It constructs two elements for each insertions that is allowed, which take $O(2i)$ time. It does this for every base case, which leaves us with a total running time of $O(ni)$, where $i$ is the number of insertions allowed.
+The conquer step, where we construct each combination of every base case, is trivially solved by constructing a set of the combinations. It constructs one element if any mismatches are allowed, which it can do in $O(1)$ constant time. It constructs one element if any deletions are allowed, which it can also do in $O(1)$ constant time. It constructs two elements for each insertions that is allowed, which take $O(2i)$ time, where $i$ is the number of insertions allowed. It does this for every base case, which leaves us with a total running time of $O(ni)$.
 \begin{eqnarray}
 	T(n) = O(log_2n) + O(ni)
 \end{eqnarray}
 
-In the combine step, we combine each element of two sets $A$ and $B$. Each combination takes $O(1)$ constant time, and it does this operation $SIZE(A) \cdot SIZE(B)$ times. The sets $A$ and $B$ were created in the same way recursively, which means the total running time of each recursion level increases exponentially. In total we have a running time of $O(i^{2^{log_2(n)}})$, where $i$ is the number of insertions, and $n$ is the length of the sequence.
+In the combine step, we combine each element of two sets $A$ and $B$. Each combination takes $O(1)$ constant time, and it does this operation $|A| \cdot |B|$ times. The sets $A$ and $B$ were created in the same way recursively, which means the total running time of each recursion level increases exponentially. In total we have a running time of $O(i^n)$, where $i$ is the number of insertions, and $n$ is the length of the sequence.
 
 The running time of every combination step before the final one combined is significantly smaller than the final combination step, which means that they are consumed by the exponentially larger running time of the last iteration. This gives us a running time of:
 \begin{eqnarray}
-	T(n) = O(log_2n) + O(ni) + O(i^{2^{log_2(n)}})
+	T(n) = O(log_2n) + O(ni) + O(i^n)
 \end{eqnarray}
 
 The running time of the divide and conquer step also consumed by the combine step, leaving us with a running time of
 \begin{eqnarray}
-	O(i^{2^{log_2(n)}})
+	O(i^n)
 \end{eqnarray}
-
-\begin{example}
-If we have the sequence \texttt{ATGCAATT[0,0,2]}, we will have a recursion depth, and thus the divide step has a running time of:
-\begin{eqnarray}
-	log_2(8) = 3
-\end{eqnarray}
-
-The conquer step will then have a running time of
-\begin{eqnarray}
-	8\cdot 2 = 16
-\end{eqnarray}
-
-The final step of the combine step will have a running time of
-\begin{eqnarray}
-	2^{2^{log_2(8)}} = 256
-\end{eqnarray}
-
-It can thus be seen, that the running time of the combine step consumes the running time of both the divide and the conquer step.
-\end{example}
 
 \newpage
 
