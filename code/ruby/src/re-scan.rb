@@ -39,13 +39,13 @@ begin
 
     matches = fasta_file.to_enum(:scan, regex).map { Regexp.last_match }
 
-    puts "#{Time.now.to_f}: Found #{matches.size} matches to #{arg1}.\n-"
+    puts '-'
 
     matches.each { |m|
         puts "\t:#{Time.now.to_f}: Found #{m.to_s} at #{m.begin 0}:#{m.end 0}."
     }
 
-    puts '-'
+    puts "_\n#{Time.now.to_f}: Found #{matches.size} matches to #{arg1}."
 
 rescue RegexpError => e
     # Regular expression is too big for the ruby engine.

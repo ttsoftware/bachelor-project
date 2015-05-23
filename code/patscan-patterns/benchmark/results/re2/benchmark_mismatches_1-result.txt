@@ -1,6 +1,9 @@
 Trying AGCGTGGGGAGCAAAC[1,0,0].
+~
 Compile time: 0ms.
-Match time: 173ms.
-total time: 173ms.
+Match time: 200ms.
+total time: 200ms.
 Number of matches: 0
-Process killed - 10 seconds expired.
+
+~
+Process killed - 120 seconds expired.

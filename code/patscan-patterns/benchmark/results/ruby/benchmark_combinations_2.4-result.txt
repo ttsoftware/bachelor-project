@@ -1,6 +1,11 @@
 Trying AGCGTGGGGAGCAAAC[1,3,1].
+~
 /home/troels/.rvm/gems/ruby-2.2.0@global/gems/bundler-1.8.3/lib/bundler/shared_helpers.rb:83: warning: Insecure world writable dir /home/troels in PATH, mode 040777
-Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
-Finished loading fasta file into memory
-Regular expression of length 1317099, is too big for the ruby regular expression engine.
-Process killed - 30 seconds expired.
+1432339923.4668581: Start.
+1432339923.4681368: Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
+1432339923.8519995: Finished loading fasta file into memory
+_
+1432339923.9499552: Regular expression of length 1178610, is too big for the ruby regular expression engine.
+
+~
+Process killed - 120 seconds expired.

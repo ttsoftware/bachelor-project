@@ -1,8 +1,7 @@
 Trying AGCGTGGGGAGCAAAC[0,0,3].
-re2/re2.cc:223: Error compiling '(?i)((AGCGTGGGGAGCAAAC)|(AGCGTGGGGAGCAAA[^N]{1}C)|(AGCGTGGGGAGCAAAC[^N]{1})|(AGCGTGGGGAGCAAA[^N]{2}C...'
-Compile time: 13ms.
-re2/re2.cc:798: Invalid RE2: pattern too large - compile failed
-Match time: 0ms.
-total time: 13ms.
-Number of matches: 0
-Process killed - 10 seconds expired.
+~
+Compile time: 15ms.
+re2/dfa.cc:1659: Failed to analyze start state.
+
+~
+Process killed - 120 seconds expired.

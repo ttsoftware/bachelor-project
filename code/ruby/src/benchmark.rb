@@ -86,6 +86,7 @@ class Benchmark
                 puts "Started #{file} with command '#{runtime} #{re_file} #{@fasta_files[0]}'"
             }
 
+            # join all 4 threads before continuing
             threads.each { |t| t.join }
         }
     end
@@ -95,7 +96,7 @@ class Benchmark
     end
 
     def python
-
+        start_threads('../python/main.py', 'python')
     end
 
     def re2

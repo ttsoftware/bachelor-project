@@ -1,4 +1,7 @@
 Trying AGCGTGGGGAGCAAAC[0,4,0].
+~
 Compile time: 3ms.
 re2/dfa.cc:1159: DFA memory cache could be too small: only room for 59 states.
-Process killed - 10 seconds expired.
+
+~
+Process killed - 120 seconds expired.
