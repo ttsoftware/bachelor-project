@@ -7,3 +7,4 @@ tex/*/*.pdf
 tex/*/*.bbl
 tex/*/*.blg
 tex/*/*.toc
+code/scan_for_matches/scan_for_matches
