@@ -28,4 +28,13 @@ describe Benchmark, :type => :class do
             benchmark.re2
         end
     end
+
+    describe '#scan-for-matches' do
+
+        it 'works with scan-for-matches' do
+
+            benchmark = Benchmark.new 60, 120
+            benchmark.scan_for_matches
+        end
+    end
 end

@@ -1,17 +1,2 @@
 Trying AGCGTGGGGAGCAAAC[0,2,0].
 ~
-/home/troels/.rvm/gems/ruby-2.2.0@global/gems/bundler-1.8.3/lib/bundler/shared_helpers.rb:83: warning: Insecure world writable dir /home/troels in PATH, mode 040777
-1432336623.2758172: Start.
-1432336623.275873: Opening ../patscan-patterns/benchmark/../../genome/chr22.fa.
-1432336623.6422307: Finished loading fasta file into memory
-_
-1432336658.729103: Found 4 matches to ../patscan-patterns/benchmark/deletions/benchmark_deletions_2.re.
--
-	:1432336658.7291305: Found AGCTGGGAGCAAAC at 25055654:25055668.
-	:1432336658.732205: Found AGCTGGGGAGCAAA at 29381487:29381501.
-	:1432336658.7341268: Found AGGTGGGGAGAAAC at 36005771:36005785.
-	:1432336658.7367835: Found ACGTGGGGAGAAAC at 36581749:36581763.
--
-
-~
-Process killed - 120 seconds expired.

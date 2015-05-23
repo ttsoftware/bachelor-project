@@ -106,4 +106,8 @@ class Benchmark
     def kmc
 
     end
+
+    def scan_for_matches
+        start_threads('../scan_for_matches/main.py', 'scan-for-matches')
+    end
 end

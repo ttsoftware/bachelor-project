@@ -1,1 +1,0 @@
-/home/troels/Studie/Bachelorprojekt/code/regex-patterns/patscan_test.re
