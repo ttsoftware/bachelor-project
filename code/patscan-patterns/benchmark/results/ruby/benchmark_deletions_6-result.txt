@@ -1,6 +1,8 @@
 Trying AGCGTGGGGAGCAAAC[0,6,0].
 ~
 /home/troels/.rvm/gems/ruby-2.2.0@global/gems/bundler-1.8.3/lib/bundler/shared_helpers.rb:83: warning: Insecure world writable dir /home/troels in PATH, mode 040777
-
-~
-Process killed - 120 seconds expired.
+/media/secondary/Copy/Studie/Bachelorprojekt/code/ruby/src/re-scan.rb:41:in `scan': Interrupt
+	from /media/secondary/Copy/Studie/Bachelorprojekt/code/ruby/src/re-scan.rb:41:in `each'
+	from /media/secondary/Copy/Studie/Bachelorprojekt/code/ruby/src/re-scan.rb:41:in `map'
+	from /media/secondary/Copy/Studie/Bachelorprojekt/code/ruby/src/re-scan.rb:41:in `<main>'
+0.7678780555725098

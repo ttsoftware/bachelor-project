@@ -1,0 +1,13 @@
+Trying AGCGTGGGGAGCAAAC[0,7,0].
+~
+26
+Traceback (most recent call last):
+  File "../python/main.py", line 26, in <module>
+    results = re.search(reg[4:-5], text, re.IGNORECASE)
+  File "/usr/lib/python2.7/re.py", line 142, in search
+    return _compile(pattern, flags).search(string)
+  File "/usr/lib/python2.7/re.py", line 242, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/usr/lib/python2.7/sre_compile.py", line 509, in compile
+    "sorry, but this version only supports 100 named groups"
+AssertionError: sorry, but this version only supports 100 named groups

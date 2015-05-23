@@ -54,27 +54,31 @@ int main(int argc, char **argv) {
 
     int compileTime = getMilliSpan(compileStart);
 
-    cout << "Compile time: " << compileTime << "ms." << endl;
+    cout << compileTime << endl;
 
     StringPiece input(fasta);
     string value;
+
+    cout << "-" << endl;
 
     int matches = 0;
     int matchStart = getMilliCount();
 
     while (RE2::FindAndConsume(&input, pattern, &value)) {
-        cout << "Matched: " << value << " after " << getMilliSpan(matchStart) << "ms" << endl;
+        cout << getMilliSpan(matchStart) << ": Found: " << value << endl;
         matches++;
     }
 
-    //int match = RE2::PartialMatch(fasta, pattern);
-
     int matchTime = getMilliSpan(matchStart);
 
-    cout << "Match time: " << matchTime << "ms." << endl;
-    cout << "total time: " << compileTime + matchTime << "ms." << endl;
+    cout << "-" << endl;
+    cout << "_" << endl;
 
-    cout << "Number of matches: " << matches << endl;
+    //int match = RE2::PartialMatch(fasta, pattern);
+
+    cout << matchTime << endl;
+    cout << compileTime + matchTime << endl;
+    cout << matches << endl;
 
     return 0;
 }

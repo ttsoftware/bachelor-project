@@ -17,8 +17,6 @@ if ARGV.length != 2
     exit!
 end
 
-puts "#{Time.now.to_f}: Start."
-
 arg1 = ARGV[0]
 fasta_file = ''
 pattern = ''
@@ -30,22 +28,29 @@ else
     File.open(arg1, 'r') { |file| pattern = file.readlines.join '' }
 end
 
-puts "#{Time.now.to_f}: Opening #{ARGV[1]}."
+read_file_start = Time.now.to_f
 File.open(ARGV[1], 'r') { |file| fasta_file = file.readlines.join ' ' }
-puts "#{Time.now.to_f}: Finished loading fasta file into memory\n_"
+read_file_end = Time.now.to_f
+
+puts read_file_end - read_file_start
 
 begin
     regex = Regexp.new pattern
 
+    match_time_start = Time.now
     matches = fasta_file.to_enum(:scan, regex).map { Regexp.last_match }
+    match_time_end = Time.now
 
     puts '-'
 
     matches.each { |m|
-        puts "\t:#{Time.now.to_f}: Found #{m.to_s} at #{m.begin 0}:#{m.end 0}."
+        puts "#{Time.now.to_f}: Found #{m.to_s} at #{m.begin 0}:#{m.end 0}."
     }
 
-    puts "_\n#{Time.now.to_f}: Found #{matches.size} matches to #{arg1}."
+    puts "-\n_"
+    puts "#{match_time_end - match_time_start}"
+    puts "#{Time.now.to_f}"
+    puts "#{matches.size}"
 
 rescue RegexpError => e
     # Regular expression is too big for the ruby engine.

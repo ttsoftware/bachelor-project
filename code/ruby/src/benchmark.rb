@@ -16,7 +16,7 @@ class Benchmark
         @fasta_files = Dir["#{@enviroment}/../../genome/*.fa"].sort!
     end
 
-    def start_threads(runtime, engine)
+    def start_threads(runtime, engine, is_scan_for_matches=false)
 
         # run all tests in pairs of 5 at a time
         @patscan_files.each_slice(4) { |slice|
@@ -25,48 +25,58 @@ class Benchmark
 
             slice.each { |file|
 
-                patscan_pattern = ''
-                File.open(file, 'r') { |f| patscan_pattern = (f.readlines.join ' ').rstrip! }
-
-                # we must first generate the regex pattern.
-
-                # define the .re file location
-                re_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.pat$/, '\k<path>/\k<name>.re'
-
-                puts "Trying #{file}."
-
-                t = Thread.new {
-
-                    pattern = Translater.new(patscan_pattern).translate
-                    File.open(re_file, 'w') { |f|
-                        f.write pattern
-                    }
-                }
-
-                sleep @compiletime
-
-                Thread.kill t # only allow compile time of @compiletime seconds
-                t.join
-
-                # define output file for current input file
-                result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
-                result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
-
-                File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}.\n~" }
-
-                unless File.exist? re_file
-                    File.open(result_file, 'a') { |f|
-                        f.puts "ERROR: No such file #{re_file} - compile failed or did not finish."
-                    }
-                    next
-                end
-
                 threads << Thread.new {
 
-                    pid = spawn(
-                        "#{runtime} #{re_file} #{@fasta_files[0]}",
-                        [:out, :err] => [result_file, 'a']
-                    )
+                    patscan_pattern = ''
+                    File.open(file, 'r') { |f| patscan_pattern = (f.readlines.join ' ').rstrip! }
+
+                    # we must first generate the regex pattern.
+                    # define the .re file location
+                    re_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.pat$/, '\k<path>/\k<name>.re'
+
+                    puts "Trying #{file}."
+
+                    t = Thread.new {
+
+                        pattern = Translater.new(patscan_pattern).translate
+                        File.open(re_file, 'w') { |f|
+                            f.write pattern
+                        }
+                    }
+
+                    sleep @compiletime
+
+                    Thread.kill t # only allow compile time of @compiletime seconds
+                    t.join
+
+                    # define output file for current input file
+                    result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
+                    result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
+
+                    File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}.\n~" }
+
+                    unless File.exist? re_file
+                        File.open(result_file, 'a') { |f|
+                            f.puts "ERROR: No such file #{re_file} - compile failed or did not finish."
+                        }
+                        next
+                    end
+
+                    if is_scan_for_matches
+                        pid = spawn(
+                            "#{runtime} #{file} #{@fasta_files[0]}",
+                            [:out, :err] => [result_file, 'a']
+                        )
+
+                        puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
+                    else
+                        pid = spawn(
+                            "#{runtime} #{re_file} #{@fasta_files[0]}",
+                            [:out, :err] => [result_file, 'a']
+                        )
+
+                        puts "Started #{file} with command '#{runtime} #{re_file} #{@fasta_files[0]}'"
+                    end
 
                     Process.detach pid # do not collect termination information
 
@@ -82,8 +92,6 @@ class Benchmark
                     File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
                     File.delete re_file
                 }
-
-                puts "Started #{file} with command '#{runtime} #{re_file} #{@fasta_files[0]}'"
             }
 
             # join all 4 threads before continuing
@@ -108,6 +116,6 @@ class Benchmark
     end
 
     def scan_for_matches
-        start_threads('../scan_for_matches/main.py', 'scan-for-matches')
+        start_threads('../scan_for_matches/main.py', 'scan_for_matches', true)
     end
 end
