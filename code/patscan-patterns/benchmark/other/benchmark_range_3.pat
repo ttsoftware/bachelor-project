@@ -1,0 +1,1 @@
+ATGCTT 8...16 AAACCT

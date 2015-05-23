@@ -1,0 +1,1 @@
+ATGCTT 2...4 AAACCT
