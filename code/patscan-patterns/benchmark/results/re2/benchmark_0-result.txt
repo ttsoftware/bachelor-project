@@ -1,6 +1,0 @@
-Trying AGCGTGGGGAGCAAAC.
-Compile time: 0ms.
-Match time: 273ms.
-total time: 273ms.
-Number of matches: 0
-Process killed - 10 seconds expired.

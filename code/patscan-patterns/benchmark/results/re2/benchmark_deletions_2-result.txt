@@ -1,13 +1,6 @@
 Trying AGCGTGGGGAGCAAAC[0,2,0].
 ~
-Compile time: 1ms.
-Matched: AGCTGGGAGCAAAC after 110ms
-Matched: AGCTGGGGAGCAAA after 133ms
-Matched: AGGTGGGGAGAAAC after 167ms
-Matched: ACGTGGGGAGAAAC after 170ms
-Match time: 245ms.
-total time: 246ms.
-Number of matches: 4
+../c++/main: error while loading shared libraries: libre2.so.0: cannot open shared object file: No such file or directory
 
 ~
 Process killed - 120 seconds expired.

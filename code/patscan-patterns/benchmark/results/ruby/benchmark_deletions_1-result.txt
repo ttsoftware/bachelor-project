@@ -1,12 +1,11 @@
 Trying AGCGTGGGGAGCAAAC[0,1,0].
 ~
-/home/troels/.rvm/gems/ruby-2.2.0@global/gems/bundler-1.8.3/lib/bundler/shared_helpers.rb:83: warning: Insecure world writable dir /home/troels in PATH, mode 040777
-1.0980384349822998
+0.848839521408081
 -
 -
 _
-14.629592837
-1432397759.693795
+11.690506958
+1432411856.4454236
 0
 
 ~

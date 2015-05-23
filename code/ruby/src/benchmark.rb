@@ -64,7 +64,7 @@ class Benchmark
 
                     if is_scan_for_matches
                         pid = spawn(
-                            "#{runtime} #{file} #{@fasta_files[0]}",
+                            "python #{runtime} #{file} #{@fasta_files[0]}",
                             [:out, :err] => [result_file, 'a']
                         )
 

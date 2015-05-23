@@ -1,7 +1,0 @@
-Trying AGCGTGGGGAGCAAAC[3,0,0].
-~
-Compile time: 8ms.
-re2/dfa.cc:1659: Failed to analyze start state.
-
-~
-Process killed - 120 seconds expired.

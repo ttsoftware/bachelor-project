@@ -1,6 +1,0 @@
-Trying AGCGTGGGGAGCAAAC[1,0,1].
-~
-Compile time: 3ms.
-
-~
-Process killed - 120 seconds expired.

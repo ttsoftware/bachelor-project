@@ -11,14 +11,14 @@ describe Benchmark, :type => :class do
         end
     end
 
-    describe '#python' do
-
-        it 'works with python' do
-
-            benchmark = Benchmark.new 30, 120
-            benchmark.python
-        end
-    end
+    # describe '#python' do
+    #
+    #     it 'works with python' do
+    #
+    #         benchmark = Benchmark.new 30, 120
+    #         benchmark.python
+    #     end
+    # end
 
     describe '#re2' do
 

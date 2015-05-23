@@ -1,7 +1,6 @@
 Trying AGCGTGGGGAGCAAAC[0,4,0].
 ~
-Compile time: 3ms.
-re2/dfa.cc:1159: DFA memory cache could be too small: only room for 59 states.
+../c++/main: error while loading shared libraries: libre2.so.0: cannot open shared object file: No such file or directory
 
 ~
 Process killed - 120 seconds expired.

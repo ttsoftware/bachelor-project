@@ -12,7 +12,7 @@ if len(sys.argv) < 3:
     exit()
 
 start = milli_time()
-results = subprocess.check_output("../scan_for_matches/scan_for_matches " + sys.argv[1] + ' < ' + sys.argv[2], shell=True)
+results = subprocess.check_output("scan_for_matches " + sys.argv[1] + ' < ' + sys.argv[2], shell=True)
 search_time = milli_time() - start
 
 print '-'

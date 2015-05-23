@@ -1,7 +1,6 @@
 Trying AGCGTGGGGAGCAAAC[0,9,0].
 ~
-Compile time: 47ms.
-re2/dfa.cc:1659: Failed to analyze start state.
+../c++/main: error while loading shared libraries: libre2.so.0: cannot open shared object file: No such file or directory
 
 ~
 Process killed - 120 seconds expired.
