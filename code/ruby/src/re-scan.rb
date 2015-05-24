@@ -33,7 +33,7 @@ File.open(ARGV[1], 'r') { |file| fasta_file = file.readlines.join ' ' }
 read_file_end = Time.now.to_f
 
 # <Memory time>
-puts "#{read_file_end - read_file_start}"
+puts read_file_end - read_file_start
 
 begin
     regex = Regexp.new pattern
@@ -41,12 +41,6 @@ begin
     match_time_start = Time.now
     matches = fasta_file.to_enum(:scan, regex).map { Regexp.last_match }
     match_time_end = Time.now
-
-    # <Matches>
-    puts '-'
-    matches.each { |m|
-        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0} - #{Time.now.to_f}"
-    }
 
     # <Match time>
     puts '_'
@@ -60,7 +54,13 @@ begin
     puts '&'
     puts matches.size
 
+    # <Matches>
+    puts '-'
+    matches.each { |m|
+        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0} - #{Time.now.to_f}"
+    }
+
 rescue RegexpError => e
     # Regular expression is too big for the ruby engine.
-    puts "#{Time.now.to_f}: Regular expression of length #{pattern.length}, is too big for the ruby regular expression engine."
+    # puts "#{Time.now.to_f}: Regular expression of length #{pattern.length}, is too big for the ruby regular expression engine."
 end

@@ -29,12 +29,6 @@ except:
     exit()
 search_time = milli_time() - start
 
-print '-'
-if results:
-    for result in results:
-        if len(result) > 0:
-            print result
-
 print '_'
 print search_time
 
@@ -43,6 +37,16 @@ print readfile_time + search_time
 
 print '&'
 if results:
-    print len(result)
+    counter = 0
+    for result in results:
+        if len(result) > 0:
+            counter += 1
+    print len(counter)
 else:
     print 0
+
+print '-'
+if results:
+    for result in results:
+        if len(result) > 0:
+            print result

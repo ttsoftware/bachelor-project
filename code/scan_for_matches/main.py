@@ -15,18 +15,18 @@ start = milli_time()
 results = subprocess.check_output("scan_for_matches " + sys.argv[1] + ' < ' + sys.argv[2], shell=True)
 search_time = milli_time() - start
 
-print '-'
-if results:
-    results = results.split("\n")[0:-1]
-    for x in range(0, len(results), 2):
-        print results[x+1] + ' - ' + results[x][8:-1].split(',')[0] + ':' + results[x][8:-1].split(',')[1]
-
 print '_'
 print search_time
 print '#'
 print search_time
 print '&'
 if results:
-    print len(results)
+    print len(results)/2
 else:
     print 0
+
+print '-'
+if results:
+    results = results.split("\n")[0:-1]
+    for x in range(0, len(results), 2):
+        print results[x+1] + ' - ' + results[x][8:-1].split(',')[0] + ':' + results[x][8:-1].split(',')[1]

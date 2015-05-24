@@ -90,7 +90,7 @@ class Benchmark
                     end
 
                     #File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
-                    File.delete re_file
+                    #File.delete re_file
                 }
             }
 
