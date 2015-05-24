@@ -89,7 +89,7 @@ class Benchmark
                         # no such process it already finished, which is nice.
                     end
 
-                    File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
+                    #File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
                     File.delete re_file
                 }
             }

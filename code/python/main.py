@@ -23,17 +23,26 @@ print readfile_time
 f.close()
 
 start = milli_time()
-results = re.search(reg[4:-5], text, re.IGNORECASE)
+try:
+    results = re.findall(reg[4:-5], text, re.IGNORECASE)[0]
+except:
+    exit()
 search_time = milli_time() - start
+
 print '-'
 if results:
-    for result in results.groups():
-        print result
-print '-'
+    for result in results:
+        if len(result) > 0:
+            print result
+
 print '_'
 print search_time
+
+print '#'
 print readfile_time + search_time
+
+print '&'
 if results:
-    print len(result.groups())
+    print len(result)
 else:
     print 0

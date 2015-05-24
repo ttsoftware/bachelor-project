@@ -18,13 +18,15 @@ search_time = milli_time() - start
 print '-'
 if results:
     results = results.split("\n")[0:-1]
-    for result in results:
-        print result
-print '-'
+    for x in range(0, len(results), 2):
+        print results[x+1] + ' - ' + results[x][8:-1].split(',')[0] + ':' + results[x][8:-1].split(',')[1]
+
 print '_'
 print search_time
+print '#'
 print search_time
+print '&'
 if results:
-    print len(results)/2
+    print len(results)
 else:
     print 0
