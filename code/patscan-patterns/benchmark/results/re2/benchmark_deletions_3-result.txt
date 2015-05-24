@@ -1,6 +1,92 @@
 Trying AGCGTGGGGAGCAAAC[0,3,0].
 ~
-../c++/main: error while loading shared libraries: libre2.so.0: cannot open shared object file: No such file or directory
-
-~
-Process killed - 120 seconds expired.
+2
+-
+105: Found: agctgggacaaac
+re2/dfa.cc:1159: DFA memory cache could be too small: only room for 178 states.
+338: Found: AGTGGGGACAAAC
+342: Found: AGGTGGGAGAAAC
+467: Found: aggtgggagcaac
+874: Found: CTGGGGAGCAAAC
+970: Found: GCTGGGGAGAAAC
+1359: Found: AGGTGGGGGCAAC
+1394: Found: AGTGGGGGCAAAC
+1554: Found: ACGTGGGGGAAAC
+1633: Found: ACTGGGGAGAAAC
+1668: Found: AGCTGGGGGCAAC
+1681: Found: AGCTGGGGAGCAA
+1855: Found: aggtggggaaaac
+1922: Found: AGCTGGGAGCAAAC
+2082: Found: agtggggacaaac
+2106: Found: aggtggagcaaac
+2139: Found: AGTGGGGAGCAAA
+2166: Found: AGCGTGGGAGAAA
+2240: Found: agctggggagcaa
+2333: Found: AGCTGGGAGAAAC
+2464: Found: AGGTGGGGAGCAA
+2509: Found: AGCTGGGGAAAAC
+2526: Found: AGCTGGGGAGCAAA
+2562: Found: AGCTGGGAGCAAA
+2570: Found: GGTGGGGAGAAAC
+2613: Found: cgtggggagcaac
+2660: Found: AGGTGGGGAGCAC
+2691: Found: AGCGTGGGGGAAA
+2723: Found: AGCTGGGACAAAC
+2787: Found: ATGGGGAGCAAAC
+2831: Found: ACGGGGGAGCAAA
+2873: Found: AGCGTGGACAAAC
+2880: Found: actggggagcaaa
+2932: Found: AGCTGGGGAGAAA
+2974: Found: GGTGGGGACAAAC
+3011: Found: gctggggagaaac
+3024: Found: agtggggacaaac
+3046: Found: GTGGGGAGCAAAC
+3058: Found: ggtggggagaaac
+3100: Found: agtggggagcaaa
+3126: Found: AGGTGGGGGCAAC
+3202: Found: AGGTGGGGAGAAAC
+3255: Found: GGTGGGGAGCAAC
+3266: Found: ACGTGGGGAGAAAC
+3278: Found: aggtggggagaaa
+3390: Found: atggggagcaaac
+3426: Found: AGCTGGGGAGCAA
+3444: Found: AGCTGGGGGCAAA
+3556: Found: AGCTGGGACAAAC
+4044: Found: GCTGGGGAGAAAC
+4134: Found: AGTGGGGAGCAAA
+4294: Found: aggtggggaaaac
+4353: Found: AGGTGGGGACAAA
+4448: Found: AGCGGGGGCAAAC
+4688: Found: GCTGGGGAGAAAC
+4722: Found: GCTGGGGGCAAAC
+4740: Found: ACTGGGGACAAAC
+4774: Found: agctgggagaaac
+4948: Found: agctgggagaaac
+4996: Found: aggtggggagcac
+5075: Found: AGGTGGGGAGAAA
+5177: Found: ACTGGGAGCAAAC
+5227: Found: AGGTGGGGGAAAC
+5233: Found: aggtggggagcac
+5297: Found: AGGTGGGAGCAAA
+5375: Found: AGGTGGGGAAAAC
+5508: Found: aggtgggagcaac
+5560: Found: AGGTGGGAGCAAA
+5560: Found: AGTGGGGAGCAAC
+5595: Found: AGCTGGGGGAAAC
+5610: Found: AGCTGGGGAGAAA
+5639: Found: agcggggagaaac
+5659: Found: AGCTGGGAGCAAA
+5722: Found: AGCGTGGGGAGCA
+5762: Found: AGCGTGGGGAGCC
+5770: Found: GCTGGGGAGCAAC
+5836: Found: acgggggagaaac
+5941: Found: aggtgggggaaac
+5961: Found: AGGTGGGGAGAAC
+6122: Found: agcgtgggggaac
+6152: Found: agctggggacaac
+_
+6158
+#
+6160
+&
+81
