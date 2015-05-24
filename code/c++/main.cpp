@@ -71,13 +71,18 @@ int main(int argc, char **argv) {
 
     int matchTime = getMilliSpan(matchStart);
 
-    cout << "-" << endl;
     cout << "_" << endl;
 
     //int match = RE2::PartialMatch(fasta, pattern);
 
     cout << matchTime << endl;
+
+    cout << "#" << endl;
+
     cout << compileTime + matchTime << endl;
+
+    cout << "&" << endl;
+
     cout << matches << endl;
 
     return 0;

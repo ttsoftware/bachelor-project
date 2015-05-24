@@ -36,18 +36,20 @@ class Benchmark
 
                     puts "Trying #{file}."
 
-                    t = Thread.new {
+                    unless is_scan_for_matches
+                        t = Thread.new {
 
-                        pattern = Translater.new(patscan_pattern).translate
-                        File.open(re_file, 'w') { |f|
-                            f.write pattern
+                            pattern = Translater.new(patscan_pattern).translate
+                            File.open(re_file, 'w') { |f|
+                                f.write pattern
+                            }
                         }
-                    }
 
-                    sleep @compiletime
+                        sleep @compiletime
 
-                    Thread.kill t # only allow compile time of @compiletime seconds
-                    t.join
+                        Thread.kill t # only allow compile time of @compiletime seconds
+                        t.join
+                    end
 
                     # define output file for current input file
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
@@ -55,10 +57,8 @@ class Benchmark
 
                     File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}.\n~" }
 
-                    unless File.exist? re_file
-                        File.open(result_file, 'a') { |f|
-                            f.puts "ERROR: No such file #{re_file} - compile failed or did not finish."
-                        }
+                    if not File.exist? re_file and not is_scan_for_matches
+                        puts "ERROR: No such file #{re_file} - compile failed or did not finish."
                         next
                     end
 
@@ -69,6 +69,8 @@ class Benchmark
                         )
 
                         puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
+
+                        Process.waitpid pid
                     else
                         pid = spawn(
                             "#{runtime} #{re_file} #{@fasta_files[0]}",
@@ -81,16 +83,19 @@ class Benchmark
                     Process.detach pid # do not collect termination information
 
                     # only run this thread for @runningtime seconds.
-                    sleep @runningtime
+                    sleep @runningtime unless is_scan_for_matches
 
                     begin
-                        Process.kill 'SIGKILL', pid # sigkill
+                        Process.kill 'SIGKILL', pid unless is_scan_for_matches # sigkill
                     rescue Errno::ESRCH => e
                         # no such process it already finished, which is nice.
                     end
 
-                    #File.open(result_file, 'a') { |f| f.puts "\n~\nProcess killed - #{@runningtime} seconds expired." }
-                    File.delete re_file
+                    begin
+                        File.delete re_file unless is_scan_for_matches
+                    rescue Errno::ENOENT => e
+                        # file does not exist.
+                    end
                 }
             }
 
