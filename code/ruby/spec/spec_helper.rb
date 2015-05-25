@@ -23,6 +23,7 @@ require_relative '../src/translater'
 require_relative '../src/leaf'
 require_relative '../src/benchmark'
 require_relative '../src/result_parser'
+require_relative '../src/visualizer'
 require_relative '../src/grammar/token'
 
 RSpec.configure do |config|

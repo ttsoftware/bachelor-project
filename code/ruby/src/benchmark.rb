@@ -55,7 +55,7 @@ class Benchmark
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
                     result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
 
-                    File.open(result_file, 'w') { |f| f.puts "Trying #{patscan_pattern}.\n~" }
+                    File.open(result_file, 'w') { |f| f.puts "#{patscan_pattern}.\n~" }
 
                     if not File.exist? re_file and not is_scan_for_matches
                         puts "ERROR: No such file #{re_file} - compile failed or did not finish."
@@ -65,7 +65,7 @@ class Benchmark
                     if is_scan_for_matches
                         pid = spawn(
                             "python #{runtime} #{file} #{@fasta_files[0]}",
-                            [:out, :err] => [result_file, 'a']
+                            [:out] => [result_file, 'a']
                         )
 
                         puts "Started #{file} with command '#{runtime} #{file} #{@fasta_files[0]}'"
@@ -74,7 +74,7 @@ class Benchmark
                     else
                         pid = spawn(
                             "#{runtime} #{re_file} #{@fasta_files[0]}",
-                            [:out, :err] => [result_file, 'a']
+                            [:out] => [result_file, 'a']
                         )
 
                         puts "Started #{file} with command '#{runtime} #{re_file} #{@fasta_files[0]}'"

@@ -41,7 +41,7 @@ if results:
     for result in results:
         if len(result) > 0:
             counter += 1
-    print len(counter)
+    print counter
 else:
     print 0
 
