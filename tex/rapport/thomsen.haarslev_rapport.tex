@@ -258,7 +258,7 @@ shaded={bgcolor=theorem-gray}
 \textbf{Abstract}
 \end{center}
 
-Scan-For-Matches is the state-of-the-art solution for DNA sequence analysis, which are no longer being maintained. We present an algorithm for translating Scan-For-Matches patterns into regular expressions. By translating into regular expressions, we are able to measure the performance of searching through genomic data on more modern and sophisticated string search engines. 
+Scan-For-Matches is the state-of-the-art solution for DNA sequence analysis, which are no longer being maintained. We present an algorithm for translating Scan-For-Matches patterns into regular expressions. By translating into regular expressions, we are able to measure the performance of searching through genomic data on more modern and sophisticated string search engines. We generate a set of regular expressions, and perform an analysis on the performance of these. The analysis looks at the complexity of the original scan-for-matches patterns, and the time it takes to find matches. We discover that the our regular expressions run faster than scan-for-matches for sequences, ranges, as well as low-complexity 'combination' patterns. As complexity of the scan-for-matches 'combination' patterns increases, scan-for-matches shows superior performance. 
 
 \newpage
 
@@ -480,10 +480,6 @@ It is worth noting that any DFA can be constructed from an NFA but at the cost o
 The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches of the data string. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
-
-IGNORE FOR NOW vvvvvvvvvv\\
-If we extrapolate into $m$ mismatches, $d$ deletions, and $i$ insertions, we quickly find ourselves with approximately $n^{m^{d^{i}}}+1$ possible matches since all of our mismatches can be combined with all of our deletions, which in turn can be combined with all of our insertions. This is not something easily replicated with regular expressions, as we shall see in the following sections.\\
-IGNORE END
 
 Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}. This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
@@ -879,7 +875,7 @@ We could possibly have removed the N's and the linebreaks from the fasta file, i
 
 \subsection{Experiment design}
 
-We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. Here, complexity refers to the complexity of the patscan patterns, which we have defined as the length of the sequence. In case of multiple patterns with the same sequence length, their respective allowed number of deletions, insertions, deletions will act as tie breaker. Patscan pattern complexity are thus not to be associated with RE complexity (which we define as the length of the RE), as a patscan pattern with some complexity, may be translated into a RE with a lower RE complexity (length) than another RE, which was translated from a patscan pattern with lower patscan pattern complexity than the former. We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KCM.
+We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. Here, complexity refers to the complexity of the patscan patterns, which we have defined as the length of the sequence. In case of multiple patterns with the same sequence length, their respective allowed number of deletions, insertions, deletions will act as tie breaker. Patscan pattern complexity are thus not to be associated with RE complexity (which we define as the length of the RE), as a patscan pattern with some complexity, may be translated into a RE with a lower RE complexity (length) than another RE, which was translated from a patscan pattern with lower patscan pattern complexity than the former. We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KMC.
  
 Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computers. Each thread is also given a time limit of 15 minutes after which the thread is killed. This time limit is given for two reasons. First of all we suspect that some of the regular expressions might never (or close to never) finish, and second of all the difference between taking 15 minutes and 20 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
 
@@ -887,7 +883,7 @@ The outputs of our wrapper programs are piped to a result file for each regular 
 
 \subsection{Experiment results (TO BE WRITTEN)}
 
-In the following, we will make an analysis of how well our translated REs perform on various RE implementations compared to the performance of scan-for-matches. In the analysis, we will show various plots of our performance results. 
+In the following, we will make an analysis of how well our translated REs perform on various RE implementations compared to the performance of scan-for-matches. In the analysis, we will show various plots of our performance results. For some of our tests, the REs become large enough, that limits in some of the RE implementations stops them from compiling the REs. When this happens, our test returns a match time of 0. This means that in some of our graphs, 
 
 \subsubsection{Mismatches}
 
