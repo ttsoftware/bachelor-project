@@ -7,49 +7,49 @@ class Visualizer
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_mismatches.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_mismatches.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_mismatches.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Mismatches: Patscan Complexity'
+                :title => 'Mismatches: RE length'
             },
             :deletions => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_deletions.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_deletions.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_deletions.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Deletions: Patscan Complexity'
+                :title => 'Deletions: RE length'
             },
             :insertions => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_insertions.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_insertions.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_insertions.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Insertions: Patscan Complexity'
+                :title => 'Insertions: RE length'
             },
             :combinations => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_combinations.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_combinations.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_combinations.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Combinations: Patscan Complexity'
+                :title => 'Combinations: RE length'
             },
             :ranges => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_range.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_range.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_range.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Ranges: Patscan Complexity'
+                :title => 'Ranges: RE length'
             },
             :sequences => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_sequences.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_sequences.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_sequences.data',
-                :xlabel => 'Patscan complexity',
+                :xlabel => 'RE length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Sequences: Patscan Complexity'
+                :title => 'Sequences: RE length'
             }
         }
     end
