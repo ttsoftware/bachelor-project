@@ -1,5 +1,0 @@
-Trying AGCGTGGGGAGCAAAC[0,4,0].
-~
-6
--
-re2/dfa.cc:1159: DFA memory cache could be too small: only room for 59 states.

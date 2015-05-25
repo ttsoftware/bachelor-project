@@ -6,10 +6,23 @@ Book{tag,
     isbn      = "0385527403"
 }
 
+@article{re2,
+    author = {Russ Cox},
+    title = {Google's RE2 with our own modifications.},
+    year = 2015,
+    howpublished = "\url{https://github.com/ttsoftware/re2}"
+}
+
+@article{human-genome,
+    author = {Univercity of California Santa Cruz},
+    title = {The human genome.},
+    year = 2005,
+    howpublished = "\url{http://hgdownload.cse.ucsc.edu/goldenPath/hg18/chromosomes/}"
+}
+
 @article{nfa-to-dfa,
     author = {Mahesh Viswanathan},
     title = {Introduction to Theory of Computation},
-    journal = {Illinois state university website},
     year = 2013,
     howpublished = "\url{https://courses.engr.illinois.edu/cs373/fa2013/Lectures/lec05.pdf}",
     pages = {5-7}
@@ -18,7 +31,6 @@ Book{tag,
 @article{matching-in-the-wild,
     author = {Russ Cox},
     title = {Regular Expression Matching in the Wild},
-    journal = {His own website - swtch.com},
     year = 2010,
     howpublished = "\url{https://swtch.com/~rsc/regexp/regexp3.html}",
     pages = {2-4}
@@ -94,7 +106,7 @@ Book{tag,
 }
 
 @misc{DNA-nature,
-    author = " Leslie A. Pray",
+    author = "Leslie A. Pray",
     title = "Discovery of DNA Structure and Function: Watson and Crick",
     howpublished = "\url{http://www.nature.com/scitable/topicpage/discovery-of-dna-structure-and-function-watson-397}",
     note = "Visited May 5th 2015"
@@ -108,4 +120,11 @@ Book{tag,
     isbn      = {9780262533058},
     edition   = {3rd},
     note      = {p. 65-113}
+}
+
+@misc{GenBank,
+    author = "National Institute of Health",
+    title = "GenBank statistics",
+    howpublished = "\url{www.ncbi.nlm.nih.gov/genbank/statistics/}",
+    note = "Visited May 20th 2015"
 }

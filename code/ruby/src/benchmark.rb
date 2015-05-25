@@ -55,7 +55,13 @@ class Benchmark
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
                     result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
 
-                    File.open(result_file, 'w') { |f| f.puts "#{patscan_pattern}.\n~" }
+                    re_pattern = ''
+                    File.open(re_file, 'r') { |f| re_pattern = f.readline }
+
+                    File.open(result_file, 'w') { |f|
+                        f.puts patscan_pattern
+                        f.puts "#{re_pattern.length}\n~"
+                    }
 
                     if not File.exist? re_file and not is_scan_for_matches
                         puts "ERROR: No such file #{re_file} - compile failed or did not finish."
