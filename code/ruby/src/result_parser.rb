@@ -60,19 +60,23 @@ class ResultParser
             combinations = /\[(?<mismatches>\d),(?<deletions>\d),(?<insertions>\d)\]/.match patscan_match['patscan']
             combinations = {'mismatches' => 0, 'deletions' => 0, 'insertions' => 0} if combinations.nil?
 
-            is_range = false and /\.{3}/.match patscan_match['patscan'].nil?
+            if /\.{3}/.match(patscan_match['patscan']).nil?
+                is_range = false
+            else
+                is_range = true
+            end
 
             results[file] = {
                 :patscan_pattern => patscan_match['patscan'],
                 :patscan_sequence => patscan_match['patscan'].split(/\[/)[0],
-                :patscan_mismatches => combinations['mismatches'],
-                :patscan_insertions => combinations['insertions'],
-                :patscan_deletions => combinations['deletions'],
-                :memory_time => memory_time,
+                :patscan_mismatches => combinations['mismatches'].to_i,
+                :patscan_insertions => combinations['insertions'].to_i,
+                :patscan_deletions => combinations['deletions'].to_i,
+                :memory_time => memory_time.to_f,
                 :matches => matches_list,
-                :match_time => match_time,
-                :total_time => total_time,
-                :match_count => match_count,
+                :match_time => match_time.to_f,
+                :total_time => total_time.to_f,
+                :match_count => match_count.to_i,
                 :is_range => is_range
             }
         }
@@ -91,22 +95,22 @@ class ResultParser
         sequences_data = []
 
         results.values.each { |r|
-            if r[:patscan_deletions] != '0' and r[:patscan_mismatches] == '0' and r[:patscan_insertions] == '0'
+            if r[:patscan_deletions] != 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] == 0
                 deletions_data << r
             end
 
-            if r[:patscan_deletions] == '0' and r[:patscan_mismatches] != '0' and r[:patscan_insertions] == '0'
+            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] == 0
                 mismatches_data << r
             end
 
-            if r[:patscan_deletions] == '0' and r[:patscan_mismatches] == '0' and r[:patscan_insertions] != '0'
+            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] != 0
                 insertions_data << r
             end
 
             # combinations
-            if (r[:patscan_deletions] != '0' and r[:patscan_mismatches] != '0') \
-                or (r[:patscan_deletions] != '0' and r[:patscan_insertions] != '0') \
-                or (r[:mismatches_data] != '0' and r[:patscan_insertions] != '0')
+            if (r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0) \
+                or (r[:patscan_deletions] != 0 and r[:patscan_insertions] != 0) \
+                or (r[:mismatches_data] != 0 and r[:patscan_insertions] != 0)
 
                 combinations_data << r
             end
@@ -115,39 +119,75 @@ class ResultParser
             range_data << r if r[:is_range]
 
             # sequences
-            if r[:patscan_deletions] == '0' and r[:patscan_mismatches] == '0' and r[:patscan_insertions] == '0'
+            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] == 0
                 sequences_data << r
             end
         }
 
         File.open("#{@abs_env}/#{runtime}_mismatches.data", 'w') { |f|
             mismatches_data.sort_by! { |r| r[:patscan_sequence].length }
-            mismatches_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            mismatches_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
 
         File.open("#{@abs_env}/#{runtime}_deletions.data", 'w') { |f|
             deletions_data.sort_by! { |r| r[:patscan_sequence].length }
-            deletions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            deletions_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
 
         File.open("#{@abs_env}/#{runtime}_insertions.data", 'w') { |f|
             insertions_data.sort_by! { |r| r[:patscan_sequence].length }
-            insertions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            insertions_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
 
         File.open("#{@abs_env}/#{runtime}_combinations.data", 'w') { |f|
             combinations_data.sort_by! { |r| r[:patscan_sequence].length }
-            combinations_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            combinations_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
 
         File.open("#{@abs_env}/#{runtime}_range.data", 'w') { |f|
             range_data.sort_by! { |r| r[:patscan_sequence].length }
-            range_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            range_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
 
         File.open("#{@abs_env}/#{runtime}_sequences.data", 'w') { |f|
             sequences_data.sort_by! { |r| r[:patscan_sequence].length }
-            sequences_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            sequences_data.each_with_index { |r, i|
+                if runtime == 'ruby'
+                    f.puts "#{i} #{r[:match_time] * 1000.0}"
+                else
+                    f.puts "#{i} #{r[:match_time]}"
+                end
+            }
         }
     end
 
