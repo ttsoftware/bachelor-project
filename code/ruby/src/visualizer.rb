@@ -61,12 +61,9 @@ class Visualizer
     def visualize(mode)
         commands = "
             set terminal pngcairo size 1024,768
-            # white background
-            set object 1 rect from screen 0, 0, 0 to screen 1, 1, 0 behind
-            set object 1 rect fc  rgb 'white'  fillstyle solid 1.0
 
             # file name
-            set output '#{mode}.png'
+            set output '../../tex/rapport/graphs/#{mode}.png'
 
             # axes label
             set xlabel '#{@mode[mode][:xlabel]}'
