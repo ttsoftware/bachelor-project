@@ -241,12 +241,14 @@ Scan-For-Matches is the state-of-the-art solution for DNA sequence analysis, whi
 \tableofcontents
 \newpage
 
+\pagenumbering{arabic}
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{08/06-2015}
 \lhead{Troels Thomsen, Rasmus Haarslev}
 \chead{Bachelor Thesis}
-\pagenumbering{arabic}
+\cfoot{\thepage}
+
 
 
 \section{Introduction}
@@ -838,8 +840,7 @@ The running time of the divide and conquer step also consumed by the combine ste
 
 \subsection{Data Analysis}
 
-We have chosen chromosome number 22 from the human genome. Chromosome 22 is the smallest chromosome in the human genome making it better suited for testing. 
-Our version of chromosome 22 contains a lot of noise in the form of N's, specifying unknown bases during sequencing.~\cite{human-genome} We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic use scenario.
+We have chosen chromosome number 22 from the human genome. Chromosome 22 is the smallest chromosome in the human genome making it better suited for testing. Our version of chromosome 22 contains a lot of noise in the form of N's, specifying unknown bases during sequencing.~\cite{human-genome} We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic use scenario.
 
 We could possibly have removed the N's and the linebreaks from the fasta file, in order to reduce the file size and thus reduce the runningtime of the regular expressions which we generate. However we felt that this would not significantly improve our results, and also make our test further from a real-world scenario.
 
@@ -847,8 +848,7 @@ We could possibly have removed the N's and the linebreaks from the fasta file, i
 
 \subsection{Experiment design}
 
-We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. 
-We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KCM.
+We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. Here, complexity refers to the complexity of the patscan patterns, which we have defined as the length of the sequence. In case of multiple patterns with the same sequence length, their respective allowed number of deletions, insertions, deletions will act as tie breaker. Patscan pattern complexity are thus not to be associated with RE complexity (which we define as the length of the RE), as a patscan pattern with some complexity, may be translated into a RE with a lower RE complexity (length) than another RE, which was translated from a patscan pattern with lower patscan pattern complexity than the former. We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KCM.
  
 Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computers. Each thread is also given a time limit of 15 minutes after which the thread is killed. This time limit is given for two reasons. First of all we suspect that some of the regular expressions might never (or close to never) finish, and second of all the difference between taking 15 minutes and 20 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
 
