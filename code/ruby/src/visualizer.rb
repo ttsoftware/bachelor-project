@@ -60,7 +60,7 @@ class Visualizer
 
     def visualize(mode)
         commands = "
-            set terminal pngcairo size 1024,768
+            set terminal pngcairo size 800,600
 
             # file name
             set output '../../tex/rapport/graphs/#{mode}.png'

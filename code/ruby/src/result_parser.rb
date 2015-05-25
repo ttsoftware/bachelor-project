@@ -24,13 +24,26 @@ class ResultParser
             File.open(file, 'r') { |f| content = f.readlines.join '' }
 
             patscan_match = /^(Trying )?(?<patscan>.+?)(\.)?\n/.match content
-            memory_time_match = /~(\n.*040777)?\n(?<memory_time>[\d\.]+)/.match content
+
+            re_length_match = /%[^\d]*(?<re_length>[\d\.]+)/.match content
+            re_cases_match = /£[^\d]*(?<re_cases>[\d\.]+)/.match content
+            memory_time_match = /~[^\d]*(?<memory_time>[\d\.]+)/.match content
             match_time_match = /[^_]*_[^\d]*(?<match_time>[\d\.]+)/.match content
             total_time_match = /[^#]*#[^\d]*(?<total_time>[\d\.]+)/.match content
             match_count_match = /[^&]*&[^\d]*(?<match_count>[\d\.]+)/.match content
 
             matches = nil
             #matches = /(?m)[^\d]*-\n(?<matches>[^#_&~]+)?/.match content
+
+            re_length = 0
+            unless re_length_match.nil?
+                re_length = re_length_match['re_length']
+            end
+
+            re_cases = 0
+            unless re_cases_match.nil?
+                re_cases = re_cases_match['re_cases']
+            end
 
             memory_time = 0
             unless memory_time_match.nil?
@@ -72,6 +85,8 @@ class ResultParser
                 :patscan_mismatches => combinations['mismatches'].to_i,
                 :patscan_insertions => combinations['insertions'].to_i,
                 :patscan_deletions => combinations['deletions'].to_i,
+                :re_length => re_length.to_i,
+                :re_cases => re_cases.to_i,
                 :memory_time => memory_time.to_f,
                 :matches => matches_list,
                 :match_time => match_time.to_f,
@@ -125,69 +140,33 @@ class ResultParser
         }
 
         File.open("#{@abs_env}/#{runtime}_mismatches.data", 'w') { |f|
-            mismatches_data.sort_by! { |r| r[:patscan_sequence].length }
-            mismatches_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            mismatches_data.sort_by! { |r| r[:re_length] }
+            mismatches_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_deletions.data", 'w') { |f|
-            deletions_data.sort_by! { |r| r[:patscan_sequence].length }
-            deletions_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            deletions_data.sort_by! { |r| r[:re_length] }
+            deletions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_insertions.data", 'w') { |f|
-            insertions_data.sort_by! { |r| r[:patscan_sequence].length }
-            insertions_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            insertions_data.sort_by! { |r| r[:re_length] }
+            insertions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_combinations.data", 'w') { |f|
-            combinations_data.sort_by! { |r| r[:patscan_sequence].length }
-            combinations_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            combinations_data.sort_by! { |r| r[:re_length] }
+            combinations_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_range.data", 'w') { |f|
-            range_data.sort_by! { |r| r[:patscan_sequence].length }
-            range_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            range_data.sort_by! { |r| r[:re_length] }
+            range_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_sequences.data", 'w') { |f|
-            sequences_data.sort_by! { |r| r[:patscan_sequence].length }
-            sequences_data.each_with_index { |r, i|
-                if runtime == 'ruby'
-                    f.puts "#{i} #{r[:match_time] * 1000.0}"
-                else
-                    f.puts "#{i} #{r[:match_time]}"
-                end
-            }
+            sequences_data.sort_by! { |r| r[:re_length] }
+            sequences_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
     end
 

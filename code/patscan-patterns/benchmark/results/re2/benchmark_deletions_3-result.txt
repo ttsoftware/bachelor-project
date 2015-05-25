@@ -1,92 +1,95 @@
-Trying AGCGTGGGGAGCAAAC[0,3,0].
+AGCGTGGGGAGCAAAC[0,3,0]
+%
+3705
+£
+226
 ~
 2
 -
-105: Found: agctgggacaaac
-re2/dfa.cc:1159: DFA memory cache could be too small: only room for 178 states.
-338: Found: AGTGGGGACAAAC
-342: Found: AGGTGGGAGAAAC
-467: Found: aggtgggagcaac
-874: Found: CTGGGGAGCAAAC
-970: Found: GCTGGGGAGAAAC
-1359: Found: AGGTGGGGGCAAC
-1394: Found: AGTGGGGGCAAAC
-1554: Found: ACGTGGGGGAAAC
-1633: Found: ACTGGGGAGAAAC
-1668: Found: AGCTGGGGGCAAC
-1681: Found: AGCTGGGGAGCAA
-1855: Found: aggtggggaaaac
-1922: Found: AGCTGGGAGCAAAC
-2082: Found: agtggggacaaac
-2106: Found: aggtggagcaaac
-2139: Found: AGTGGGGAGCAAA
-2166: Found: AGCGTGGGAGAAA
-2240: Found: agctggggagcaa
-2333: Found: AGCTGGGAGAAAC
-2464: Found: AGGTGGGGAGCAA
-2509: Found: AGCTGGGGAAAAC
-2526: Found: AGCTGGGGAGCAAA
-2562: Found: AGCTGGGAGCAAA
-2570: Found: GGTGGGGAGAAAC
-2613: Found: cgtggggagcaac
-2660: Found: AGGTGGGGAGCAC
-2691: Found: AGCGTGGGGGAAA
-2723: Found: AGCTGGGACAAAC
-2787: Found: ATGGGGAGCAAAC
-2831: Found: ACGGGGGAGCAAA
-2873: Found: AGCGTGGACAAAC
-2880: Found: actggggagcaaa
-2932: Found: AGCTGGGGAGAAA
-2974: Found: GGTGGGGACAAAC
-3011: Found: gctggggagaaac
-3024: Found: agtggggacaaac
-3046: Found: GTGGGGAGCAAAC
-3058: Found: ggtggggagaaac
-3100: Found: agtggggagcaaa
-3126: Found: AGGTGGGGGCAAC
-3202: Found: AGGTGGGGAGAAAC
-3255: Found: GGTGGGGAGCAAC
-3266: Found: ACGTGGGGAGAAAC
-3278: Found: aggtggggagaaa
-3390: Found: atggggagcaaac
-3426: Found: AGCTGGGGAGCAA
-3444: Found: AGCTGGGGGCAAA
-3556: Found: AGCTGGGACAAAC
-4044: Found: GCTGGGGAGAAAC
-4134: Found: AGTGGGGAGCAAA
-4294: Found: aggtggggaaaac
-4353: Found: AGGTGGGGACAAA
-4448: Found: AGCGGGGGCAAAC
-4688: Found: GCTGGGGAGAAAC
-4722: Found: GCTGGGGGCAAAC
-4740: Found: ACTGGGGACAAAC
-4774: Found: agctgggagaaac
-4948: Found: agctgggagaaac
-4996: Found: aggtggggagcac
-5075: Found: AGGTGGGGAGAAA
-5177: Found: ACTGGGAGCAAAC
-5227: Found: AGGTGGGGGAAAC
-5233: Found: aggtggggagcac
-5297: Found: AGGTGGGAGCAAA
-5375: Found: AGGTGGGGAAAAC
-5508: Found: aggtgggagcaac
-5560: Found: AGGTGGGAGCAAA
-5560: Found: AGTGGGGAGCAAC
-5595: Found: AGCTGGGGGAAAC
-5610: Found: AGCTGGGGAGAAA
-5639: Found: agcggggagaaac
-5659: Found: AGCTGGGAGCAAA
-5722: Found: AGCGTGGGGAGCA
-5762: Found: AGCGTGGGGAGCC
-5770: Found: GCTGGGGAGCAAC
-5836: Found: acgggggagaaac
-5941: Found: aggtgggggaaac
-5961: Found: AGGTGGGGAGAAC
-6122: Found: agcgtgggggaac
-6152: Found: agctggggacaac
+100: Found: agctgggacaaac
+249: Found: AGTGGGGACAAAC
+252: Found: AGGTGGGAGAAAC
+341: Found: aggtgggagcaac
+599: Found: CTGGGGAGCAAAC
+695: Found: GCTGGGGAGAAAC
+1078: Found: AGGTGGGGGCAAC
+1113: Found: AGTGGGGGCAAAC
+1271: Found: ACGTGGGGGAAAC
+1349: Found: ACTGGGGAGAAAC
+1384: Found: AGCTGGGGGCAAC
+1397: Found: AGCTGGGGAGCAA
+1569: Found: aggtggggaaaac
+1636: Found: AGCTGGGAGCAAAC
+1790: Found: agtggggacaaac
+1814: Found: aggtggagcaaac
+1845: Found: AGTGGGGAGCAAA
+1871: Found: AGCGTGGGAGAAA
+1940: Found: agctggggagcaa
+2030: Found: AGCTGGGAGAAAC
+2200: Found: AGGTGGGGAGCAA
+2272: Found: AGCTGGGGAAAAC
+2300: Found: AGCTGGGGAGCAAA
+2358: Found: AGCTGGGAGCAAA
+2373: Found: GGTGGGGAGAAAC
+2442: Found: cgtggggagcaac
+2516: Found: AGGTGGGGAGCAC
+2566: Found: AGCGTGGGGGAAA
+2612: Found: AGCTGGGACAAAC
+2715: Found: ATGGGGAGCAAAC
+2783: Found: ACGGGGGAGCAAA
+2852: Found: AGCGTGGACAAAC
+2862: Found: actggggagcaaa
+2936: Found: AGCTGGGGAGAAA
+3001: Found: GGTGGGGACAAAC
+3053: Found: gctggggagaaac
+3072: Found: agtggggacaaac
+3106: Found: GTGGGGAGCAAAC
+3124: Found: ggtggggagaaac
+3187: Found: agtggggagcaaa
+3216: Found: AGGTGGGGGCAAC
+3313: Found: AGGTGGGGAGAAAC
+3393: Found: GGTGGGGAGCAAC
+3410: Found: ACGTGGGGAGAAAC
+3429: Found: aggtggggagaaa
+3589: Found: atggggagcaaac
+3643: Found: AGCTGGGGAGCAA
+3674: Found: AGCTGGGGGCAAA
+3862: Found: AGCTGGGACAAAC
+4343: Found: GCTGGGGAGAAAC
+4432: Found: AGTGGGGAGCAAA
+4590: Found: aggtggggaaaac
+4650: Found: AGGTGGGGACAAA
+4743: Found: AGCGGGGGCAAAC
+4981: Found: GCTGGGGAGAAAC
+5013: Found: GCTGGGGGCAAAC
+5032: Found: ACTGGGGACAAAC
+5066: Found: agctgggagaaac
+5239: Found: agctgggagaaac
+5287: Found: aggtggggagcac
+5364: Found: AGGTGGGGAGAAA
+5478: Found: ACTGGGAGCAAAC
+5558: Found: AGGTGGGGGAAAC
+5570: Found: aggtggggagcac
+5671: Found: AGGTGGGAGCAAA
+5791: Found: AGGTGGGGAAAAC
+6008: Found: aggtgggagcaac
+6088: Found: AGGTGGGAGCAAA
+6088: Found: AGTGGGGAGCAAC
+6144: Found: AGCTGGGGGAAAC
+6169: Found: AGCTGGGGAGAAA
+6214: Found: agcggggagaaac
+6246: Found: AGCTGGGAGCAAA
+6352: Found: AGCGTGGGGAGCA
+6418: Found: AGCGTGGGGAGCC
+6431: Found: GCTGGGGAGCAAC
+6541: Found: acgggggagaaac
+6700: Found: aggtgggggaaac
+6732: Found: AGGTGGGGAGAAC
+6917: Found: agcgtgggggaac
+6963: Found: agctggggacaac
 _
-6158
+6973
 #
-6160
+6975
 &
 81

@@ -1,15 +1,23 @@
 \documentclass[12pt]{article}
+\usepackage[a4paper, hmargin={2.5cm, 2.5cm}, vmargin={2.5cm, 2.5cm}]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage{setspace}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
-\usepackage{amsmath}
+
+%\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes, shadows, arrows, automata}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage{eso-pic} % \AddToShipoutPicture
+
 \usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage{float}
 \usepackage[danish]{varioref}
@@ -17,11 +25,9 @@
 \usepackage{hhline}
 \usepackage{inconsolata}
 \usepackage{etoolbox}
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{tikz}
-\usetikzlibrary{positioning,shapes, shadows, arrows, automata}
-\usepackage{listings}
+
 \usepackage{fancyhdr}
+\usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %         Colors        %
@@ -203,30 +209,48 @@ shaded={bgcolor=theorem-gray}
 
 \linespread{1.3}
 
+%% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
+%% `natbio-farve` to use SCIENCE's new colors and logo.
+\def \ColourPDF {include/ku-farve}
+
+%% Change `ku-en` to `nat-en` to use the `Faculty of Science` header
+\def \TitlePDF {include/nat-en}  % University of Copenhagen
+
+\title{
+  \vspace{4cm}
+  \begin{flushleft}
+  \Large{\textbf{Regular Expression Matching In Genomic Data}}
+  \vspace{1cm}
+  \large{Translating PatScan Patterns into Regular Expressions}
+  \end{flushleft}
+  \normalsize
+  Rasmus Haarslev \texttt{nkh877} \\
+  Troels Thomsen \texttt{qvw203} \\
+  \textit{\small \today}
+  \begin{flushleft}
+  \vspace{10cm}
+  \small
+  {Rasmus Fonseca\\
+   Niels Bjørn Bugge Grathwohl\\
+   Ulrik Rasmussen\\
+   Martin Asser Hansen}
+  \end{flushleft}
+}
+
+\date{
+	%
+}
+
 \begin{document}
 
-\begin{titlepage}
-    \vspace*{\fill}
-    \begin{center}
-      {\Huge Translating PatScan Patterns into Regular Expressions}\\[0.7cm]
-      {\Large Regular Expression Matching In Genomic Data}\\[0.4cm]
-      {\large Rasmus Haarslev - nkh877}\\
-      {\large Troels Thomsen - qvw203}\\[0.4cm]
-      {\textbf{Supervisors:}\\
-      Rasmus Fonseca\\
-      Niels Bjørn Bugge Grathwohl\\
-      Ulrik Rasmussen\\
-      Martin Asser Hansen}\\
-      {\small \textbf{April 30th 2015}}\\[0.3cm] 
-      {\small Department of Computer Science}\\
-      {\small University of Copenhagen}
-    \end{center}
-    \vspace*{\fill}
-\end{titlepage}	
+\AddToShipoutPicture*{\put(0,0){\includegraphics*[viewport=0 0 700 600]{\ColourPDF}}}
+\AddToShipoutPicture*{\put(0,602){\includegraphics*[viewport=0 600 700 1600]{\ColourPDF}}}
+\AddToShipoutPicture*{\put(0,0){\includegraphics*{\TitlePDF}}}
 
 \clearpage
 \pagenumbering{gobble}
 \thispagestyle{empty}
+\maketitle
 
 \newpage
 
@@ -244,11 +268,10 @@ Scan-For-Matches is the state-of-the-art solution for DNA sequence analysis, whi
 \pagenumbering{arabic}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{08/06-2015}
+\rhead{\today}
 \lhead{Troels Thomsen, Rasmus Haarslev}
 \chead{Bachelor Thesis}
 \cfoot{\thepage}
-
 
 
 \section{Introduction}
@@ -373,7 +396,7 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 Now that we have defined regular expressions formally, we want to be able to match them against strings. We say that a regular expression $E$ match a string $S$ if $S \in \mathcal{L}(E)$.
 The most common way of solving this problem, and also the way industry standard regular expression implementations such as google's RE2 solve this problem~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{finite automaton}.\\
 
-\begin{definition} A \textbf{finite automaton} can be defined as a five tuple $(Q, \Sigma, \delta, q_0, F)$ where
+\begin{definition} A \textbf{Finite Automaton} can be defined as a five tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
 \label{finite automaton defintion}
 
 \begin{itemize}
@@ -386,10 +409,13 @@ The most common way of solving this problem, and also the way industry standard 
 
 \end{definition}
 
-\ \\
+For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA. 
 
-For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA. \\
-DFA varies only slightly from definition \ref{finite automaton defintion}, in the sense that any transition from a state $q_i$ in a DFA only has one possible receiving state $q_j$. An example of this is seen in figure \ref{dfa_simple}. \\
+\begin{definition} A \textbf{D}eterministic \textbf{F}inite \textbf{A}utomaton can be defined as a Finite Automaton [\ref{finite automaton defintion}] whose transition from a state $q_i$ only has one possible transition candidate state $q_j$
+\label{dfa defintion}
+\end{definition}
+ 
+An example of definition \ref{dfa defintion} can be seen in figure \ref{dfa_simple}. \\
 
 \begin{figure}[H]
   \begin{center}
@@ -410,7 +436,12 @@ DFA varies only slightly from definition \ref{finite automaton defintion}, in th
   \end{center}
 \end{figure}
 
-An NFA on the other hand has a set of active states, because any given state can have multiple receiving states which all needs to be evaluated until they reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
+
+\begin{definition} A \textbf{N}on-deterministic \textbf{F}inite \textbf{A}utomaton can be defined as a Finite Automaton [\ref{finite automaton defintion}] whose transition from a state $q_i$ has multiple possible transition candidate states.
+\label{nfa defintion}
+\end{definition}
+
+An NFA needs to evaluate all possible transition candidates until they reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
 
 \begin{figure}[H]
   \begin{center}
@@ -438,7 +469,7 @@ An NFA on the other hand has a set of active states, because any given state can
   \end{center}
 \end{figure}
 
-In figure \ref{nfa_simple} we see how the NFA can choose between multiple receiving states upon finding an $a$ in our input sequence, and thus have to try all of the concurrently in order to try to reach our accepting state. \\
+In figure \ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach our accepting state. \\
 It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
 
 \newpage
@@ -860,14 +891,14 @@ In the following, we will make an analysis of how well our translated REs perfor
 
 \subsubsection{Mismatches}
 
-
+We notice that even for 
 
 \begin{figure}[H]
 	\label{Complementarity}
 	\begin{center}
-		\includegraphics[scale=0.5]{graphs/mismatches.png}	
+		\includegraphics[scale=0.55]{graphs/mismatches.png}	
 	\end{center}
-	\caption{Penis}
+	\caption{Stalin}
 \end{figure}
 
 \subsubsection{Deletions}

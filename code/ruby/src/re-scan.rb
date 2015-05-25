@@ -57,7 +57,7 @@ begin
     # <Matches>
     puts '-'
     matches.each { |m|
-        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0} - #{(Time.now.to_f - read_file_start) * 1000.0}"
+        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0} - #{(Time.now - read_file_start) * 1000.0}"
     }
 
 rescue RegexpError => e

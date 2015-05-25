@@ -1,5 +1,8 @@
-Trying AGCGTGGGGAGCAAAC[0,8,0].
+AGCGTGGGGAGCAAAC[0,8,0]
+%
+39982
+£
+3082
 ~
-53
+76
 -
-re2/dfa.cc:1659: Failed to analyze start state.
