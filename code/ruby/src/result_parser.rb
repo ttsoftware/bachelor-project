@@ -73,11 +73,7 @@ class ResultParser
             combinations = /\[(?<mismatches>\d),(?<deletions>\d),(?<insertions>\d)\]/.match patscan_match['patscan']
             combinations = {'mismatches' => 0, 'deletions' => 0, 'insertions' => 0} if combinations.nil?
 
-            if /\.{3}/.match(patscan_match['patscan']).nil?
-                is_range = false
-            else
-                is_range = true
-            end
+            range = /(?<sequence>\w+\s)(?<start>\d+)\.{3}(?<end>\d+)/.match(patscan_match['patscan'])
 
             results[file] = {
                 :patscan_pattern => patscan_match['patscan'],
@@ -92,7 +88,7 @@ class ResultParser
                 :match_time => match_time.to_f,
                 :total_time => total_time.to_f,
                 :match_count => match_count.to_i,
-                :is_range => is_range
+                :range => range
             }
         }
 
@@ -112,61 +108,52 @@ class ResultParser
         results.values.each { |r|
             if r[:patscan_deletions] != 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] == 0
                 deletions_data << r
-            end
-
-            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] == 0
+            elsif r[:patscan_deletions] == 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] == 0
                 mismatches_data << r
-            end
-
-            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] != 0
+            elsif r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] != 0
                 insertions_data << r
-            end
-
-            # combinations
-            if (r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0) \
+            elsif (r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0) \
                 or (r[:patscan_deletions] != 0 and r[:patscan_insertions] != 0) \
                 or (r[:mismatches_data] != 0 and r[:patscan_insertions] != 0)
-
+                # combinations
                 combinations_data << r
-            end
-
-            # ranges
-            range_data << r if r[:is_range]
-
-            # sequences
-            if r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] == 0
+            elsif r[:range]
+                # ranges
+                range_data << r
+            elsif r[:patscan_deletions] == 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] == 0
+                # sequences
                 sequences_data << r
             end
         }
 
         File.open("#{@abs_env}/#{runtime}_mismatches.data", 'w') { |f|
-            mismatches_data.sort_by! { |r| r[:re_length] }
-            mismatches_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            mismatches_data.sort_by! { |r| r[:re_cases] }
+            mismatches_data.each_with_index { |r, i| f.puts "#{r[:re_cases]} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_deletions.data", 'w') { |f|
-            deletions_data.sort_by! { |r| r[:re_length] }
-            deletions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            deletions_data.sort_by! { |r| r[:re_cases] }
+            deletions_data.each_with_index { |r, i| f.puts "#{r[:re_cases]} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_insertions.data", 'w') { |f|
-            insertions_data.sort_by! { |r| r[:re_length] }
-            insertions_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            insertions_data.sort_by! { |r| r[:re_cases] }
+            insertions_data.each_with_index { |r, i| f.puts "#{r[:re_cases]} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_combinations.data", 'w') { |f|
-            combinations_data.sort_by! { |r| r[:re_length] }
-            combinations_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            combinations_data.sort_by! { |r| r[:re_cases] }
+            combinations_data.each_with_index { |r, i| f.puts "#{r[:re_cases]} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_range.data", 'w') { |f|
-            range_data.sort_by! { |r| r[:re_length] }
+            range_data.sort_by! { |r| r[:range]['end'].to_i - r[:range]['start'].to_i }
             range_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
         }
 
         File.open("#{@abs_env}/#{runtime}_sequences.data", 'w') { |f|
             sequences_data.sort_by! { |r| r[:re_length] }
-            sequences_data.each_with_index { |r, i| f.puts "#{i} #{r[:match_time]}" }
+            sequences_data.each_with_index { |r, i| f.puts "#{r[:re_length]} #{r[:match_time]}" }
         }
     end
 

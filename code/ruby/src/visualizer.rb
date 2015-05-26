@@ -7,49 +7,61 @@ class Visualizer
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_mismatches.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_mismatches.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_mismatches.data',
-                :xlabel => 'RE length',
+                :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
-                :title => 'Mismatches: RE length'
+                :title => 'Mismatches',
+                :log => 'set logscale x 2',
+                :format => ''
             },
             :deletions => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_deletions.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_deletions.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_deletions.data',
-                :xlabel => 'RE length',
+                :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
-                :title => 'Deletions: RE length'
+                :title => 'Deletions',
+                :log => 'set logscale x 2',
+                :format => ''
             },
             :insertions => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_insertions.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_insertions.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_insertions.data',
-                :xlabel => 'RE length',
+                :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
-                :title => 'Insertions: RE length'
+                :title => 'Insertions',
+                :log => 'set logscale x 2',
+                :format => ''
             },
             :combinations => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_combinations.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_combinations.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_combinations.data',
-                :xlabel => 'RE length',
+                :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
-                :title => 'Combinations: RE length'
+                :title => 'Combinations',
+                :log => 'set logscale x 2',
+                :format => ''
             },
             :ranges => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_range.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_range.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_range.data',
-                :xlabel => 'RE length',
+                :xlabel => 'Size of range',
                 :ylabel => 'Match time [ms]',
-                :title => 'Ranges: RE length'
+                :title => 'Ranges',
+                :log => '',
+                :format => 'set format x ""'
             },
             :sequences => {
                 :re2 => '../patscan-patterns/benchmark/results/result_data/re2_sequences.data',
                 :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_sequences.data',
                 :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_sequences.data',
-                :xlabel => 'RE length',
+                :xlabel => 'Sequence length',
                 :ylabel => 'Match time [ms]',
-                :title => 'Sequences: RE length'
+                :title => 'Sequences',
+                :log => '',
+                :format => ''
             }
         }
     end
@@ -63,7 +75,7 @@ class Visualizer
             set terminal pngcairo size 800,600
 
             # file name
-            set output '../../tex/rapport/graphs/#{mode}.png'
+            set output '../../tex/rapport/graphs/re_cases_#{mode}.png'
 
             # axes label
             set xlabel '#{@mode[mode][:xlabel]}'
@@ -71,6 +83,10 @@ class Visualizer
 
             # title
             set title '#{@mode[mode][:title]}'
+
+            #{@mode[mode][:log]}
+
+            #{@mode[mode][:format]}
 
             # data
             set style line 1 lc rgb '#FF6060' lt 1 lw 2 pt 7 ps 0.5   # --- red
