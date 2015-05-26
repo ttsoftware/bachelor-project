@@ -9,4 +9,4 @@ tex/*/*.blg
 tex/*/*.toc
 code/scan_for_matches/scan_for_matches
 code/patscan-patterns/benchmark/*/*.re
-code/patscan-patterns/benchmark/*/*/*.txt
+code/patscan-patterns/benchmark/results/*/*.txt
