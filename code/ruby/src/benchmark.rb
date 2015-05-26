@@ -36,20 +36,18 @@ class Benchmark
 
                     puts "Trying #{file}."
 
-                    unless is_scan_for_matches
-                        t = Thread.new {
+                    t = Thread.new {
 
-                            pattern = Translater.new(patscan_pattern).translate
-                            File.open(re_file, 'w') { |f|
-                                f.write pattern
-                            }
+                        pattern = Translater.new(patscan_pattern).translate
+                        File.open(re_file, 'w') { |f|
+                            f.write pattern
                         }
+                    }
 
-                        sleep @compiletime
+                    sleep @compiletime
 
-                        Thread.kill t # only allow compile time of @compiletime seconds
-                        t.join
-                    end
+                    Thread.kill t # only allow compile time of @compiletime seconds
+                    t.join
 
                     # define output file for current input file
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
@@ -59,16 +57,14 @@ class Benchmark
                     File.open(result_file, 'w') { |f|
                         f.puts patscan_pattern
 
-                        unless is_scan_for_matches
-                            re_pattern = ''
-                            File.open(re_file, 'r') { |r| re_pattern = r.readline }
+                        re_pattern = ''
+                        File.open(re_file, 'r') { |r| re_pattern = r.readline }
 
-                            f.puts "%\n#{re_pattern.length}"
-                            f.puts "£\n#{re_pattern.split(/\|/).size}\n~"
-                        end
+                        f.puts "%\n#{re_pattern.length}"
+                        f.puts "£\n#{re_pattern.split(/\|/).size}\n~"
                     }
 
-                    if not File.exist? re_file and not is_scan_for_matches
+                    if not File.exist? re_file
                         puts "ERROR: No such file #{re_file} - compile failed or did not finish."
                         next
                     end
@@ -103,7 +99,7 @@ class Benchmark
                     end
 
                     begin
-                        File.delete re_file unless is_scan_for_matches
+                        File.delete re_file
                     rescue Errno::ENOENT => e
                         # file does not exist.
                     end
