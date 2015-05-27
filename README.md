@@ -18,7 +18,7 @@ scan-for-matches: 'code/scan_for_matches/main.py \<file.pat\> \<file.fa\>'
 
 Scan-for-matches requires that you have 'scan_for_matches' installed and available in your $PATH.
 
-RE2 requires that you ahve libre2 installed. Our modified version can be found at https://github.com/ttsoftware/re2
+RE2 requires that you have libre2 installed. Our modified version can be found at https://github.com/ttsoftware/re2
 
 Ruby requires ruby 2.2.
 
