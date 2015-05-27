@@ -12,7 +12,7 @@ Python: 'code/python/main.py <file.re> <file.fa>'
 
 Ruby: 'code/ruby/re-scan.rb <file.re> <file.fa>'
 
-RE2: 'code/c++/main <file.re> <file.fa>'
+RE2: 'code/c++/main \<file.re\> \<file.fa\>'
 
 scan-for-matches: 'code/scan_for_matches/main.py <file.pat> <file.fa>'
 
