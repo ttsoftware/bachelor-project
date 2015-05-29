@@ -260,7 +260,7 @@ shaded={bgcolor=theorem-gray}
 
 \vspace{0.5cm}
 
-Scan-For-Matches is the state-of-the-art open-source solution for DNA sequence analysis, but is no longer being maintained. We present an algorithm for translating Scan-For-Matches patterns into regular expressions. By translating patscan patterns into regular expressions, we are able to measure the performance of searching through genomic data on different string search engines in the form of regular expression implementations. We generate a set of regular expressions and analyze their performance, looking at the complexity of the original scan-for-matches patterns, and the time it takes to find matches. We discover that our regular expressions run faster than scan-for-matches for sequences, ranges and low-complexity 'combination' patterns. As complexity of the scan-for-matches 'combination' patterns increases, scan-for-matches shows superior performance.
+We present an algorithm for translating Scan-For-Matches patterns into regular expressions. We measure the performance of searching through genomic data on different regular expression implementations. We generate a set of regular expressions and analyze their performance, comparing them to the performance of Scan-For-Matches. We find that some of our regular expressions running on certain implementations perform better than scan-for-matches. As complexity of the scan-for-matches patterns increases, scan-for-matches shows superior performance.
 
 \newpage
 
@@ -293,12 +293,12 @@ We wish to determine the possibility of converting sequence analysis patterns us
 
 Deoxyribonucleic acid (DNA) is a molecule that is found in every known living organism, as well as many viruses. DNA encodes the genetic instructions, that the organism uses in the development and functioning of itself. DNA is a nucleic acid, which is one of three major macromolecules that is essential for all known forms of life.
 
-DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenine (A), thymine (T), cytosine (C), and guanine (G) (figure \ref{dnabases}).
+DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenine (A), guanine (G), cytosine (C) and thymine (T) (figure \ref{dnabases}).
 
 \begin{figure}[H]
 \label{dnabases}
 \begin{center}
-	\includegraphics[scale=4]{dnabaserne.png}
+	\includegraphics[scale=1.3]{DNA-heterocyclic-bases-large.png}
 \end{center}
 \caption{The four different nucleobases found in the DNA nucleotides~\cite{DNA-biotechacademy}.}
 \end{figure}
@@ -330,7 +330,7 @@ A & T/U \\
 	\begin{center}
 		\includegraphics[scale=2.5]{complementarity.jpg}	
 	\end{center}
-	\caption{This figure shows the hydrogen bonds between the nucleobases, which makes up the basis for complementarity~\cite{DNA-nature}.}
+	\caption{Hydrogen bonds between the nucleobases, which makes up the basis for complementarity~\cite{DNA-nature}.}
 \end{figure}
 
 Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the complement of a given DNA sequence. The reverse of a complement is called the \textbf{reverse complement}.
@@ -867,21 +867,103 @@ The running time of the divide and conquer step is also consumed by the combine 
 
 \newpage
 
+\section{Experiment}
+
+The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 solid state drives configured in raid 0.
+
+\subsection{Implementation Details (TODO)}
+
+In order to test regular expressions against different regular expression implementations, we had to create a small series of wrapper programs which takes a regular expressions and a FASTA or FASTQ file and performs the matching and outputs the match results.
+
+\subsubsection{Ruby}
+
+
+\subsubsection{Python}
+
+
+\subsubsection{RE2}
+
 \subsection{Data Analysis}
 
-We have chosen chromosome number 22 from the human genome. Chromosome 22 is the smallest chromosome in the human genome making it better suited for testing. Our version of chromosome 22 contains a lot of noise in the form of N's, specifying unknown bases during sequencing.~\cite{human-genome} We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic use scenario.
+We have chosen chromosome number 22 from the human genome, which is one of the smallest. Our version of chromosome 22 contains a lot of noise in the form of N's especially in the beginning of the file. These N's specify unknown bases during sequencing~\cite{human-genome}. We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic usage scenario.
 
 We could possibly have removed the N's and the linebreaks from the fasta file, in order to reduce the file size and thus reduce the runningtime of the regular expressions which we generate. However we felt that this would not significantly improve our results, and also make our test further from a real-world scenario.
 
-\section{Results}
-
 \subsection{Experiment design}
 
-We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations and ranges. Each group contains roughly 10 pattern files with increasing complexity such that we test both simple and advanced patterns which in term become larger regular expressions. Here, complexity means the number of different cases the pattern may match.We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2} and KMC.
- 
-Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computers. Each thread is also given a time limit of 15 minutes after which the thread is killed. This time limit is given for two reasons. First of all we suspect that some of the regular expressions might never (or close to never) finish, and second of all the difference between taking 15 minutes and 20 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+We have set up a testing environment for our regular expressions, which consists of a series of patscan patterns. These patterns are grouped as mismatches, insertions, deletions, mixed combinations, ranges and sequences. Each group contains roughly 48 patscan pattern files with increasing complexity such that we test both simple and advanced patterns since the more advanced patterns translates into large regular expressions. 
 
-The outputs of our wrapper programs are piped to a result file for each regular expression implementation and subsequently each pattern. 
+\subsubsection{Mismatches, Deletions \& Insertions}
+The mismatches, deletions and insertions patterns are further grouped into different series, where the first series range from a four-character sequence with one mismatch for instance, to a 16-character sequence with one mismatch. The second series is identical except each with two mismatches. We continue this way until we reach four mismatches, thus totalling at 48 different mismatch patterns.
+
+\begin{example}
+An example of a mismatch series.
+
+\begin{center}
+AGCT[1,0,0], AGCTC[1,0,0], AGCTCT[1,0,0] ... AGCTCTCCGTAACGGA[1,0,0]\\
+AGCT[2,0,0], AGCTC[2,0,0], AGCTCT[2,0,0] ... AGCTCTCCGTAACGGA[2,0,0]
+\end{center}
+\end{example}
+
+\subsubsection{Mixed combinations}
+The patterns with mixed combinations are grouped similarly to the mismatches, deletions and insertions patterns.
+
+\begin{example}
+An example of the different combination series.
+
+\begin{center}
+AGCT[1,1,0], AGCTC[1,1,0], AGCTCT[1,1,0] ... AGCTCTCCGTAACGGA[1,1,0]
+\vspace{0.3cm}
+
+AGCT[0,1,1], AGCTC[0,1,1], AGCTCT[0,1,1] ... AGCTCTCCGTAACGGA[0,1,1]
+\vspace{0.3cm}
+
+AGCT[1,0,1], AGCTC[1,0,1], AGCTCT[1,0,1] ... AGCTCTCCGTAACGGA[1,0,1]
+\vspace{0.3cm}
+
+AGCT[1,1,1], AGCTC[1,1,1], AGCTCT[1,1,1] ... AGCTCTCCGTAACGGA[1,1,1]
+\end{center}
+
+\end{example}
+
+\subsubsection{Ranges}
+
+For the ranges patterns we have a single series where we increase the lower bound by two and the upper bound by four 47 times, thus generating a total of 48 patscan pattern files similarly to the other test groups. The length of the sequences on both side of the range stays the same for all the different range patterns.
+
+\begin{example}
+An example of the ranges series.
+
+\begin{center}
+AGCTCT 2...4 AGCTCT, AGCTCT 4...8 AGCTCT, ... AGCTCT 96...192 AGCTCT
+\end{center}
+\end{example}
+
+\subsubsection{Sequences}
+
+For the sequence patterns we simply generate 48 patterns of different sizes. We start with a pattern of four characters and increment the number of characters by one until we reach 48.
+
+\begin{example}
+An example of the sequence series.
+
+\begin{center}
+AGCT,  AGCTC, AGCTCT ... AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA
+\end{center}
+\end{example}
+
+\subsubsection{Benchmarking the patterns}
+
+We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2}.
+ 
+Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+
+The outputs of our wrapper programs are piped to a result file for each regular expression implementation and pattern.
+
+\begin{example}
+An example of a result file <filename.txt>.
+...
+\end{example}
+
+\newpage
 
 \subsection{Experiment results}
 
@@ -990,7 +1072,6 @@ From our tests we were able to determine that in a few cases, translating patsca
 The true power of scan-for-matches lies in being able to match complex combination patterns relatively fast. For such patterns, scan-for-matches by far out-performs our REs on all RE implementations.
 
 For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most patterns scan-for-matches shows superior match time.
-
 
 \newpage
 

@@ -44,46 +44,38 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    int compileStart = getMilliCount();
+
     FileService fr;
     string regexp = fr.read(argv[1]);
     string fasta = fr.read(argv[2]);
-
-    int compileStart = getMilliCount();
 
     RE2 pattern(regexp);
 
     int compileTime = getMilliSpan(compileStart);
 
-    cout << compileTime << endl;
+    cout << "DISK TIME: " << compileTime << endl;
 
     StringPiece input(fasta);
     string value;
 
-    cout << "-" << endl;
+    cout << "MATCHES:" << endl;
 
     int matches = 0;
     int matchStart = getMilliCount();
 
     while (RE2::FindAndConsume(&input, pattern, &value)) {
-        cout << getMilliSpan(matchStart) << ": Found: " << value << endl;
+        cout << "Found: " << value << endl;
         matches++;
     }
 
     int matchTime = getMilliSpan(matchStart);
 
-    cout << "_" << endl;
-
     //int match = RE2::PartialMatch(fasta, pattern);
 
-    cout << matchTime << endl;
-
-    cout << "#" << endl;
-
-    cout << compileTime + matchTime << endl;
-
-    cout << "&" << endl;
-
-    cout << matches << endl;
+    cout << "MATCH TIME: " << matchTime  << endl;
+    cout << "TOTAL TIME: " << compileTime + matchTime << endl;
+    cout << "NUMBER OF MATCHES: " << matches << endl;
 
     return 0;
 }
