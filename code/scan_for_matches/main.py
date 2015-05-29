@@ -15,17 +15,14 @@ start = milli_time()
 results = subprocess.check_output("scan_for_matches " + sys.argv[1] + ' < ' + sys.argv[2], shell=True)
 search_time = milli_time() - start
 
-print '_'
-print search_time
-print '#'
-print search_time
-print '&'
+print 'MATCH TIME: ' + search_time
+print 'TOTAL TIME: ' + search_time
 if results:
-    print len(results)/2
+    print 'NUMBER OF MATCHES: ' + len(results)/2
 else:
-    print 0
+    print 'NUMBER OF MATCHES: ' + 0
 
-print '-'
+print 'MATCHES:'
 if results:
     results = results.split("\n")[0:-1]
     for x in range(0, len(results), 2):

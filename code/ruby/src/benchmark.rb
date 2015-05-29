@@ -6,14 +6,13 @@ class Benchmark
         @runningtime = runtime
         @compiletime = compiletime
 
-        @abs_env = "#{File.dirname(__FILE__)}/../../patscan-patterns/benchmark"
-        @enviroment = '../*/benchmark'
+        @abs_env = "#{File.dirname(__FILE__)}/../../benchmark"
 
         # find all patscan files in the enviroment
-        @patscan_files = Dir["#{@enviroment}/**/*.pat"].sort!
+        @patscan_files = Dir["#{@abs_env}/*.pat"].sort!
 
         # find all fasta files in the enviroment
-        @fasta_files = Dir["#{@enviroment}/../../genome/*.fa"].sort!
+        @fasta_files = Dir["#{@abs_env}/../genome/*.fa"].sort!
     end
 
     def start_threads(runtime, engine, is_scan_for_matches=false)
@@ -27,8 +26,7 @@ class Benchmark
 
                 threads << Thread.new {
 
-                    patscan_pattern = ''
-                    File.open(file, 'r') { |f| patscan_pattern = (f.readlines.join ' ').rstrip! }
+                    patscan_pattern = File.read(file).rstrip
 
                     # we must first generate the regex pattern.
                     # define the .re file location
@@ -55,13 +53,13 @@ class Benchmark
 
 
                     File.open(result_file, 'w') { |f|
-                        f.puts patscan_pattern
+                        f.puts "PATSCAN: #{patscan_pattern}"
 
                         re_pattern = ''
                         File.open(re_file, 'r') { |r| re_pattern = r.readline }
 
-                        f.puts "%\n#{re_pattern.length}"
-                        f.puts "£\n#{re_pattern.split(/\|/).size}\n~"
+                        f.puts "LENGTH OF RE: #{re_pattern.length}"
+                        f.puts "CLAUSES IN RE: #{re_pattern.split(/\|/).size}"
                     }
 
                     if not File.exist? re_file
@@ -129,5 +127,99 @@ class Benchmark
 
     def scan_for_matches
         start_threads('../scan_for_matches/main.py', 'scan_for_matches', true)
+    end
+
+    def generate_patterns
+        alphabet = %w[A T C G]
+
+        number_of_error = 4
+        length_of_pattern = 12
+
+        # Sequences
+        (length_of_pattern * 4).times { |l|
+            pattern = (4 + l).times.map{alphabet[rand(4)]}.join ''
+            File.open("#{@abs_env}/sequences_#{l + 1}.pat", 'w') { |f|
+                f.write pattern
+            }
+        }
+
+        # ranges
+        sequence = 8.times.map{alphabet[rand(4)]}.join ''
+        (length_of_pattern * 4).times { |r|
+            pattern = "#{sequence} #{2 + (2*r)}...#{4 + (4*r)} #{sequence}"
+            File.open("#{@abs_env}/ranges_#{r + 1}.pat", 'w') { |f|
+                f.write pattern
+            }
+        }
+
+        # mismatches
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |m|
+                File.open("#{@abs_env}/mismatches_#{l + 1}_#{m + 1}.pat", 'w') { |f|
+                    f.write pattern + "[#{m + 1},0,0]"
+                }
+            }
+        }
+
+        # deletions
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |d|
+                File.open("#{@abs_env}/deletions_#{l + 1}_#{d + 1}.pat", 'w') { |f|
+                    f.write pattern + "[0,#{d + 1},0]"
+                }
+            }
+        }
+
+        # insertions
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |i|
+                File.open("#{@abs_env}/insertions_#{l + 1}_#{i + 1}.pat", 'w') { |f|
+                    f.write pattern + "[0,0,#{i + 1}]"
+                }
+            }
+        }
+
+        # combinations - all
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |e|
+                File.open("#{@abs_env}/all_#{l + 1}_#{e + 1}.pat", 'w') { |f|
+                    f.write pattern + "[#{e + 1},#{e + 1},#{e + 1}]"
+                }
+            }
+        }
+
+        # combinations - mismatches + deletions
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |e|
+                File.open("#{@abs_env}/mismatches_deletions_#{l + 1}_#{e + 1}.pat", 'w') { |f|
+                    f.write pattern + "[#{e + 1},#{e + 1},0]"
+                }
+            }
+        }
+
+        # combinations - mismatches + insertions
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |e|
+                File.open("#{@abs_env}/mismatches_insertions_#{l + 1}_#{e + 1}.pat", 'w') { |f|
+                    f.write pattern + "[#{e + 1},0,#{e + 1}]"
+                }
+            }
+        }
+
+        # combinations - deletions + insertions
+        length_of_pattern.times { |l|
+            pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
+            number_of_error.times { |e|
+                File.open("#{@abs_env}/deletions_insertions_#{l + 1}_#{e + 1}.pat", 'w') { |f|
+                    f.write pattern + "[0,#{e + 1},#{e + 1}]"
+                }
+            }
+        }
     end
 end
