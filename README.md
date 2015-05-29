@@ -10,7 +10,7 @@ Each of the seperate implementations can also be run seperately under:
 
 Python: 'code/python/main.py \<file.re\> \<file.fa\>'
 
-Ruby: 'code/ruby/re-scan.rb \<file.re\> \<file.fa\>'
+Ruby: 'code/ruby/src/re-scan.rb \<file.re\> \<file.fa\>'
 
 RE2: 'code/c++/main \<file.re\> \<file.fa\>'
 
