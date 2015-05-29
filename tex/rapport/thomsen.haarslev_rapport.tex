@@ -877,6 +877,10 @@ In order to test regular expressions against different regular expression implem
 
 \subsubsection{Ruby}
 
+The ruby regular expression implementation uses an open source regular expression library called Oniguruma~\cite{oniguruma} which has support for multi-byte characters which are especially relevant for the Ruby platform considering its Japanese origin. The Oniguruma library creates an \textit{abstract syntax tree} based on the regular expression which is compiled into a set of instructions for Oniguruma's virtual machine which does the actual matching. This implementation can have an exponential running time for pathological regular expressions such as $(a?)^na^n$, since the Oniguruma's virtual machine uses a backtracking algorithm~\cite{oniguruma-overview}.
+
+\begin{definition} Abstract Syntax Tree
+\end{definition}
 
 \subsubsection{Python}
 
