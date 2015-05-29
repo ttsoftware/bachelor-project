@@ -2,11 +2,18 @@ require 'spec_helper'
 
 describe Benchmark, :type => :class do
 
+    describe '#generate_patterns' do
+        it 'generates the patterns' do
+            benchmark = Benchmark.new 30, 120
+            benchmark.generate_patterns
+        end
+    end
+
     describe '#ruby' do
 
         it 'finds benchmarks all patscan files in subdirectories of benchmark enviroment' do
 
-            benchmark = Benchmark.new 30, 120
+            benchmark = Benchmark.new 5, 120
             benchmark.ruby
         end
     end

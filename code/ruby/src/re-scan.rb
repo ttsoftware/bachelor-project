@@ -32,7 +32,7 @@ File.open(ARGV[1], 'r') { |file| fasta_file = file.readlines.join ' ' }
 read_file_end = Time.now
 
 # <Memory time>
-puts (read_file_end - read_file_start) * 1000.0
+puts "DISK TIME: #{(read_file_end - read_file_start) * 1000.0}"
 
 begin
     regex = Regexp.new pattern
@@ -42,21 +42,18 @@ begin
     match_time_end = Time.now
 
     # <Match time>
-    puts '_'
-    puts (match_time_end - match_time_start) * 1000.0
+    puts "MATCH TIME: #{(match_time_end - match_time_start) * 1000.0}"
 
     # <Total time>
-    puts '#'
-    puts (Time.now - read_file_start) * 1000.0
+    puts "TOTAL TIME: #{(Time.now - read_file_start) * 1000.0}"
 
     # <Number of matches>
-    puts '&'
-    puts matches.size
+    puts "NUMBER OF MATCHES: #{matches.size}"
 
     # <Matches>
-    puts '-'
+    puts 'MATCHES:'
     matches.each { |m|
-        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0} - #{(Time.now - read_file_start) * 1000.0}"
+        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0}"
     }
 
 rescue RegexpError => e

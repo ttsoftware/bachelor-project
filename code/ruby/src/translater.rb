@@ -34,7 +34,6 @@ class Translater
             end
         }
 
-        puts @counter
         return "(?i)#{expression}(?-i)"
     end
 
