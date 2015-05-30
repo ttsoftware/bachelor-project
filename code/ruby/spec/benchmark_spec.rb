@@ -4,7 +4,7 @@ describe Benchmark, :type => :class do
 
     describe '#generate_patterns' do
         it 'generates the patterns' do
-            benchmark = Benchmark.new 30, 120
+            benchmark = Benchmark.new 15, 60
             benchmark.generate_patterns
         end
     end
@@ -13,7 +13,7 @@ describe Benchmark, :type => :class do
 
         it 'finds benchmarks all patscan files in subdirectories of benchmark enviroment' do
 
-            benchmark = Benchmark.new 5, 120
+            benchmark = Benchmark.new 15, 60
             benchmark.ruby
         end
     end
@@ -22,8 +22,8 @@ describe Benchmark, :type => :class do
 
         it 'works with python' do
 
-            benchmark = Benchmark.new 30, 120
-            benchmark.python
+            #benchmark = Benchmark.new 30, 120
+            #benchmark.python
         end
     end
 
@@ -31,7 +31,7 @@ describe Benchmark, :type => :class do
 
         it 'works with re2' do
 
-            benchmark = Benchmark.new 30, 120
+            benchmark = Benchmark.new 15, 60
             benchmark.re2
         end
     end
@@ -39,7 +39,7 @@ describe Benchmark, :type => :class do
     describe '#scan-for-matches' do
 
         it 'works with scan-for-matches' do
-            benchmark = Benchmark.new 30, 120
+            benchmark = Benchmark.new 15, 60
             benchmark.scan_for_matches
         end
     end

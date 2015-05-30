@@ -2,11 +2,13 @@ class Visualizer
 
     def initialize
 
+        @env = '../benchmark/parsed_results/'
+        
         @mode = {
             :mismatches => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_mismatches.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_mismatches.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_mismatches.data',
+                :re2 => "#{@env}re2_mismatches.data",
+                :ruby => "#{@env}ruby_mismatches.data",
+                :scan => "#{@env}scan_for_matches_mismatches.data",
                 :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
                 :title => 'Mismatches',
@@ -14,9 +16,9 @@ class Visualizer
                 :format => ''
             },
             :deletions => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_deletions.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_deletions.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_deletions.data',
+                :re2 => "#{@env}re2_deletions.data",
+                :ruby => "#{@env}ruby_deletions.data",
+                :scan => "#{@env}scan_for_matches_deletions.data",
                 :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
                 :title => 'Deletions',
@@ -24,9 +26,9 @@ class Visualizer
                 :format => ''
             },
             :insertions => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_insertions.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_insertions.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_insertions.data',
+                :re2 => "#{@env}re2_insertions.data",
+                :ruby => "#{@env}ruby_insertions.data",
+                :scan => "#{@env}scan_for_matches_insertions.data",
                 :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
                 :title => 'Insertions',
@@ -34,9 +36,9 @@ class Visualizer
                 :format => ''
             },
             :combinations => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_combinations.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_combinations.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_combinations.data',
+                :re2 => "#{@env}re2_combinations.data",
+                :ruby => "#{@env}ruby_combinations.data",
+                :scan => "#{@env}scan_for_matches_combinations.data",
                 :xlabel => 'RE cases',
                 :ylabel => 'Match time [ms]',
                 :title => 'Combinations',
@@ -44,9 +46,9 @@ class Visualizer
                 :format => ''
             },
             :ranges => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_range.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_range.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_range.data',
+                :re2 => "#{@env}re2_range.data",
+                :ruby => "#{@env}ruby_range.data",
+                :scan => "#{@env}scan_for_matches_range.data",
                 :xlabel => 'Size of range',
                 :ylabel => 'Match time [ms]',
                 :title => 'Ranges',
@@ -54,9 +56,9 @@ class Visualizer
                 :format => 'set format x ""'
             },
             :sequences => {
-                :re2 => '../patscan-patterns/benchmark/results/result_data/re2_sequences.data',
-                :ruby => '../patscan-patterns/benchmark/results/result_data/ruby_sequences.data',
-                :scan => '../patscan-patterns/benchmark/results/result_data/scan_for_matches_sequences.data',
+                :re2 => "#{@env}re2_sequences.data",
+                :ruby => "#{@env}ruby_sequences.data",
+                :scan => "#{@env}scan_for_matches_sequences.data",
                 :xlabel => 'Sequence length',
                 :ylabel => 'Match time [ms]',
                 :title => 'Sequences',

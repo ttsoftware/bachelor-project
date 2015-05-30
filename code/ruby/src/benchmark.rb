@@ -34,12 +34,15 @@ class Benchmark
 
                     puts "Trying #{file}."
 
-                    t = Thread.new {
+                    re_pattern_length = ''
+                    re_pattern_clauses = ''
 
-                        pattern = Translater.new(patscan_pattern).translate
-                        File.open(re_file, 'w') { |f|
-                            f.write pattern
-                        }
+                    t = Thread.new {
+                        re_pattern = Translater.new(patscan_pattern).translate
+                        re_pattern_length = re_pattern.length
+                        re_pattern_clauses = re_pattern.split(/\|/).size
+
+                        File.open(re_file, 'w') { |f| f.puts re_pattern }
                     }
 
                     sleep @compiletime
@@ -47,24 +50,21 @@ class Benchmark
                     Thread.kill t # only allow compile time of @compiletime seconds
                     t.join
 
+                    puts re_file
+
                     # define output file for current input file
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
                     result_file = "#{@abs_env}/results/#{engine}/#{result_file}"
 
-
                     File.open(result_file, 'w') { |f|
                         f.puts "PATSCAN: #{patscan_pattern}"
-
-                        re_pattern = ''
-                        File.open(re_file, 'r') { |r| re_pattern = r.readline }
-
-                        f.puts "LENGTH OF RE: #{re_pattern.length}"
-                        f.puts "CLAUSES IN RE: #{re_pattern.split(/\|/).size}"
+                        f.puts "LENGTH OF RE: #{re_pattern_length}"
+                        f.puts "CLAUSES IN RE: #{re_pattern_clauses}"
                     }
 
-                    if not File.exist? re_file
+                    unless File.exist? re_file
                         puts "ERROR: No such file #{re_file} - compile failed or did not finish."
-                        next
+                        Thread.current.exit
                     end
 
                     if is_scan_for_matches
