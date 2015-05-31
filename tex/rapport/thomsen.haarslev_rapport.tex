@@ -145,6 +145,27 @@ shaded={bgcolor=theorem-gray}
 	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\space\hookleftarrow}},
 	basicstyle=\footnotesize\ttfamily,
 	%
+	%emph={@param,@return},
+	otherkeywords={IGNORECASE,:scan},
+	keywords=[2]{self},
+	keywords=[3]{__init__},
+	keywords=[4]{object,Regexp,re,FileService,StringPiece,string,int,RE2},
+	keywords=[5]{encoding, flags},
+	keywords=[6]{map,to_enum,last_match,findall,read,getMilliSpan,getMilliCount,FindAndConsume},
+	%keywords=[7]{},
+	%
+	keywordstyle=\bfseries\color{dark-blue},
+	keywordstyle={[2]\color{pale-purple}},
+	keywordstyle={[3]\color{magenta}},
+	keywordstyle={[4]\color{dark-blue}},
+	keywordstyle={[5]\color{regular-purple}},
+	keywordstyle={[6]\color{dark-purple}},
+	keywordstyle={[7]\bfseries\color{black}},
+    commentstyle=\itshape\color{comment},
+    identifierstyle=\color{black},
+	stringstyle=\bfseries\color{dark-green},
+	%emphstyle=\bfseries,
+	%
 	literate=%
     	{0}{{\FormatDigit{0}}}{1}%
         {1}{{\FormatDigit{1}}}{1}%
@@ -175,27 +196,6 @@ shaded={bgcolor=theorem-gray}
         {Ø}{{\O}}1
         {Å}{{\AA}}1
         {~}{{$\scriptstyle{\sim}$}}1, % handle tilde ~
-	%
-	%emph={@param,@return},
-	otherkeywords={IGNORECASE,:scan},
-	keywords=[2]{self},
-	keywords=[3]{__init__},
-	keywords=[4]{object,Regexp,re,FileService,StringPiece,string,int,RE2},
-	keywords=[5]{encoding, flags},
-	keywords=[6]{map,to_enum,last_match,findall,read,getMilliSpan,getMilliCount,FindAndConsume},
-	%keywords=[7]{},
-	%
-	keywordstyle=\bfseries\color{dark-blue},
-	keywordstyle={[2]\color{pale-purple}},
-	keywordstyle={[3]\color{magenta}},
-	keywordstyle={[4]\color{dark-blue}},
-	keywordstyle={[5]\color{regular-purple}},
-	keywordstyle={[6]\color{dark-purple}},
-	keywordstyle={[7]\bfseries\color{black}},
-    commentstyle=\itshape\color{comment},
-    identifierstyle=\color{black},
-	stringstyle=\bfseries\color{dark-green},
-	%emphstyle=\bfseries,
 	%
 	numbers=left, % where to put the line-numbers
 	numberstyle=\ttfamily\color{dark-gray},
@@ -870,7 +870,7 @@ The running time of the divide and conquer step is also consumed by the combine 
 
 \section{Experiment (TODO)}
 
-The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 solid state drives configured in raid 0.
+The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
 
 \subsection{RE Implementation Details}
 
@@ -906,7 +906,11 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 Google's RE2 constructs DFA's and or NFA's from the given regular expressions and thus guarantees linear running time~\cite{pcre-running-time}, but leaving behind support for back-references which are part of standard PCRE.
 
-\begin{figure}
+We have made small modifications to the RE2 library, in order for it to support regular expressions of very large sizes, such as the ones we wish to run~\cite{re2}. The changes can found at \small \url{https://github.com/ttsoftware/re2/commit/46f2b5fe0381af732a13067ee976f357aa53bbc1}.\normalsize
+
+Our wrapper program for RE2 simply uses the built-in \texttt{FindAndConsume} method to find all the matches to the given regular expression.
+
+\begin{figure}[H]
 	\begin{lstlisting}
 	FileService fr;
     string regexp = fr.read(argv[1]);
@@ -914,23 +918,16 @@ Google's RE2 constructs DFA's and or NFA's from the given regular expressions an
 
     RE2 pattern(regexp);
 
-    int compileTime = getMilliSpan(compileStart);
-
-    cout << "DISK TIME: " << compileTime << endl;
-
     StringPiece input(fasta);
     string value;
-
-    cout << "MATCHES:" << endl;
-
+    
     int matches = 0;
-    int matchStart = getMilliCount();
 
     while (RE2::FindAndConsume(&input, pattern, &value)) {
-        cout << "Found: " << value << endl;
         matches++;
     }
 	\end{lstlisting}
+	\caption{C++ which uses the RE2 library to find all matches of \texttt{pattern} in \texttt{input}}
 \end{figure}
 
 \subsection{Data Analysis}
@@ -1002,15 +999,25 @@ AGCT,  AGCTC, AGCTCT ... AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA
 
 \subsubsection{Benchmarking the patterns}
 
-We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2}.
+We run each group against our chosen regular expression implementations which include Ruby, Python and our own version of Google's RE2.
  
-Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementations. Each patscan file is benchmarked in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
 
 The outputs of our wrapper programs are piped to a result file for each regular expression implementation and pattern.
 
-\begin{example}
-An example of a result file <filename.txt>.
-...
+\begin{example} 
+An example of a result file.\\
+PATSCAN: CCCAG[1,1,1]\\
+LENGTH OF RE: 1726\\
+CLAUSES IN RE: 124\\
+DISK TIME: 3580\\
+MATCHES:\\
+Found: ccaagt\\
+Found: TCTCA\\
+Found: ctccc\\
+Found: acctg\\
+Found: ggcca\\
+Found: cacctg
 \end{example}
 
 \newpage
