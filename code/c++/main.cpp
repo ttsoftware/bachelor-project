@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     int matchStart = getMilliCount();
 
     while (RE2::FindAndConsume(&input, pattern, &value)) {
-        cout << "Found: " << value << endl;
+        //cout << value << endl;
         matches++;
     }
 

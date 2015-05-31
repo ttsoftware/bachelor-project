@@ -124,7 +124,7 @@ class ResultParser
                 mismatch_insertion_data << r
             elsif r[:patscan_deletions] == 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] != 0
                 deletion_insertion_data << r
-            elsif (r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0) and r[:patscan_insertions]
+            elsif r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] != 0
                 # combinations
                 combinations_data << r
             elsif r[:range]
@@ -136,78 +136,78 @@ class ResultParser
             end
         }
 
-        mismatches_data.sort_by! { |r| r[:re_clauses] }
+        mismatches_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_mismatches_#{i + 1}.data", 'w') { |f|
                 mismatches_data.each { |r|
                     if r[:patscan_mismatches] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        deletions_data.sort_by! { |r| r[:re_clauses] }
+        deletions_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_deletions_#{i + 1}.data", 'w') { |f|
                 deletions_data.each { |r|
                     if r[:patscan_deletions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        insertions_data.sort_by! { |r| r[:re_clauses] }
+        insertions_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_insertions_#{i + 1}.data", 'w') { |f|
                 insertions_data.each { |r|
                     if r[:patscan_insertions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        mismatch_deletion_data.sort_by! { |r| r[:re_clauses] }
+        mismatch_deletion_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_mismatch_deletion_#{i + 1}.data", 'w') { |f|
                 mismatch_deletion_data.each { |r|
-                    if r[:patscan_insertions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                    if r[:patscan_mismatches] == i + 1 and r[:patscan_deletions] == i + 1
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        mismatch_insertion_data.sort_by! { |r| r[:re_clauses] }
+        mismatch_insertion_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_mismatch_insertion_#{i + 1}.data", 'w') { |f|
                 mismatch_insertion_data.each { |r|
-                    if r[:patscan_insertions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                    if r[:patscan_mismatches] == i + 1 and r[:patscan_insertions] == i + 1
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        deletion_insertion_data.sort_by! { |r| r[:re_clauses] }
+        deletion_insertion_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_deletion_insertion_#{i + 1}.data", 'w') { |f|
                 deletion_insertion_data.each { |r|
-                    if r[:patscan_insertions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                    if r[:patscan_deletions] == i + 1 and r[:patscan_insertions] == i + 1
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
         }
 
-        combinations_data.sort_by! { |r| r[:re_clauses] }
+        combinations_data.sort_by! { |r| r[:patscan_sequence].length }
         4.times { |i|
             File.open("#{@abs_env}/#{runtime}_combinations_#{i + 1}.data", 'w') { |f|
                 combinations_data.each { |r|
-                    if r[:patscan_insertions] == i + 1
-                        f.puts "#{r[:re_clauses]} #{r[:match_time]}"
+                    if r[:patscan_mismatches] == i + 1 and r[:patscan_deletions] == i + 1 and r[:patscan_insertions] == i + 1
+                        f.puts "#{r[:patscan_sequence].length} #{r[:match_time]}"
                     end
                 }
             }
