@@ -6,10 +6,17 @@ Book{tag,
     isbn      = "0385527403"
 }
 
+@misc{kleenes-theorem,
+    author = {James Power},
+    title = {Regular Expression Matching Can Be Simple And Fast},
+    year = 2002,
+    howpublished = "\url{http://www.cs.may.ie/staff/jpower/Courses/Previous/parsing/node6.html}"
+}
+
 @misc{pcre-running-time,
     author = {Russ Cox},
     title = {Regular Expression Matching Can Be Simple And Fast},
-    year = 2015,
+    year = 2007,
     howpublished = "\url{https://swtch.com/~rsc/regexp/regexp1.html}"
 }
 

@@ -33,24 +33,13 @@ class Benchmark
                     re_file = file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.pat$/, '\k<path>/\k<name>.re'
 
                     puts "Trying #{file}."
-
-                    re_pattern_length = ''
-                    re_pattern_clauses = ''
-
-                    t = Thread.new {
-                        re_pattern = Translater.new(patscan_pattern).translate
-                        re_pattern_length = re_pattern.length
-                        re_pattern_clauses = re_pattern.split(/\|/).size
-
-                        File.open(re_file, 'w') { |f| f.puts re_pattern }
-                    }
-
-                    sleep @compiletime
-
-                    Thread.kill t # only allow compile time of @compiletime seconds
-                    t.join
-
                     puts re_file
+
+                    re_pattern = Translater.new(patscan_pattern).translate
+                    re_pattern_length = re_pattern.length
+                    re_pattern_clauses = re_pattern.split(/\|/).size
+
+                    File.open(re_file, 'w') { |f| f.puts re_pattern }
 
                     # define output file for current input file
                     result_file = re_file.sub /^(?<path>.+)\/(?<name>[^\/]+)\.(pat|re)$/, '\k<name>-result.txt'
@@ -185,7 +174,7 @@ class Benchmark
         # combinations - all
         length_of_pattern.times { |l|
             pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
-            number_of_error.times { |e|
+            2.times { |e|
                 File.open("#{@abs_env}/all_#{l + 1}_#{e + 1}.pat", 'w') { |f|
                     f.write pattern + "[#{e + 1},#{e + 1},#{e + 1}]"
                 }
@@ -205,7 +194,7 @@ class Benchmark
         # combinations - mismatches + insertions
         length_of_pattern.times { |l|
             pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
-            number_of_error.times { |e|
+            3.times { |e|
                 File.open("#{@abs_env}/mismatches_insertions_#{l + 1}_#{e + 1}.pat", 'w') { |f|
                     f.write pattern + "[#{e + 1},0,#{e + 1}]"
                 }
@@ -215,7 +204,7 @@ class Benchmark
         # combinations - deletions + insertions
         length_of_pattern.times { |l|
             pattern = (5 + l).times.map{alphabet[rand(4)]}.join ''
-            number_of_error.times { |e|
+            3.times { |e|
                 File.open("#{@abs_env}/deletions_insertions_#{l + 1}_#{e + 1}.pat", 'w') { |f|
                     f.write pattern + "[0,#{e + 1},#{e + 1}]"
                 }

@@ -25,12 +25,12 @@ class ResultParser
 
             patscan_match = /^PATSCAN: (?<patscan>.+?)\n/.match content
 
-            re_length_match = /LENGTH OF RE: (?<re_length>[\d\.]+\n)/.match content
-            re_cases_match = /CLAUSES IN RE: (?<re_cases>[\d\.]+\n)/.match content
-            memory_time_match = /DISK TIME: (?<memory_time>[\d\.]+\n)/.match content
-            match_time_match = /MATCH TIME: (?<match_time>[\d\.]+\n)/.match content
-            total_time_match = /TOTAL TIME: (?<total_time>[\d\.]+\n)/.match content
-            match_count_match = /NUMBER OF MATCHES: (?<match_count>[\d\.]+\n)/.match content
+            re_length_match = /LENGTH OF RE: (?<re_length>[\d\.]+)\n/.match content
+            re_cases_match = /CLAUSES IN RE: (?<re_cases>[\d\.]+)\n/.match content
+            memory_time_match = /DISK TIME: (?<memory_time>[\d\.]+)\n/.match content
+            match_time_match = /MATCH TIME: (?<match_time>[\d\.]+)\n/.match content
+            total_time_match = /TOTAL TIME: (?<total_time>[\d\.]+)\n/.match content
+            match_count_match = /NUMBER OF MATCHES: (?<match_count>[\d\.]+)\n/.match content
 
             matches = nil
             #matches = /MATCHES:\n(?<matches>[^#_&~]+)?/.match content
@@ -120,12 +120,11 @@ class ResultParser
                 insertions_data << r
             elsif r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] == 0
                 mismatch_deletion_data << r
-            elsif r[:patscan_deletions] != 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] != 0
-                mismatch_insertion_data << r
             elsif r[:patscan_deletions] == 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] != 0
+                mismatch_insertion_data << r
+            elsif r[:patscan_deletions] != 0 and r[:patscan_mismatches] == 0 and r[:patscan_insertions] != 0
                 deletion_insertion_data << r
             elsif r[:patscan_deletions] != 0 and r[:patscan_mismatches] != 0 and r[:patscan_insertions] != 0
-                # combinations
                 combinations_data << r
             elsif r[:range]
                 # ranges
