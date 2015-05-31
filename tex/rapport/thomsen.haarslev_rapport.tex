@@ -145,6 +145,27 @@ shaded={bgcolor=theorem-gray}
 	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\space\hookleftarrow}},
 	basicstyle=\footnotesize\ttfamily,
 	%
+	%emph={@param,@return},
+	otherkeywords={IGNORECASE,:scan},
+	keywords=[2]{self},
+	keywords=[3]{__init__},
+	keywords=[4]{object,Regexp,re,FileService,StringPiece,string,int,RE2},
+	keywords=[5]{encoding, flags},
+	keywords=[6]{map,to_enum,last_match,findall,read,getMilliSpan,getMilliCount,FindAndConsume},
+	%keywords=[7]{},
+	%
+	keywordstyle=\bfseries\color{dark-blue},
+	keywordstyle={[2]\color{pale-purple}},
+	keywordstyle={[3]\color{magenta}},
+	keywordstyle={[4]\color{dark-blue}},
+	keywordstyle={[5]\color{regular-purple}},
+	keywordstyle={[6]\color{dark-purple}},
+	keywordstyle={[7]\bfseries\color{black}},
+    commentstyle=\itshape\color{comment},
+    identifierstyle=\color{black},
+	stringstyle=\bfseries\color{dark-green},
+	%emphstyle=\bfseries,
+	%
 	literate=%
     	{0}{{\FormatDigit{0}}}{1}%
         {1}{{\FormatDigit{1}}}{1}%
@@ -175,27 +196,6 @@ shaded={bgcolor=theorem-gray}
         {Ø}{{\O}}1
         {Å}{{\AA}}1
         {~}{{$\scriptstyle{\sim}$}}1, % handle tilde ~
-	%
-	%emph={@param,@return},
-	otherkeywords={IGNORECASE,:scan},
-	keywords=[2]{self},
-	keywords=[3]{__init__},
-	keywords=[4]{object,Regexp,re,FileService,StringPiece,string,int,RE2},
-	keywords=[5]{encoding, flags},
-	keywords=[6]{map,to_enum,last_match,findall,read,getMilliSpan,getMilliCount,FindAndConsume},
-	%keywords=[7]{},
-	%
-	keywordstyle=\bfseries\color{dark-blue},
-	keywordstyle={[2]\color{pale-purple}},
-	keywordstyle={[3]\color{magenta}},
-	keywordstyle={[4]\color{dark-blue}},
-	keywordstyle={[5]\color{regular-purple}},
-	keywordstyle={[6]\color{dark-purple}},
-	keywordstyle={[7]\bfseries\color{black}},
-    commentstyle=\itshape\color{comment},
-    identifierstyle=\color{black},
-	stringstyle=\bfseries\color{dark-green},
-	%emphstyle=\bfseries,
 	%
 	numbers=left, % where to put the line-numbers
 	numberstyle=\ttfamily\color{dark-gray},
@@ -476,6 +476,8 @@ An NFA needs to evaluate all possible transition candidates until they reach the
 
 In figure \ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
 It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
+
+TODO insert algorithm for parsing NFA's.
 
 \newpage
 
@@ -870,7 +872,7 @@ The running time of the divide and conquer step is also consumed by the combine 
 
 \section{Experiment (TODO)}
 
-The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 solid state drives configured in raid 0.
+The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
 
 \subsection{RE Implementation Details}
 
@@ -906,7 +908,11 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 Google's RE2 constructs DFA's and or NFA's from the given regular expressions and thus guarantees linear running time~\cite{pcre-running-time}, but leaving behind support for back-references which are part of standard PCRE.
 
-\begin{figure}
+We have made small modifications to the RE2 library, in order for it to support regular expressions of very large sizes, such as the ones we wish to run~\cite{re2}. The changes can found at \small \url{https://github.com/ttsoftware/re2/commit/46f2b5fe0381af732a13067ee976f357aa53bbc1}.\normalsize
+
+Our wrapper program for RE2 simply uses the built-in \texttt{FindAndConsume} method to find all the matches to the given regular expression.
+
+\begin{figure}[H]
 	\begin{lstlisting}
 	FileService fr;
     string regexp = fr.read(argv[1]);
@@ -914,23 +920,16 @@ Google's RE2 constructs DFA's and or NFA's from the given regular expressions an
 
     RE2 pattern(regexp);
 
-    int compileTime = getMilliSpan(compileStart);
-
-    cout << "DISK TIME: " << compileTime << endl;
-
     StringPiece input(fasta);
     string value;
-
-    cout << "MATCHES:" << endl;
-
+    
     int matches = 0;
-    int matchStart = getMilliCount();
 
     while (RE2::FindAndConsume(&input, pattern, &value)) {
-        cout << "Found: " << value << endl;
         matches++;
     }
 	\end{lstlisting}
+	\caption{C++ which uses the RE2 library to find all matches of \texttt{pattern} in \texttt{input}}
 \end{figure}
 
 \subsection{Data Analysis}
@@ -1002,113 +1001,99 @@ AGCT,  AGCTC, AGCTCT ... AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA
 
 \subsubsection{Benchmarking the patterns}
 
-We run each group against our chosen regular expression implementations which include Ruby, Python, google's RE2~\cite{re2}.
+We run each group against our chosen regular expression implementations which include Ruby, Python and our own version of Google's RE2.
  
-Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementation. In most cases we have made a small wrapper program which takes a .re file and a .fa file, and actually performs the matching using the given implementation. Each patscan file is parsed in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementations. Each patscan file is benchmarked in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
 
 The outputs of our wrapper programs are piped to a result file for each regular expression implementation and pattern.
 
-\begin{example}
-An example of a result file <filename.txt>.
-...
+\begin{example} 
+An example of a result file.\\
+PATSCAN: GGGCCC[0,1,0]\\
+LENGTH OF RE: 35\\
+CLAUSES IN RE: 3\\
+DISK TIME: 830.2378259999999\\
+MATCH TIME: 1041.21441\\
+TOTAL TIME: 1871.548022\\
+NUMBER OF MATCHES: 1891\\
+MATCHES:\\
+GGGCCC - 15013180:15013187\\
+GGGCC - 15046669:15046675\\
+GGGCC - 15046929:15046935\\
 \end{example}
 
 \newpage
 
 \subsection{Experiment results}
 
-In the following, we will make an analysis of how well our translated REs perform on various RE implementations compared to the performance of scan-for-matches. In the analysis, we will show various plots of our performance results. For some of our tests the REs grow so large that the limits in some of the RE implementations stops them from compiling/running. When this happens our test returns a match time of 0. This means that in some of our graphs, if it says it took zero milliseconds to match, it didn't find any results. In some of these cases, results could actually be found, but the RE implementation took too long (we set a limit of 120 seconds), and we stopped the process. We did this because if a given RE implementation is already orders of magnitude slower than scan-for-matches, it doesn't really matter how many orders of magnitude.
-
-Throughout our tets we will use scan-for-matches as our control.
-
 \subsubsection{Mismatches}
 
-In figure~\ref{graph:cases:mismatches} we look at how well the different engines match patterns containing mismatches. For our control the match time doesn't seem affected by the complexity of mismatches-patterns at all, and shows great performance for any level of complexity. 
+For mismatches we notice that RE2 actually outperforms both scan-for-matches and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts slowing down significantly. We suspect that this is due to the fact that RE2 at this point is unable to convert its NFA's to DFA's. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than four characters.
 
-Ruby shows relatively poor performance with a match time which explodes with the complexity of the pattern, and then quickly drops to zero match time, indicating that the pattern was either too large for Ruby to compile, or matching was slower than the limit we had set for the test.
-
-RE2 is showing good results for patterns of low complexity. RE2 actually outperforms scan-for-matches for a few of the test patterns, but it seems like the match time quickly rises, and then either gives up on compiling the patterns, or spends too long on the matching. Interestingly, this happens at the same level of complexity as Ruby.
+We notice that scan-for-matches actually performs better overall for longer sequences where fewer matches are found.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_mismatches.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing only mismatches. The graph shows the relationship between how many different cases the RE can be, and the amount of time it took to search the input file for matches.}
+	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:mismatches}
 \end{figure}
 
-
 \subsubsection{Deletions}
 
-In figure~\ref{graph:cases:deletions}, we have the same kind of graph as in figure~\ref{graph:cases:mismatches} but the patterns have various amounts of deletions instead of mismatches.
-
-Here, we see almost the same performance as with mismatches for all three implementations. RE2 however, seems to be able to handle patterns of a bit higher complexity, and is actually showing better performance than scan-for-matches for a higher level of complexity compared to the mismatches test. Like the mismatches, deletions also reach a point, where the time it takes RE2 and Ruby to match exceeds our set limit, or they simply give up on compiling.
+For deletions we notice the same trend as with mismatches with respect to RE2. RE2 outperforms scan-for-matches and Ruby, until it reaches a point where the regular expressions simply become too large and it either slows down or fails. Interestingly RE2 is able to break this trend for three deletions, where we notice a big slowdown with sequence length 12, but a great recovery for sequences of length 13 and 14. We suspect that this is due to fewer matches being found for the greater lengths.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_deletions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_deletions.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing only deletions. The graph shows the relationship between how many different cases the RE can be, and the amount of time it took to search the input file for matches.}
+	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:deletions}
 \end{figure}
 
 
 \subsubsection{Insertions}
 
-In figure~\ref{graph:cases:insertions}, we have the same kind of graph as in figure~\ref{graph:cases:mismatches}, but the patterns have various amounts of insertions instead of mismatches.
-
-We expected these tests to have poorer performance than mismatches and deletions, since insertions are the greatest factor in determining how large the translated RE becomes. Overall the test shows what we expected; the performance of both RE2 and Ruby is far inferior to scan-for-matches which once again isn't affected by the complexity of the pattern. Surprisingly, RE2 once again proves to be performing better than scan-for-matches for low-complexity patterns. However like all tests before, both RE2 and Ruby fails when a certain complexity is reached.
+For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby and scan-for-matches. Since insertions generate much larger regular expressions, we also notice that both Ruby and RE2 quite quickly is unable to run the expressions. Neither RE2 or Ruby is able to finish sequences with two insertions, failing at 11 and 15 characters respectively.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_insertions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_insertions.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing only insertions. The graph shows the relationship between how many different cases the RE can be, and the amount of time it took to search the input file for matches.}
+	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:insertions}
 \end{figure}
 
-
 \subsubsection{Combinations}
-
-\textbf{Vi mistænker disse resultater for at være forkerte, så vi skal lige have undersøgt det...}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_combinations.png}	
+		%\includegraphics[scale=0.55]{graphs/re_cases_combinations.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing a combination of mismatches, deletions, and insertions. The graph shows the relationship between how many different cases the RE can be, and the amount of time it took to search the input file for matches.}
+	\caption{}
 	\label{graph:cases:combinations}
 \end{figure}
 
 
 \subsubsection{Ranges}
 
-In figure~\ref{graph:cases:ranges}, we look at ranges and how the size of the range affects the match time for all three engines. Contrary to our previous tests, both RE2 and Ruby shows superior performance to scan-for-matches. This is likely caused by the fact that ranges are not translated into enormous REs like the combination patterns. In the previous tests we also saw how RE2 would outperform scan-for-matches, if the complexity of the pattern is small.
-
-Additionally the size of the range does not seem to make a difference for either of the three implementations in terms of match time. 
-
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_ranges.png}	
+		%\includegraphics[scale=0.55]{graphs/re_cases_ranges.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing only ranges (with a small sequence on either side). The graph shows the relationship between how large the range is, and the amount of time it took to search the input file for matches.}
+	\caption{}
 	\label{graph:cases:ranges}
 \end{figure}
 
 
 \subsubsection{Sequences}
 
-In figure~\ref{graph:cases:sequences} we look at patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes the three engines to search the input file for matches. 
-
-Similar to ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Here we also see that RE2 and Ruby performs a lot better than scan-for-matches, further suggesting that RE2 and Ruby are superior to scan-for-matches when it comes to low-complexity patterns.
-
-Interestingly, RE2 performs better than Ruby for smaller patterns, but as the patterns become larger, Ruby starts to perform better than RE2. Larger sequences yield fewer matches than smaller sequences, which suggests that Ruby performs bad when it finds a lot of matches, but performs well when there are fewer matches, while RE2 shows the opposite behaviour.
-
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/re_cases_sequences.png}	
+		%\includegraphics[scale=0.55]{graphs/re_cases_sequences.png}	
 	\end{center}
-	\caption{This graph shows the results of our tests with patterns containing only sequences. The graph shows the relationship between how long the sequence is, and the amount of time it took to search the input file for matches.}
+	\caption{}
 	\label{graph:cases:sequences}
 \end{figure}
 
@@ -1117,9 +1102,7 @@ Interestingly, RE2 performs better than Ruby for smaller patterns, but as the pa
 
 We presented a way to translate patscan patterns into regular expressions. By doing so we were able to analyse the performance of scan-for-matches against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
 
-From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than scan-for-matches. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns. For some of these patterns, translating into a RE gives a match time more than 10 times faster than scan-for-matches.
-
-The true power of scan-for-matches lies in being able to match complex combination patterns relatively fast. For such patterns, scan-for-matches by far out-performs our REs on all RE implementations.
+From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than scan-for-matches. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns. For some of these patterns, translating into a RE gives a match time more than 4 times faster than scan-for-matches.
 
 For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most patterns scan-for-matches shows superior match time.
 
