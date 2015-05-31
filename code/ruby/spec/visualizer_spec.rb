@@ -9,11 +9,11 @@ describe Visualizer, :type => :class do
             visualizer = Visualizer.new
 
             visualizer.visualize :mismatches
-            visualizer.visualize :deletions
-            visualizer.visualize :insertions
-            visualizer.visualize :combinations
-            visualizer.visualize :ranges
-            visualizer.visualize :sequences
+            # visualizer.visualize :deletions
+            # visualizer.visualize :insertions
+            # visualizer.visualize :combinations
+            # visualizer.visualize :ranges
+            # visualizer.visualize :sequences
         end
     end
 end
