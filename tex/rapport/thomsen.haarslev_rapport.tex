@@ -481,16 +481,12 @@ It is worth noting that any DFA can be constructed from an NFA but at the cost o
 
 An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Transition(Accept(F), s)$.
 \begin{eqnarray}
-	%Transition(S, \epsilon) & = & S \\
+	Transition(S, \epsilon) & = & S \\
 	Transition(S, ab) & = & Transition(Transition(S, a), b) \\
 	Transition(S, a) & = & Accept(Step(S, a)) \\
 	Step(S, a) & = & \{ q_j\ |\ q_i \in S, q_i \xrightarrow{a} q_j \} \\
 	Accept(S) & = & \{ q_j\ |\ q_i \in S, q_i \overset{\epsilon}{\leadsto} q_j \}
 \end{eqnarray}
-
-\begin{example}
-	
-\end{example}
 
 \newpage
 
@@ -1116,7 +1112,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=0.55]{graphs/re_cases_ranges.png}	
+		\includegraphics[scale=0.55]{graphs/ranges.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:ranges}
@@ -1127,7 +1123,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=0.55]{graphs/re_cases_sequences.png}	
+		\includegraphics[scale=0.55]{graphs/sequences.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:sequences}
