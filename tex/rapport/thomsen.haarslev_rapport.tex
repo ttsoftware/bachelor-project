@@ -399,28 +399,21 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 \subsubsection{Implementing regular expressions}
 
 Now that we have defined regular expressions formally, we want to be able to match them against strings. We say that a regular expression $E$ match a string $S$ if $S \in \mathcal{L}(E)$.
-The most common way of solving this problem, and also the way industry standard regular expression implementations such as google's RE2 solve this problem~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{finite automaton}.\\
+The industry standard way of solving this problem which regular expression implementations such as google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} or a \textit{non-deterministic finite automata} in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
 
-\begin{definition} A \textbf{Finite Automaton} can be defined as a five tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
-\label{finite automaton defintion}
+\begin{definition} A \textbf{D}eterministic \textbf{F}inite \textbf{A}utomaton can be defined as a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
+\label{dfa definition}
 
 \begin{itemize}
 	\item $Q$ is a finite set of states
 	\item $\Sigma$ is an alphabet
-	\item $\delta$ is a transition function $\delta \subseteq Q \times (\Sigma \cup \{\epsilon\}) \times Q$
+	\item $\delta$ is a transition function $\delta \subseteq Q \times \Sigma \rightarrow Q$
 	\item $q_0$ is an initial state $q_0 \in Q$.
 	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
-
-\end{definition}
-
-For the purpose of representing regular expressions we use two types of finite automata called \textit{deterministic finite automata} or DFA and \textit{non-deterministic finite automata} or NFA. 
-
-\begin{definition} A \textbf{D}eterministic \textbf{F}inite \textbf{A}utomaton can be defined as a Finite Automaton [\ref{finite automaton defintion}] whose transition from a state $q_i$ only has one possible transition candidate state $q_j$
-\label{dfa defintion}
 \end{definition}
  
-An example of definition \ref{dfa defintion} can be seen in figure \ref{dfa_simple}. \\
+An example of definition \ref{dfa definition} can be seen in figure \ref{dfa_simple}. \\
 
 \begin{figure}[H]
   \begin{center}
@@ -442,11 +435,20 @@ An example of definition \ref{dfa defintion} can be seen in figure \ref{dfa_simp
 \end{figure}
 
 
-\begin{definition} A \textbf{N}on-deterministic \textbf{F}inite \textbf{A}utomaton can be defined as a Finite Automaton [\ref{finite automaton defintion}] whose transition from a state $q_i$ has multiple possible transition candidate states.
-\label{nfa defintion}
+\begin{definition} A \textbf{N}on-deterministic \textbf{F}inite \textbf{A}utomaton can be defined as a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
+
+\begin{itemize}
+	\item $Q$ is a finite set of states
+	\item $\Sigma$ is an alphabet
+	\item $\delta$ is a transition function $\delta \subseteq Q \times (\Sigma \cup \{\epsilon\}) \times Q$
+	\item $q_0$ is an initial state $q_0 \in Q$.
+	\item $F$ is a set of accepting states $F \subseteq Q$.
+\end{itemize}
+
+\label{nfa definition}
 \end{definition}
 
-An NFA needs to evaluate all possible transition candidates until they reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
+Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in an NFA needs to evaluate all possible transition candidates until it reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
 
 \begin{figure}[H]
   \begin{center}
@@ -477,7 +479,29 @@ An NFA needs to evaluate all possible transition candidates until they reach the
 In figure \ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
 It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
 
-TODO insert algorithm for parsing NFA's.
+In order to simulate an NFA we can use the following simple algorithm where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
+\begin{eqnarray}
+	Transition(S, \epsilon) & = & S \\
+	Transition(S, as') & = & Transition(Transition(S, a), s') \\
+	Transition(S, a) & = & Close(Step(S, a)) \\
+	Step(S, a) & = & \{ q_j | q_i \in S, q_i \xrightarrow{a} q_j \} \\
+	Close(S) & = & \{ q_j | q_i \in S, q_i \overset{\epsilon}{\leadsto} q_j \}
+\end{eqnarray}
+
+\begin{spacing}{0.8}
+\begin{algorithm}[H]
+	\caption{nfa}
+	\label{alg:nfa}
+  	\begin{algorithmic}[1]
+    		\Require
+    			\Statex $q_i$ - State 
+    			\Statex $q_j$ - State
+		\Function{nfa}{$q_i$, $q_j$}
+				
+    		\EndFunction
+  	\end{algorithmic}
+\end{algorithm}
+\end{spacing}
 
 \newpage
 
@@ -1069,12 +1093,35 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=0.55]{graphs/re_cases_combinations.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches_deletions.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:combinations}
 \end{figure}
 
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches_insertions.png}	
+	\end{center}
+	\caption{}
+	\label{graph:cases:combinations}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.55]{graphs/seq_length_deletions_insertions.png}	
+	\end{center}
+	\caption{}
+	\label{graph:cases:combinations}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.55]{graphs/seq_length_combinations.png}	
+	\end{center}
+	\caption{}
+	\label{graph:cases:combinations}
+\end{figure}
 
 \subsubsection{Ranges}
 

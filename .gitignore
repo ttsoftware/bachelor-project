@@ -9,5 +9,5 @@ tex/*/*.blg
 tex/*/*.toc
 code/scan_for_matches/scan_for_matches
 code/benchmark/*/*.re
-code/benchmark/results/*/*.txt
+code/benchmark/results/*
 code/benchmark/*.pat
