@@ -10,7 +10,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_mismatches_",
                 :scan => "#{@env}scan_for_matches_mismatches_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Mismatches',
                 :log => 'set logscale y 2'
             },
@@ -19,7 +19,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_deletions_",
                 :scan => "#{@env}scan_for_matches_deletions_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Deletions',
                 :log => 'set logscale y 2'
             },
@@ -28,7 +28,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_insertions_",
                 :scan => "#{@env}scan_for_matches_insertions_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Insertions',
                 :log => 'set logscale y 2'
             },
@@ -37,7 +37,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_mismatch_deletion_",
                 :scan => "#{@env}scan_for_matches_mismatch_deletion_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Mismatches & Deletions',
                 :log => 'set logscale y 2'
             },
@@ -46,7 +46,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_mismatch_insertion_",
                 :scan => "#{@env}scan_for_matches_mismatch_insertion_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Mismatches & Insertions',
                 :log => 'set logscale y 2'
             },
@@ -55,7 +55,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_deletion_insertion_",
                 :scan => "#{@env}scan_for_matches_deletion_insertion_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Deletions & Insertions',
                 :log => 'set logscale y 2'
             },
@@ -64,7 +64,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_combinations_",
                 :scan => "#{@env}scan_for_matches_combinations_",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Combinations',
                 :log => 'set logscale y 2'
             },
@@ -73,7 +73,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_range.data",
                 :scan => "#{@env}scan_for_matches_range.data",
                 :xlabel => 'Size of range',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Ranges',
                 :log => 'set logscale y 2'
             },
@@ -82,7 +82,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_sequences.data",
                 :scan => "#{@env}scan_for_matches_sequences.data",
                 :xlabel => 'Sequence length',
-                :ylabel => 'Match time [ms]',
+                :ylabel => 'Match time [ms] log2',
                 :title => 'Sequences',
                 :log => 'set logscale y 2'
             },
@@ -91,7 +91,7 @@ class Visualizer
                 :ruby => "#{@env}ruby_match_count.data",
                 :scan => "#{@env}scan_match_count.data",
                 :xlabel => 'Files',
-                :ylabel => 'Match count',
+                :ylabel => 'Match count log10',
                 :title => 'Match count',
                 :log => 'set logscale y 10'
             },
@@ -99,7 +99,7 @@ class Visualizer
                 :re2 => "#{@env}re2_match_count_speed.data",
                 :ruby => "#{@env}ruby_match_count_speed.data",
                 :scan => "#{@env}scan_match_count_speed.data",
-                :xlabel => 'Match Count',
+                :xlabel => 'Match Count log10',
                 :ylabel => 'Match Time',
                 :title => 'Match Time / Match Count',
                 :log => 'set logscale x 10'
