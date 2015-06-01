@@ -229,7 +229,6 @@ class ResultParser
         scan_results.keys.each { |key|
             re2_differences << (scan_results[key][:match_count] - re2_results[key][:match_count])
             ruby_differences << (scan_results[key][:match_count] - ruby_results[key][:match_count])
-
         }
 
         re2_differences.sort!
