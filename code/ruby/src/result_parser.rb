@@ -223,20 +223,32 @@ class ResultParser
         }
     end
 
-    def ruby_results
+    def write_differences(re2_results, ruby_results, scan_results)
+        re2_differences = []
+        ruby_differences = []
+        scan_results.keys.each { |key|
+            re2_differences << (scan_results[key][:match_count] - re2_results[key][:match_count])
+            ruby_differences << (scan_results[key][:match_count] - ruby_results[key][:match_count])
+        }
 
+        re2_differences.sort!
+        ruby_differences.sort!
+
+        File.open("#{@abs_env}/re2_differences.data", 'w') { |f| re2_differences.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/ruby_differences.data", 'w') { |f| ruby_differences.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+    end
+
+    def ruby_results
         results = parse @ruby_files
         write_data_file results, 'ruby'
     end
 
     def python_results
-
         results = parse @python_files
         write_data_file results, 'python'
     end
 
     def re2_results
-
         results = parse @re2_files
         write_data_file results, 're2'
     end
@@ -249,5 +261,12 @@ class ResultParser
     def kmc_results
         results = parse @kmc_files
         write_data_file results, 'kmc'
+    end
+
+    def differences
+        re2_results = parse @re2_files
+        ruby_results = parse @ruby_files
+        scan_results = parse @scan_for_matches_files
+        write_differences re2_results, ruby_results, scan_results
     end
 end
