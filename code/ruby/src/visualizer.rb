@@ -99,10 +99,10 @@ class Visualizer
                 :re2 => "#{@env}re2_match_count_speed.data",
                 :ruby => "#{@env}ruby_match_count_speed.data",
                 :scan => "#{@env}scan_match_count_speed.data",
-                :xlabel => 'Match Time',
-                :ylabel => 'Match count',
-                :title => 'Match count / Match time',
-                :log => ''
+                :xlabel => 'Match Count',
+                :ylabel => 'Match Time',
+                :title => 'Match Time / Match Count',
+                :log => 'set logscale x 10'
             }
         }
     end

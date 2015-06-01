@@ -479,7 +479,7 @@ Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in
 In figure \ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
 It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
 
-An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Transition(Accept(F), s)$.
+An NFA can be parsed in the following simple manner where the NFA accepts string $s$ if $q_0 \in Transition(Accept(F), s)$.
 \begin{eqnarray}
 	%Transition(S, \epsilon) & = & S \\
 	Transition(S, ab) & = & Transition(Transition(S, a), b) \\
@@ -489,7 +489,15 @@ An NFA can be simulated in the following simple manner where the NFA accepts str
 \end{eqnarray}
 
 \begin{example}
-	
+Parsing NFA in figure \ref{nfa_simple} \\
+
+T({1, 2, 3, 4}, ab) \\
+T(T({1, 2, 3, 4}, a), b) \\
+T(A(S({1, 2, 3, 4}, a)), b) \\
+T(A({1, 2, 3, 4}), b) \\
+T({1, 2, 3, 4}, b) \\
+A(S{1, 2, 3, 4}, b)) \\
+A(S{2}, b)) \\
 \end{example}
 
 \newpage
@@ -1047,7 +1055,7 @@ We notice that scan-for-matches actually performs better overall for longer sequ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/mismatches.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches.png}	
 	\end{center}
 	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:mismatches}
@@ -1059,7 +1067,7 @@ For deletions we notice the same trend as with mismatches with respect to RE2. R
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/deletions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_deletions.png}	
 	\end{center}
 	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:deletions}
@@ -1072,7 +1080,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/insertions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_insertions.png}	
 	\end{center}
 	\caption{Relationship between sequence length and total match time.}
 	\label{graph:cases:insertions}
@@ -1082,7 +1090,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/mismatches_deletions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches_deletions.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:combinations}
@@ -1090,7 +1098,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/mismatches_insertions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_mismatches_insertions.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:combinations}
@@ -1098,7 +1106,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/deletions_insertions.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_deletions_insertions.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:combinations}
@@ -1106,7 +1114,7 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{graphs/combinations.png}	
+		\includegraphics[scale=0.55]{graphs/seq_length_combinations.png}	
 	\end{center}
 	\caption{}
 	\label{graph:cases:combinations}
