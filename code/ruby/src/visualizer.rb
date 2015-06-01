@@ -234,8 +234,7 @@ class Visualizer
             set xlabel '#{@mode[mode][:xlabel]}'
 
             plot '#{@mode[mode][:re2]}' with linespoints ls 1 title 'RE2', \
-                 '#{@mode[mode][:ruby]}' with linespoints ls 2 title 'Ruby', \
-                 '#{@mode[mode][:scan]}' with linespoints ls 3 title 'SFM'
+                 '#{@mode[mode][:ruby]}' with linespoints ls 2 title 'Ruby'
         "
 
         gnuplot(commands)
