@@ -891,7 +891,7 @@ The running time of the divide and conquer step is also consumed by the combine 
 
 \newpage
 
-\section{Experiment (TODO)}
+\section{Experiment}
 
 The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
 
@@ -1136,28 +1136,38 @@ For combinations where we have at least one mismatch, one insertion and one dele
 	\label{graph:cases:combinations}
 \end{figure}
 
+\newpage
 \subsubsection{Ranges}
+
+Figure~\ref{graph:cases:ranges} looks at ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, both RE2 and Ruby shows superior performance to scan-for-matches. This is likely caused by the fact that these range patterns aren't translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
+
+Ruby is clearly the fastest of all three engines, with match times almost 9 times faster than scan-for-matches. While not as fast as Ruby, RE2 is also performing around 3.5 times faster than scan-for-matches.
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=0.55]{graphs/re_cases_ranges.png}	
+		\includegraphics[scale=0.55]{graphs/ranges.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing ranges of different sizes, where the size of the range \texttt{2...4} is 2 etc.. The range has a small sequence on either side, to make sure it doesn't match everything in the input file. The graph shows the relationship between the size of the range, and the amount of time it took to search the input file for matches.}
 	\label{graph:cases:ranges}
 \end{figure}
 
 
 \subsubsection{Sequences}
 
+Figure~\ref{graph:cases:sequences} looks at patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
+
+As with ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Figure~\ref{graph:cases:sequences} shows that RE2 and Ruby perform a lot better than scan-for-matches. On average, Ruby is matching roughly 8 times as fast as scan-for-matches, while RE2 is about 4 times as fast.
+
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=0.55]{graphs/re_cases_sequences.png}	
+		\includegraphics[scale=0.55]{graphs/sequences.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing sequences of different sizes. The graph shows the relationship between the size of the sequence, and the amount of time it took to search the input file for matches.}
 	\label{graph:cases:sequences}
 \end{figure}
 
 
+\newpage
 \section{Conclusion}
 
 We presented a way to translate patscan patterns into regular expressions. By doing so we were able to analyse the performance of scan-for-matches against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
@@ -1165,6 +1175,14 @@ We presented a way to translate patscan patterns into regular expressions. By do
 From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than scan-for-matches. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns. For some of these patterns, translating into a RE gives a match time more than 4 times faster than scan-for-matches.
 
 For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most patterns scan-for-matches shows superior match time.
+
+
+\section{Future work}
+
+The overall conclusion of the experiment is that translating patscan patterns into REs before matching can only pay off, in terms of performance, in some cases. With this in mind, a sort of hybrid between a RE engine and the scan-for-matches engine could be implemented, that could run a RE implementation for some patterns, while it runs a scan-for-matches-like implementation for other patterns, in order to achieve an overall increase in performance.
+
+While this is certainly possible, a better solution would probably be to design a RE implementation from scratch, that were capable of using the extended syntax of mismatches, deletions, and insertions. This would most likely give a much more consistent performance.
+
 
 \newpage
 
