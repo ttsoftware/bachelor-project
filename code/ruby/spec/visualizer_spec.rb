@@ -18,7 +18,8 @@ describe Visualizer, :type => :class do
             visualizer.visualize_two :combinations
             visualizer.visualize_one :ranges
             visualizer.visualize_one :sequences
-            visualizer.visualize_one :differences
+            visualizer.visualize_one :match_count
+            visualizer.visualize_one :match_count_speed
         end
     end
 end

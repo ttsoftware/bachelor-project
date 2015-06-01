@@ -86,23 +86,23 @@ class Visualizer
                 :title => 'Sequences',
                 :log => 'set logscale y 2'
             },
-            :differences => {
-                :re2 => "#{@env}re2_differences.data",
-                :ruby => "#{@env}ruby_differences.data",
-                :scan => "#{@env}scan_differences.data",
+            :match_count => {
+                :re2 => "#{@env}re2_match_count.data",
+                :ruby => "#{@env}ruby_match_count.data",
+                :scan => "#{@env}scan_match_count.data",
                 :xlabel => 'Files',
                 :ylabel => 'Match count',
                 :title => 'Match count',
                 :log => 'set logscale y 10'
             },
             :match_count_speed => {
-                :re2 => "#{@env}re2_differences.data",
-                :ruby => "#{@env}ruby_differences.data",
-                :scan => "#{@env}scan_differences.data",
-                :xlabel => 'Files',
+                :re2 => "#{@env}re2_match_count_speed.data",
+                :ruby => "#{@env}ruby_match_count_speed.data",
+                :scan => "#{@env}scan_match_count_speed.data",
+                :xlabel => 'Match Time',
                 :ylabel => 'Match count',
-                :title => 'Match count',
-                :log => 'set logscale y 10'
+                :title => 'Match count / Match time',
+                :log => ''
             }
         }
     end

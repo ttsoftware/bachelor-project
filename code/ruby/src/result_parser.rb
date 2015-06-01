@@ -249,18 +249,24 @@ class ResultParser
         scan = []
 
         scan_results.keys.each { |key|
-            re2 << re2_results[key][:match_count] unless re2_results[key][:match_count] == 0
-            ruby << ruby_results[key][:match_count] unless ruby_results[key][:match_count] == 0
-            scan << scan_results[key][:match_count] unless scan_results[key][:match_count] == 0
+            re2 << re2_results[key] unless re2_results[key][:match_count] == 0
+            ruby << ruby_results[key] unless ruby_results[key][:match_count] == 0
+            scan << scan_results[key] unless scan_results[key][:match_count] == 0
         }
 
-        re2.sort_by! { |r| r[:match_time].length }
-        ruby.sort_by! { |r| r[:match_time].length }
-        scan.sort_by! { |r| r[:match_time].length }
+        re2.sort_by! { |r| r[:match_time] }
+        ruby.sort_by! { |r| r[:match_time] }
+        scan.sort_by! { |r| r[:match_time] }
 
-        File.open("#{@abs_env}/re2_match_count_speed.data", 'w') { |f| re2.each_with_index { |value, i| f.puts "#{i} #{value}"} }
-        File.open("#{@abs_env}/ruby_match_count_speed.data", 'w') { |f| ruby.each_with_index { |value, i| f.puts "#{i} #{value}"} }
-        File.open("#{@abs_env}/scan_match_count_speed.data", 'w') { |f| scan.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/re2_match_count_speed.data", 'w') { |f| re2.each_with_index { |value, i|
+            f.puts "#{value[:match_time]} #{value[:match_count]}"}
+        }
+        File.open("#{@abs_env}/ruby_match_count_speed.data", 'w') { |f| ruby.each_with_index { |value, i|
+            f.puts "#{value[:match_time]} #{value[:match_count]}"}
+        }
+        File.open("#{@abs_env}/scan_match_count_speed.data", 'w') { |f| scan.each_with_index { |value, i|
+            f.puts "#{value[:match_time]} #{value[:match_count]}"}
+        }
     end
 
     def ruby_results
