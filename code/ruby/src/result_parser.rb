@@ -75,7 +75,7 @@ class ResultParser
 
             range = /(?<sequence>\w+\s)(?<start>\d+)\.{3}(?<end>\d+)/.match(patscan_match['patscan'])
 
-            results[file] = {
+            results[file.sub /^(?<path>.+)\/(?<name>[^\/]+\.txt)$/, '\k<name>'] = {
                 :patscan_pattern => patscan_match['patscan'],
                 :patscan_sequence => patscan_match['patscan'].split(/\[/)[0],
                 :patscan_mismatches => combinations['mismatches'].to_i,
@@ -229,6 +229,7 @@ class ResultParser
         scan_results.keys.each { |key|
             re2_differences << (scan_results[key][:match_count] - re2_results[key][:match_count])
             ruby_differences << (scan_results[key][:match_count] - ruby_results[key][:match_count])
+
         }
 
         re2_differences.sort!

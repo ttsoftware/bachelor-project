@@ -479,29 +479,14 @@ Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in
 In figure \ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
 It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
 
-In order to simulate an NFA we can use the following simple algorithm where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
+An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Transition(Accept(F), s)$.
 \begin{eqnarray}
 	Transition(S, \epsilon) & = & S \\
-	Transition(S, as') & = & Transition(Transition(S, a), s') \\
-	Transition(S, a) & = & Close(Step(S, a)) \\
-	Step(S, a) & = & \{ q_j | q_i \in S, q_i \xrightarrow{a} q_j \} \\
-	Close(S) & = & \{ q_j | q_i \in S, q_i \overset{\epsilon}{\leadsto} q_j \}
+	Transition(S, ab) & = & Transition(Transition(S, a), b) \\
+	Transition(S, a) & = & Accept(Step(S, a)) \\
+	Step(S, a) & = & \{ q_j\ |\ q_i \in S, q_i \xrightarrow{a} q_j \} \\
+	Accept(S) & = & \{ q_j\ |\ q_i \in S, q_i \overset{\epsilon}{\leadsto} q_j \}
 \end{eqnarray}
-
-\begin{spacing}{0.8}
-\begin{algorithm}[H]
-	\caption{nfa}
-	\label{alg:nfa}
-  	\begin{algorithmic}[1]
-    		\Require
-    			\Statex $q_i$ - State 
-    			\Statex $q_j$ - State
-		\Function{nfa}{$q_i$, $q_j$}
-				
-    		\EndFunction
-  	\end{algorithmic}
-\end{algorithm}
-\end{spacing}
 
 \newpage
 
