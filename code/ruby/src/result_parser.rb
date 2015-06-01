@@ -223,20 +223,44 @@ class ResultParser
         }
     end
 
-    def write_differences(re2_results, ruby_results, scan_results)
-        re2_differences = []
-        ruby_differences = []
+    def write_match_count(re2_results, ruby_results, scan_results)
+        re2 = []
+        ruby = []
+        scan = []
+
         scan_results.keys.each { |key|
-            re2_differences << (scan_results[key][:match_count] - re2_results[key][:match_count])
-            ruby_differences << (scan_results[key][:match_count] - ruby_results[key][:match_count])
-
+            re2 << re2_results[key][:match_count] unless re2_results[key][:match_count] == 0
+            ruby << ruby_results[key][:match_count] unless ruby_results[key][:match_count] == 0
+            scan << scan_results[key][:match_count] unless scan_results[key][:match_count] == 0
         }
+        combinations_data.sort_by! { |r| r[:patscan_sequence].length }
+        re2.sort!
+        ruby.sort!
+        scan.sort!
 
-        re2_differences.sort!
-        ruby_differences.sort!
+        File.open("#{@abs_env}/re2_match_count.data", 'w') { |f| re2.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/ruby_match_count.data", 'w') { |f| ruby.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/scan_match_count.data", 'w') { |f| scan.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+    end
 
-        File.open("#{@abs_env}/re2_differences.data", 'w') { |f| re2_differences.each_with_index { |value, i| f.puts "#{i} #{value}"} }
-        File.open("#{@abs_env}/ruby_differences.data", 'w') { |f| ruby_differences.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+    def write_match_count_speed(re2_results, ruby_results, scan_results)
+        re2 = []
+        ruby = []
+        scan = []
+
+        scan_results.keys.each { |key|
+            re2 << re2_results[key][:match_count] unless re2_results[key][:match_count] == 0
+            ruby << ruby_results[key][:match_count] unless ruby_results[key][:match_count] == 0
+            scan << scan_results[key][:match_count] unless scan_results[key][:match_count] == 0
+        }
+        
+        re2.sort_by! { |r| r[:match_time].length }
+        ruby.sort_by! { |r| r[:match_time].length }
+        scan.sort_by! { |r| r[:match_time].length }
+
+        File.open("#{@abs_env}/re2_match_count.data", 'w') { |f| re2.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/ruby_match_count.data", 'w') { |f| ruby.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/scan_match_count.data", 'w') { |f| scan.each_with_index { |value, i| f.puts "#{i} #{value}"} }
     end
 
     def ruby_results
@@ -264,10 +288,12 @@ class ResultParser
         write_data_file results, 'kmc'
     end
 
-    def differences
+    def match_count
         re2_results = parse @re2_files
         ruby_results = parse @ruby_files
         scan_results = parse @scan_for_matches_files
-        write_differences re2_results, ruby_results, scan_results
+
+        write_match_count re2_results, ruby_results, scan_results
+        write_match_count_speed re2_results, ruby_results, scan_results
     end
 end

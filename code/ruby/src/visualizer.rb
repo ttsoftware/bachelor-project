@@ -89,10 +89,20 @@ class Visualizer
             :differences => {
                 :re2 => "#{@env}re2_differences.data",
                 :ruby => "#{@env}ruby_differences.data",
+                :scan => "#{@env}scan_differences.data",
                 :xlabel => 'Files',
-                :ylabel => 'Difference in match count',
-                :title => 'Differences',
-                :log => ''
+                :ylabel => 'Match count',
+                :title => 'Match count',
+                :log => 'set logscale y 10'
+            },
+            :match_count_speed => {
+                :re2 => "#{@env}re2_differences.data",
+                :ruby => "#{@env}ruby_differences.data",
+                :scan => "#{@env}scan_differences.data",
+                :xlabel => 'Files',
+                :ylabel => 'Match count',
+                :title => 'Match count',
+                :log => 'set logscale y 10'
             }
         }
     end
@@ -221,7 +231,7 @@ class Visualizer
             # data
             set style line 1 lc rgb '#6060FF' lt 1 lw 2 pt 4 ps 0.7   # --- blue
             set style line 2 lc rgb '#FF6060' lt 1 lw 2 pt 12 ps 0.7   # --- red
-            set style line 3 lc rgb '#60FF60' lt 1 lw 2 pt 6 ps 0.7   # --- green
+            set style line 3 lc rgb '#60FF60' lt 1 lw 2 pt -1 ps 0.7   # --- green
 
             set tmargin 4
             set key at screen 1,0.975
@@ -234,7 +244,8 @@ class Visualizer
             set xlabel '#{@mode[mode][:xlabel]}'
 
             plot '#{@mode[mode][:re2]}' with linespoints ls 1 title 'RE2', \
-                 '#{@mode[mode][:ruby]}' with linespoints ls 2 title 'Ruby'
+                 '#{@mode[mode][:ruby]}' with linespoints ls 2 title 'Ruby', \
+                 '#{@mode[mode][:scan]}' with linespoints ls 3 title 'SFM'
         "
 
         gnuplot(commands)

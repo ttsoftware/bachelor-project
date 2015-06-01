@@ -29,11 +29,11 @@ describe ResultParser, :type => :class do
         end
     end
 
-    describe '#differences' do
+    describe '#match_count' do
 
         it 'should write the differences in a data file' do
             parser = ResultParser.new
-            parser.differences
+            parser.match_count
         end
     end
 end
