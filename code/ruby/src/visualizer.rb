@@ -85,6 +85,14 @@ class Visualizer
                 :ylabel => 'Match time [ms]',
                 :title => 'Sequences',
                 :log => 'set logscale y 2'
+            },
+            :differences => {
+                :re2 => "#{@env}re2_differences.data",
+                :ruby => "#{@env}ruby_differences.data",
+                :xlabel => 'Files',
+                :ylabel => 'Difference in match count',
+                :title => 'Differences',
+                :log => ''
             }
         }
     end
@@ -93,12 +101,12 @@ class Visualizer
         IO.popen('gnuplot', 'w') { |io| io.puts commands }
     end
 
-    def visualize(mode)
+    def visualize_four(mode)
         commands = "
             set terminal pngcairo size 800,600
 
             # file name
-            set output '../../tex/rapport/graphs/seq_length_#{mode}.png'
+            set output '../../tex/rapport/graphs/#{mode}.png'
 
             #{@mode[mode][:log]}
 
@@ -151,6 +159,83 @@ class Visualizer
                  '#{@mode[mode][:ruby]}4.data' with linespoints ls 2 title 'Ruby', \
                  '#{@mode[mode][:scan]}4.data' with linespoints ls 3 title 'SFM'
             unset multiplot
+        "
+
+        gnuplot(commands)
+    end
+
+    def visualize_two(mode)
+        commands = "
+            set terminal pngcairo size 800,300
+
+            # file name
+            set output '../../tex/rapport/graphs/#{mode}.png'
+
+            #{@mode[mode][:log]}
+
+            # data
+            set style line 1 lc rgb '#6060FF' lt 1 lw 2 pt 4 ps 0.7   # --- blue
+            set style line 2 lc rgb '#FF6060' lt 1 lw 2 pt 12 ps 0.7   # --- red
+            set style line 3 lc rgb '#60FF60' lt 1 lw 2 pt 6 ps 0.7   # --- green
+
+            set tmargin 4
+            set key at screen 0.6,1
+
+            # Start multiplot (2x2 layout)
+            set multiplot layout 1,2 rowsfirst
+
+            # title
+            set title '1 #{@mode[mode][:title]}'
+
+            # axes label
+            set ylabel '#{@mode[mode][:ylabel]}'
+            set xlabel '#{@mode[mode][:xlabel]}'
+
+            plot '#{@mode[mode][:re2]}1.data' with linespoints ls 1 title 'RE2', \
+                 '#{@mode[mode][:ruby]}1.data' with linespoints ls 2 title 'Ruby', \
+                 '#{@mode[mode][:scan]}1.data' with linespoints ls 3 title 'SFM'
+
+            # title
+            set title '2 #{@mode[mode][:title]}'
+            unset ylabel
+            unset key
+
+            plot '#{@mode[mode][:re2]}2.data' with linespoints ls 1 title 'RE2', \
+                 '#{@mode[mode][:ruby]}2.data' with linespoints ls 2 title 'Ruby', \
+                 '#{@mode[mode][:scan]}2.data' with linespoints ls 3 title 'SFM'
+            unset multiplot
+        "
+
+        gnuplot(commands)
+    end
+
+    def visualize_one(mode)
+        commands = "
+            set terminal pngcairo size 800,600
+
+            # file name
+            set output '../../tex/rapport/graphs/#{mode}.png'
+
+            #{@mode[mode][:log]}
+
+            # data
+            set style line 1 lc rgb '#6060FF' lt 1 lw 2 pt 4 ps 0.7   # --- blue
+            set style line 2 lc rgb '#FF6060' lt 1 lw 2 pt 12 ps 0.7   # --- red
+            set style line 3 lc rgb '#60FF60' lt 1 lw 2 pt 6 ps 0.7   # --- green
+
+            set tmargin 4
+            set key at screen 1,0.975
+
+            # title
+            set title '#{@mode[mode][:title]}'
+
+            # axes label
+            set ylabel '#{@mode[mode][:ylabel]}'
+            set xlabel '#{@mode[mode][:xlabel]}'
+
+            plot '#{@mode[mode][:re2]}' with linespoints ls 1 title 'RE2', \
+                 '#{@mode[mode][:ruby]}' with linespoints ls 2 title 'Ruby', \
+                 '#{@mode[mode][:scan]}' with linespoints ls 3 title 'SFM'
         "
 
         gnuplot(commands)

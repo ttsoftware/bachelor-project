@@ -8,16 +8,17 @@ describe Visualizer, :type => :class do
 
             visualizer = Visualizer.new
 
-            visualizer.visualize :mismatches
-            visualizer.visualize :deletions
-            visualizer.visualize :insertions
-            visualizer.visualize :mismatches_deletions
-            visualizer.visualize :mismatches_insertions
-            visualizer.visualize :deletions_insertions
-            visualizer.visualize :insertions
-            visualizer.visualize :combinations
-            #visualizer.visualize :ranges
-            #visualizer.visualize :sequences
+            visualizer.visualize_four :mismatches
+            visualizer.visualize_four :deletions
+            visualizer.visualize_four :insertions
+            visualizer.visualize_four :mismatches_deletions
+            visualizer.visualize_four :mismatches_insertions
+            visualizer.visualize_four :deletions_insertions
+            visualizer.visualize_four :insertions
+            visualizer.visualize_two :combinations
+            visualizer.visualize_one :ranges
+            visualizer.visualize_one :sequences
+            visualizer.visualize_one :differences
         end
     end
 end
