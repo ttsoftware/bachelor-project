@@ -53,7 +53,7 @@ begin
     # <Matches>
     puts 'MATCHES:'
     matches.each { |m|
-        puts "#{m.to_s} - #{m.begin 0}:#{m.end 0}"
+        puts "#{m.to_s.rstrip} - #{m.begin 0}:#{m.end 0}"
     }
 
 rescue RegexpError => e
