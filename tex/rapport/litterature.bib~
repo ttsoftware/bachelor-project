@@ -8,7 +8,7 @@ Book{tag,
 
 @misc{kleenes-theorem,
     author = {James Power},
-    title = {Regular Expression Matching Can Be Simple And Fast},
+    title = {Non-Deterministic Finite-State Automata},
     year = 2002,
     howpublished = "\url{http://www.cs.may.ie/staff/jpower/Courses/Previous/parsing/node6.html}"
 }
@@ -60,6 +60,13 @@ Book{tag,
     title = {Google's RE2 with our own modifications.},
     year = 2015,
     howpublished = "\url{https://github.com/ttsoftware/re2}"
+}
+
+@misc{dna-base-error-rate,
+    author = {O’Rawe, Jason A. and Scott, Ferson and Lyon, Gholson J.},
+    title = {Nomenclature for Incompletely Specified Bases in Nucleic Acid Sequences},
+    year = 1992,
+    howpublished = "\url{http://lyonlab.labsites.cshl.edu/wp-content/uploads/sites/8/2014/04/ORawe_InPress_Accounting2015.pdf}"
 }
 
 @misc{human-genome,

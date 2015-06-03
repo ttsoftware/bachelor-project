@@ -219,11 +219,10 @@ shaded={bgcolor=theorem-gray}
 
 \title{
   \vspace{4cm}
-  \begin{flushleft}
-  \Large{\textbf{Regular Expression Matching In Genomic Data}}
+  \Large{\textbf{Regular Expression Matching In Genomic Data}} \\
+  \vspace{0.3cm}
+  \large{Translating scan\_for\_matches Patterns into Regular Expressions}
   \vspace{1cm}
-  \large{Translating PatScan Patterns into Regular Expressions}
-  \end{flushleft}
   \normalsize
   Rasmus Haarslev \texttt{nkh877} \\
   Troels Thomsen \texttt{qvw203} \\
@@ -261,7 +260,7 @@ shaded={bgcolor=theorem-gray}
 
 \vspace{0.5cm}
 
-We present an algorithm for translating Scan-For-Matches patterns into regular expressions. We measure the performance of searching through genomic data on different regular expression implementations. We generate a set of regular expressions and analyze their performance, comparing them to the performance of Scan-For-Matches. We find that some of our regular expressions running on certain implementations perform better than scan-for-matches. As complexity of the scan-for-matches patterns increases, scan-for-matches shows superior performance.
+We present an Algortihm for translating scan\_for\_matches patterns into regular expressions. We generate a set of regular expressions and measure the performance of searching through genomic data on different regular expression implementations, and analyze their performance comparing them to the performance of scan\_for\_matches. We find that some of our regular expressions running on certain implementations perform better than scan\_for\_matches. As the complexity of the scan\_for\_matches patterns increases, scan\_for\_matches shows superior performance.
 
 \newpage
 
@@ -279,11 +278,11 @@ We present an algorithm for translating Scan-For-Matches patterns into regular e
 
 \section{Introduction}
 
-The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
+The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences. Moreoever the growth rate of sequence data exceeds that of computational power~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
 
 Currently, the state-of-the-art method for searching through genomic data is the scan-for-matches program developed by Ross Overbeek, David Joerg and Morgan Price~\cite{scan-for-matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{scan-for-matches}.
 
-While scan-for-matches performs very well, has a very compact language and is user friendly, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
+While scan-for-matches performs very well, has a very compact, flexible and is user friendly language, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
 
 Recently, the KMC group have developed a regular expression implementation, which we will refer to as the KMC engine, which so far has shown competitive performance, compared to current industry standard engines~\cite{two-pass-greedy}. We are hoping that optimized regular expressions running on the KMC engine will be able to match or outperform scan-for-matches.
 If we could achieve a performance improvement over scan-for-matches, it would greatly benefit the microbiology team. We see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
@@ -306,9 +305,7 @@ DNA can generally be described as an alphabet of 4 letters, which represent 4 di
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA), which decides which amino acids will be put together, which creates a corresponding protein.
 
-RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymine. However, uracil and thymine is generally considered synonymous, as both bases binds with adenine.
-
-A DNA strand can bond with another DNA strand containing the complementary nucleobases.
+RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymine. However, uracil and thymine is generally considered synonymous, as both bases binds with adenine. A DNA strand can bond with another DNA strand containing the complementary nucleobases.
 
 \begin{definition}
 \textbf{complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
@@ -399,7 +396,7 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 \subsubsection{Implementing regular expressions}
 
 Now that we have defined regular expressions formally, we want to be able to match them against strings. We say that a regular expression $E$ match a string $S$ if $S \in \mathcal{L}(E)$.
-The industry standard way of solving this problem which regular expression implementations such as google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} or a \textit{non-deterministic finite automata} in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
+The industry standard way of solving this problem which regular expression implementations such as Google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} or a \textit{non-deterministic finite automata} in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
 
 \begin{definition} A \textbf{D}eterministic \textbf{F}inite \textbf{A}utomaton can be defined as a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
 \label{dfa definition}
@@ -413,7 +410,7 @@ The industry standard way of solving this problem which regular expression imple
 \end{itemize}
 \end{definition}
  
-An example of definition~\ref{dfa definition} can be seen in figure~\ref{dfa_simple}. \\
+An example of definition~\ref{dfa definition} can be seen in Figure~\ref{dfa_simple}. \\
 
 \begin{figure}[H]
   \begin{center}
@@ -429,7 +426,7 @@ An example of definition~\ref{dfa definition} can be seen in figure~\ref{dfa_sim
   \path[->] (2) edge node {c} (3);
 \end{tikzpicture}
 	
-	\caption{DFA matching the RE \underline{$ab*c$}}
+	\caption{DFA matching the regular expression \underline{$ab*c$}}
 	\label{dfa_simple}
   \end{center}
 \end{figure}
@@ -471,13 +468,13 @@ Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in
   \path[->] (4) edge [edge_label] node {d} (5);
 \end{tikzpicture}
 	
-	\caption{NFA matching the RE \underline{$ab|c|d$}}
+	\caption{NFA matching the regular expression \underline{$ab|c|d$}}
 	\label{nfa_simple}
   \end{center}
 \end{figure}
 
-In figure~\ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
-It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in size~\cite{nfa-to-dfa}.
+In Figure~\ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. \\
+It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
 
 An NFA can be parsed in the following simple manner where the NFA accepts string $s$ if $q_0 \in T(A(F), s)$.
 \begin{eqnarray}
@@ -489,7 +486,7 @@ An NFA can be parsed in the following simple manner where the NFA accepts string
 \end{eqnarray}
 
 \begin{example}
-Parsing NFA in figure \ref{nfa_simple} \\
+Parsing NFA in Figure \ref{nfa_simple} \\
 T(A(F), ab) \\
 T(\{2, 3, 4\}, ab) \\
 T(T(\{2, 3, 4\}, a), b) \\
@@ -506,7 +503,21 @@ A(\{5\}) \\
 \section{Methods}
 \subsection{PatScan as regular expressions}
 
-The most notable of the patscan format's features, is the possibility to search for mismatches, insertions and deletions in a given sequence or stored sequence. The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches of the data string. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
+The most notable of the scan\_for\_matches format's features, is the possibility to search for \textit{mismatches}, \textit{insertions} and \textit{deletions} in a given or stored sequence. 
+
+\begin{definition}
+	The number of \textbf{mismatches} in a sequence, is the number of random characters in the sequence which may be switched with any other character from the alphabet.
+\end{definition}
+
+\begin{definition}
+	The number of \textbf{insertions} in a sequence, is the number of additional characters from the alphabet which may be inserted anywhere in the sequence.
+\end{definition}
+
+\begin{definition}
+	The number of \textbf{deletions} in a sequence, is the number of random characters in the sequence which may be deleted.
+\end{definition}
+
+The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to match up to one mismatch, up to one insertion, up to one deletion or any combination thereof. This means that a sequence of length $n$ with a single mismatch will yield $n^1+1$ possible matches of the data string. \texttt{AGTCT[1,0,0]} will for instance match any of the following, where \_ represents a mismatch.
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
@@ -517,7 +528,8 @@ Combining this combination notation with the ability to store sequences in varia
 \subsubsection{Grammar}
 \label{Patscan grammar}
 
-Scan-for-matches has an alphabet, which is the set of characters allowed in a patscan sequence. This set is from the nucleobases, that is found in DNA and RNA.
+Scan\_for\_matches uses an alphabet, which is the set of characters allowed in a patscan sequence. This set is from the nucleobases, that is found in DNA and RNA.
+While we have chosen not touch upon this subject, it is worth noting that scan\_for\_matches can also be used for matching in protein sequences.
 \begin{definition}
 The alphabet, that makes up DNA sequences, denoted by $\mathcal{A}_{DNA}$ is:
 \begin{center}
@@ -532,7 +544,7 @@ $\mathcal{A}_{RNA}$ = \texttt{\{A, U, C, G\}}
 \end{center}
 \end{definition}
 
-Besides the five basic nucleobases in $\mathcal{A}_{DNA} \cup \mathcal{A}_{RNA}$, 11 ambiguity characters also exist~\cite{DNA-sciencedaily}. These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent an uncertainty in the sequencing program of which nucleobases is actually at that spot.
+Besides the five basic nucleobases in $\mathcal{A}_{DNA} \cup \mathcal{A}_{RNA}$, 11 ambiguity characters also exist~\cite{DNA-sciencedaily}. These ambiguity characters were designed for positional variations in families of related genes. The ambiguity characters are named so because they represent an uncertainty in the sequencing program of which nucleobases is actually at that spot~\cite{ambiguitycodes}~\cite{dna-base-error-rate}.
 
 \begin{definition}
 The alphabet, that makes up DNA and RNA sequences, as well as the ambiguity characters, denoted by $\mathcal{A}$ is:
@@ -609,7 +621,7 @@ The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the rig
 
 Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter thus increasing the recursion depth. The recursion does not bottom out until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
-In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms}, which reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in figure \ref{fig:tree_example}. 
+In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms}, which reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in Figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -630,10 +642,10 @@ In order to guarantee a low recursion depth, we use a divide and conquer algorit
 	\label{fig:tree_example}
 \end{figure}
 
-After dividing the sequence into characters adn reaching the \emph{base case}, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), algorithm~\ref{alg:divideandconquer} will make a list of all possibilities for that character.
+After dividing the sequence into characters and reaching the \emph{base case}, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), Algortihm~\ref{alg:divideandconquer} will make a list of all possibilities for that character.
 
 \begin{example}[label=example:possibilities]
-When reaching base case for a character $a$, algorithm~\ref{alg:divideandconquer} will construct the following possibilities for mismatches and deletions
+When reaching base case for a character $a$, Algortihm~\ref{alg:divideandconquer} will construct the following possibilities for mismatches and deletions
 
 \begin{center}
 	\texttt{a, \^{}a, \_}
@@ -696,7 +708,7 @@ When reaching base case for a character $a$, algorithm~\ref{alg:divideandconquer
 
 \subsubsubsection{Correctness}
 
-We wish to show that algorithm~\ref{alg:divideandconquer} is correct, by showing that given a set of parameters which meets a pre-condition, algorithm~\ref{alg:divideandconquer} will arrive at a result which satisfies a post-condition. Additionally we must also make sure that algorithm~\ref{alg:divideandconquer} satisfies an invariant in all iterations.
+We wish to show that Algortihm~\ref{alg:divideandconquer} is correct, by showing that given a set of parameters which meets a pre-condition, Algortihm~\ref{alg:divideandconquer} will arrive at a result which satisfies a post-condition. Additionally we must also make sure that Algortihm~\ref{alg:divideandconquer} satisfies an invariant in all iterations.
 
 Pre-conditions:
 \begin{itemize}
@@ -760,7 +772,7 @@ Next, we wish to show that the recursion is correct. For this we have the invari
 
 \subsubsubsection{Redundancy}
 
-Using algorithm \ref{alg:divideandconquer} without modifications will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
+Using Algortihm~\ref{alg:divideandconquer} without modifications will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both and doing so will create exponentially more redundancy growing with recursion depth.
 
@@ -821,7 +833,7 @@ Here $x$ is the recursion dept, and will thus go up to $logn$, where $n$ is the 
 
 Given a pattern where mismatches and deletions are allowed as well as insertions, the amount of redundancy increases, as $c$ will grow larger.
 
-Despite the result reached in formula \ref{r_x}, inaccuracy occurs as the recursion depth varies in the recursion branches based on the length of the original string, as shown in figure \ref{fig:recursion_depth_example}.
+Despite the result reached in formula \ref{r_x}, inaccuracy occurs as the recursion depth varies in the recursion branches based on the length of the original string, as shown in Figure \ref{fig:recursion_depth_example}.
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -841,7 +853,7 @@ Despite the result reached in formula \ref{r_x}, inaccuracy occurs as the recurs
 
 Despite of this inaccuracy it is obvious that removing the redundancy would translate into better running times.
 
-Avoiding this redundancy is very important and relatively trivial. Every time two cases are combined, the new combination is put in a set which we use to check future combinations. If a future combination already exists in the set, it is skipped thus avoiding duplicates. By avoiding duplicates early on in algorithm~\ref{alg:divideandconquer}, we save a lot of memory and running time for both the translation of the regular expressions and of the regular expressions themselves.
+Avoiding this redundancy is very important and relatively trivial. Every time two cases are combined, the new combination is put in a set which we use to check future combinations. If a future combination already exists in the set, it is skipped thus avoiding duplicates. By avoiding duplicates early on in Algortihm~\ref{alg:divideandconquer}, we save a lot of memory and running time for both the translation of the regular expressions and of the regular expressions themselves.
 
 \subsubsection{Variable assignments \& usage}
 
@@ -853,11 +865,11 @@ Variable assignment is when you assign a pattern to a variable in order to reuse
 
 These assignments can be referenced by using the variable name. An example of such usage could be
 
-\texttt{q1=ACCT 2...5 q1}
+\texttt{p1=ACCT 2...5 p1}
 
 In addition to referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended onto the variable:
 
-\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}q1}
+\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}
 
 Here, inversion refers to the reverse complement of the sequence stored in the variable.
 
@@ -891,13 +903,13 @@ The running time of the divide and conquer step is also consumed by the combine 
 
 \newpage
 
-4\section{Experiment}
+\section{Experiment}
 
 The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
 
 \subsection{RE Implementation Details}
 
-In order to test regular expressions against different regular expression implementations, we created a small series of wrapper programs which take a regular expressions and a FASTA or FASTQ file as arguments and performs the matching and outputs the match results.
+In order to test regular expressions against different regular expression implementations, we created a small series of wrapper programs which take a regular expression and a text file to search as arguments and performs the matching and outputs the match results.
 
 \subsubsection{Ruby}
 
@@ -955,7 +967,7 @@ Our wrapper program for RE2 simply uses the built-in \texttt{FindAndConsume} met
 
 \subsection{Data Analysis}
 
-We have chosen chromosome number 22 from the human genome, which is one of the smallest. Our version of chromosome 22 contains a lot of noise in the form of N's especially in the beginning of the file. These N's specify unknown bases during sequencing~\cite{human-genome}. We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic usage scenario.
+We have chosen chromosome number 22 from the human genome, which is one of the smallest at approximately 50MB. Our version of chromosome 22 contains a lot of noise in the form of N's especially in the beginning of the file. These N's specify unknown bases during sequencing~\cite{human-genome}. We have decided not to modify the contents of the fasta file, since we want our tests to be close to a realistic usage scenario.
 
 We could possibly have removed the N's and the linebreaks from the fasta file, in order to reduce the file size and thus reduce the runningtime of the regular expressions which we generate. However we felt that this would not significantly improve our results, and also make our test further from a real-world scenario.
 
@@ -1024,7 +1036,7 @@ AGCT,  AGCTC, AGCTCT ... AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA
 
 We run each group against our chosen regular expression implementations which include Ruby, Python and our own version of Google's RE2.
  
-Each pattern file is translated using our ruby implementation of the algorithm described in algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementations. Each patscan file is benchmarked in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
+Each pattern file is translated using our Ruby implementation of the algorithm described in Algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementations. Each patscan file is benchmarked in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to scan-for-matches' in-the-seconds running time, and thus the program might as well never finish.
 
 The outputs of our wrapper programs are piped to a result file for each regular expression implementation and pattern.
 
@@ -1166,11 +1178,11 @@ As with ranges, sequences are simple patterns when translated into REs (In fact,
 	\label{graph:cases:sequences}
 \end{figure}
 
-
 \newpage
+
 \section{Conclusion}
 
-We presented a way to translate patscan patterns into regular expressions. By doing so we were able to analyse the performance of scan-for-matches against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
+We presented a way to translate certain patscan patterns into regular expressions. By doing so we were able to analyse the performance of scan-for-matches against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
 
 From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than scan-for-matches. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns. For some of these patterns, translating into a RE gives a match time more than 4 times faster than scan-for-matches.
 

@@ -77,16 +77,16 @@ class Benchmark
                     Process.detach pid # do not collect termination information
 
                     # only run this thread for @runningtime seconds.
-                    sleep @runningtime unless is_scan_for_matches
+                    #sleep @runningtime unless is_scan_for_matches
 
                     begin
-                        Process.kill 'SIGKILL', pid unless is_scan_for_matches # sigkill
+                        #Process.kill 'SIGKILL', pid unless is_scan_for_matches # sigkill
                     rescue Errno::ESRCH => e
                         # no such process it already finished, which is nice.
                     end
 
                     begin
-                        File.delete re_file
+                        #File.delete re_file
                     rescue Errno::ENOENT => e
                         # file does not exist.
                     end

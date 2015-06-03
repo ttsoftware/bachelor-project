@@ -22,8 +22,8 @@ describe Benchmark, :type => :class do
 
         it 'works with python' do
 
-            #benchmark = Benchmark.new 30, 120
-            #benchmark.python
+            benchmark = Benchmark.new 30, 60
+            benchmark.python
         end
     end
 

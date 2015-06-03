@@ -18,7 +18,7 @@ start = milli_time()
 f = open(sys.argv[2], 'r')
 text = f.read()
 readfile_time = milli_time() - start
-print 'DISK TIME: ' + readfile_time
+print 'DISK TIME: ' + str(readfile_time)
 
 f.close()
 
@@ -29,18 +29,18 @@ except:
     exit()
 search_time = milli_time() - start
 
-print 'MATCH TIME: ' + search_time
+print 'MATCH TIME: ' + str(search_time)
 
-print 'TOTAL TIME: ' + readfile_time + search_time
+print 'TOTAL TIME: ' + str(readfile_time + search_time)
 
 if results:
     counter = 0
     for result in results:
         if len(result) > 0:
             counter += 1
-    print 'NUMBER OF MATCHES: ' + counter
+    print 'NUMBER OF MATCHES: ' + str(counter)
 else:
-    print 'NUMBER OF MATCHES: ' + 0
+    print 'NUMBER OF MATCHES: ' + str(0)
 
 print 'MATCHES:'
 if results:
