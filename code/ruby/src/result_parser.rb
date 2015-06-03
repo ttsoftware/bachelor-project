@@ -296,6 +296,7 @@ class ResultParser
 
     def match_count
         re2_results = parse @re2_files
+        python_results = parse @python_files
         ruby_results = parse @ruby_files
         scan_results = parse @scan_for_matches_files
 

@@ -11,6 +11,15 @@ describe ResultParser, :type => :class do
         end
     end
 
+    describe '#python_results' do
+
+        it 'should write re2 results in a data file' do
+
+            parser = ResultParser.new
+            parser.python_results
+        end
+    end
+
     describe '#re2_results' do
 
         it 'should write re2 results in a data file' do
