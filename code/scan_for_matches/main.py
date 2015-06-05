@@ -22,8 +22,8 @@ if results:
 else:
     print 'NUMBER OF MATCHES: ' + str(0)
 
-print 'MATCHES:'
-if results:
-    results = results.split("\n")[0:-1]
-    for x in range(0, len(results), 2):
-        print results[x+1] + ' - ' + results[x][8:-1].split(',')[0] + ':' + results[x][8:-1].split(',')[1]
+#print 'MATCHES:'
+#if results:
+#    results = results.split("\n")[0:-1]
+#    for x in range(0, len(results), 2):
+#        print results[x+1] + ' - ' + results[x][8:-1].split(',')[0] + ':' + results[x][8:-1].split(',')[1]

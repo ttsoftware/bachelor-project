@@ -137,17 +137,17 @@ class Translater
         # Finds all possible combinations, and appends each of them to combination_list
         combination_list = []
         find_combinations(sequence, mismatches, insertions, deletions).each { |x|
-            combination_list << '(' + x.value + ')'
+            combination_list << '(?:' + x.value + ')'
         }
 
         # Joins all combinations with a pipe between each combination, and returns the string
-        return '(' + combination_list.join('|') + ')'
+        return '(?:' + combination_list.join('|') + ')'
     end
 
     # Finds all possible combinations of mismatches, insertions, and deletions in
     # the given sequence.
     #
-    # @param [String] sequence
+    # @param [String] sequence()
     # @param [Int] m_max
     # @param [Int] i_max
     # @param [Int] d_max
