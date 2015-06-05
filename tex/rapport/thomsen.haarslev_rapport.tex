@@ -221,7 +221,7 @@ shaded={bgcolor=theorem-gray}
   \vspace{4cm}
   \Large{\textbf{Regular Expression Matching In Genomic Data}} \\
   \vspace{0.3cm}
-  \large{Translating scan\_for\_matches Patterns into Regular Expressions}
+  \large{Translating scan\_for\_matches Patterns into Regular Expressions} \\
   \vspace{1cm}
   \normalsize 
   Rasmus Haarslev \texttt{nkh877} \\
@@ -252,15 +252,13 @@ shaded={bgcolor=theorem-gray}
 \thispagestyle{empty}
 \maketitle
 
-\newpage
-
 \begin{center}
 \textbf{Abstract}
 \end{center}
 
 \vspace{0.5cm}
 
-We present an Algortihm for translating scan\_for\_matches patterns into regular expressions. We generate a set of regular expressions and measure the performance of searching through genomic data on different regular expression implementations, and analyze their performance comparing them to the performance of scan\_for\_matches. We find that some of our regular expressions running on certain implementations perform better than scan\_for\_matches. As the complexity of the scan\_for\_matches patterns increases, scan\_for\_matches shows superior performance.
+We present an algorithm for translating scan\_for\_matches patterns into regular expressions. With an implementation of the algorithm, a set of regular expressions are generated, and the performance of searching through genomic data on different regular expression implementations are measured. All this data is analysed, and its performance is compared to the performance of scan\_for\_matches. We find that when our generated regular expressions are small enough, they perform better on certain implementations than scan\_for\_matches. As the size of the regular expressions grow, scan\_for\_matches shows superior performance.
 
 \newpage
 
@@ -280,14 +278,11 @@ We present an Algortihm for translating scan\_for\_matches patterns into regular
 
 The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences. Moreoever the growth rate of sequence data exceeds that of computational power~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
 
-Currently, the state-of-the-art method for searching through genomic data is the scan\_for\_matches program developed by Ross Overbeek, David Joerg and Morgan Price~\cite{scan_for_matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{SFM}.
+The state-of-the-art method for searching through genomic data is the \mbox{\emph{scan\_for\_matches}} program developed by Ross Overbeek, David Joerg and Morgan Price~\cite{scan_for_matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{SFM}.
 
-While SFM performs very well, has a very compact, flexible and user friendly language, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
+While SFM performs very well, has a very compact, flexible and simple language, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
 
-Recently, the KMC group have developed a regular expression implementation, which we will refer to as the KMC engine, which so far has shown competitive performance, compared to current industry standard engines~\cite{two-pass-greedy}. We are hoping that optimized regular expressions running on the KMC engine will be able to match or outperform SFM.
-If we could achieve a performance improvement over SFM, it would greatly benefit the microbiology team. We see this as a chance to make a unique contribution to ongoing and future research projects, while at the same time providing a chance for the KMC group to have their engine tested in a new scenario.
-
-We wish to determine the possibility of converting sequence analysis patterns used for SFM~\cite{scan_for_matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against the KMC~\cite{kmc-website} engine and other industry standard regular expression implementations, such as Google's RE2~\cite{re2}, Python's and Ruby's RE implementations.
+We wish to determine the possibility of converting sequence analysis patterns used for SFM~\cite{scan_for_matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against industry standard regular expression implementations, such as Google's RE2, Python's and Ruby's RE implementations.
 
 \subsection{DNA/RNA}
 
@@ -303,12 +298,12 @@ DNA can generally be described as an alphabet of 4 letters, which represent 4 di
 \caption{The four different nucleobases found in the DNA nucleotides~\cite{DNA-biotechacademy}.}
 \end{figure}
 
-The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) is a sort of a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA). RNA decides which amino acids will be put together, which creates a corresponding protein.
+The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) can be called a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA). RNA decides which amino acids will be put together, which creates a corresponding protein.
 
 RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymine. However, uracil and thymine are generally considered synonymous, as both bases binds with adenine. A DNA strand can bond with another DNA strand containing the complementary nucleobases.
 
 \begin{definition}
-\textbf{complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
+\textbf{Complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -337,8 +332,6 @@ Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. 
 For a given DNA sequence s, \~{s} is the sequence that contains the complementary bases of s, in reverse order.
 \end{definition}
 
-\newpage
-
 \subsection{Regular Expressions}
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for example form the words $ab$, $ba$, $aab$ or any such combination of any length, thus forming an infinite set of words.\\
@@ -365,8 +358,6 @@ In order to talk about regular expressions, we need to be able to talk in genera
 		\end{eqnarray}
 	\end{enumerate}	
 \end{definition} 
-
-\newpage
 
 We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a language denoted by $\mathcal{L}(E)$: \\
 
@@ -497,10 +488,7 @@ A(\{5\}) \\
 \{5\}
 \end{example}
 
-\newpage
-
-\section{Methods}
-\subsection{PatScan as regular expressions}
+\section{Patscan as regular expressions}
 
 The most notable of the SFM format's features, is the possibility to search for \textit{mismatches}, \textit{insertions} and \textit{deletions} in a given or stored sequence. 
 
@@ -524,7 +512,7 @@ Another powerful feature of patscan is the ability to store a sub-pattern match 
 
 This 'combination' notation as well as the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through REs.
 
-\subsubsection{Grammar}
+\subsection{Grammar}
 \label{Patscan grammar}
 
 SFM uses an alphabet, which is the set of characters allowed in a patscan sequence. This set is from the nucleobases, that is found in DNA and RNA. While we have chosen not touch upon this subject, it is worth noting that SFM can also be used for matching in protein sequences.
@@ -589,7 +577,7 @@ The sub-patterns which consist only of a \textbf{variable name}, is denoted as a
 
 The reverse complement of a sequence or variable is denoted by placing a \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}} directly in front of the sequence or variable.
 
-\subsubsection{Ranges}
+\subsection{Ranges}
 
 Patscan ranges are very similar to RE ranges, and is therefore easily translated. A patscan range, which has the form:
 \begin{equation}
@@ -601,7 +589,7 @@ Translates into 'from 2 to 5 of any character'. In the general syntax of RE, the
 .\{2,5\}
 \end{equation}
 
-\subsubsection{Mismatches, Deletions, and Insertions}
+\subsection{Mismatches, Deletions, and Insertions}
 
 Combination sequences do not exist in REs. One way to represent these sub-patterns as REs is by constructing every possible combination of the sequence defined by the patscan notation.
 
@@ -618,7 +606,7 @@ The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the rig
 
 Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter thus increasing the recursion depth. The recursion does not bottom out until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
-In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms}, which reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in Figure \ref{fig:tree_example}. 
+In order to guarantee a low recursion depth, we use a divide and conquer Algorithm~\cite{Algorithms}, which reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in Figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -639,10 +627,10 @@ In order to guarantee a low recursion depth, we use a divide and conquer algorit
 	\label{fig:tree_example}
 \end{figure}
 
-After dividing the sequence into characters and reaching the \emph{base case}, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), Algortihm~\ref{alg:divideandconquer} will make a list of all possibilities for that character.
+After dividing the sequence into characters and reaching the \emph{base case}, we have to 'conquer' each sub-problem. On the lowest recursion level (where the sequence is a single character), Algorithm~\ref{alg:divideandconquer} will make a list of all possibilities for that character.
 
 \begin{definition}[label=definition:possibilities]
-When reaching base case for a character $a$, Algortihm~\ref{alg:divideandconquer} will construct the following possibilities for mismatches and deletions
+When reaching base case for a character $a$, Algorithm~\ref{alg:divideandconquer} will construct the following possibilities for mismatches and deletions
 
 \begin{center}
 	\texttt{a, \^{}a, \_}
@@ -660,7 +648,7 @@ When reaching base case for a character $a$, Algortihm~\ref{alg:divideandconquer
 
 \emph{Combining} two such lists means that each element in the left list is concatenated behind each element in the right list. As such, a new list of size $m \times n$ will be created. The total number of mismatches, deletions, and insertions are being kept track of, and if a combination of two elements will result in more mismatches, deletions, or insertions than the maximum allowed, it is skipped.
 
-\subsubsection{Algorithm}
+\subsection{Algorithm}
 
 \begin{spacing}{0.8}
 \begin{algorithm}[H]
@@ -703,9 +691,9 @@ When reaching base case for a character $a$, Algortihm~\ref{alg:divideandconquer
 \end{spacing}
 
 
-\subsubsubsection{Correctness}
+\subsubsection{Correctness}
 
-We wish to show that Algortihm~\ref{alg:divideandconquer} is correct, by showing that given a set of parameters which meets a pre-condition, Algortihm~\ref{alg:divideandconquer} will arrive at a result which satisfies a post-condition. Additionally we must also make sure that Algortihm~\ref{alg:divideandconquer} satisfies an invariant in all iterations.
+We wish to show that Algorithm~\ref{alg:divideandconquer} is correct, by showing that given a set of parameters which meets a pre-condition, Algorithm~\ref{alg:divideandconquer} will arrive at a result which satisfies a post-condition. Additionally we must also make sure that Algorithm~\ref{alg:divideandconquer} satisfies an invariant in all iterations.
 
 Pre-conditions:
 \begin{itemize}
@@ -767,9 +755,9 @@ Next, we wish to show that the recursion is correct. For this we have the invari
 \end{itemize}
 
 
-\subsubsubsection{Redundancy}
+\subsubsection{Redundancy}
 
-Using Algortihm~\ref{alg:divideandconquer} without modifications will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
+Using Algorithm~\ref{alg:divideandconquer} without modifications will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both and doing so will create exponentially more redundancy growing with recursion depth.
 
@@ -850,33 +838,11 @@ Despite the result reached in (\ref{r_x}), inaccuracy occurs as the recursion de
 
 Despite of this inaccuracy it is obvious that removing the redundancy would translate into better running times.
 
-Avoiding this redundancy is very important and relatively trivial. Every time two cases are combined, the new combination is put in a set data structure, which we use to check future combinations. If a future combination already exists in the set, it is skipped thus avoiding duplicates. By avoiding duplicates early on in Algortihm~\ref{alg:divideandconquer}, we save a lot of memory and running time for both the translation of the regular expressions and of the regular expressions themselves.
+Avoiding this redundancy is very important and relatively trivial. Every time two cases are combined, the new combination is put in a set data structure, which we use to check future combinations. If a future combination already exists in the set, it is skipped thus avoiding duplicates. By avoiding duplicates early on in Algorithm~\ref{alg:divideandconquer}, we save a lot of memory and running time for both the translation of the regular expressions and of the regular expressions themselves.
 
-\subsubsection{Variable assignments \& usage}
+\subsubsection{Running time}
 
-Variable assignment is when you assign a pattern to a variable in order to reuse the pattern. Any kind of non-variable pattern may be used in a variable pattern. Hence we have three different kinds of variable assignments:
-
-\texttt{p1=ATCG} \\
-\texttt{p2=ATCG[2,0,0]} \\
-\texttt{p3=2...4}
-
-These assignments can be referenced by using the variable name. An example of such usage could be
-
-\texttt{p4=ACCT 2...5 p4}
-
-In addition to referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended onto the variable:
-
-\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p4}
-
-Here, inversion refers to the reverse complement of the sequence stored in the variable.
-
-Sequence and combination assignments are implemented by translating the sequence or combination and storing the translated regular expression in a table with the variable name as the key. If the variable is then later used in the patscan pattern, the translated sequence or combination may be placed into the full regular expression. This way there are no actual back-references in the regular expression.
-
-Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing, because there is no way of knowing what the contents of a range will actually be.
-
-\subsection{Running time}
-
-In the divide step, our algorithm (algorithm \ref{alg:divideandconquer}) first splits a given sequence in half multiple times until it reaches base case (where length of the sequence is one). It does this recursively with a branching factor of two, and splitting takes constant time, meaning the running time so far is 
+In the divide step, Algorithm~\ref{alg:divideandconquer} first splits a given sequence in half multiple times until it reaches base case (where length of the sequence is one). It does this recursively with a branching factor of two, and splitting takes constant time, meaning the running time so far is 
 \begin{eqnarray}
 	T(n) = 2T(\frac{n}{2}) + O(1) = O(n)
 \end{eqnarray}
@@ -898,11 +864,31 @@ The running time of the divide and conquer step is also consumed by the combine 
 	O(i^n)
 \end{eqnarray}
 
-\newpage
+\subsection{Variable assignments \& usage}
+
+Variable assignment is when you assign a pattern to a variable in order to reuse the pattern. Any kind of non-variable pattern may be used in a variable pattern. Hence we have three different kinds of variable assignments:
+
+\texttt{p1=ATCG} \\
+\texttt{p2=ATCG[2,0,0]} \\
+\texttt{p3=2...4}
+
+These assignments can be referenced by using the variable name. An example of such usage could be
+
+\texttt{p4=ACCT 2...5 p4}
+
+In addition to referencing the variable, a variable may also be inverted. This is denoted by using a tilde character prepended onto the variable:
+
+\texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p4}
+
+Here, inversion refers to the reverse complement of the sequence stored in the variable.
+
+Sequence and combination assignments are implemented by translating the sequence or combination and storing the translated regular expression in a table with the variable name as the key. If the variable is then later used in the patscan pattern, the translated sequence or combination may be placed into the full regular expression. This way there are no actual back-references in the regular expression.
+
+Assignment of a range is something we have chosen not to implement, as it can't be implemented without the use of back-referencing, because there is no way of knowing what the contents of a range will actually be.
 
 \section{Experiment}
 
-The following experiment was conducted in Ubuntu 14.04LTS on a Asus Zenbook UX301LA~\cite{computer} running a Intel i7-4558U Processor~\cite{processor}, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
+The following experiment was conducted in Ubuntu 14.04LTS, running a Intel i7-4558U Processor, 8Gb of DDR3L 1600 MHz SDRAM and two 256Gb SanDisk SD6SP1M256G1002 490MB/s read 350MB/s write solid state drives.
 
 \subsection{RE Implementation Details}
 
@@ -910,7 +896,7 @@ In order to test regular expressions against different regular expression implem
 
 \subsubsection{Ruby}
 
-The Ruby regular expression implementation uses an open source regular expression library called Oniguruma~\cite{oniguruma} which has support for multi-byte characters which are especially relevant for the Ruby platform considering its Japanese origin. The Oniguruma library creates a set of instructions for Oniguruma's virtual machine which performs the actual matching. This implementation can have an exponential running time for pathological regular expressions such as $a?a?a?aaa$, since the Oniguruma's virtual machine uses a backtracking algorithm~\cite{oniguruma-overview}.
+The Ruby regular expression implementation uses an open source regular expression library called Oniguruma~\cite{oniguruma} which has support for multi-byte characters. The Oniguruma library creates a set of instructions for Oniguruma's virtual machine which performs the actual matching. This implementation can have an exponential running time for pathological regular expressions such as $(a?)^na^n$, since the Oniguruma's virtual machine uses a backtracking Algorithm~\cite{oniguruma-overview}.
 
 Our wrapper program uses the built-in implementation in a straight-forward manner. Ruby does not support finding all matches at once, and thus we use the \texttt{scan} method to retrieve all results.
 
@@ -936,9 +922,9 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 \subsubsection{RE2}
 
-Google's RE2 constructs DFA's and or NFA's from the given regular expressions and thus guarantees linear running time~\cite{pcre-running-time}, but leaving behind support for back-references which are part of standard PCRE.
+Google's RE2 constructs DFAs or NFAs from the given regular expressions and thus guarantees linear running time~\cite{pcre-running-time}, but leaving behind support for back-references which are part of standard PCRE.
 
-We have made small modifications to the RE2 library, in order for it to support regular expressions of very large sizes, such as the ones we wish to run~\cite{re2}. The changes can found at \small \url{http://bit.ly/customRE2}.\normalsize
+We have made small modifications to the RE2 library in order for it to support regular expressions of very large sizes, such as the ones we wish to run~\footnote{https://github.com/ttsoftware/re2}.
 
 Our wrapper program for RE2 simply uses the built-in \texttt{FindAndConsume} method to find all the matches to the given regular expression.
 
@@ -979,8 +965,9 @@ The mismatches, deletions and insertions patterns are further grouped into diffe
 An example of a mismatch series.
 
 \begin{center}
-AGCT[1,0,0], AGCTC[1,0,0], AGCTCT[1,0,0] ... AGCTCTCCGTAACGGA[1,0,0]\\
-AGCT[2,0,0], AGCTC[2,0,0], AGCTCT[2,0,0] ... AGCTCTCCGTAACGGA[2,0,0]
+\texttt{AGCT[1,0,0], AGCTC[1,0,0], AGCTCT[1,0,0], ..., AGCTCTCCGTAACGGA[1,0,0]
+AGCT[2,0,0], AGCTC[2,0,0], AGCTCT[2,0,0], ..., AGCTCTCCGTAACGGA[2,0,0]
+}
 \end{center}
 \end{example}
 
@@ -991,16 +978,11 @@ The patterns with mixed combinations are grouped similarly to the mismatches, de
 An example of the different combination series.
 
 \begin{center}
-AGCT[1,1,0], AGCTC[1,1,0], AGCTCT[1,1,0] ... AGCTCTCCGTAACGGA[1,1,0]
-\vspace{0.3cm}
-
-AGCT[0,1,1], AGCTC[0,1,1], AGCTCT[0,1,1] ... AGCTCTCCGTAACGGA[0,1,1]
-\vspace{0.3cm}
-
-AGCT[1,0,1], AGCTC[1,0,1], AGCTCT[1,0,1] ... AGCTCTCCGTAACGGA[1,0,1]
-\vspace{0.3cm}
-
-AGCT[1,1,1], AGCTC[1,1,1], AGCTCT[1,1,1] ... AGCTCTCCGTAACGGA[1,1,1]
+\texttt{AGCT[1,1,0], AGCTC[1,1,0], AGCTCT[1,1,0], ..., AGCTCTCCGTAACGGA[1,1,0]
+AGCT[0,1,1], AGCTC[0,1,1], AGCTCT[0,1,1], ..., AGCTCTCCGTAACGGA[0,1,1]
+AGCT[1,0,1], AGCTC[1,0,1], AGCTCT[1,0,1], ..., AGCTCTCCGTAACGGA[1,0,1]
+AGCT[1,1,1], AGCTC[1,1,1], AGCTCT[1,1,1], ..., AGCTCTCCGTAACGGA[1,1,1]
+}
 \end{center}
 
 \end{example}
@@ -1013,7 +995,7 @@ For the ranges patterns we have a single series where we increase the lower boun
 An example of the ranges series.
 
 \begin{center}
-AGCTCT 2...4 AGCTCT, AGCTCT 4...8 AGCTCT, ... AGCTCT 96...192 AGCTCT
+\texttt{AGCTCT 2...4 AGCTCT, AGCTCT 4...8 AGCTCT, ..., AGCTCT 96...192 AGCTCT}
 \end{center}
 \end{example}
 
@@ -1025,7 +1007,7 @@ For the sequence patterns we simply generate 48 patterns of different sizes. We 
 An example of the sequence series.
 
 \begin{center}
-AGCT,  AGCTC, AGCTCT ... AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA
+\texttt{AGCT, AGCTC, AGCTCT, ..., AGCTCTCCGTAACGGAAGCTCTCCGTAACGGAAGCTCTCCGTAACGGA}
 \end{center}
 \end{example}
 
@@ -1038,27 +1020,23 @@ Each pattern file is translated using our Ruby implementation of the algorithm d
 The outputs of our wrapper programs are piped to a result file for each regular expression implementation and pattern.
 
 \begin{example} 
-An example of a result file.\\
-PATSCAN: GGGCCC[0,1,0]\\
-LENGTH OF RE: 35\\
-CLAUSES IN RE: 3\\
-DISK TIME: 830.2378259999999\\
-MATCH TIME: 1041.21441\\
-TOTAL TIME: 1871.548022\\
-NUMBER OF MATCHES: 1891\\
-MATCHES:\\
-GGGCCC - 15013180:15013187\\
-GGGCC - 15046669:15046675\\
-GGGCC - 15046929:15046935\\
+An example of a result file.
+\begin{verbatim}
+PATSCAN: GGGCCC[0,1,0]
+LENGTH OF RE: 35
+CLAUSES IN RE: 3
+DISK TIME: 830.2378259999999
+MATCH TIME: 1041.21441
+TOTAL TIME: 1871.548022
+NUMBER OF MATCHES: 1891
+\end{verbatim}
 \end{example}
-
-\newpage
 
 \subsection{Experiment results}
 
 \subsubsection{Mismatches}
 
-For mismatches we notice that RE2 actually outperforms both SFM and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We suspect that this is due to the fact that RE2 at this point is unable to convert its NFA's to DFA's. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than four characters.
+For mismatches we notice that RE2 actually outperforms both SFM and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We suspect that this is due to the fact that RE2 at this point is unable to convert its NFAs to DFAs. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than four characters.
 
 We notice that SFM actually performs better overall for longer sequences where fewer matches are found.
 
@@ -1066,7 +1044,7 @@ We notice that SFM actually performs better overall for longer sequences where f
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/mismatches.png}	
 	\end{center}
-	\caption{Relationship between sequence length and total match time.}
+	\caption{The results of tests with patterns containing 1, 2, 3, or 4 mismatches. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:mismatches}
 \end{figure}
 
@@ -1078,32 +1056,32 @@ For deletions we notice the same trend as with mismatches with respect to RE2. R
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/deletions.png}	
 	\end{center}
-	\caption{Relationship between sequence length and total match time.}
+	\caption{The results of tests with patterns containing 1, 2, 3, or 4 deletions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:deletions}
 \end{figure}
 
 
 \subsubsection{Insertions}
 
-For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby and SFM. Since insertions generate much larger regular expressions, we also notice that both Ruby and RE2 quite quickly is unable to run the expressions. Neither RE2 or Ruby are able to finish sequences with two insertions, failing at 11 and 15 characters respectively.
+For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby and SFM. Since insertions generate much larger regular expressions, we also notice that both Ruby and RE2 are quickly unable to run the expressions. Neither RE2 or Ruby are able to finish sequences with two insertions, failing at 11 and 15 characters respectively.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/insertions.png}	
 	\end{center}
-	\caption{Relationship between sequence length and total match time.}
+	\caption{The results of tests with patterns containing 1, 2, 3, or 4 insertions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:insertions}
 \end{figure}
 
 \subsubsection{Mismatches \& Deletions}
 
-For mismatches and deletions we notice that both RE2 and Ruby is unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
+For mismatches and deletions we notice that both RE2 and Ruby are unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/mismatches_deletions.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing 1, 2, 3, or 4 mismatches and deletions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:mismatches:deletions}
 \end{figure}
 
@@ -1111,13 +1089,13 @@ For mismatches and deletions we notice that both RE2 and Ruby is unable to parse
 
 For mismatches and deletions we notice a similar trend to that of mismatches and deletions. RE2 and Ruby cannot handle patterns for one mismatch and one insertion of lengths beyond 13 and 7 characters respectively.
 
-An interesting limitation for our regular expressions is also made visible, since we do not have any results for four mismatches and four deletions not even SFM results. This is due to the fact that our algorithm at this point exceeds the 8GBs of RAM in our testing computer. 
+An interesting limitation for our regular expressions is also made visible, since we do not have any results for four mismatches and four deletions. This is due to the fact that our implementation at this point exceeds the 8GBs of RAM in our testing computer. 
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/mismatches_insertions.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing 1, 2, or 3 mismatches and insertions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:combinations}
 \end{figure}
 
@@ -1129,7 +1107,7 @@ For deletions and insertions the trend is again similar to that of mismatches an
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/deletions_insertions.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing 1, 2, or 3 deletions and insertions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:combinations}
 \end{figure}
 
@@ -1141,14 +1119,13 @@ For combinations where we have at least one mismatch, one insertion and one dele
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/combinations.png}	
 	\end{center}
-	\caption{}
+	\caption{The results of tests with patterns containing 1 or 2 mismatches, deletions, and insertions. The graph shows the relationship between the size of the sequence and the amount of time it took to search the input file for the matches.}
 	\label{graph:cases:combinations}
 \end{figure}
 
-\newpage
 \subsubsection{Ranges}
 
-Figure~\ref{graph:cases:ranges} looks at ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, both RE2 and Ruby shows superior performance to SFM. This is likely caused by the fact that these range patterns aren't translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
+Figure~\ref{graph:cases:ranges} shows ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, both RE2 and Ruby shows superior performance to SFM. This is likely caused by the fact that these range patterns are not translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
 
 Ruby is clearly the fastest of all three engines, with match times almost 9 times faster than SFM. While not as fast as Ruby, RE2 is also performing around 3.5 times faster than SFM.
 
@@ -1156,14 +1133,14 @@ Ruby is clearly the fastest of all three engines, with match times almost 9 time
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/ranges.png}	
 	\end{center}
-	\caption{The results of tests with patterns containing ranges of different sizes, where the size of the range \texttt{2...4} is 2 etc.. The range has a small sequence on either side, to make sure it doesn't match everything in the input file. The graph shows the relationship between the size of the range, and the amount of time it took to search the input file for matches.}
+	\caption{The results of tests with patterns containing ranges of different sizes, where the size of the range \texttt{2...4} is 2 etc. The range has a small sequence on either side, to make sure it doesn't match everything in the input file. The graph shows the relationship between the size of the range, and the amount of time it took to search the input file for matches.}
 	\label{graph:cases:ranges}
 \end{figure}
 
 
 \subsubsection{Sequences}
 
-Figure~\ref{graph:cases:sequences} looks at patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
+Figure~\ref{graph:cases:sequences} shows patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
 
 As with ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Figure~\ref{graph:cases:sequences} shows that RE2 and Ruby perform a lot better than SFM. On average, Ruby is matching roughly 8 times as fast as SFM, while RE2 is about 4 times as fast.
 
@@ -1175,9 +1152,7 @@ As with ranges, sequences are simple patterns when translated into REs (In fact,
 	\label{graph:cases:sequences}
 \end{figure}
 
-\newpage
-
-\section{Conclusion}
+\section{Conclusion and future work}
 
 We presented a way to translate a significant subset of patscan patterns into regular expressions. By doing so we were able to analyse the performance of SFM against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
 
@@ -1187,12 +1162,9 @@ From our tests we were able to determine that in a few cases, translating patsca
 
 For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most patterns SFM shows superior match time.
 
+The overall conclusion of the experiment is that translating patscan patterns into REs before matching can only pay off, in terms of performance, in some cases. With this in mind, a hybrid between a RE engine and the SFM engine could be implemented that could run a RE implementation for some patterns, while it runs a SFM-like implementation for other patterns, in order to achieve an overall increase in performance.
 
-\section{Future work}
-
-The overall conclusion of the experiment is that translating patscan patterns into REs before matching can only pay off, in terms of performance, in some cases. With this in mind, a sort of hybrid between a RE engine and the SFM engine could be implemented, that could run a RE implementation for some patterns, while it runs a SFM-like implementation for other patterns, in order to achieve an overall increase in performance.
-
-While this is certainly possible, a better solution would probably be to design a RE implementation from scratch, that were capable of using the extended syntax of mismatches, deletions, and insertions. This would most likely give a much more consistent performance.
+While this is certainly possible, a better solution would probably be to not use REs. Instead, a reimplementation of SFM, or another system, specifically designed to search in DNA or protein sequences. Many of the features in REs are not necessary for such an implementation, and disregarding them could lead to better performance.
 
 
 \newpage
