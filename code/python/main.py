@@ -12,7 +12,6 @@ if len(sys.argv) < 3:
 
 f = open(sys.argv[1], 'r')
 reg = f.readline()
-f.close()
 
 start = milli_time()
 f = open(sys.argv[2], 'r')
@@ -20,13 +19,12 @@ text = f.read()
 readfile_time = milli_time() - start
 print 'DISK TIME: ' + str(readfile_time)
 
-f.close()
-
 start = milli_time()
-try:
-    results = re.findall(reg[4:-5], text, re.IGNORECASE)[0]
-except:
-    exit()
+
+print reg[4:-6]
+
+results = re.findall(reg[4:-6], text, re.IGNORECASE)[0]
+    
 search_time = milli_time() - start
 
 print 'MATCH TIME: ' + str(search_time)
@@ -42,8 +40,8 @@ if results:
 else:
     print 'NUMBER OF MATCHES: ' + str(0)
 
-print 'MATCHES:'
-if results:
-    for result in results:
-        if len(result) > 0:
-            print result
+#print 'MATCHES:'
+#if results:
+#    for result in results:
+#        if len(result) > 0:
+#            print result

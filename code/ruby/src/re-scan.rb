@@ -51,10 +51,10 @@ begin
     puts "NUMBER OF MATCHES: #{matches.size}"
 
     # <Matches>
-    puts 'MATCHES:'
-    matches.each { |m|
-        puts "#{m.to_s.rstrip} - #{m.begin 0}:#{m.end 0}"
-    }
+    #puts 'MATCHES:'
+    #matches.each { |m|
+    #    puts "#{m.to_s.rstrip} - #{m.begin 0}:#{m.end 0}"
+    #}
 
 rescue RegexpError => e
     # Regular expression is too big for the ruby engine.
