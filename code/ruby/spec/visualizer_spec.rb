@@ -8,6 +8,8 @@ describe Visualizer, :type => :class do
 
             visualizer = Visualizer.new
 
+            #visualizer.visualize_histogram :deletions
+
             visualizer.visualize_four :mismatches
             visualizer.visualize_four :deletions
             visualizer.visualize_four :insertions

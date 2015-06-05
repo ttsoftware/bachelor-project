@@ -27,6 +27,15 @@ describe Benchmark, :type => :class do
         end
     end
 
+    describe '#python_regex' do
+
+        it 'works with python regex' do
+
+            benchmark = Benchmark.new 30, 60
+            benchmark.python_regex
+        end
+    end
+
     describe '#re2' do
 
         it 'works with re2' do

@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+
+import regex
+import sys
+import time
+
+milli_time = lambda: int(round(time.time() * 1000))
+
+if len(sys.argv) < 3:
+    print "Not enough arguments"
+    exit()
+
+f = open(sys.argv[1], 'r')
+reg = f.readline()
+
+start = milli_time()
+f = open(sys.argv[2], 'r')
+text = f.read().replace('\n', '')
+readfile_time = milli_time() - start
+print 'DISK TIME: ' + str(readfile_time)
+
+start = milli_time()
+
+p = regex.compile(reg[4:-6]);
+counter = len(p.findall(text, regex.IGNORECASE))
+    
+search_time = milli_time() - start
+
+print 'MATCH TIME: ' + str(search_time)
+
+print 'TOTAL TIME: ' + str(readfile_time + search_time)
+
+print 'NUMBER OF MATCHES: ' + str(counter)

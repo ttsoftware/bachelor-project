@@ -9,6 +9,7 @@ class ResultParser
         @ruby_files = Dir["#{@environment}/ruby/*.txt"].sort!
         @re2_files = Dir["#{@environment}/re2/*.txt"].sort!
         @python_files = Dir["#{@environment}/python/*.txt"].sort!
+        @python_regex_files = Dir["#{@environment}/python_regex/*.txt"].sort!
         @scan_for_matches_files = Dir["#{@environment}/scan_for_matches/*.txt"].sort!
         @kmc_files = Dir["#{@environment}/kmc/*.txt"].sort!
 
@@ -223,45 +224,65 @@ class ResultParser
         }
     end
 
-    def write_match_count(re2_results, ruby_results, scan_results)
+    def write_match_count(re2_results, ruby_results, python_results, python_regex_results, scan_results)
         re2 = []
         ruby = []
+        python = []
+        python_regex = []
         scan = []
 
         scan_results.keys.each { |key|
             re2 << re2_results[key][:match_count] unless re2_results[key][:match_count] == 0
             ruby << ruby_results[key][:match_count] unless ruby_results[key][:match_count] == 0
+            python << python_results[key][:match_count] unless python_results[key][:match_count] == 0
+            python_regex << python_regex_results[key][:match_count] unless python_regex_results[key][:match_count] == 0
             scan << scan_results[key][:match_count] unless scan_results[key][:match_count] == 0
         }
 
         re2.sort!
         ruby.sort!
+        python.sort!
+        python_regex.sort!
         scan.sort!
 
         File.open("#{@abs_env}/re2_match_count.data", 'w') { |f| re2.each_with_index { |value, i| f.puts "#{i} #{value}"} }
         File.open("#{@abs_env}/ruby_match_count.data", 'w') { |f| ruby.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/python_match_count.data", 'w') { |f| python.each_with_index { |value, i| f.puts "#{i} #{value}"} }
+        File.open("#{@abs_env}/python_regex_match_count.data", 'w') { |f| python_regex.each_with_index { |value, i| f.puts "#{i} #{value}"} }
         File.open("#{@abs_env}/scan_match_count.data", 'w') { |f| scan.each_with_index { |value, i| f.puts "#{i} #{value}"} }
     end
 
-    def write_match_count_speed(re2_results, ruby_results, scan_results)
+    def write_match_count_speed(re2_results, ruby_results, python_results, python_regex_results, scan_results)
         re2 = []
         ruby = []
+        python = []
+        python_regex = []
         scan = []
 
         scan_results.keys.each { |key|
             re2 << re2_results[key] unless re2_results[key][:match_count] == 0
             ruby << ruby_results[key] unless ruby_results[key][:match_count] == 0
+            python << python_results[key] unless python_results[key][:match_count] == 0
+            python_regex << python_regex_results[key] unless python_regex_results[key][:match_count] == 0
             scan << scan_results[key] unless scan_results[key][:match_count] == 0
         }
 
         re2.sort_by! { |r| r[:match_count] }
         ruby.sort_by! { |r| r[:match_count] }
+        python.sort_by! { |r| r[:match_count] }
+        python_regex.sort_by! { |r| r[:match_count] }
         scan.sort_by! { |r| r[:match_count] }
 
         File.open("#{@abs_env}/re2_match_count_speed.data", 'w') { |f| re2.each_with_index { |value, i|
             f.puts "#{value[:match_count]} #{value[:match_time]}"}
         }
         File.open("#{@abs_env}/ruby_match_count_speed.data", 'w') { |f| ruby.each_with_index { |value, i|
+            f.puts "#{value[:match_count]} #{value[:match_time]}"}
+        }
+        File.open("#{@abs_env}/python_match_count_speed.data", 'w') { |f| python.each_with_index { |value, i|
+            f.puts "#{value[:match_count]} #{value[:match_time]}"}
+        }
+        File.open("#{@abs_env}/python_regex_match_count_speed.data", 'w') { |f| python_regex.each_with_index { |value, i|
             f.puts "#{value[:match_count]} #{value[:match_time]}"}
         }
         File.open("#{@abs_env}/scan_match_count_speed.data", 'w') { |f| scan.each_with_index { |value, i|
@@ -277,6 +298,11 @@ class ResultParser
     def python_results
         results = parse @python_files
         write_data_file results, 'python'
+    end
+
+    def python_regex_results
+        results = parse @python_regex_files
+        write_data_file results, 'python_regex'
     end
 
     def re2_results
@@ -297,10 +323,11 @@ class ResultParser
     def match_count
         re2_results = parse @re2_files
         python_results = parse @python_files
+        python_regex_results = parse @python_regex_files
         ruby_results = parse @ruby_files
         scan_results = parse @scan_for_matches_files
 
-        write_match_count re2_results, ruby_results, scan_results
-        write_match_count_speed re2_results, ruby_results, scan_results
+        write_match_count re2_results, ruby_results, python_results, python_regex_results, scan_results
+        write_match_count_speed re2_results, ruby_results, python_results, python_regex_results, scan_results
     end
 end

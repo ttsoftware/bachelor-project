@@ -351,12 +351,12 @@ In order to talk about regular expressions, we need to be able to talk in genera
 	
 \end{definition} 
 
-\begin{definition} Given an alphabet $\Sigma$, we can define a grammar for a regular expression $E$.\\
+\begin{definition} Given an alphabet $\Sigma$, we define a grammar for a regular expression $E$.\\
 
 	\begin{enumerate}
 		\item An expression containing a single letter $a$ from our alphabet $\Sigma$: $E = a$. 
-		\item The expression which always matches $E = 1$
-		\item The expressions which never matches $E = 0$.
+		\item The expression $E = 1$
+		\item The expressions $E = 0$.
 		\item A combination of two regular expressions $E_1$ and $E_2$:
 		\begin{eqnarray}
 			E &=& E_1 | E_2 \\
@@ -370,7 +370,7 @@ In order to talk about regular expressions, we need to be able to talk in genera
 
 We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a language denoted by $\mathcal{L}(E)$: \\
 
-\begin{definition} The language $\mathcal{L}(E) \subseteq \Sigma^*$ for the regular expression $E$ from the alphabet $\Sigma$, can be defined as.
+\begin{definition} The language $\mathcal{L}(E) \subseteq \Sigma^*$ for the regular expression $E$ from the alphabet $\Sigma$, is defined as.
 
 	\begin{enumerate}
 		\item For single-letter expressions we have
@@ -395,22 +395,24 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 
 \subsubsection{Implementing regular expressions}
 
-Now that we have defined regular expressions formally, we want to be able to match them against strings. We say that a regular expression $E$ matches a string $S$ if $S \in \mathcal{L}(E)$.
-The industry standard way of solving this problem which regular expression implementations such as Google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} or a \textit{non-deterministic finite automata} in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
+Now that we have defined regular expressions formally, we want to be able to match strings against them. We say that a regular expression $E$ matches a string $S$ if $S \in \mathcal{L}(E)$.
+The industry standard way of solving this problem which regular expression implementations such as Google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} (DFA) or a \textit{non-deterministic finite automata} (NFA) in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
 
-\begin{definition} A \textbf{D}eterministic \textbf{F}inite \textbf{A}utomaton can be defined as a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
+\begin{definition} A deterministic finite automaton is a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
 \label{dfa definition}
 
 \begin{itemize}
 	\item $Q$ is a finite set of states
 	\item $\Sigma$ is an alphabet
-	\item $\delta$ is a transition function $\delta \subseteq Q \times \Sigma \rightarrow Q$
+	\item $\delta$ is a transition function $\delta: Q \times \Sigma \rightarrow Q$
 	\item $q_0$ is an initial state $q_0 \in Q$.
 	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
 \end{definition}
+
+We define $q_i \xrightarrow{\gamma} q_j$ as the transition $(q_i, \gamma, q_j) \in \delta$ from $q_i$ to $q_j$ over edge $\gamma$ and we define $q_i \overset{\gamma}{\leadsto} q_j$ as $q_i \xrightarrow{\gamma_i} q_2 \xrightarrow{\gamma_{i+1}} ... \xrightarrow{\gamma_{j-1}} q_{j}$.
  
-An example of definition~\ref{dfa definition} can be seen in Figure~\ref{dfa_simple}. \\
+A DFA and an NFA can be illustrated as a graph where each vertex represents a state and each edge represents a transition. An example of Definition~\ref{dfa definition} can be seen in Figure~\ref{dfa_simple}. \\
 
 \begin{figure}[H]
   \begin{center}
@@ -426,18 +428,18 @@ An example of definition~\ref{dfa definition} can be seen in Figure~\ref{dfa_sim
   \path[->] (2) edge node {c} (3);
 \end{tikzpicture}
 	
-	\caption{DFA matching the regular expression \underline{$ab*c$}}
+	\caption{DFA $Q = \{1, 2, 3\}$ matching the regular expression \underline{$ab*c$}}
 	\label{dfa_simple}
   \end{center}
 \end{figure}
 
 
-\begin{definition} A \textbf{N}on-deterministic \textbf{F}inite \textbf{A}utomaton can be defined as a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
+\begin{definition} A non-deterministic finite automaton is a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
 
 \begin{itemize}
 	\item $Q$ is a finite set of states
 	\item $\Sigma$ is an alphabet
-	\item $\delta$ is a transition function $\delta \subseteq Q \times (\Sigma \cup \{\epsilon\}) \times Q$
+	\item $\Delta$ is a transition function $\Delta \subseteq Q \times (\Sigma \cup \{\epsilon\}) \times Q$
 	\item $q_0$ is an initial state $q_0 \in Q$.
 	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
@@ -445,7 +447,7 @@ An example of definition~\ref{dfa definition} can be seen in Figure~\ref{dfa_sim
 \label{nfa definition}
 \end{definition}
 
-Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in an NFA needs to evaluate all possible transition candidates until it reach their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
+While a state $q_i$ in a DFA has only one possible transition candicate $q_j$, an NFA simulation needs to evaluate all possible transition candidates until it reaches their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
 
 \begin{figure}[H]
   \begin{center}
@@ -468,20 +470,20 @@ Where a state $q_i$ in a DFA has only one transition candicate $q_j$, a state in
   \path[->] (4) edge [edge_label] node {d} (5);
 \end{tikzpicture}
 	
-	\caption{NFA matching the regular expression \underline{$ab|c|d$}}
+	\caption{NFA $Q = \{1, 2, 3, 4, 5\}$ matching the regular expression \underline{$ab|c|d$}}
 	\label{nfa_simple}
   \end{center}
 \end{figure}
 
-In Figure~\ref{nfa_simple} we see how the NFA can choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
+In Figure~\ref{nfa_simple} we see how an NFA simulation must choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
 
-An NFA can be parsed in the following simple manner where the NFA accepts string $s$ if $q_0 \in T(A(F), s)$.
+An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
 \begin{eqnarray}
-	%T(M, \epsilon) & = & M \\
-	T(M, ab) & = & T(T(M, a), b) \\
-	T(M, a) & = & A(S(M, a)) \\
-	S(M, a) & = & \{ q_j\ |\ q_i \in M, q_i \xrightarrow{a} q_j \} \\
-	A(M) & = & \{ q_j\ |\ q_i \in M, q_i \overset{\epsilon}{\leadsto} q_j \}
+	Reach(M, \epsilon) & = & M \\
+	Reach(M, ab) & = & Reach(Reach(M, a), b) \\
+	Reach(M, a) & = & Close(Step(M, a)) \\
+	Step(M, a) & = & \{ q_j\ |\ q_i \in M, q_i \xrightarrow{a} q_j \} \\
+	Close(M) & = & \{ q_j\ |\ q_i \in M, q_i \overset{\epsilon}{\leadsto} q_j \}
 \end{eqnarray}
 
 \begin{example}

@@ -106,6 +106,10 @@ class Benchmark
         start_threads('../python/main.py', 'python')
     end
 
+    def python_regex
+        start_threads('../python_regex/main.py', 'python_regex')
+    end
+
     def re2
         start_threads('../c++/main', 're2')
     end

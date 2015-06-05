@@ -21,8 +21,6 @@ print 'DISK TIME: ' + str(readfile_time)
 
 start = milli_time()
 
-print reg[4:-6]
-
 results = re.findall(reg[4:-6], text, re.IGNORECASE)[0]
     
 search_time = milli_time() - start
