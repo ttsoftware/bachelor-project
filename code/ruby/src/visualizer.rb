@@ -268,7 +268,7 @@ class Visualizer
                  '#{@mode[mode][:ruby]}1.data' with points ls 2 title 'Ruby', \
                  '#{@mode[mode][:python]}1.data' with points ls 3 title 'Python', \
                  '#{@mode[mode][:python_regex]}1.data' with points ls 4 title 'PR', \
-                 '#{@mode[mode][:scan]}1.data' with points ls 3 title 'SFM'
+                 '#{@mode[mode][:scan]}1.data' with points ls 5 title 'SFM'
 
             # title
             set title '2 #{@mode[mode][:title]}'
@@ -279,7 +279,7 @@ class Visualizer
                  '#{@mode[mode][:ruby]}2.data' with points ls 2 title 'Ruby', \
                  '#{@mode[mode][:python]}2.data' with points ls 3 title 'Python', \
                  '#{@mode[mode][:python_regex]}2.data' with points ls 4 title 'PR', \
-                 '#{@mode[mode][:scan]}2.data' with points ls 3 title 'SFM'
+                 '#{@mode[mode][:scan]}2.data' with points ls 5 title 'SFM'
             unset multiplot
         "
 
@@ -316,7 +316,7 @@ class Visualizer
                  '#{@mode[mode][:ruby]}' with points ls 2 title 'Ruby', \
                  '#{@mode[mode][:python]}' with points ls 3 title 'Python', \
                  '#{@mode[mode][:python_regex]}' with points ls 4 title 'PR', \
-                 '#{@mode[mode][:scan]}' with points ls 3 title 'SFM'
+                 '#{@mode[mode][:scan]}' with points ls 5 title 'SFM'
         "
 
         gnuplot(commands)
