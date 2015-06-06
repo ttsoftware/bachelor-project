@@ -911,7 +911,7 @@ Our wrapper program uses the built-in implementation in a straight-forward manne
 
 \subsubsection{Python}
 
-The Python regular expression implementation is based on PCRE~\cite{pcre}, but does vary in certain cases where the implementation will try to make some optimizations. The fact that the implementation is based on PCRE means that it can potentially have exponential running time~\cite{pcre-running-time}. Furthermore the implementation does not support more than 100 named groups, which means most of the regular expressions generated from our test set of patscan patterns will not be able to run in Python.
+The Python regular expression implementation is based on PCRE~\cite{pcre}, but does vary in certain cases where the implementation will try to make some optimizations. The fact that the implementation is based on PCRE means that it can potentially have exponential running time~\cite{pcre-running-time}.
 
 Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wrapper program filters these out and instead adds the corresponding \texttt{IGNORECASE} flag.
 
@@ -919,11 +919,23 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 	\begin{lstlisting}
 	results = re.findall(reg[4:-5], text, re.IGNORECASE)[0]
 	\end{lstlisting}
-	\caption{Python for finding all matches of \texttt{reg} in \texttt{text}.}
+	\caption{Python for finding all matches of \texttt{reg} in \texttt{text}, where it ignores lower/upper case.}
 \end{figure}
 
 
 \subsubsection{Python Regex}
+
+The \mbox{\emph{Python}} Regex (PR) module is a regular expression implementation, that will eventually replace the current RE module. Similarly to its predecessor, PR is based on PCRE. While also trying to make some optimizations, PR do follow Perl and PCRE a bit more than the RE module.
+
+Much like our wrapper for the standard python re module, we find all matches using PR like so:
+\begin{figure}[H]
+	\begin{lstlisting}
+	p = regex.compile(reg[4:-6]);
+	counter = len(p.findall(text, regex.IGNORECASE))
+	\end{lstlisting}
+	\caption{PR for finding all matches of \texttt{reg} in \texttt{text}, where it ignores lower/upper case.}
+\end{figure}
+
 
 \subsubsection{RE2}
 
