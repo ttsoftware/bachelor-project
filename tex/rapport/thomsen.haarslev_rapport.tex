@@ -1214,13 +1214,15 @@ As with ranges, sequences are simple patterns when translated into REs (In fact,
 
 \section{Matches found}
 
-In the previous sections we have discussed 
+In the previous sections we have seen how the regular expression implementations in some cases outperforms SFM. What was not taken into account however, is the fact that the number of results found by the different implementations vary greatly as shown in Figure~\ref{graph:match_time}. 
+We notice that the RE implementations generally find fewer matches than SFM for files 1 through 50, but that RE2 and PR actually finds more results for most of the files in range 50-130, as does Ruby for files 80-130 roughly. 
+After this point all implementations start to fail due to the patterns increasing complexity. However if the implementations could follow their trends they would be sure to outperform SFM in number of matches found.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/match_count.png}	
 	\end{center}
-	\caption{Number of matches found for each pattern file.}
+	\caption{Number of matches found for each pattern file. Files for all implementations are sorted by SFM's match count lowest to highest.}
 	\label{graph:match_time}
 \end{figure}
 
