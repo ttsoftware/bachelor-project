@@ -22,7 +22,7 @@ print 'DISK TIME: ' + str(readfile_time)
 start = milli_time()
 
 p = regex.compile(reg[4:-6]);
-conter = len(p.findall(text, regex.IGNORECASE))
+counter = len(p.findall(text, regex.IGNORECASE))
     
 search_time = milli_time() - start
 
