@@ -149,9 +149,9 @@ shaded={bgcolor=theorem-gray}
 	otherkeywords={IGNORECASE,:scan},
 	keywords=[2]{self},
 	keywords=[3]{__init__},
-	keywords=[4]{object,Regexp,re,FileService,StringPiece,string,int,RE2},
+	keywords=[4]{object,regex,Regexp,re,FileService,StringPiece,string,int,RE2},
 	keywords=[5]{encoding, flags},
-	keywords=[6]{map,to_enum,last_match,findall,read,getMilliSpan,getMilliCount,FindAndConsume},
+	keywords=[6]{map,to_enum,last_match,findall,compile,len,read,getMilliSpan,getMilliCount,FindAndConsume},
 	%keywords=[7]{},
 	%
 	keywordstyle=\bfseries\color{dark-blue},
@@ -472,11 +472,11 @@ In Figure~\ref{nfa_simple} we see how an NFA simulation must choose between mult
 
 An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
 \begin{eqnarray}
-	Reach(M, \epsilon) & = & M \\
-	Reach(M, ab) & = & Reach(Reach(M, a), b) \\
-	Reach(M, a) & = & \epsilon-Closure(Step(M, a)) \\
-	Step(M, a) & = & \{ q'\ |\ q \in M, q \xrightarrow{a} q' \} \\
-	\epsilon-Closure(M) & = & \{ q'\ |\ q \in M, q \overset{\epsilon}{\leadsto} q' \}
+	Reach(M, \epsilon) & = & M  \notag \\
+	Reach(M, ab) & = & Reach(Reach(M, a), b) \notag \\
+	Reach(M, a) & = & Close(Step(M, a)) \notag \\
+	Step(M, a) & = & \{ q'\ |\ q \in M, q \xrightarrow{a} q' \} \notag \\
+	Close(M) & = & \{ q'\ |\ q \in M, q \overset{\epsilon}{\leadsto} q' \} \notag 
 \end{eqnarray}
 
 An example of this simulation is shown in Example~\ref{example:nfa_epsilon_example}.
@@ -509,9 +509,23 @@ An example of this simulation is shown in Example~\ref{example:nfa_epsilon_examp
 
 \begin{example}
 \label{example:nfa_epsilon_example}
-Simulating NFA in Figure \ref{nfa_epsilon}, where $Q = \{1, 2, 3, 4, 5\}$, $q_0 = 1$ and $F = 5$ and the input string $abc$. \\
+Simulating NFA in Figure \ref{nfa_epsilon}, where $Q = \{1, 2, 3, 4, 5\}$, $q_0 = 1$, $F = \{5\}$ and the input string $abc$.
 
+\begin{eqnarray}
+Reach(\{1\}, abc) &=& Reach(Reach(\{1\}, a), bc) \notag \\
+&=& Reach(Close(step(\{1\}, a)), bc) \notag \\
+&=& Reach(Close(\{2\}), bc) \notag \\
+&=& Reach(\{2,4\}, bc) \notag \\
+&=& Reach(Reach(\{2,4\}, b), c) \notag \\
+&=& Reach(Close(step(\{2,4\}, b)), c) \notag \\
+&=& Reach(Close(\{3\}), c) \notag \\
+&=& Reach(\{3,4\}, c) \notag \\
+&=& Close(Step(\{3,4\}, c)) \notag \\
+&=& Close(\{5\}) \notag \\
+&=& \{5\} \notag 
+\end{eqnarray}
 
+Since $\{5\} \in F$ the NFA accepts the input string $abc$.
 \end{example}
 
 \section{Patscan as regular expressions}
@@ -941,7 +955,7 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 \begin{figure}[H]
 	\begin{lstlisting}
-	results = re.findall(reg[4:-5], text, re.IGNORECASE)[0]
+	results = re.findall(reg[4:-6], text, re.IGNORECASE)[0]
 	\end{lstlisting}
 	\caption{Python for finding all matches of \texttt{reg} in \texttt{text}, where it ignores lower/upper case.}
 \end{figure}
@@ -949,12 +963,12 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 \subsubsection{Python Regex}
 
-The \mbox{\emph{Python}} Regex (PR) module is a regular expression implementation, that will eventually replace the current RE module. Similarly to its predecessor, PR is based on PCRE. While also trying to make some optimizations, PR do follow Perl and PCRE a bit more than the RE module.
+The \mbox{\emph{Python}} Regex (PR) module is a new regular expression implementation for python, which will eventually replace the current RE module~\cite{python-regex}.
 
-Much like our wrapper for the standard python re module, we find all matches using PR like so:
+Like the wrapper program for the standard python re module, we find all matches using PR in the following manner:
 \begin{figure}[H]
 	\begin{lstlisting}
-	p = regex.compile(reg[4:-6]);
+	p = regex.compile(reg[4:-6])
 	counter = len(p.findall(text, regex.IGNORECASE))
 	\end{lstlisting}
 	\caption{PR for finding all matches of \texttt{reg} in \texttt{text}, where it ignores lower/upper case.}
@@ -1077,7 +1091,9 @@ NUMBER OF MATCHES: 1891
 
 \subsubsection{Mismatches}
 
-For mismatches we notice that RE2 actually outperforms both SFM and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We suspect that this is due to the fact that RE2 at this point is unable to convert its NFAs to DFAs. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than four characters.
+For mismatches we notice that RE2 actually outperforms both SFM, Python, PR and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than five characters.
+
+We notice that Python, Ruby and PR all have exponential (or close to) match time for sequences with more than one mismatch. 
 
 We notice that SFM actually performs better overall for longer sequences where fewer matches are found.
 
@@ -1091,7 +1107,10 @@ We notice that SFM actually performs better overall for longer sequences where f
 
 \subsubsection{Deletions}
 
-For deletions we notice the same trend as with mismatches with respect to RE2. RE2 outperforms SFM, Ruby, python, and PR until it reaches a point where the regular expressions simply become too large and it either slows down or fails. Interestingly RE2 is able to break this trend for three deletions, where we notice a big slowdown with sequence length 12, but a great recovery for sequences of length 13 and 14. We suspect that this is due to fewer matches being found for the greater lengths.
+For deletions we notice the same trend as with mismatches with respect to RE2. RE2 outperforms SFM, Ruby, Python, and PR until it reaches a point where the regular expressions simply become too large and it either slows down or fails. 
+Interestingly RE2 is able to recover from this trend for three deletions, where we notice a big slowdown with sequence length 12, but a great recovery for sequences of length 13 and 14. We suspect that this is due to fewer matches being found for the greater lengths.
+
+Both Ruby and PR display impressive performance for sequences with one deletion where they in most cases slightly outperform SFM. For two deletions Ruby and PR are somewhat able to keep up with SFM and PR actually keeps up with SFM throughout the series, while Ruby's match time increases exponentially for three and four deletions.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1104,7 +1123,7 @@ For deletions we notice the same trend as with mismatches with respect to RE2. R
 
 \subsubsection{Insertions}
 
-For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby and SFM. Since insertions generate much larger regular expressions, we also notice that both Ruby and RE2 are quickly unable to run the expressions. Neither RE2 or Ruby are able to finish sequences with two insertions, failing at 11 and 15 characters respectively.
+For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby, Python, PR and SFM. Since insertions generate much larger regular expressions, we also notice that all of the implementations quickly are unable to run the expressions. Python and RE2 fails at two insertions while PR and Ruby fails at three insertions.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1191,6 +1210,18 @@ As with ranges, sequences are simple patterns when translated into REs (In fact,
 	\end{center}
 	\caption{The results of tests with patterns containing sequences of different sizes. The graph shows the relationship between the size of the sequence, and the amount of time it took to search the input file for matches.}
 	\label{graph:cases:sequences}
+\end{figure}
+
+\section{Matches found}
+
+In the previous sections we have discussed 
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.55]{graphs/match_count.png}	
+	\end{center}
+	\caption{Number of matches found for each pattern file.}
+	\label{graph:match_time}
 \end{figure}
 
 \section{Conclusion and future work}

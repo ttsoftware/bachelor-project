@@ -122,9 +122,9 @@ class Visualizer
                 :python_regex => "#{@env}python_regex_match_count_speed.data",
                 :scan => "#{@env}scan_match_count_speed.data",
                 :xlabel => 'Match Count log10',
-                :ylabel => 'Match Time',
+                :ylabel => 'Match Time log10',
                 :title => 'Match Time / Match Count',
-                :log => 'set logscale x 10'
+                :log => 'set logscale xy 10'
             }
         }
     end
