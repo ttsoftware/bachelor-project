@@ -400,8 +400,6 @@ The industry standard way of solving this problem which regular expression imple
 	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
 \end{definition}
-
-We define $q_i \xrightarrow{\gamma} q_j$ as the transition $(q_i, \gamma, q_j) \in \delta$ from $q_i$ to $q_j$ over edge $\gamma$ and we define $q_i \overset{\gamma}{\leadsto} q_j$ as $q_i \xrightarrow{\gamma_i} q_2 \xrightarrow{\gamma_{i+1}} ... \xrightarrow{\gamma_{j-1}} q_{j}$.
  
 A DFA and an NFA can be illustrated as a graph where each vertex represents a state and each edge represents a transition. An example of a DFA can be seen in Figure~\ref{dfa_simple}. \\
 
@@ -1135,7 +1133,9 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 
 \subsubsection{Mismatches \& Deletions}
 
-For mismatches and deletions we notice that both RE2 and Ruby are unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
+For mismatches and deletions we notice that all the implementations except PR are unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion, with the exception of the sequence of length five with two mismatches and deletions. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
+
+PR is interestingly the only implementation able to handle three and four mismatches and deletions, although only for sequences of five and six characters.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1161,7 +1161,7 @@ An interesting limitation for our regular expressions is also made visible, sinc
 
 \subsubsection{Deletions \& Insertions}
 
-For deletions and insertions the trend is again similar to that of mismatches and deletions, and mismatches and insertions. However in this case RE2 fluctuates with regards to match time for one deletion and one insertion. Where it shows a somewhat clear trend of increasing match time in the two other cases mentioned, RE2 in this case is several orders of magnitudes slower than SFM for the sequence of length 8. For sequences of length 9 RE2 is several orders of magnitude faster. Slower again for 11 characters, and faster again for 13 characters.
+For deletions and insertions the trend is again similar to that of mismatches and deletions, and mismatches and insertions. Generally all the implementations are unable to cope with more than one deletion and insertion, and even for one insertion and deletion they slow down significantly as the sequences length increases. Especially RE2 slows down for eight characters or more.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1173,7 +1173,7 @@ For deletions and insertions the trend is again similar to that of mismatches an
 
 \subsubsection{Combinations}
 
-For combinations where we have at least one mismatch, one insertion and one deletion neither RE2, Ruby (except for a single outlier), Python, or PR is able to successfully parse any of the regular expressions generated from the sequences.
+For combinations where we have at least one mismatch, one insertion and one deletion neither RE2, Ruby (except for a single outlier), Python, or PR (except for a single outlier) is able to successfully parse any of the regular expressions generated from the sequences.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1185,9 +1185,9 @@ For combinations where we have at least one mismatch, one insertion and one dele
 
 \subsubsection{Ranges}
 
-Figure~\ref{graph:cases:ranges} shows ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, both RE2 and Ruby shows superior performance to SFM. This is likely caused by the fact that these range patterns are not translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
+Figure~\ref{graph:cases:ranges} shows ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, all the implementations except Python actually shows superior performance to SFM. This is likely caused by the fact that these range patterns are not translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
 
-PR is clearly the fastest of all three engines, with match times around 13 times faster than SFM. While not as fast as PR; RE2 and Ruby is also performing around 3.5 and 9 times faster than SFM, respectively.
+PR is clearly the fastest of all three engines, with match times around 13 times faster than SFM. While not as fast as PR; RE2 and Ruby are also performing around 3.5 and 9 times faster than SFM, respectively. Unfortunately Python was not able to run any of these patterns.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1203,6 +1203,7 @@ PR is clearly the fastest of all three engines, with match times around 13 times
 Figure~\ref{graph:cases:sequences} shows patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
 
 As with ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Figure~\ref{graph:cases:sequences} shows that RE2, Ruby, and PR perform a lot better than SFM. On average, RE2 is about 4 times as fast as SFM, Ruby is matching roughly 8 times as fast, and PR is the fastest with a matching time more than 20 times as fast.
+Python is the only implementation trailing behind at roughly the same speed as SFM, but Python also fails to run the whole series of sequences.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1214,32 +1215,31 @@ As with ranges, sequences are simple patterns when translated into REs (In fact,
 
 \section{Matches found}
 
-In the previous sections we have seen how the regular expression implementations in some cases outperforms SFM. What was not taken into account however, is the fact that the number of results found by the different implementations vary greatly as shown in Figure~\ref{graph:match_time}. 
+In the previous sections we have seen how the regular expression implementations in some cases outperform SFM. What was not taken into account however, is the fact that the number of results found by the different implementations vary greatly as shown in Figure~\ref{graph:match_time}. 
 We notice that the RE implementations generally find fewer matches than SFM for files 1 through 50, but that RE2 and PR actually finds more results for most of the files in range 50-130, as does Ruby for files 80-130 roughly. 
-After this point all implementations start to fail due to the patterns increasing complexity. However if the implementations could follow their trends they would be sure to outperform SFM in number of matches found.
+After this point all of the implementations start to fail due to the patterns increasing complexity. If we imagine the implementations could follow their trends they would continue to outperform SFM in number of matches found, however this is purely speculation.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/match_count.png}	
 	\end{center}
-	\caption{Number of matches found for each pattern file. Files for all implementations are sorted by SFM's match count lowest to highest.}
+	\caption{Number of matches found for each pattern file. The files are sorted by SFM's match count lowest to highest.}
 	\label{graph:match_time}
 \end{figure}
 
 \section{Conclusion and future work}
 
-We presented a way to translate a significant subset of patscan patterns into regular expressions. By doing so we were able to analyse the performance of SFM against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
+We presented a way to translate a significant subset of patscan patterns into regular expressions. By doing so we were able to compare the performance of SFM against various regular expression implementations, to see if it could prove advantageous to run the patscan patterns searches on regular expression implementations.
 
 Our algorithm proved to be able to translate patterns at very high speeds. Translating patterns takes exponential time, but at a much lower rate than matching the exponentially large REs. Due to this, the time it takes to translate patterns is insignificant compared to the matching time.
 
-From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than SFM. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns such as those, where $m+d+i<2$. For some of these patterns, translating into a RE gives a match time more than 4 times faster than SFM.
+From our tests we were able to determine that in a few cases, translating patscan patterns into regular expressions yields better performance than SFM. This happens for very simple patterns, such as sequences, ranges, or very simple combination patterns such as those where $m+d+i<2$. For some of these patterns, translating into a RE gives a match time more than 4 times faster than SFM.
 
-For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most patterns SFM shows superior match time.
+For a narrow subset of the likely patscan patterns, translating patscan patterns into REs for the purpose of achieving a faster match time is proven to be advantageous. However, for most of the patterns SFM shows superior match time or is simply the only competitor able to get any matches at all.
 
-The overall conclusion of the experiment is that translating patscan patterns into REs before matching can only pay off, in terms of performance, in some cases. With this in mind, a hybrid between a RE engine and the SFM engine could be implemented that could run a RE implementation for some patterns, while it runs a SFM-like implementation for other patterns, in order to achieve an overall increase in performance.
+The overall conclusion of the experiment is that translating patscan patterns into REs before matching can only pay off in terms of performance, in a few narrow cases. With this in mind a hybrid between a RE implementation and the SFM engine could be implemented, which would switch between running on the RE implementation for some patterns, while running a SFM-like implementation for other patterns, in order to achieve an overall increase in performance.
 
-While this is certainly possible, a better solution would probably be to not use REs. Instead, a reimplementation of SFM, or another system, specifically designed to search in DNA or protein sequences. Many of the features in REs are not necessary for such an implementation, and disregarding them could lead to better performance.
-
+While this is certainly possible a better solution would most likely be to not use regular expressions, and instead create another system entirely and specifically design this system to search in DNA or protein sequences.
 
 \newpage
 
