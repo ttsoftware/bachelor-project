@@ -273,7 +273,6 @@ We present an algorithm for translating scan\_for\_matches patterns into regular
 \chead{Bachelor Thesis}
 \cfoot{\thepage}
 
-
 \section{Introduction}
 
 The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences. Moreover, the growth rate of sequence data exceeds that of computational power~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
@@ -283,6 +282,8 @@ The state-of-the-art method for searching through genomic data is the \mbox{\emp
 While SFM performs very well, has a very compact, flexible and simple language, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
 
 We wish to determine the possibility of converting patscan patterns used for SFM~\cite{scan_for_matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against industry standard regular expression implementations, such as Google's RE2, Python's and Ruby's RE implementations.
+
+\newpage
 
 \subsection{DNA/RNA}
 
@@ -332,9 +333,11 @@ Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. 
 For a given DNA sequence \texttt{s}, \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}s} is the sequence that contains the complementary bases of s, but in reverse order.
 \end{definition}
 
+\newpage
+
 \subsection{Regular Expressions}
 
-In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for example form the words $ab$, $ba$, $aab$ or any such combination of any length, thus forming an infinite set of words.\\
+In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for example form the words $ab$, $ba$, $aab$ or any such combination of any length, thus forming an infinite set of words.
 
 \begin{definition} An alphabet $\Sigma$ is defined as a finite, non-empty set of characters.
 
@@ -944,6 +947,8 @@ Our wrapper program uses the built-in implementation in a straight-forward manne
 	\caption{Ruby for finding all matches of \texttt{regex} in \texttt{fasta\_file}.}
 \end{figure}
 
+\newpage
+
 \subsubsection{Python}
 
 The Python regular expression implementation is based on PCRE~\cite{pcre}, but does vary in certain cases where the implementation will try to make some optimizations. The fact that the implementation is using backtracking means that it can potentially have exponential running time~\cite{pcre-running-time}.
@@ -1088,12 +1093,6 @@ NUMBER OF MATCHES: 1891
 
 \subsubsection{Mismatches}
 
-For mismatches we notice that RE2 actually outperforms both SFM, Python, PR and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than five characters.
-
-We notice that Python, Ruby and PR all have exponential (or close to) match time for sequences with more than one mismatch. 
-
-We notice that SFM actually performs better overall for longer sequences where fewer matches are found.
-
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.55]{graphs/mismatches.png}	
@@ -1102,12 +1101,13 @@ We notice that SFM actually performs better overall for longer sequences where f
 	\label{graph:cases:mismatches}
 \end{figure}
 
+For mismatches we notice that RE2 actually outperforms both SFM, Python, PR and Ruby for all patscan sequences with a single mismatch. For two mismatches however, RE2 quickly reaches a point where starts it slowing down significantly. We see the same trend for three mismatches where RE2 is fails completely for sequences larger than five characters.
+
+We notice that Python, Ruby and PR all have exponential (or close to) match time for sequences with more than one mismatch. 
+
+We notice that SFM actually performs better overall for longer sequences where fewer matches are found.
+
 \subsubsection{Deletions}
-
-For deletions we notice the same trend as with mismatches with respect to RE2. RE2 outperforms SFM, Ruby, Python, and PR until it reaches a point where the regular expressions simply become too large and it either slows down or fails. 
-Interestingly RE2 is able to recover from this trend for three deletions, where we notice a big slowdown with sequence length 12, but a great recovery for sequences of length 13 and 14. We suspect that this is due to fewer matches being found for the greater lengths.
-
-Both Ruby and PR display impressive performance for sequences with one deletion where they in most cases slightly outperform SFM. For two deletions Ruby and PR are somewhat able to keep up with SFM and PR actually keeps up with SFM throughout the series, while Ruby's match time increases exponentially for three and four deletions.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1117,10 +1117,12 @@ Both Ruby and PR display impressive performance for sequences with one deletion 
 	\label{graph:cases:deletions}
 \end{figure}
 
+For deletions we notice the same trend as with mismatches with respect to RE2. RE2 outperforms SFM, Ruby, Python, and PR until it reaches a point where the regular expressions simply become too large and it either slows down or fails. 
+Interestingly RE2 is able to recover from this trend for three deletions, where we notice a big slowdown with sequence length 12, but a great recovery for sequences of length 13 and 14. We suspect that this is due to fewer matches being found for the greater lengths.
+
+Both Ruby and PR display impressive performance for sequences with one deletion where they in most cases slightly outperform SFM. For two deletions Ruby and PR are somewhat able to keep up with SFM and PR actually keeps up with SFM throughout the series, while Ruby's match time increases exponentially for three and four deletions.
 
 \subsubsection{Insertions}
-
-For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby, Python, PR and SFM. Since insertions generate much larger regular expressions, we also notice that all of the implementations quickly are unable to run the expressions. Python and RE2 fails at two insertions while PR and Ruby fails at three insertions.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1130,11 +1132,9 @@ For insertions we notice a similar trend as before with respect to RE2's relativ
 	\label{graph:cases:insertions}
 \end{figure}
 
+For insertions we notice a similar trend as before with respect to RE2's relative performance over Ruby, Python, PR and SFM. Since insertions generate much larger regular expressions, we also notice that all of the implementations quickly are unable to run the expressions. Python and RE2 fails at two insertions while PR and Ruby fails at three insertions.
+
 \subsubsection{Mismatches \& Deletions}
-
-For mismatches and deletions we notice that all the implementations except PR are unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion, with the exception of the sequence of length five with two mismatches and deletions. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
-
-PR is interestingly the only implementation able to handle three and four mismatches and deletions, although only for sequences of five and six characters.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1144,11 +1144,11 @@ PR is interestingly the only implementation able to handle three and four mismat
 	\label{graph:mismatches:deletions}
 \end{figure}
 
+For mismatches and deletions we notice that all the implementations except PR are unable to parse the regular expressions generated from sequences with more than one mismatch and one deletion, with the exception of the sequence of length five with two mismatches and deletions. RE2 shows a performance advantage over SFM for one mismatch and one deletion in sequences below 9 characters. For 10 characters and above, RE2 either slows down tremendously or completely fails.
+
+PR is interestingly the only implementation able to handle three and four mismatches and deletions, although only for sequences of five and six characters.
+
 \subsubsection{Mismatches \& Insertions}
-
-For mismatches and deletions we notice a similar trend to that of mismatches and deletions. RE2, Ruby, Python, and PR cannot handle patterns for one mismatch and one insertion of lengths beyond 13, 12, 6, and 13 characters respectively.
-
-An interesting limitation for our regular expressions is also made visible, since we do not have any results for four mismatches and four deletions. This is due to the fact that our implementation at this point exceeds the 8GBs of RAM in our testing computer. 
 
 \begin{figure}[H]
 	\begin{center}
@@ -1158,9 +1158,11 @@ An interesting limitation for our regular expressions is also made visible, sinc
 	\label{graph:cases:combinations}
 \end{figure}
 
-\subsubsection{Deletions \& Insertions}
+For mismatches and deletions we notice a similar trend to that of mismatches and deletions. RE2, Ruby, Python, and PR cannot handle patterns for one mismatch and one insertion of lengths beyond 13, 12, 6, and 13 characters respectively.
 
-For deletions and insertions the trend is again similar to that of mismatches and deletions, and mismatches and insertions. Generally all the implementations are unable to cope with more than one deletion and insertion, and even for one insertion and deletion they slow down significantly as the sequences length increases. Especially RE2 slows down for eight characters or more.
+An interesting limitation for our regular expressions is also made visible, since we do not have any results for four mismatches and four deletions. This is due to the fact that our implementation at this point exceeds the 8GBs of RAM in our testing computer. 
+
+\subsubsection{Deletions \& Insertions}
 
 \begin{figure}[H]
 	\begin{center}
@@ -1170,9 +1172,9 @@ For deletions and insertions the trend is again similar to that of mismatches an
 	\label{graph:cases:combinations}
 \end{figure}
 
-\subsubsection{Combinations}
+For deletions and insertions the trend is again similar to that of mismatches and deletions, and mismatches and insertions. Generally all the implementations are unable to cope with more than one deletion and insertion, and even for one insertion and deletion they slow down significantly as the sequences length increases. Especially RE2 slows down for eight characters or more.
 
-For combinations where we have at least one mismatch, one insertion and one deletion neither RE2, Ruby (except for a single outlier), Python, or PR (except for a single outlier) is able to successfully parse any of the regular expressions generated from the sequences.
+\subsubsection{Combinations}
 
 \begin{figure}[H]
 	\begin{center}
@@ -1182,11 +1184,9 @@ For combinations where we have at least one mismatch, one insertion and one dele
 	\label{graph:cases:combinations}
 \end{figure}
 
+For combinations where we have at least one mismatch, one insertion and one deletion neither RE2, Ruby (except for a single outlier), Python, or PR (except for a single outlier) is able to successfully parse any of the regular expressions generated from the sequences.
+
 \subsubsection{Ranges}
-
-Figure~\ref{graph:cases:ranges} shows ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, all the implementations except Python actually shows superior performance to SFM. This is likely caused by the fact that these range patterns are not translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
-
-PR is clearly the fastest of all three engines, with match times around 13 times faster than SFM. While not as fast as PR; RE2 and Ruby are also performing around 3.5 and 9 times faster than SFM, respectively. Unfortunately Python was not able to run any of these patterns.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1196,13 +1196,11 @@ PR is clearly the fastest of all three engines, with match times around 13 times
 	\label{graph:cases:ranges}
 \end{figure}
 
+Figure~\ref{graph:cases:ranges} shows ranges and how the size of the range affects the match time for all three engines. Contrary to our previous test figures, all the implementations except Python actually shows superior performance to SFM. This is likely caused by the fact that these range patterns are not translated into enormous REs like some of the other patterns. The match time for all three engines are somewhat constant as the size of the range increases. This means that the size of the range does not seem to affect the match time.
+
+PR is clearly the fastest of all three engines, with match times around 13 times faster than SFM. While not as fast as PR; RE2 and Ruby are also performing around 3.5 and 9 times faster than SFM, respectively. Unfortunately Python was not able to run any of these patterns.
 
 \subsubsection{Sequences}
-
-Figure~\ref{graph:cases:sequences} shows patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
-
-As with ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Figure~\ref{graph:cases:sequences} shows that RE2, Ruby, and PR perform a lot better than SFM. On average, RE2 is about 4 times as fast as SFM, Ruby is matching roughly 8 times as fast, and PR is the fastest with a matching time more than 20 times as fast.
-Python is the only implementation trailing behind at roughly the same speed as SFM, but Python also fails to run the whole series of sequences.
 
 \begin{figure}[H]
 	\begin{center}
@@ -1212,11 +1210,12 @@ Python is the only implementation trailing behind at roughly the same speed as S
 	\label{graph:cases:sequences}
 \end{figure}
 
-\section{Matches found}
+Figure~\ref{graph:cases:sequences} shows patterns containing sequences of different sizes, and how the size of the sequence influences the time it takes all three engines to search the input file for matches.
 
-In the previous sections we have seen how the regular expression implementations in some cases outperform SFM. What was not taken into account however, is the fact that the number of results found by the different implementations vary greatly as shown in Figure~\ref{graph:match_time}. 
-We notice that the RE implementations generally find fewer matches than SFM for files 1 through 50, but that RE2 and PR actually finds more results for most of the files in range 50-130, as does Ruby for files 80-130 roughly. 
-After this point all of the implementations start to fail due to the patterns increasing complexity. If we imagine the implementations could follow their trends they would continue to outperform SFM in number of matches found, however this is purely speculation.
+As with ranges, sequences are simple patterns when translated into REs (In fact, they do not change at all). Figure~\ref{graph:cases:sequences} shows that RE2, Ruby, and PR perform a lot better than SFM. On average, RE2 is about 4 times as fast as SFM, Ruby is matching roughly 8 times as fast, and PR is the fastest with a matching time more than 20 times as fast.
+Python is the only implementation trailing behind at roughly the same speed as SFM, but Python also fails to run the whole series of sequences.
+
+\section{Matches found}
 
 \begin{figure}[H]
 	\begin{center}
@@ -1225,6 +1224,10 @@ After this point all of the implementations start to fail due to the patterns in
 	\caption{Number of matches found for each pattern file. The files are sorted by SFM's match count lowest to highest.}
 	\label{graph:match_time}
 \end{figure}
+
+In the previous sections we have seen how the regular expression implementations in some cases outperform SFM. What was not taken into account however, is the fact that the number of results found by the different implementations vary greatly as shown in Figure~\ref{graph:match_time}. 
+We notice that the RE implementations generally find fewer matches than SFM for files 1 through 50, but that RE2 and PR actually finds more results for most of the files in range 50-130, as does Ruby for files 80-130 roughly. 
+After this point all of the implementations start to fail due to the patterns increasing complexity. If we imagine the implementations could follow their trends they would continue to outperform SFM in number of matches found, however this is purely speculation.
 
 \section{Conclusion and future work}
 
