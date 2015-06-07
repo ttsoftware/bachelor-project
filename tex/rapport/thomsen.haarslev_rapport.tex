@@ -329,7 +329,7 @@ A & T/U \\
 Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the \emph{complement} of a given DNA sequence. The reverse of a complement is called the \emph{reverse complement}.
 
 \begin{definition}
-For a given DNA sequence \texttt{s}, \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}s} is the sequence that contains the complementary bases of s.
+For a given DNA sequence \texttt{s}, \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}s} is the sequence that contains the complementary bases of s, but in reverse order.
 \end{definition}
 
 \subsection{Regular Expressions}
@@ -546,7 +546,7 @@ The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
-Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}. This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
+Another powerful feature of patscan patterns is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}. This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 This 'combination' notation as well as the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through REs.
 
@@ -618,14 +618,13 @@ The reverse complement of a sequence or variable is denoted by placing a \texttt
 \subsection{Ranges}
 
 Patscan ranges are very similar to RE ranges, and is therefore easily translated. A patscan range, which has the form:
-\begin{equation}
-\label{example:range}
-	2...5
-\end{equation}
-Translates into 'from 2 to 5 of any character'. In the general syntax of RE, there is a character for 'any character', which is \texttt{.} and a quantifier which enables you to state how many of a given character or group you want matched, which is \texttt{\{min,max\}}. Using these, (\ref{example:range}) translates into the following RE:
-\begin{equation}
-.\{2,5\}
-\end{equation}
+\begin{center}
+	\texttt{2...5}
+\end{center}
+Translates into 'from 2 to 5 of any character'. In the general syntax of RE, there is a character for 'any character', which is '\texttt{.}' and a quantifier which enables you to state how many of a given character or group you want matched, which is \texttt{\{min,max\}}. Using these, the aforementioned patscan pattern translates into the following RE:
+\begin{center}
+\texttt{.\{2,5\}}
+\end{center}
 
 \subsection{Mismatches, Deletions, and Insertions}
 
@@ -644,7 +643,7 @@ The left branch will continue recursively with \texttt{GCTC[2,0,0]}, and the rig
 
 Adding deletions and insertions to \textbf{example \ref{example:recursion}} will increase the number of possibilities for each letter thus increasing the recursion depth. The recursion does not bottom out until every combination is found. This means that if the sequence is large enough (This can happen already at a length of 20, if not earlier, depending on the number of mismatches, insertions, and deletions), the program will reach maximum recursion depth (depending on the programming language), or run out of memory before terminating.
 
-In order to guarantee a low recursion depth, we use a divide and conquer Algorithm~\cite{Algorithms}, which reduces the recursion depth to $log(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in Figure \ref{fig:tree_example}. 
+In order to guarantee a low recursion depth, we use a divide and conquer algorithm~\cite{Algorithms}, which reduces the recursion depth to $lg(n)$. This works by splitting the sequence in two halves per recursion, such that at the deepest recursion level, we have sequences of only a single character, as can be seen in Figure \ref{fig:tree_example}. 
 
 \begin{figure}[H]
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
@@ -754,7 +753,7 @@ We start by showing the correctness of the inner loop. For this we have the foll
 \begin{itemize}
 \item Initialization:
 \begin{itemize}
-	\item[] Prior to the loop at line~\ref{alg:divide:inner}, the invariant is respected (trivially), as $B[j]$ is \textbf{null}.
+	\item[] Prior to the loop at line~\ref{alg:divide:inner}, the invariant is respected (trivially), as $c$ is \textbf{null}.
 \end{itemize}
 
 \item Maintenance:
@@ -778,7 +777,7 @@ Next, we wish to show that the recursion is correct. For this we have the invari
 \begin{itemize}
 \item Initialization:
 \begin{itemize}
-	\item[] Prior to the recursion step at line~\ref{alg:divide:leftT} and line~\ref{alg:divide:rightT}, the invariant is respected (trivially), as set $A$ and $B$ are empty..
+	\item[] Prior to the recursion step at line~\ref{alg:divide:leftT} and line~\ref{alg:divide:rightT}, the invariant is respected (trivially), as $C$ is empty.
 \end{itemize}
 
 \item Maintenance:
@@ -795,7 +794,7 @@ Next, we wish to show that the recursion is correct. For this we have the invari
 
 \subsubsection{Redundancy}
 
-Using Algorithm~\ref{alg:divideandconquer} without modifications will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
+Using Algorithm~\ref{alg:divideandconquer} without lines 9, 14, and 15 will cause a lot of redundancy when translating insertions. This comes from the fact that we wish to construct all possible combinations recursively.
 
 If we look at the combination sequence \texttt{ab[0,0,1]}, the possible outcomes of \texttt{a} (at the lowest level of recursion) can be \texttt{a}, \texttt{.a}, and \texttt{a.}, and the same for \texttt{b}. Combining these, we will have two different cases of \texttt{a.b} (\texttt{a. b} and \texttt{a .b}). It is redundant to keep both and doing so will create exponentially more redundancy growing with recursion depth.
 
