@@ -258,7 +258,7 @@ shaded={bgcolor=theorem-gray}
 
 \vspace{0.5cm}
 
-We present an algorithm for translating scan\_for\_matches patterns into regular expressions. With an implementation of the algorithm, a set of regular expressions are generated, and the performance of searching through genomic data on different regular expression implementations are measured. All this data is analysed, and its performance is compared to the performance of scan\_for\_matches. We find that when our generated regular expressions are small enough, they perform better on certain implementations than scan\_for\_matches. As the size of the regular expressions grow, scan\_for\_matches shows superior performance.
+We present an algorithm for translating scan\_for\_matches patterns into regular expressions. With an implementation of this algorithm a set of regular expressions is generated, and the performance of searching through genomic data on different regular expression implementations are measured. All this data is analysed and its performance is compared to the performance of scan\_for\_matches. We find that when the generated regular expressions are small enough, they perform better than scan\_for\_matches on certain implementations. As the size of the regular expressions grow, scan\_for\_matches shows superior performance.
 
 \newpage
 
@@ -436,9 +436,9 @@ A DFA and a NFA can be illustrated as a graph where each vertex represents a sta
 \label{nfa definition}
 \end{definition}
 
-We define $q \xrightarrow{\gamma} q'$ as the transition from $q$ to $q'$ over edge $\gamma$ also denoted $(q, \gamma, q') \in \Delta$, and we define $q \overset{\gamma}{\leadsto} q'$ as the transitions $q_1 \xrightarrow{\gamma_1} q_{2} \xrightarrow{\gamma_{2}} ... \xrightarrow{\gamma_{n}} q_{n+1}$.
+We define $q \xrightarrow{\gamma} q'$ as the transition from $q$ to $q'$ over edge $\gamma$ also denoted $(q, \gamma, q') \in \Delta$, and we define $q \overset{\gamma}{\leadsto} q'$ as the $\gamma$-transitions $q_1 \xrightarrow{\gamma_1} q_{2} \xrightarrow{\gamma_{2}} ... \xrightarrow{\gamma_{n}} q_{n+1}$ leading to $q'$.
 
-While a state $q_i$ in a DFA has only one possible transition candicate $q_j$, an NFA simulation needs to evaluate all possible transition candidates until it reaches their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
+While a state $q$ in a DFA has only one possible transition candicate $q'$, an NFA simulation needs to evaluate all possible transition candidates until it reaches their final state. If any of the final states is in the set of accepting states $F$, the NFA matches the input string.
 
 \begin{figure}[H]
   \begin{center}
@@ -468,13 +468,13 @@ While a state $q_i$ in a DFA has only one possible transition candicate $q_j$, a
 
 Figure~\ref{nfa_simple} shows how an NFA simulation must choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
 
-An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
+An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Reach(\epsilon\text{-}Closure(F), s)$.
 \begin{eqnarray}
 	Reach(M, \epsilon) & = & M  \notag \\
 	Reach(M, ab) & = & Reach(Reach(M, a), b) \notag \\
-	Reach(M, a) & = & Close(Step(M, a)) \notag \\
+	Reach(M, a) & = & \epsilon\text{-}Closure(Step(M, a)) \notag \\
 	Step(M, a) & = & \{ q'\ |\ q \in M, q \xrightarrow{a} q' \} \notag \\
-	Close(M) & = & \{ q'\ |\ q \in M, q \overset{\epsilon}{\leadsto} q' \} \notag 
+	\epsilon\text{-}Closure(M) & = & \{ q'\ |\ q \in M, q \overset{\epsilon}{\leadsto} q' \} \notag 
 \end{eqnarray}
 
 An example of this simulation is shown in Example~\ref{example:nfa_epsilon_example}.
@@ -511,15 +511,15 @@ Simulating NFA in Figure \ref{nfa_epsilon}, where $Q = \{1, 2, 3, 4, 5\}$, $q_0 
 
 \begin{eqnarray}
 Reach(\{1\}, abc) &=& Reach(Reach(\{1\}, a), bc) \notag \\
-&=& Reach(Close(step(\{1\}, a)), bc) \notag \\
-&=& Reach(Close(\{2\}), bc) \notag \\
+&=& Reach(\epsilon\text{-}Closure(step(\{1\}, a)), bc) \notag \\
+&=& Reach(\epsilon\text{-}Closure(\{2\}), bc) \notag \\
 &=& Reach(\{2,4\}, bc) \notag \\
 &=& Reach(Reach(\{2,4\}, b), c) \notag \\
-&=& Reach(Close(step(\{2,4\}, b)), c) \notag \\
-&=& Reach(Close(\{3\}), c) \notag \\
+&=& Reach(\epsilon\text{-}Closure(step(\{2,4\}, b)), c) \notag \\
+&=& Reach(\epsilon\text{-}Closure(\{3\}), c) \notag \\
 &=& Reach(\{3,4\}, c) \notag \\
-&=& Close(Step(\{3,4\}, c)) \notag \\
-&=& Close(\{5\}) \notag \\
+&=& \epsilon\text{-}Closure(Step(\{3,4\}, c)) \notag \\
+&=& \epsilon\text{-}Closure(\{5\}) \notag \\
 &=& \{5\} \notag 
 \end{eqnarray}
 
@@ -546,7 +546,7 @@ The sequence \texttt{AGTCT} can be extended to \texttt{AGTCT[1,1,1]} in order to
 
 \texttt{AGTCT, \_GTCT, A\_TCT, AG\_CT, AGT\_T, AGTC\_}
 
-Another powerful feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}. This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
+Another feature of patscan is the ability to store a sub-pattern match in a named variable. If a match is found for the named variable in the beginning of a pattern for instance, this match can then be referenced later in the same pattern, by using the variable name. An example of this could be the pattern \texttt{p1=2...4 10...20 {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}p1}. This pattern will match the contents of \texttt{p1}, followed by any 10 to 20 characters, followed by the match stored in \texttt{p1}, but with the reverse complement as denoted by the \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}}. This is similar to the back-referencing functionality for capturing groups, which many popular regular expression implementations support.%\cite{indsæt citation her.}
 
 This 'combination' notation as well as the ability to store sequences in variables and matching them further down the pattern, makes the patscan language very compact compared to regular expressions. A pattern as simple as \texttt{p1=8...16 10...50 ~p1[2,0,1]} describes a complex relationship, which cannot easily be discovered through REs.
 
@@ -947,7 +947,7 @@ Our wrapper program uses the built-in implementation in a straight-forward manne
 
 \subsubsection{Python}
 
-The Python regular expression implementation is based on PCRE~\cite{pcre}, but does vary in certain cases where the implementation will try to make some optimizations. The fact that the implementation is based on PCRE means that it can potentially have exponential running time~\cite{pcre-running-time}.
+The Python regular expression implementation is based on PCRE~\cite{pcre}, but does vary in certain cases where the implementation will try to make some optimizations. The fact that the implementation is using backtracking means that it can potentially have exponential running time~\cite{pcre-running-time}.
 
 Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wrapper program filters these out and instead adds the corresponding \texttt{IGNORECASE} flag.
 
@@ -961,7 +961,7 @@ Python also does not allow the $(?i)$ and $(?-i)$ modifiers, and as such our wra
 
 \subsubsection{Python Regex}
 
-The \mbox{\emph{Python}} Regex (PR) module is a new regular expression implementation for python, which will eventually replace the current RE module~\cite{python-regex}.
+The \mbox{\emph{Python}} Regex (PR) module is a new and optimized regular expression backtracking implementation for python, which will eventually replace the current RE module~\cite{python-regex}.
 
 Like the wrapper program for the standard python re module, we find all matches using PR in the following manner:
 \begin{figure}[H]
@@ -1066,7 +1066,7 @@ An example of the sequence series.
 
 \subsubsection{Benchmarking the patterns}
 
-We run each group against our chosen regular expression implementations which include Ruby, Python and our own version of Google's RE2.
+We run each group against our chosen regular expression implementations which include Ruby, Python, PR and our own version of Google's RE2.
  
 Each pattern file is translated using our Ruby implementation of the algorithm described in Algorithm~\ref{alg:divideandconquer}. The resulting regular expressions is subsequently stored in a file and passed as an argument to the regular expression implementations. Each patscan file is benchmarked in its own thread in order to take advantage of our multicore / multithreaded testing computer. Each thread is also given a time limit of 1 minute after which the thread is killed. This time limit is given because the difference between taking 1 minutes and 2 minutes is insignificant compared to SFM' in-the-seconds running time, and thus the program might as well never finish.
 
