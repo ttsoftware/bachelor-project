@@ -221,7 +221,7 @@ shaded={bgcolor=theorem-gray}
   \vspace{4cm}
   \Large{\textbf{Regular Expression Matching In Genomic Data}} \\
   \vspace{0.3cm}
-  \large{Translating scan\_for\_matches Patterns into Regular Expressions}
+  \large{Translating scan\_for\_matches Patterns into Regular Expressions} \\
   \vspace{1cm}
   \normalsize 
   Rasmus Haarslev \texttt{nkh877} \\
@@ -276,31 +276,31 @@ We present an algorithm for translating scan\_for\_matches patterns into regular
 
 \section{Introduction}
 
-The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences. Moreoever the growth rate of sequence data exceeds that of computational power~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
+The National Institute of Health (NIH) is working on the genetic sequence database, called \emph{GenBank}, which is a collection of DNA sequences. GenBank works together with the DNA DataBank of Japan (DDBJ) and the European Molecular Biology Laboratory (EMBL) to cooperatively collect all publicly available DNA sequences. These three organizations exchange data on a daily basis in what is called the International Nucleotide Sequence Database Collaboration. GenBank is publicizing a new release of their database every two months, and as of April 2015, it consists of approximately 190 billion bases and 182 million sequences. Moreover, the growth rate of sequence data exceeds that of computational power~\cite{GenBank}. Parsing and analysing this large amount of data poses several challenges. Searching through the files with simple text search is not advanced enough. DNA contains a lot of redundancy and variation over similar concepts, which means that two seemingly different sequences can have very similar functionality or interact with other components in a similar way. This requires the search functionality to be able to allow for a great deal of variance and flexibility in the sequences which are searched for.
 
 The state-of-the-art method for searching through genomic data is the \mbox{\emph{scan\_for\_matches}} program developed by Ross Overbeek, David Joerg and Morgan Price~\cite{scan_for_matches}, which is able to locate complex DNA patterns, such as looking for a random 8 character sequence, repeated 20 characters ahead, and in reverse. These patterns will be referred to as \textit{patscan patterns}, while the program itself will be referred to as \textit{SFM}.
 
 While SFM performs very well, has a very compact, flexible and simple language, it has some unfortunate limitations when running many consecutive scans, and its implementation makes it very difficult to add new features.
 
-We wish to determine the possibility of converting sequence analysis patterns used for SFM~\cite{scan_for_matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against industry standard regular expression implementations, such as Google's RE2, Python's and Ruby's RE implementations.
+We wish to determine the possibility of converting patscan patterns used for SFM~\cite{scan_for_matches}, into regular expressions~\cite{crash-course-regex} and test their efficiency against industry standard regular expression implementations, such as Google's RE2, Python's and Ruby's RE implementations.
 
 \subsection{DNA/RNA}
 
 Deoxyribonucleic acid (DNA) is a molecule that is found in every known living organism, as well as many viruses. DNA encodes the genetic instructions, that the organism uses in the development and functioning of itself. DNA is a nucleic acid, which is one of three major macromolecules that is essential for all known forms of life.
 
-DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, adenine (A), guanine (G), cytosine (C) and thymine (T) (figure \ref{dnabases}).
+DNA can generally be described as an alphabet of 4 letters, which represent 4 different nucleobases, \emph{adenine} (A), \emph{guanine} (G), \emph{cytosine} (C) and \emph{thymine} (T), as it is seen in Figure~\ref{dnabases}.
 
 \begin{figure}[H]
-\label{dnabases}
 \begin{center}
 	\includegraphics[scale=1.3]{DNA-heterocyclic-bases-large.png}
 \end{center}
 \caption{The four different nucleobases found in the DNA nucleotides~\cite{DNA-biotechacademy}.}
+\label{dnabases}
 \end{figure}
 
 The order of these nucleobases is what decides what function is encoded in any specific strand of DNA. A sequence of these nucleobases (a DNA sequence) can be called a genetic blueprint for proteins. During the production of proteins, a DNA sequence is either copied, or transcribed into ribonucleic acid (RNA). RNA decides which amino acids will be put together, which creates a corresponding protein.
 
-RNA differentiates itself from DNA, among other things, by using uracil (U) instead of thymine. However, uracil and thymine are generally considered synonymous, as both bases binds with adenine. A DNA strand can bond with another DNA strand containing the complementary nucleobases.
+RNA differentiates itself from DNA, among other things, by using \emph{uracil} (U) instead of thymine. However, uracil and thymine are generally considered synonymous, as both bases binds with adenine. A DNA strand can bond with another DNA strand containing the complementary nucleobases.
 
 \begin{definition}
 \textbf{Complementarity} is defined as a nucleobase capable of bonding with another nucleobase.
@@ -326,17 +326,17 @@ A & T/U \\
 	\caption{Hydrogen bonds between the nucleobases, which makes up the basis for complementarity~\cite{DNA-nature}.}
 \end{figure}
 
-Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the complement of a given DNA sequence. The reverse of a complement is called the \textbf{reverse complement}.
+Sometimes, you may wish to express a DNA sequence's complementary DNA sequence. This is called the \emph{complement} of a given DNA sequence. The reverse of a complement is called the \emph{reverse complement}.
 
 \begin{definition}
-For a given DNA sequence s, \~{s} is the sequence that contains the complementary bases of s, in reverse order.
+For a given DNA sequence \texttt{s}, \texttt{{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}s} is the sequence that contains the complementary bases of s.
 \end{definition}
 
 \subsection{Regular Expressions}
 
 In order to talk about regular expressions, we need to be able to talk in general terms of languages. We can define a language as a subset of the infinite set of words or symbols, chosen from a finite alphabet. An alphabet with the letters $\{a,b\}$ might for example form the words $ab$, $ba$, $aab$ or any such combination of any length, thus forming an infinite set of words.\\
 
-\begin{definition} An alphabet $\Sigma$ is defined as a finite non-empty set of characters.
+\begin{definition} An alphabet $\Sigma$ is defined as a finite, non-empty set of characters.
 
 \end{definition}
 
@@ -348,8 +348,8 @@ In order to talk about regular expressions, we need to be able to talk in genera
 
 	\begin{enumerate}
 		\item An expression containing a single letter $a$ from our alphabet $\Sigma$: $E = a$. 
-		\item The expression $E = 1$
-		\item The expressions $E = 0$.
+		\item The expression $E = 1$.
+		\item The expression $E = 0$.
 		\item A combination of two regular expressions $E_1$ and $E_2$:
 		\begin{eqnarray}
 			E &=& E_1 | E_2 \\
@@ -387,7 +387,7 @@ We can interpret the regular expression $E$ over the alphabet $\Sigma$ as a lang
 \subsubsection{Implementing regular expressions}
 
 Now that we have defined regular expressions formally, we want to be able to match strings against them. We say that a regular expression $E$ matches a string $S$ if $S \in \mathcal{L}(E)$.
-The industry standard way of solving this problem which regular expression implementations such as Google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} (DFA) or a \textit{non-deterministic finite automata} (NFA) in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
+The industry standard way of solving this problem, which regular expression implementations such as Google's RE2 use~\cite{matching-in-the-wild}, is through expressing the regular expression as a \textit{deterministic finite automata} (DFA) or a \textit{non-deterministic finite automata} (NFA) in accordance with Kleene's theorem~\cite{kleenes-theorem}. 
 
 \begin{definition} A deterministic finite automaton is a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
 \label{dfa definition}
@@ -400,10 +400,8 @@ The industry standard way of solving this problem which regular expression imple
 	\item $F$ is a set of accepting states $F \subseteq Q$.
 \end{itemize}
 \end{definition}
-
-We define $q_i \xrightarrow{\gamma} q_j$ as the transition $(q_i, \gamma, q_j) \in \delta$ from $q_i$ to $q_j$ over edge $\gamma$ and we define $q_i \overset{\gamma}{\leadsto} q_j$ as $q_i \xrightarrow{\gamma_i} q_2 \xrightarrow{\gamma_{i+1}} ... \xrightarrow{\gamma_{j-1}} q_{j}$.
  
-A DFA and an NFA can be illustrated as a graph where each vertex represents a state and each edge represents a transition. An example of a DFA can be seen in Figure~\ref{dfa_simple}. \\
+A DFA and a NFA can be illustrated as a graph where each vertex represents a state and each edge represents a transition. An example of a DFA can be seen in Figure~\ref{dfa_simple}. \\
 
 \begin{figure}[H]
   \begin{center}
@@ -419,13 +417,13 @@ A DFA and an NFA can be illustrated as a graph where each vertex represents a st
   \path[->] (2) edge node {c} (3);
 \end{tikzpicture}
 	
-	\caption{DFA $Q = \{1, 2, 3\}$ matching the regular expression \underline{$ab*c$}}
+	\caption{DFA $Q = \{1, 2, 3\}$ matching the regular expression \texttt{ab*c}}
 	\label{dfa_simple}
   \end{center}
 \end{figure}
 
 
-\begin{definition} A non-deterministic finite automaton is a five-tuple $(Q,\ \Sigma,\ \delta,\ q_0,\ F)$ where
+\begin{definition} A non-deterministic finite automaton is a five-tuple $(Q,\ \Sigma,\ \Delta,\ q_0,\ F)$ where
 
 \begin{itemize}
 	\item $Q$ is a finite set of states
@@ -463,12 +461,12 @@ While a state $q_i$ in a DFA has only one possible transition candicate $q_j$, a
   \path[->] (4) edge [edge_label] node {d} (5);
 \end{tikzpicture}
 	
-	\caption{NFA $Q = \{1, 2, 3, 4, 5\}$ matching the regular expression \underline{$ab|c|d$}}
+	\caption{NFA $Q = \{1, 2, 3, 4, 5\}$ matching the regular expression \texttt{ab|c|d}}
 	\label{nfa_simple}
   \end{center}
 \end{figure}
 
-In Figure~\ref{nfa_simple} we see how an NFA simulation must choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
+Figure~\ref{nfa_simple} shows how an NFA simulation must choose between multiple transition candidates upon finding an $a$ in our input sequence, and thus have to try all of them concurrently in order to try to reach the accepting state. It is worth noting that any DFA can be constructed from an NFA but at the cost of exponential blow-up in number of states and memory consumption~\cite{nfa-to-dfa}.
 
 An NFA can be simulated in the following simple manner where the NFA accepts string $s$ if $q_0 \in Reach(Close(F), s)$.
 \begin{eqnarray}
@@ -502,7 +500,7 @@ An example of this simulation is shown in Example~\ref{example:nfa_epsilon_examp
   \path[->] (4) edge [edge_label] node {c} (5);
 \end{tikzpicture}
 	
-	\caption{NFA $Q = \{1, 2, 3, 4, 5\}$ matching the regular expression \underline{$(ab?c)?$}}
+	\caption{NFA $Q = \{1, 2, 3, 4, 5\}$ matching the regular expression \texttt{(ab?c)?}}
 	\label{nfa_epsilon}
   \end{center}
 \end{figure}
