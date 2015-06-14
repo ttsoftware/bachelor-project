@@ -25,6 +25,21 @@
 \algnewcommand{\Not}{\textbf{not}\xspace}
 \algnewcommand{\In}{\textbf{in}\xspace}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%          Tikz         %
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
+\tikzset
+{
+    treenode/.style = {align=center, minimum size=1cm},
+    subtree/.style  = {isosceles triangle, draw=black, align=center, minimum height=0.5cm, minimum width=1cm, shape border rotate=90, anchor=north}
+}
+
+%                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \setbeamersize{text margin left=15mm} 
 \setbeamersize{text margin right=15mm}
 
@@ -173,7 +188,7 @@
     \frametitle{Scan\_for\_matches programmet}
     
     \begin{itemize}
-   		\item Fuzzy matching i genomisk data med mismatches, insertions og deletions.
+   		\item Fuzzy matching i genomisk data med mismatches, deletions og insertions.
    		\item Range matching
    		\item Reverse compliment
    		\item Genbrugelige matches
@@ -186,7 +201,7 @@
 	\frametitle{Regular expressions oversættelse}
 	
 	\begin{itemize}
-		\item \texttt{4...8} : \.{4,8}
+		\item \texttt{4...8} : .\{4,8\}
 		\item \texttt{AGCT[1,0,0]} : \texttt{(?i)(?:(?:AGCT)|
 		(?:AGC[\^{}TN])|(?:AG[\^{}CN]T)|
 		(?:A[\^{}GN]CT)|(?:[\^{}AN]GCT))(?-i)}
@@ -236,7 +251,341 @@
 \begin{frame}
 	\frametitle{Algoritme eksempel}
 
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {AGCT}
+    child
+    {
+        node [treenode] {AG}
+    }
+    child
+    {
+    		node [treenode] {CT}
+    }
+;
+	\end{tikzpicture}
+	\end{center}
 	
 \end{frame}
 
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {AGCT}
+    child
+    {
+        node [treenode] {AG} 
+        child
+        {
+            node [treenode, xshift=1cm] {A} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {G}
+        }
+    }
+    child
+    {
+    		node [treenode] {CT}
+    		child
+        {
+            node [treenode, xshift=1cm] {C} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {T}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {}
+    child
+    {
+        node [treenode] {} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {}
+    		child
+        {
+            node [treenode, xshift=1cm] {C} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {T}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {}
+    child
+    {
+        node [treenode] {[AG]} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {}
+    		child
+        {
+            node [treenode, xshift=1cm] {C} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {T}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {}
+    child
+    {
+        node [treenode] {[AG, A\_]} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {}
+    		child
+        {
+            node [treenode, xshift=1cm] {C} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {T}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {}
+    child
+    {
+        node [treenode] {[AG, A\_, \_G]} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {}
+    		child
+        {
+            node [treenode, xshift=1cm] {C} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {T}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {}
+    child
+    {
+        node [treenode] {[AG, A\_, \_G]} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {[CT, C\_, \_T]}
+    		child
+        {
+            node [treenode, xshift=1cm] {[C, \_]} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {[T, \_]}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Algoritme eksempel}
+	
+	\begin{center}
+	\begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {[AGCT, AGC\_, AG\_T, A\_CT, \_GCT]}
+    child
+    {
+        node [treenode] {[AG, A\_, \_G]} 
+        child
+        {
+            node [treenode, xshift=1cm] {[A, \_]} 
+        }
+      	child
+        {
+        		node [treenode, xshift=-1cm] {[G, \_]}
+        }
+    }
+    child
+    {
+    		node [treenode] {[CT, C\_, \_T]}
+    		child
+        {
+            node [treenode, xshift=1cm] {[C, \_]} 
+        }
+        child
+        {
+        		node [treenode, xshift=-1cm] {[T, \_]}
+        }
+    }
+;
+	\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Redundans}	
+	
+	\begin{itemize}
+		\item Hvordan opstår redundans i algoritmen? 
+		\item \texttt{AG[0,0,1]}
+		\begin{itemize}
+			\item \textbf{A.}G
+			\item A\textbf{.G}
+		\end{itemize}
+		\item Hvordan fjernes redundans?
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eksperimentet}
+
+	RE implementationerne vs. scan\_for\_matches.
+
+	\begin{itemize}
+		\item RE2
+		\item Ruby
+		\item Python
+		\item Python Regex
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eksperiment resultater - Deletions}
+	
+	\begin{center}
+		\includegraphics[scale=0.3]{../rapport/graphs/deletions.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eksperiment resultater - Insertions}
+	
+	\begin{center}
+		\includegraphics[scale=0.3]{../rapport/graphs/insertions.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eksperiment resultater - Ranges}
+	
+	\begin{center}
+		\includegraphics[scale=0.3]{../rapport/graphs/ranges.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eksperiment resultater - Antal matches}
+	
+	\begin{center}
+		\includegraphics[scale=0.3]{../rapport/graphs/match_count.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Konklusion}
+	
+	\begin{itemize}
+		\item Hvad fandt vi ud af?
+		\item Hvordan kan det bruges?
+	\end{itemize}
+\end{frame}
 \end{document}
